@@ -6,7 +6,6 @@ using Android.Support.V4.Widget;
 using Android.Views;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Binding.Droid.Views;
-using Cirrious.MvvmCross.Droid.Fragging;
 using Cirrious.MvvmCross.Droid.Fragging.Fragments;
 using Cirrious.MvvmCross.ViewModels;
 using Solvberget.Core.ViewModels;
@@ -16,7 +15,7 @@ using Solvberget.Droid.Views.Fragments;
 namespace Solvberget.Droid.Views
 {
     [Activity(Label = "Sølvberget", LaunchMode = LaunchMode.SingleTop, Theme = "@style/MyTheme", Icon = "@drawable/ic_launcher")]
-    public class HomeView : MvxFragmentActivity, IFragmentHost
+    public class HomeView : MvxSherlockFragmentActivity, IFragmentHost
 	{
         private DrawerLayout _drawer;
         private MyActionBarDrawerToggle _drawerToggle;
@@ -43,8 +42,9 @@ namespace Solvberget.Droid.Views
 
             _drawer.SetDrawerShadow(Resource.Drawable.drawer_shadow_dark, (int)GravityFlags.Start);
 
-            ActionBar.SetDisplayHomeAsUpEnabled(true);
-            ActionBar.SetHomeButtonEnabled(true);
+            
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            SupportActionBar.SetHomeButtonEnabled(true);
 
             //DrawerToggle is the animation that happens with the indicator next to the
             //ActionBar icon. You can choose not to use this.
@@ -56,7 +56,7 @@ namespace Solvberget.Droid.Views
             //You can alternatively use _drawer.DrawerClosed here
             _drawerToggle.DrawerClosed += delegate
             {
-                ActionBar.Title = _title;
+                SupportActionBar.Title = _title;
                 InvalidateOptionsMenu();
             };
 
@@ -64,7 +64,7 @@ namespace Solvberget.Droid.Views
             //You can alternatively use _drawer.DrawerOpened here
             _drawerToggle.DrawerOpened += delegate
             {
-                ActionBar.Title = _drawerTitle;
+                SupportActionBar.Title = _drawerTitle;
                 InvalidateOptionsMenu();
             };
 
@@ -154,7 +154,7 @@ namespace Solvberget.Droid.Views
                     SupportFragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, frag).Commit();
                 }
                 _drawerList.SetItemChecked(ViewModel.MenuItems.FindIndex(m=>m.Id == (int)section), true);
-                ActionBar.Title = _title = title;
+                SupportActionBar.Title = _title = title;
 
                 _drawer.CloseDrawer(_drawerList);
 
@@ -179,7 +179,7 @@ namespace Solvberget.Droid.Views
             _drawerToggle.OnConfigurationChanged(newConfig);
         }
 
-        public override bool OnPrepareOptionsMenu(IMenu menu)
+        public override bool OnPrepareOptionsMenu(Xamarin.ActionbarSherlockBinding.Views.IMenu menu)
         {
             var drawerOpen = _drawer.IsDrawerOpen(_drawerList);
             //when open down't show anything
@@ -190,10 +190,11 @@ namespace Solvberget.Droid.Views
             return base.OnPrepareOptionsMenu(menu);
         }
 
-        public override bool OnOptionsItemSelected(IMenuItem item)
+        public override bool OnOptionsItemSelected(Xamarin.ActionbarSherlockBinding.Views.IMenuItem item)
         {
-            if (_drawerToggle.OnOptionsItemSelected(item))
-                return true;
+            // TODO
+            //if (_drawerToggle.OnOptionsItemSelected(item))
+            //    return true;
 
             return base.OnOptionsItemSelected(item);
         }
