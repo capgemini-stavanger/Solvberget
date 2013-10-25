@@ -122,14 +122,16 @@
       </SubType>
     </Compile>
     <Compile Include="Views\Adapters\MvxViewPagerFragmentAdapter.cs" />
+    <Compile Include="Views\MvxEventSourceSherlockFragment.cs" />
+    <Compile Include="Views\MvxSherlockFragment.cs" />
     <Compile Include="Views\MvxSherlockActivity.cs" />
     <Compile Include="Views\MvxEventSourceSherlockActivity.cs" />
     <Compile Include="Views\MvxSherlockFragmentActivity.cs" />
     <Compile Include="Views\MvxEventSourceSherlockFragmentActivity.cs" />
-    <Compile Include="Views\Fragments\GenericWebViewView.cs" />
+    <Compile Include="Views\GenericWebViewView.cs" />
     <Compile Include="Views\LoadingIndicator.cs" />
     <Compile Include="Views\Fragments\NewsListingView.cs" />
-    <Compile Include="Views\Fragments\MediaDetailView.cs" />
+    <Compile Include="Views\MediaDetailView.cs" />
     <Compile Include="Views\Fragments\MyPageFavoritesView.cs" />
     <Compile Include="Views\Fragments\MyPageFinesView.cs" />
     <Compile Include="Views\Fragments\MyPageLoansView.cs" />

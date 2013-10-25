@@ -103,7 +103,7 @@ namespace Solvberget.Droid.Views
         {
             try
             {
-                MvxFragment frag = null;
+                MvxSherlockFragment frag = null;
                 var title = string.Empty;
                 var section = ViewModel.GetSectionForViewModelType(request.ViewModelType);
 

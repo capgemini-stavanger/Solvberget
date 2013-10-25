@@ -5,7 +5,7 @@ using Cirrious.MvvmCross.Droid.Fragging.Fragments;
 
 namespace Solvberget.Droid.Views.Fragments
 {
-    public class MyPageReservationsView : MvxFragment
+    public class MyPageReservationsView : MvxSherlockFragment
     {
         public MyPageReservationsView()
         {

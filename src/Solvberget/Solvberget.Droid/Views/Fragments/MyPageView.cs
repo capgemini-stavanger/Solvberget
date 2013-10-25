@@ -8,7 +8,7 @@ using Solvberget.Droid.Views.Adapters;
 
 namespace Solvberget.Droid.Views.Fragments
 {
-    public class MyPageView : MvxFragment
+    public class MyPageView : MvxSherlockFragment
     {
         private MyPageViewModel _viewModel;
         public new MyPageViewModel ViewModel
@@ -79,7 +79,7 @@ namespace Solvberget.Droid.Views.Fragments
             return view;
         }
 
-        public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
+        public override void OnCreateOptionsMenu(Xamarin.ActionbarSherlockBinding.Views.IMenu menu, Xamarin.ActionbarSherlockBinding.Views.MenuInflater inflater)
         {
             inflater.Inflate(Resource.Menu.refresh, menu);
         }
