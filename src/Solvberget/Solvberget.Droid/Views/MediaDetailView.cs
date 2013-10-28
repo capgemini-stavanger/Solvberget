@@ -10,7 +10,7 @@ namespace Solvberget.Droid.Views.Fragments
 {
     [Activity(Label = "Mediadetaljer", Theme = "@style/MyTheme", Icon = "@android:color/transparent", ParentActivity = typeof(HomeView))]
     [MetaData("android.support.PARENT_ACTIVITY", Value = "solvberget.droid.views.HomeView")]
-    public class MediaDetailView : MvxActivity
+    public class MediaDetailView : MvxSherlockActivity
     {
         private LoadingIndicator _loadingIndicator;
 
@@ -19,18 +19,18 @@ namespace Solvberget.Droid.Views.Fragments
             base.OnViewModelSet();
             SetContentView(Resource.Layout.fragment_mediadetail);
 
-            ActionBar.SetDisplayHomeAsUpEnabled(true);
-            ActionBar.SetHomeButtonEnabled(true);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            SupportActionBar.SetHomeButtonEnabled(true);
 
             _loadingIndicator = new LoadingIndicator(this);
 
             var set = this.CreateBindingSet<MediaDetailView, SearchResultViewModel>();
-            set.Bind(ActionBar).For(v => v.Title).To(vm => vm.Title).Mode(MvxBindingMode.OneWay);
+            set.Bind(SupportActionBar).For(v => v.Title).To(vm => vm.Title).Mode(MvxBindingMode.OneWay);
             set.Bind(_loadingIndicator).For(pi => pi.Visible).To(vm => vm.IsLoading);
             set.Apply();
         }
 
-        public override bool OnOptionsItemSelected(IMenuItem item)
+        public override bool OnOptionsItemSelected(Xamarin.ActionbarSherlockBinding.Views.IMenuItem item)
         {
             switch (item.ItemId)
             {

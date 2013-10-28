@@ -6,7 +6,7 @@ using Solvberget.Core.ViewModels;
 
 namespace Solvberget.Droid.Views.Fragments
 {
-    public class SearchView : MvxFragment
+    public class SearchView : MvxSherlockFragment
     {
         private LoadingIndicator _loadingIndicator;
         private Android.Widget.SearchView _searchView;
@@ -29,7 +29,7 @@ namespace Solvberget.Droid.Views.Fragments
             return this.BindingInflate(Resource.Layout.fragment_search, null);
         }
 
-        public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
+        public override void OnCreateOptionsMenu(Xamarin.ActionbarSherlockBinding.Views.IMenu menu, Xamarin.ActionbarSherlockBinding.Views.MenuInflater inflater)
         {
             inflater.Inflate(Resource.Menu.search_menu, menu);
 
@@ -38,9 +38,7 @@ namespace Solvberget.Droid.Views.Fragments
             _searchView.Iconified = false;
             _searchView.QueryTextSubmit += sView_QueryTextSubmit;
             _searchView.QueryTextChange += sView_QueryTextChange;
-
-
-
+           
             base.OnCreateOptionsMenu(menu, inflater);
         }
 

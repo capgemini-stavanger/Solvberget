@@ -40,7 +40,7 @@ namespace Solvberget.Droid.Views.Adapters
             var frag = Fragments.ElementAt(position);
             var fragment = Fragment.Instantiate(_context,
                                                 FragmentJavaName(frag.FragmentType));
-            ((MvxFragment)fragment).DataContext = frag.ViewModel;
+            ((MvxSherlockFragment)fragment).DataContext = frag.ViewModel;
             return fragment;
         }
 

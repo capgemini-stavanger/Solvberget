@@ -11,7 +11,7 @@ namespace Solvberget.Droid.Views.Fragments
 {
     [Activity(Label = "Webside", Theme = "@style/MyTheme", Icon = "@android:color/transparent", ParentActivity = typeof(HomeView))]
     [MetaData("android.support.PARENT_ACTIVITY", Value = "solvberget.droid.views.HomeView")]
-    public class GenericWebViewView : MvxActivity
+    public class GenericWebViewView : MvxSherlockActivity
     {
         private WebView _webView;
 
@@ -19,11 +19,11 @@ namespace Solvberget.Droid.Views.Fragments
         {
             base.OnViewModelSet();
 
-            ActionBar.SetDisplayHomeAsUpEnabled(true);
-            ActionBar.SetHomeButtonEnabled(true);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            SupportActionBar.SetHomeButtonEnabled(true);
             
             var set = this.CreateBindingSet<GenericWebViewView, GenericWebViewViewModel>();
-            set.Bind(ActionBar).For(v => v.Title).To(vm => vm.Title).Mode(MvxBindingMode.OneWay);
+            set.Bind(SupportActionBar).For(v => v.Title).To(vm => vm.Title).Mode(MvxBindingMode.OneWay);
             set.Apply();
 
 

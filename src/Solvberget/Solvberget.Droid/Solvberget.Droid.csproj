@@ -20,7 +20,7 @@
     <RestorePackages>true</RestorePackages>
     <AndroidUseLatestPlatformSdk />
     <TargetFrameworkVersion>v4.3</TargetFrameworkVersion>
-    <AndroidSupportedAbis>armeabi-v7a%3bx86</AndroidSupportedAbis>
+    <AndroidSupportedAbis>armeabi%3barmeabi-v7a%3bx86</AndroidSupportedAbis>
     <AndroidStoreUncompressedFileExtensions />
     <MandroidI18n />
     <JavaMaximumHeapSize />
@@ -58,6 +58,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ActionBarSherlock">
+      <HintPath>..\..\..\packages\XamarinActionBarSherlock.4.4.0.0\lib\MonoAndroid\ActionBarSherlock.dll</HintPath>
+    </Reference>
     <Reference Include="Cirrious.CrossCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e16445fd9b451819, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.13\lib\MonoAndroid16\Cirrious.CrossCore.dll</HintPath>
@@ -119,10 +122,16 @@
       </SubType>
     </Compile>
     <Compile Include="Views\Adapters\MvxViewPagerFragmentAdapter.cs" />
-    <Compile Include="Views\Fragments\GenericWebViewView.cs" />
+    <Compile Include="Views\MvxEventSourceSherlockFragment.cs" />
+    <Compile Include="Views\MvxSherlockFragment.cs" />
+    <Compile Include="Views\MvxSherlockActivity.cs" />
+    <Compile Include="Views\MvxEventSourceSherlockActivity.cs" />
+    <Compile Include="Views\MvxSherlockFragmentActivity.cs" />
+    <Compile Include="Views\MvxEventSourceSherlockFragmentActivity.cs" />
+    <Compile Include="Views\GenericWebViewView.cs" />
     <Compile Include="Views\LoadingIndicator.cs" />
     <Compile Include="Views\Fragments\NewsListingView.cs" />
-    <Compile Include="Views\Fragments\MediaDetailView.cs" />
+    <Compile Include="Views\MediaDetailView.cs" />
     <Compile Include="Views\Fragments\MyPageFavoritesView.cs" />
     <Compile Include="Views\Fragments\MyPageFinesView.cs" />
     <Compile Include="Views\Fragments\MyPageLoansView.cs" />
@@ -221,8 +230,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Values-land\integers.xml" />
-    <AndroidResource Include="Resources\Values-v11\styles.xml" />
-    <AndroidResource Include="Resources\Values-v14\styles.xml" />
+    <AndroidResource Include="Resources\Values-v11\styles.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Values-v14\styles.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\Menu\search_menu.xml" />
   </ItemGroup>
   <ItemGroup>
