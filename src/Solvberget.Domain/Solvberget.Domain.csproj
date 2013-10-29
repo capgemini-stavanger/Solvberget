@@ -67,150 +67,77 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\AudioBook.cs">
-      <Link>DTO\AudioBook.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\AvailabilityInformation.cs">
-      <Link>DTO\AvailabilityInformation.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\Blog.cs">
-      <Link>DTO\Blog.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\BlogEntry.cs">
-      <Link>DTO\BlogEntry.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\BokBasenBook.cs">
-      <Link>DTO\BokBasenBook.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\BokElskereBok.cs">
-      <Link>DTO\BokElskereBok.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\Book.cs">
-      <Link>DTO\Book.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\Cd.cs">
-      <Link>DTO\Cd.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\ContactInformation.cs">
-      <Link>DTO\ContactInformation.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\ContactPerson.cs">
-      <Link>DTO\ContactPerson.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\Document.cs">
-      <Link>DTO\Document.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\DocumentItem.cs">
-      <Link>DTO\DocumentItem.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\Event.cs">
-      <Link>DTO\Event.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\ExtensionHelpers.cs">
-      <Link>DTO\ExtensionHelpers.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\Film.cs">
-      <Link>DTO\Film.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\Fine.cs">
-      <Link>DTO\Fine.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\Game.cs">
-      <Link>DTO\Game.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\ImdbObject.cs">
-      <Link>DTO\ImdbObject.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\Information.cs">
-      <Link>DTO\Information.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\ItemRule.cs">
-      <Link>DTO\ItemRule.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\Journal.cs">
-      <Link>DTO\Journal.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\LanguageCourse.cs">
-      <Link>DTO\LanguageCourse.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\LastFmAlbum.cs">
-      <Link>DTO\LastFmAlbum.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\LibraryList.cs">
-      <Link>DTO\LibraryList.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\Loan.cs">
-      <Link>DTO\Loan.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\NewsItem.cs">
-      <Link>DTO\NewsItem.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\Notification.cs">
-      <Link>DTO\Notification.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\OpeningHoursInformation.cs">
-      <Link>DTO\OpeningHoursInformation.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\Organization.cs">
-      <Link>DTO\Organization.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\Person.cs">
-      <Link>DTO\Person.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\RequestReply.cs">
-      <Link>DTO\RequestReply.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\Reservation.cs">
-      <Link>DTO\Reservation.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\ReservationReply.cs">
-      <Link>DTO\ReservationReply.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\SheetMusic.cs">
-      <Link>DTO\SheetMusic.cs</Link>
-    </Compile>
-    <Compile Include="..\Solvberget.Core.DTOs\DTO\UserInfo.cs">
-      <Link>DTO\UserInfo.cs</Link>
-    </Compile>
-    <Compile Include="Abstract\IEnvironmentPathProvider.cs" />
-    <Compile Include="Abstract\IInformationRepository.cs" />
-    <Compile Include="Abstract\IEventRepository.cs" />
-    <Compile Include="Abstract\IImageRepository.cs" />
-    <Compile Include="Abstract\IListRepositoryStatic.cs" />
-    <Compile Include="Abstract\IBlogRepository.cs" />
-    <Compile Include="Abstract\INewsRepository.cs" />
-    <Compile Include="Abstract\IRatingRepository.cs" />
-    <Compile Include="Abstract\IReviewRepository.cs" />
-    <Compile Include="Abstract\IRulesRepository.cs" />
-    <Compile Include="Abstract\ISuggestionDictionary.cs" />
-    <Compile Include="Abstract\IListRepository.cs" />
-    <Compile Include="Abstract\IRepository.cs" />
-    <Compile Include="Abstract\V2\ILibraryListRepository.cs" />
-    <Compile Include="DTO\ContactWebPage.cs" />
-    <Compile Include="DTO\OpeningHoursWebPage.cs" />
-    <Compile Include="DTO\Webpage.cs" />
-    <Compile Include="Implementation\AlephException.cs" />
-    <Compile Include="Implementation\AlephRepository.cs" />
-    <Compile Include="Implementation\AvailabilityRepository.cs" />
-    <Compile Include="Implementation\BokbasenRepository.cs" />
-    <Compile Include="Implementation\BlogRepository.cs" />
-    <Compile Include="Implementation\BokelskereRepository.cs" />
-    <Compile Include="Implementation\DocumentItemRepository.cs" />
-    <Compile Include="Implementation\InformationRepositoryXml.cs" />
-    <Compile Include="Implementation\InformationRepositoryHtml.cs" />
-    <Compile Include="Implementation\NewsRepository.cs" />
-    <Compile Include="Implementation\RulesRepository.cs" />
-    <Compile Include="Implementation\ImdbRepository.cs" />
-    <Compile Include="Implementation\DictionaryBuilder.cs" />
-    <Compile Include="Implementation\ImageRepository.cs" />
-    <Compile Include="Implementation\LastFmRepository.cs" />
-    <Compile Include="Implementation\LibraryListDynamicRepository.cs" />
-    <Compile Include="Implementation\LinticketRepository.cs" />
-    <Compile Include="Implementation\LibraryListXmlRepository.cs" />
-    <Compile Include="Implementation\LuceneRepository.cs" />
-    <Compile Include="Implementation\ReviewRepository.cs" />
-    <Compile Include="Implementation\RatingRepository.cs" />
-    <Compile Include="Implementation\V2\LibraryListRepository.cs" />
+    <Compile Include="Documents\DocumentRating.cs" />
+    <Compile Include="Infrastructure\IEnvironmentPathProvider.cs" />
+    <Compile Include="Static\IInformationRepository.cs" />
+    <Compile Include="Events\IEventRepository.cs" />
+    <Compile Include="Documents\IImageRepository.cs" />
+    <Compile Include="Lists\IListRepositoryStatic.cs" />
+    <Compile Include="Blogs\IBlogRepository.cs" />
+    <Compile Include="Static\INewsRepository.cs" />
+    <Compile Include="Documents\IRatingRepository.cs" />
+    <Compile Include="Documents\IReviewRepository.cs" />
+    <Compile Include="Aleph\IRulesRepository.cs" />
+    <Compile Include="Search\ISuggestionDictionary.cs" />
+    <Compile Include="Lists\IListRepository.cs" />
+    <Compile Include="Aleph\IRepository.cs" />
+    <Compile Include="Lists\ILibraryListRepository.cs" />
+    <Compile Include="Documents\AudioBook.cs" />
+    <Compile Include="Documents\AvailabilityInformation.cs" />
+    <Compile Include="Blogs\Blog.cs" />
+    <Compile Include="Blogs\BlogEntry.cs" />
+    <Compile Include="Documents\Integrations\BokBasenBook.cs" />
+    <Compile Include="Documents\Integrations\BokElskereBok.cs" />
+    <Compile Include="Documents\Book.cs" />
+    <Compile Include="Documents\Cd.cs" />
+    <Compile Include="Static\ContactInformation.cs" />
+    <Compile Include="Static\ContactPerson.cs" />
+    <Compile Include="Documents\Document.cs" />
+    <Compile Include="Documents\DocumentItem.cs" />
+    <Compile Include="Events\Event.cs" />
+    <Compile Include="Utils\ExtensionHelpers.cs" />
+    <Compile Include="Documents\Film.cs" />
+    <Compile Include="Aleph\Fine.cs" />
+    <Compile Include="Documents\Game.cs" />
+    <Compile Include="Documents\Integrations\ImdbObject.cs" />
+    <Compile Include="Static\Information.cs" />
+    <Compile Include="Aleph\ItemRule.cs" />
+    <Compile Include="Documents\Journal.cs" />
+    <Compile Include="Documents\LanguageCourse.cs" />
+    <Compile Include="Documents\Integrations\LastFmAlbum.cs" />
+    <Compile Include="Lists\LibraryList.cs" />
+    <Compile Include="Aleph\Loan.cs" />
+    <Compile Include="Static\NewsItem.cs" />
+    <Compile Include="Aleph\Notification.cs" />
+    <Compile Include="Static\OpeningHoursInformation.cs" />
+    <Compile Include="Documents\Organization.cs" />
+    <Compile Include="Documents\Person.cs" />
+    <Compile Include="Aleph\RequestReply.cs" />
+    <Compile Include="Aleph\Reservation.cs" />
+    <Compile Include="Aleph\ReservationReply.cs" />
+    <Compile Include="Documents\SheetMusic.cs" />
+    <Compile Include="Aleph\UserInfo.cs" />
+    <Compile Include="Aleph\AlephException.cs" />
+    <Compile Include="Aleph\AlephRepository.cs" />
+    <Compile Include="Documents\AvailabilityRepository.cs" />
+    <Compile Include="Documents\Integrations\BokbasenRepository.cs" />
+    <Compile Include="Blogs\BlogRepository.cs" />
+    <Compile Include="Documents\Integrations\BokelskereRepository.cs" />
+    <Compile Include="Documents\DocumentItemRepository.cs" />
+    <Compile Include="Static\InformationRepositoryXml.cs" />
+    <Compile Include="Static\NewsRepository.cs" />
+    <Compile Include="Aleph\RulesRepository.cs" />
+    <Compile Include="Documents\Integrations\ImdbRepository.cs" />
+    <Compile Include="Search\DictionaryBuilder.cs" />
+    <Compile Include="Documents\Integrations\Images\ImageRepository.cs" />
+    <Compile Include="Documents\Integrations\LastFmRepository.cs" />
+    <Compile Include="Lists\LibraryListDynamicRepository.cs" />
+    <Compile Include="Events\LinticketRepository.cs" />
+    <Compile Include="Lists\LibraryListXmlRepository.cs" />
+    <Compile Include="Search\LuceneRepository.cs" />
+    <Compile Include="Documents\ReviewRepository.cs" />
+    <Compile Include="Documents\Integrations\Ratings\RatingRepository.cs" />
+    <Compile Include="Lists\LibraryListRepository.cs" />
     <Compile Include="Utils\ImageCacheUtils.cs" />
     <Compile Include="Utils\StorageHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -233,7 +160,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

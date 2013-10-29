@@ -1,0 +1,18 @@
+namespace Solvberget.Domain.Infrastructure
+{
+    public interface  IEnvironmentPathProvider
+    {
+        string GetDictionaryPath();
+        string GetDictionaryIndexPath();
+        string GetStopwordsPath();
+        string GetImageCachePath();
+        string GetSuggestionListPath();
+        string GetTestDictPath();
+        string GetXmlListPath();
+        string GetXmlFilePath();
+        string GetRulesPath();
+        string GetBlogFeedPath();
+        string GetOpeningInfoAsXmlPath();
+        string GetContactInfoAsXmlPath();
+    }
+}
