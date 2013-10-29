@@ -70,7 +70,7 @@ namespace Solvberget.Nancy.Modules.V2
                 AvailableCount = availability.AvailableCount,
                 TotalCount = availability.TotalCount,
                 
-                Department = availability.Department.Aggregate((acc, dep) =>
+                Department = availability.Department.DefaultIfEmpty(String.Empty).Aggregate((acc, dep) =>
                 {
                     if (String.IsNullOrEmpty(acc)) return dep;
                     return acc + " - " + dep;
