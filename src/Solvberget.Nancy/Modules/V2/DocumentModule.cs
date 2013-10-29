@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Linq;
 using Nancy;
-using Nancy.LightningCache.Extensions;
-using Solvberget.Domain.Abstract;
-using Solvberget.Domain.DTO;
-using Solvberget.Domain.Implementation;
-using Solvberget.Nancy.Modules.V2;
+using Solvberget.Core.DTO;
+using Solvberget.Domain.Aleph;
+using Solvberget.Domain.Documents;
 
 namespace Solvberget.Nancy.Modules.V2
 {
@@ -83,8 +81,3 @@ namespace Solvberget.Nancy.Modules.V2
         }
     }
 }
-
-    public class BookDto : DocumentDto
-    {
-        public string Classification { get; set; }
-    }

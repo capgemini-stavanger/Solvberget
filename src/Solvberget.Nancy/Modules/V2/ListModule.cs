@@ -5,10 +5,10 @@ using Autofac.Features.Indexed;
 using Nancy;
 using Nancy.LightningCache.Extensions;
 using Nancy.Responses;
-using Solvberget.Domain.Abstract;
-using Solvberget.Domain.Abstract.V2;
-using Solvberget.Domain.DTO;
-using Solvberget.Domain.Implementation.V2;
+using Solvberget.Core.DTO;
+using Solvberget.Domain.Aleph;
+using Solvberget.Domain.Documents;
+using Solvberget.Domain.Lists;
 
 namespace Solvberget.Nancy.Modules.V2
 {

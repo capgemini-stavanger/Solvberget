@@ -6,8 +6,8 @@
 
     <a ng-show="rating.Score" class="document-rating" title="{{rating.Source + ': ' + rating.Score + '/' + rating.MaxScore}}" ng-href="{{rating.SourceUrl}}">
         <img ng-src="{{'img/' + rating.Source + '-logo.png'}}" style="width:20px; position:relative; top:-2px; padding-right:5px;" />
-        <i ng-repeat="n in range(rating.Score)" class="glyphicon glyphicon-star"/>
-        <i ng-repeat="n in range(rating.MaxScore-rating.Score)" class="glyphicon glyphicon-star empty"/>
+        <i style="margin-right:2px" ng-repeat="n in range(rating.Score)" class="glyphicon glyphicon-star"/><i style="margin-right:2px"
+                                                                                                              ng-repeat="n in range(rating.MaxScore-rating.Score)" class="glyphicon glyphicon-star empty"/>
     </a>
 
     <div class="clearfix"></div>
@@ -31,8 +31,8 @@
             Finnes på hylle <span ng-show="{{document.Classification}}">{{document.Classification}}</span> {{document.Availability.Location}}
         </div>
         <div>
-            <i class="glyphicon glyphicon-ok-sign" style="color:green" ng-hide="{{document.Availability.AvailableCount == 0}}"></i>
-            <i class="glyphicon glyphicon-minus-sign" style="color:red" ng-show="{{document.Availability.AvailableCount == 0}}"></i>
+            <i class="glyphicon glyphicon-ok-sign" style="color:green" ng-show="document.Availability.AvailableCount"></i>
+            <i class="glyphicon glyphicon-minus-sign" style="color:red" ng-hide="document.Availability.AvailableCount"></i>
             {{document.Availability.AvailableCount}} av {{document.Availability.TotalCount}} er tilgjengelig for utlån
         </div>
         <div ng-show="{{document.Availability.EstimatedAvailableDate}}">

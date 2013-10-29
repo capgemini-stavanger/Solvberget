@@ -1,7 +1,7 @@
 ﻿using Nancy;
 using Nancy.ModelBinding;
-
-using Solvberget.Domain.Abstract;
+using Solvberget.Domain.Aleph;
+using Solvberget.Domain.Documents;
 
 namespace Solvberget.Nancy.Modules
 {

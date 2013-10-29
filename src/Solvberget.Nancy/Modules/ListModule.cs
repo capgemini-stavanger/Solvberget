@@ -6,8 +6,7 @@ using System.Linq;
 using Autofac.Features.Indexed;
 using Nancy;
 using Nancy.ViewEngines;
-using Solvberget.Domain.Abstract;
-using Solvberget.Domain.Implementation;
+using Solvberget.Domain.Lists;
 
 namespace Solvberget.Nancy.Modules
 {
