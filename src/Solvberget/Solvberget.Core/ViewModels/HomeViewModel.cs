@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using System.Windows.Input;
 using Cirrious.MvvmCross.ViewModels;
+using Solvberget.Core.Services.Interfaces;
+using Solvberget.Core.Services.Stubs;
 using Solvberget.Core.ViewModels.Base;
 
 namespace Solvberget.Core.ViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
+        private readonly IUserService _userService;
+        private readonly IUserAuthenticationDataService _userAuthenticationService = new UserAuthenticationTemporaryStub();
+
         public enum Section
         {
             MyPage,
@@ -25,6 +30,11 @@ namespace Solvberget.Core.ViewModels
         {
             _menuItems = new List<MenuViewModel>
                               {
+                                  new MenuViewModel
+                                      {
+                                          Section = Section.OpeningHours,
+                                          Title = "Åpningstider"
+                                      },
                                   new MenuViewModel
                                       {
                                           Section = Section.MyPage,
@@ -54,11 +64,6 @@ namespace Solvberget.Core.ViewModels
                                       {
                                           Section = Section.News,
                                           Title = "Nyheter"
-                                      },
-                                  new MenuViewModel
-                                      {
-                                          Section = Section.OpeningHours,
-                                          Title = "Åpningstider"
                                       },
                                   new MenuViewModel
                                       {
@@ -92,7 +97,10 @@ namespace Solvberget.Core.ViewModels
             {
 
                 case Section.MyPage:
-                    ShowViewModel<MyPageViewModel>(new {id = "164916"});
+                    if (_userAuthenticationService.GetUserId().Equals("Fant ikke brukerid"))
+                        ShowViewModel<LoginViewModel>();
+                    else
+                        ShowViewModel<MyPageViewModel>();
                     break;
                 case Section.Search:
                     ShowViewModel<SearchViewModel>();
@@ -119,7 +127,6 @@ namespace Solvberget.Core.ViewModels
 
         public Section GetSectionForViewModelType(Type type)
         {
-
             if (type == typeof(MyPageViewModel))
                 return Section.MyPage;
             if (type == typeof(SearchViewModel))
