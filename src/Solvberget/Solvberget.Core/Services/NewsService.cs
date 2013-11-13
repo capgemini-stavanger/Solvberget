@@ -33,7 +33,7 @@ namespace Solvberget.Core.Services
                         Title = "Feil ved lasting",
                         Ingress = "Kunne desverre ikke finne noen nyheter. Prøv igjen senere.",
                         Published = DateTime.Now,
-                        Link = new Uri("http://solvberget.no")
+                        Link = "http://solvberget.no"
                     }
                 };
             }
