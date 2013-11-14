@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
 using Solvberget.Core.DTOs;
-using Solvberget.Core.DTOs.Deprecated.DTO;
 using Solvberget.Core.Properties;
 using Solvberget.Core.Services.Interfaces;
 using Solvberget.Core.ViewModels.Base;

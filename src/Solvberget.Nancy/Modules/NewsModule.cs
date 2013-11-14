@@ -20,7 +20,7 @@ namespace Solvberget.Nancy.Modules
                 {
                     Title = ni.Title,
                     Ingress = ni.Description,
-                    Link = ni.Link,
+                    Link = ni.Link.ToString(),
                     Published = ni.PublishedDateAsDateTime.DateTime
                 });
             };

@@ -7,6 +7,6 @@ namespace Solvberget.Core.DTOs
         public string Title { get; set; }
         public string Ingress { get; set; }
         public DateTime Published { get; set; }
-        public Uri Link { get; set; }
+        public string Link { get; set; }
     }
 }

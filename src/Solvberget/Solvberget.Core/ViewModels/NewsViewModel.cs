@@ -26,8 +26,8 @@ namespace Solvberget.Core.ViewModels
             set { _published = value; RaisePropertyChanged(() => Published);}
         }
 
-        private Uri _uri;
-        public Uri Uri 
+        private string _uri;
+        public string Uri 
         {
             get { return _uri; }
             set { _uri = value; RaisePropertyChanged(() => Uri);}
