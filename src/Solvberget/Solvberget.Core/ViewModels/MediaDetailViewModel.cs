@@ -1,14 +1,13 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
 using System.Windows.Input;
 using Cirrious.MvvmCross.ViewModels;
 using Solvberget.Core.DTOs;
-using Solvberget.Core.DTOs.Deprecated.DTO;
-using Solvberget.Core.Properties;
 using Solvberget.Core.Services.Interfaces;
 using Solvberget.Core.ViewModels.Base;
+using Solvberget.Core.Properties;
 
 namespace Solvberget.Core.ViewModels
 {
