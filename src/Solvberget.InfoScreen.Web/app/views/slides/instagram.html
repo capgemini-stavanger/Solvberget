@@ -44,7 +44,7 @@
             },
             success: function(response) {
                 for (var i = 0; i< response.data.length; i++) {
-                    if (typeof $scope.blacklist !== "undefined" && $scope.blacklist.indexOf(response.data[i].user.username) > -1) {
+                    if ($scope.template.slideOptions.blacklist && $scope.template.slideOptions.blacklist.indexOf(response.data[i].user.username) > -1) {
                         console.log("Removing blacklisted item by user: " + response.data[i].user.username);
                         response.data.splice(i, 1);
                     }

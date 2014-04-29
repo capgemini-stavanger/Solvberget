@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Nancy;
 using Nancy.LightningCache.Extensions;
 using Nancy.Responses;
@@ -32,17 +33,26 @@ namespace Solvberget.Nancy.Modules
 
                     var slideConfig = slideConfigs[configName];
 
-                    var blackList = GetInstagramBlacklistFromFile();
-                    return
-                        Response.AsJson(new {slides = slideConfig, instagramBlacklist = blackList})
-                            .AsCacheable(DateTime.Now.AddMinutes(20));
+                    AppendInstagramBlacklistToSlideOptions(slideConfig);
+
+                    return Response.AsJson(slideConfig).AsCacheable(DateTime.Now.AddMinutes(20));
                 };
+        }
+
+        private void AppendInstagramBlacklistToSlideOptions(SlideConfigDto[] slideConfig)
+        {
+            // instagram blacklist
+            foreach (var dto in slideConfig.Where(dto => dto.Template == "instagram"))
+            {
+                if (null == dto.SlideOptions) dto.SlideOptions = new Dictionary<string, string>();
+
+                dto.SlideOptions["blacklist"] = String.Join(",",GetInstagramBlacklistFromFile());
+            }
         }
 
         private string[] GetInstagramBlacklistFromFile()
         {
             var file = _pathProvider.GetInstagramBlacklistPath();
-
             return !File.Exists(file) ? new string[0] : File.ReadAllLines(file);
         }
 
