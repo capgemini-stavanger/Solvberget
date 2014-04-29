@@ -4,4 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Solvberget.KioskApp">
 
+    <Application.Resources>
+        <SolidColorBrush Color="#34B445" x:Key="ThemeBackground"></SolidColorBrush>
+        <SolidColorBrush Color="#F2F2F2" x:Key="AltBackground"></SolidColorBrush>
+    </Application.Resources>
+    
+    
 </Application>

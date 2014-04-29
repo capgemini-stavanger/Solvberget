@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Cirrious.CrossCore;
+using Cirrious.MvvmCross.ViewModels;
+using Solvberget.Core.ViewModels;
+using Solvberget.KioskApp.Views;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -76,7 +80,12 @@ namespace Solvberget.KioskApp
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                //rootFrame.Navigate(typeof(MainPage), e.Arguments);
+
+                var setup = new Setup(rootFrame);
+                setup.Initialize();
+                rootFrame.Navigate(typeof(StartView));
+
             }
             // Ensure the current window is active
             Window.Current.Activate();

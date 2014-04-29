@@ -1,3 +1,4 @@
+using Cirrious.CrossCore;
 using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.ViewModels;
 using Cirrious.MvvmCross.WindowsStore.Platform;
@@ -9,6 +10,7 @@ namespace Solvberget.KioskApp
     {
         public Setup(Frame rootFrame) : base(rootFrame)
         {
+            
         }
 
         protected override IMvxApplication CreateApp()
