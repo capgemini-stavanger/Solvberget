@@ -2,10 +2,10 @@
     <div class="row">
         <div class="col-xs-12">
             <div id="ig-carousel" class="carousel slide" data-ride="carousel">
-                <div id="carousel-items" class="carousel-inner">
-                </div>
+                <div id="carousel-items" class="carousel-inner"></div>
             </div>
         </div>
+    </div>
 </div>
 <script type="text/javascript">
 
@@ -18,7 +18,7 @@
             tagName: $scope.tagName,
             resolution: 'standard_resolution',
             links: false,
-            limit: 10,
+            limit: 15,
             clientId: '8cb0d60e537d4098b2c0f79194b2f82e',
             after: function (a) {
 
@@ -41,6 +41,17 @@
 
                 console.log("insta error", msg);
                 $scope.lastError = msg;
+            },
+            success: function(response) {
+                for (var i = 0; i< response.data.length; i++) {
+                    if (typeof $scope.blacklist !== "undefined" && $scope.blacklist.indexOf(response.data[i].user.username) > -1) {
+                        console.log("Removing blacklisted item by user: " + response.data[i].user.username);
+                        response.data.splice(i, 1);
+                    }
+                }
+
+                // Limit to ten images like before.
+                response.data = response.data.splice(0, 10);
             }
         });
 

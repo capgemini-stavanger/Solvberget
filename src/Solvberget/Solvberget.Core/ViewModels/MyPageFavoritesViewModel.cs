@@ -67,7 +67,6 @@ namespace Solvberget.Core.ViewModels
                 {
                     Name = "Du har ingen registrerte favoritter",
                     ButtonVisible = false
-
                 });
             }
 
@@ -103,7 +102,7 @@ namespace Solvberget.Core.ViewModels
 
 		private void ExecuteShowDetailsCommand(FavoriteViewModel model)
 		{
-			if (model.DocumentNumber != "")
+			if (!string.IsNullOrEmpty(model.DocumentNumber))
 			{
 				ShowViewModel<MediaDetailViewModel>(new { title = model.Name, docId = model.DocumentNumber });
 			}

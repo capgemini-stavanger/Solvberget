@@ -10,5 +10,6 @@ angular.module('solvbergetinfoScreenwebApp').controller('InstagramCtrl', functio
 
     console.log("tag: " + $scope.tagName);
 
+    $scope.blacklist = $rootScope.instagramBlacklist;
 });
 

@@ -63,5 +63,12 @@ namespace Solvberget.Core.ViewModels
             get { return _image; }
             set { _image = value; RaisePropertyChanged(() => Image);}
         }
+
+        private string _mediaFormat;
+        public string MediaFormat 
+        {
+            get { return _mediaFormat; }
+            set { _mediaFormat = value; RaisePropertyChanged(() => MediaFormat);}
+        }
     }
 }

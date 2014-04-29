@@ -38,7 +38,7 @@ namespace Solvberget.Domain.Aleph
                 availability.PlacementCode = items.FirstOrDefault().PlacementCode;
 
                 availability.TotalCount = items.Count();
-                availability.AvailableCount = items.Count(x => x.LoanStatus == null && !x.OnHold);
+                availability.AvailableCount = items.Count(x => x.LoanStatus == null && !x.OnHold && !InUnavailableState(x));
 
                 if (availability.AvailableCount == 0)
                 {
@@ -87,6 +87,12 @@ namespace Solvberget.Domain.Aleph
                 }
             }
             return availability;
+        }
+
+        private static bool InUnavailableState(DocumentItem documentItem)
+        {
+            var unavailableStates = new [] {"Ikke mottatt", "Mottatt"};
+            return unavailableStates.Contains(documentItem.ItemProcessStatusText);
         }
     }
 }

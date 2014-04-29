@@ -11,10 +11,9 @@ angular.module('solvbergetinfoScreenwebApp')
         return $resource($$config.apiPrefixEscaped() + 'events/');
     })
     .factory('slides', function($resource) {
-        return function(screenId) { return $resource($$config.apiPrefixEscaped() + 'slides/' + screenId); };
-    }).config(function($httpProvider) {
-
-
+        return function(screenId) { return $resource($$config.apiPrefixEscaped() + 'slides/' + screenId, {}, { query: {method: "GET", isArray: false}}); };
+    })
+    .config(function($httpProvider) {
         $httpProvider.responseInterceptors.push(function ($timeout, $q, $rootScope) {
             return function (promise) {
                 return promise.then(function (successResponse) {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -35,14 +34,13 @@ namespace Solvberget.Nancy.Modules
             try
             {
                 var eventsJson = client.DownloadString(new Uri(
-                    String.Format("https://ticketco.no/api/public/v1/events?organizer_id={0}&token={1}", organizerId,
-                        apiToken)));
+                String.Format("https://ticketco.no/api/public/v1/events?organizer_id={0}&token={1}", organizerId,
+                    apiToken)));
 
                 var serializer = new JsonSerializer();
                 serializer.Culture = new CultureInfo("nb-no");
 
-                var ticketCoEvents =
-                    serializer.Deserialize<TicketCoResult>(new JsonTextReader(new StringReader(eventsJson)));
+                var ticketCoEvents = serializer.Deserialize<TicketCoResult>(new JsonTextReader(new StringReader(eventsJson)));
 
                 foreach (var element in ticketCoEvents.events)
                 {
@@ -60,9 +58,8 @@ namespace Solvberget.Nancy.Modules
                     ev.TicketUrl = element.mobile_link;
                 }
             }
-            catch(Exception ex)
+            catch
             {
-                Debug.WriteLine("Failed to get events: " + ex.Message);
             }
 
             // todo: implement after new events integration in place

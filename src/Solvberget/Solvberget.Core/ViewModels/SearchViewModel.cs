@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Input;
 using Cirrious.MvvmCross.ViewModels;
+using Solvberget.Core.DTOs;
 using Solvberget.Core.Services.Interfaces;
 using Solvberget.Core.ViewModels.Base;
 using Solvberget.Core.Properties;
@@ -86,6 +87,7 @@ namespace Solvberget.Core.ViewModels
                             Image = Resources.ServiceUrl + string.Format(Resources.ServiceUrl_MediaImage, document.Id),
                             Year = (document.Year != 0) ? document.Year.ToString("####") : "Ukjent år",
                             DocNumber = document.Id,
+                            MediaFormat = document.MediaFormat,
                         }).ToList();
 
             LastQuery = string.Format("Resultater for: {0}", lastquery);

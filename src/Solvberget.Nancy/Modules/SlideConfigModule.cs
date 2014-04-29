@@ -21,13 +21,29 @@ namespace Solvberget.Nancy.Modules
             Get["/{id}"] = args =>
                 {
                     var slideConfigs = GetSlideConfigurationsFromFile();
+                    var configName = "default";
                     if (slideConfigs.ContainsKey(args.id))
                     {
-                        return Response.AsJson(slideConfigs[(string)args.id]).AsCacheable(DateTime.Now.AddMinutes(20));
+                        configName = args.id;
+                    } else if (!slideConfigs.ContainsKey(configName)) // 404 if neither args.id nor "default" exists in config
+                    {
+                        return 404;
                     }
 
-                    return slideConfigs.ContainsKey("default") ? Response.AsJson(slideConfigs["default"]).AsCacheable(DateTime.Now.AddMinutes(20)) : 404;
+                    var slideConfig = slideConfigs[configName];
+
+                    var blackList = GetInstagramBlacklistFromFile();
+                    return
+                        Response.AsJson(new {slides = slideConfig, instagramBlacklist = blackList})
+                            .AsCacheable(DateTime.Now.AddMinutes(20));
                 };
+        }
+
+        private string[] GetInstagramBlacklistFromFile()
+        {
+            var file = _pathProvider.GetInstagramBlacklistPath();
+
+            return !File.Exists(file) ? new string[0] : File.ReadAllLines(file);
         }
 
         private Dictionary<string, SlideConfigDto[]> GetSlideConfigurationsFromFile()

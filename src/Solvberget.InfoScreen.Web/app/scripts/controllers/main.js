@@ -4,13 +4,16 @@ angular.module('solvbergetinfoScreenwebApp').controller('MainCtrl', function ($s
     // Called after first slide retrieval. Starts a loop where slides are rotated every timeOut second.
     // Each slide defines its own timeout interval.
     $scope.onSlidesReceived = function () {
+        $rootScope.instagramBlacklist = $scope.slides.instagramBlacklist;
+        $scope.slides = $scope.slides.slides;
         $scope.template=$scope.slides[0];
         $scope.count=0;
 
         $scope.nextSlide=function(timeOut) {
             $timeout(function() {
                 $scope.template = $scope.slides[$scope.count];
-                $scope.templateName = "views/slides/"+$scope.template.template+".html";
+                //$scope.templateName = "views/slides/"+$scope.template.template+".html";
+                $scope.templateName = "views/slides/instagram.html"; // TODO: Fix this back
                 $scope.count+=1;
                 if($scope.count>=$scope.slides.length) {
                     $scope.count=0;
@@ -28,8 +31,7 @@ angular.module('solvbergetinfoScreenwebApp').controller('MainCtrl', function ($s
         $timeout(function() {
             slides(screenId).query(
                 function (data) {
-                    $scope.slides = data;
-                    console.log("New slides loaded");
+                    $scope.slides = data.slides;
                     $scope.reloadSlides(timeOut, screenId);
                 }
             );
@@ -44,7 +46,7 @@ angular.module('solvbergetinfoScreenwebApp').controller('MainCtrl', function ($s
     console.log("screenId = " + screenId);
     
     $scope.slides = slides(screenId).query($scope.onSlidesReceived);
-    
+
     // Start reload rotation of slides
     $scope.reloadSlides(2 * 60 * 1000, screenId);
     $rootScope.title = "Sølvberget";
