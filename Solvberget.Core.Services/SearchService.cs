@@ -1,28 +1,29 @@
 ﻿﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Cirrious.CrossCore;
 using Newtonsoft.Json;
 using Solvberget.Core.DTOs;
 using Solvberget.Core.Services.Interfaces;
-using Solvberget.Core.Properties;
 
 namespace Solvberget.Core.Services
 {
-    class SearchService : ISearchService
+    public class SearchService : ISearchService
     {
         private readonly DtoDownloader _dtos;
         private readonly IStringDownloader _rawHttp;
 
-        public SearchService(DtoDownloader stringDownloader, IStringDownloader rawHttp)
+        private readonly IServiceUrls _serviceUrls;
+
+        public SearchService(DtoDownloader stringDownloader, IStringDownloader rawHttp, IServiceUrls serviceUrls)
         {
             _dtos = stringDownloader;
             _rawHttp = rawHttp;
+            _serviceUrls = serviceUrls;
         }
 
         public async Task<IEnumerable<DocumentDto>>  Search(string query)
         {
-            var result = await _dtos.DownloadList<DocumentDto>(Resources.ServiceUrl + string.Format(Resources.ServiceUrl_Search, query));
+            var result = await _dtos.DownloadList<DocumentDto>(_serviceUrls.ServiceUrl + string.Format(_serviceUrls.ServiceUrl_Search, query));
                         return result.Results;
         }
 
@@ -30,7 +31,7 @@ namespace Solvberget.Core.Services
         {
             try
             {
-                var response = await _rawHttp.Download(Resources.ServiceUrl + string.Format(Resources.ServiceUrl_Document, docId));
+                var response = await _rawHttp.Download(_serviceUrls.ServiceUrl + string.Format(_serviceUrls.ServiceUrl_Document, docId));
                 var doc = JsonConvert.DeserializeObject<DocumentDto>(response);
 
                 switch (doc.Type)
@@ -56,7 +57,6 @@ namespace Solvberget.Core.Services
             }
             catch (Exception e)
             {
-                Mvx.Trace(e.Message);
                 return new DocumentDto
                 {
                     Success = false,
@@ -68,13 +68,13 @@ namespace Solvberget.Core.Services
 
         public async Task<DocumentRatingDto> GetRating(string docId)
         {
-            var response = await _dtos.Download<DocumentRatingDto>(Resources.ServiceUrl + string.Format(Resources.ServiceUrl_Rating, docId));
+            var response = await _dtos.Download<DocumentRatingDto>(_serviceUrls.ServiceUrl + string.Format(_serviceUrls.ServiceUrl_Rating, docId));
             return response;
         }
 
         public async Task<DocumentReviewDto> GetReview(string docId)
         {
-            return await _dtos.Download<DocumentReviewDto>(Resources.ServiceUrl + string.Format(Resources.ServiceUrl_Review, docId));
+            return await _dtos.Download<DocumentReviewDto>(_serviceUrls.ServiceUrl + string.Format(_serviceUrls.ServiceUrl_Review, docId));
         }
     }
 }

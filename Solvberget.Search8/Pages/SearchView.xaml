@@ -1,0 +1,30 @@
+﻿<Page
+    x:Class="Solvberget.Search8.Pages.SearchView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Solvberget.Search8.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:micro="using:Caliburn.Micro"
+    mc:Ignorable="d">
+
+    <Grid Style="{ThemeResource ApplicationPage}">
+
+        <StackPanel Margin="100,0" VerticalAlignment="Center">
+            
+            <TextBlock Text="Hei!" Style="{ThemeResource XTitleText}" />
+            <TextBlock Text="Kan vi hjelpe deg å finne noe?" Style="{ThemeResource TitleText}" />
+
+            <Grid Margin="0,100,0,0">
+                <TextBox x:Name="Query" Style="{StaticResource XInput}" InputScope="Search"
+                         GotFocus="Query_OnGotFocus" LostFocus="Query_OnLostFocus"
+                         KeyDown="Query_OnKeyDown"
+                         PlaceholderText="Trykk her for å starte et søk." />
+            </Grid>
+
+        </StackPanel>
+        
+        <Image Source="/Assets/app.icon.512.png" Width="120" Height="120"
+               VerticalAlignment="Top" HorizontalAlignment="Right" Margin="100,0"/>
+    </Grid>
+</Page>
