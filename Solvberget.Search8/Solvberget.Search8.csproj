@@ -109,6 +109,7 @@
     </Compile>
     <Compile Include="CollapseWhenTrueConverter.cs" />
     <Compile Include="DocumentImageConverter.cs" />
+    <Compile Include="Pages\FilterOptionVm.cs" />
     <Compile Include="Pages\ResultDetailsView.xaml.cs">
       <DependentUpon>ResultDetailsView.xaml</DependentUpon>
     </Compile>
