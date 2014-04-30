@@ -27,6 +27,7 @@ namespace Solvberget.Search8
 
             _container.PerRequest<SearchViewModel>();
             _container.PerRequest<ResultsViewModel>();
+            _container.PerRequest<ResultDetailsViewModel>();
 
             _container.Instance<IServiceUrls>(this);
 

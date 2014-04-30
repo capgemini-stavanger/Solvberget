@@ -109,6 +109,10 @@
     </Compile>
     <Compile Include="CollapseWhenTrueConverter.cs" />
     <Compile Include="DocumentImageConverter.cs" />
+    <Compile Include="Pages\ResultDetailsView.xaml.cs">
+      <DependentUpon>ResultDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ResultDetailsViewModel.cs" />
     <Compile Include="Pages\ResultsView.xaml.cs">
       <DependentUpon>ResultsView.xaml</DependentUpon>
     </Compile>
@@ -161,6 +165,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Pages\ResultDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\ResultsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

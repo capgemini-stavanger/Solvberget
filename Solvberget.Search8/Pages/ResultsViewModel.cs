@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Caliburn.Micro;
 using Solvberget.Core.DTOs;
 using Solvberget.Core.Services.Interfaces;
@@ -38,14 +37,12 @@ namespace Solvberget.Search8.Pages
             Results = new BindableCollection<DocumentDto>();
             FilterOptions = new BindableCollection<FilterOptionVm>();
         }
-
-        protected override void OnInitialize()
-        {
-            DoSearch();
-        }
-
+        
         private async void DoSearch()
         {
+            Results.Clear();
+            NotifyOfPropertyChange("FilteredResults");
+            
             IsSearching = true;
             var results = (await _search.Search(Query)).ToList();
             ResultCount = results.Count;
@@ -92,6 +89,11 @@ namespace Solvberget.Search8.Pages
             }
         }
 
+        public void ShowDetails(DocumentDto document)
+        {
+            _navigation.UriFor<ResultDetailsViewModel>().WithParam(d => d.DocumentId, document.Id).WithParam(d => d.DocumentTitle, document.Title).Navigate();
+        }
+
         public bool IsSearching
         {
             get { return _isSearching; }
@@ -121,6 +123,8 @@ namespace Solvberget.Search8.Pages
             {
                 if (value == _query) return;
                 _query = value;
+
+                DoSearch();
                 NotifyOfPropertyChange("Query");
             }
         }

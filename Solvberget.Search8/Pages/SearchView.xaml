@@ -9,7 +9,11 @@
     mc:Ignorable="d">
 
     <Grid Style="{ThemeResource ApplicationPage}">
-
+        <Grid.Transitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.Transitions>
         <StackPanel Margin="100,0" VerticalAlignment="Center">
             
             <TextBlock Text="Hei!" Style="{ThemeResource XTitleText}" />

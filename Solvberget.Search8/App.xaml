@@ -9,7 +9,7 @@
         <SolidColorBrush x:Name="ThemeColor" Color="#34b445" />
         <SolidColorBrush x:Name="MediumColor" Color="#7f7f7f" />
         <SolidColorBrush x:Name="SubtleColor" Color="#f2f2f2" />
-        <SolidColorBrush x:Name="VerySubtleColor" Color="White" />
+        <SolidColorBrush x:Name="VerySubtleColor" Color="#f2f2f2" Opacity="0.5" />
         
         <Style x:Key="ApplicationPage" TargetType="Grid">
            
