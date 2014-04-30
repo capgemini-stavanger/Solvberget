@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
 using Solvberget.Core.DTOs;
@@ -7,19 +6,6 @@ using Solvberget.Core.Services.Interfaces;
 
 namespace Solvberget.Search8.Pages
 {
-    public class FilterOptionVm
-    {
-        public string Name { get; set; }
-        public int Count { get; set; }
-
-        public Func<DocumentDto, bool> Predicate { get; set; } 
-
-        public bool Filter(DocumentDto document)
-        {
-            return null == Predicate || Predicate(document);
-        }
-    }
-
     public class ResultsViewModel : Screen
     {
         private readonly ISearchService _search;
