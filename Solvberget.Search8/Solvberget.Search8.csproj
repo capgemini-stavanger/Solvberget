@@ -134,7 +134,6 @@
     <Content Include="Assets\OpenSans-Bold.ttf" />
     <Content Include="Assets\OpenSans-Light.ttf" />
     <None Include="packages.config" />
-    <None Include="Solvberget.Search8_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.scale-100.png" />

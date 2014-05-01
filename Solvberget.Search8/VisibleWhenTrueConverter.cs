@@ -8,7 +8,12 @@ namespace Solvberget.Search8
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return System.Convert.ToBoolean(value) ? Visibility.Visible : Visibility.Collapsed;
+            if (value is Boolean || value is Int32)
+            {
+                return System.Convert.ToBoolean(value) ? Visibility.Visible : Visibility.Collapsed;
+            }
+            
+            return null == value ? Visibility.Collapsed : Visibility.Visible;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

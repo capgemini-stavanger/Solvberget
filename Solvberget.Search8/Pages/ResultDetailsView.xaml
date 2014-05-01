@@ -4,8 +4,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" NavigationCacheMode="Enabled">
+    mc:Ignorable="d" NavigationCacheMode="Enabled" RequestedTheme="Light">
 
+    <Page.Resources>
+        <DataTemplate x:Key="MetaDataItemTemplate">
+            <StackPanel Margin="0,0,24,24" Width="350">
+                <TextBlock Text="{Binding Label}" Style="{ThemeResource MetaDataLabel}" />
+                <TextBlock Text="{Binding Value}" Style="{ThemeResource MetaDataValue}" />
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
     <Grid Style="{ThemeResource ResultsPage}">
         <Grid.Transitions>
             <TransitionCollection>
@@ -30,11 +38,85 @@
                     VerticalAlignment="Center" Margin="10,10,0,10"/>
 
             <StackPanel Margin="20" Grid.Column="1" VerticalAlignment="Center">
-                <TextBlock Text="{Binding DocumentTitle}" Style="{ThemeResource TitleText2}" />
+                <TextBlock Text="{Binding DocumentTitle, FallbackValue=A Memory of Light}" Style="{ThemeResource TitleText2}" />
             </StackPanel>
 
         </Grid>
 
+        <Hub Grid.Row="1" Padding="0">
+            <HubSection Header="Tilgjengelighet" HeaderTemplate="{StaticResource HubSectionHeaderTemplate}">
+                <HubSection.ContentTemplate>
+                    <DataTemplate>
+                        <Grid Width="800">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            
+                            <StackPanel>
+                                <TextBlock Text="FILIAL" Style="{ThemeResource MetaDataLabel}" />
+                                <TextBlock Style="{ThemeResource MetaDataValue}" TextWrapping="Wrap">
+                                    <Run Text="{Binding Availability.Branch}" />
+                                </TextBlock>
+
+                                <TextBlock Text="SAMLING" Style="{ThemeResource MetaDataLabel}" />
+                                <TextBlock Text="{Binding Availability.Collection}" Style="{ThemeResource MetaDataValue}" />
+
+                                <TextBlock Text="FINNES PÅ HYLLE" Style="{ThemeResource MetaDataLabel}" />
+
+                                <StackPanel  Orientation="Horizontal" Margin="0,12">
+                                    <Border Background="{StaticResource ThemeColor}" Padding="48,24">
+                                        <TextBlock FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                            <Run Text="{Binding Document.Classification}" /><Run Text=" " /><Run Text="{Binding Availability.Location}" />
+                                        </TextBlock>
+                                    </Border>
+                                    <Border Background="White" Padding="24">
+                                        <Image Width="80" Height="80" />
+                                    </Border>
+                                </StackPanel>
+
+                                <TextBlock Text="Du kan se tilgjengelighet ved andre filialer i mobilappen (skann QR-koden!)" Foreground="{StaticResource MediumColor}" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="AVDELING" Style="{ThemeResource MetaDataLabel}" />
+                                <TextBlock Text="{Binding Availability.Department}" Style="{ThemeResource MetaDataValue}" />
+
+                                <TextBlock Text="TILGJENGELIGHET" Style="{ThemeResource MetaDataLabel}" />
+                                <TextBlock Style="{ThemeResource MetaDataValue}">
+                                    <Run Text="{Binding Availability.AvailableCount}" /><Run Text=" av "/><Run Text="{Binding Availability.TotalCount}" /><Run Text=" tilgjengelig for utlån." />
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </HubSection.ContentTemplate>
+            </HubSection>
+            <HubSection Header="Fakta om boken" HeaderTemplate="{StaticResource HubSectionHeaderTemplate}">
+                <DataTemplate>
+                    <Grid Width="1150">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <Border Margin="0,0,48,0">
+                            <Image Width="300" Height="463" Stretch="UniformToFill" Source="{Binding Document, Converter={StaticResource DocumentImage}}" />
+                        </Border>
+
+                        <GridView Grid.Column="1" ItemsSource="{Binding Facts}" ItemTemplate="{StaticResource MetaDataItemTemplate}" SelectionMode="None" />
+
+                    </Grid>
+                </DataTemplate>
+            </HubSection>
+            <HubSection Header="Omtale" HeaderTemplate="{StaticResource HubSectionHeaderTemplate}" Visibility="{Binding Review, Converter={StaticResource VisibleWhenTrue}}">
+                <DataTemplate>
+                    <ScrollViewer Margin="0,0,48,0">
+                        <TextBlock Text="{Binding Review.Review}" TextWrapping="Wrap" FontSize="25" Width="600" Margin="0,0,0,48" />
+                    </ScrollViewer>
+                </DataTemplate>
+            </HubSection>
+        </Hub>
+        
         <ProgressRing
             Foreground="{StaticResource ThemeColor}" 
             Grid.Row="1" Width="100" Height="100" IsActive="{Binding IsLoading}" />

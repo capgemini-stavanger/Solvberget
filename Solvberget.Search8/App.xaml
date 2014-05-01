@@ -159,6 +159,19 @@
         <local:CollapseWhenTrueConverter x:Key="CollapseWhenTrue" />
         <local:VisibleWhenTrueConverter x:Key="VisibleWhenTrue" />
         <local:DocumentImageConverter x:Key="DocumentImage" />
+        <DataTemplate x:Key="HubSectionHeaderTemplate">
+            <TextBlock Text="{Binding}" Foreground="{ThemeResource ThemeColor}" FontSize="35" Margin="0,0,24,12" />
+        </DataTemplate>
+        <Style x:Key="MetaDataLabel" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{ThemeResource ThemeColor}" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+
+        <Style x:Key="MetaDataValue" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontSize" Value="30" />
+            <Setter Property="Margin" Value="0,12,0,36"></Setter>
+        </Style>
 
     </micro:CaliburnApplication.Resources>
 </micro:CaliburnApplication>
