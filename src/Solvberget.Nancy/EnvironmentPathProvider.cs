@@ -125,7 +125,6 @@ namespace Solvberget.Nancy
 
         public string GetWebAppDocumentDetailsPath(Document document)
         {
-            return "http://www.solvberget.no"; // until web app deployed
             var docUrl = Path.Combine(GetWebAppUrl(), GetWebType(document.DocType), document.DocumentNumber, HttpUtility.UrlEncode(document.Title));
             return docUrl;
         }

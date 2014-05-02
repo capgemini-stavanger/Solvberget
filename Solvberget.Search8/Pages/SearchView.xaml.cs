@@ -19,7 +19,7 @@ namespace Solvberget.Search8.Pages
         private void Query_OnGotFocus(object sender, RoutedEventArgs e)
         {
             Query.SelectAll();
-            Query.PlaceholderText = "Skriv inn søket ditt og trykk Søk på tastaturet.";
+            Query.PlaceholderText = "";
         }
         
         private void Query_OnLostFocus(object sender, RoutedEventArgs e)

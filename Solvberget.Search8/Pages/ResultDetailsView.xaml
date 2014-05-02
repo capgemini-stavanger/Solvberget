@@ -4,13 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:WinRTXamlToolkit.Controls"
     mc:Ignorable="d" NavigationCacheMode="Enabled" RequestedTheme="Light">
 
     <Page.Resources>
         <DataTemplate x:Key="MetaDataItemTemplate">
-            <StackPanel Margin="0,0,24,24" Width="350">
-                <TextBlock Text="{Binding Label}" Style="{ThemeResource MetaDataLabel}" />
-                <TextBlock Text="{Binding Value}" Style="{ThemeResource MetaDataValue}" />
+            <StackPanel Width="350" Margin="0,0,60,36">
+                <TextBlock Text="{Binding Label}" Style="{ThemeResource MetaDataLabel}" TextWrapping="Wrap" />
+                <TextBlock Text="{Binding Value}" Style="{ThemeResource MetaDataValue}" TextWrapping="Wrap" />
             </StackPanel>
         </DataTemplate>
     </Page.Resources>
@@ -45,33 +46,33 @@
 
         <Hub Grid.Row="1" Padding="0">
             <HubSection Header="Tilgjengelighet" HeaderTemplate="{StaticResource HubSectionHeaderTemplate}">
-                <HubSection.ContentTemplate>
-                    <DataTemplate>
-                        <Grid Width="800">
+                <DataTemplate>
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             
                             <StackPanel>
-                                <TextBlock Text="FILIAL" Style="{ThemeResource MetaDataLabel}" />
+                                <TextBlock Text="Filial" Style="{ThemeResource MetaDataLabel}" />
                                 <TextBlock Style="{ThemeResource MetaDataValue}" TextWrapping="Wrap">
                                     <Run Text="{Binding Availability.Branch}" />
                                 </TextBlock>
 
-                                <TextBlock Text="SAMLING" Style="{ThemeResource MetaDataLabel}" />
+                                <TextBlock Text="Samling" Style="{ThemeResource MetaDataLabel}" />
                                 <TextBlock Text="{Binding Availability.Collection}" Style="{ThemeResource MetaDataValue}" />
 
-                                <TextBlock Text="FINNES PÅ HYLLE" Style="{ThemeResource MetaDataLabel}" />
+                                <TextBlock Text="Finnes på hylle" Style="{ThemeResource MetaDataLabel}" />
 
                                 <StackPanel  Orientation="Horizontal" Margin="0,12">
                                     <Border Background="{StaticResource ThemeColor}" Padding="48,24">
-                                        <TextBlock FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                            <Run Text="{Binding Document.Classification}" /><Run Text=" " /><Run Text="{Binding Availability.Location}" />
-                                        </TextBlock>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Text="{Binding Document.Classification}" Visibility="{Binding Document.Classification, Converter={StaticResource VisibleWhenTrue}}" Margin="0,0,24,0"/>
+                                            <TextBlock FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Text="{Binding Availability.Location}" />
+                                        </StackPanel>
                                     </Border>
-                                    <Border Background="White" Padding="24">
-                                        <Image Width="80" Height="80" />
+                                    <Border Background="White">
+                                        <Image Width="120" Height="120" Source="{Binding Document.WebAppUrl, Converter={StaticResource AsQrCode}}" />
                                     </Border>
                                 </StackPanel>
 
@@ -79,39 +80,44 @@
                             </StackPanel>
 
                             <StackPanel Grid.Column="1">
-                                <TextBlock Text="AVDELING" Style="{ThemeResource MetaDataLabel}" />
+                                <TextBlock Text="Avdeling" Style="{ThemeResource MetaDataLabel}" />
                                 <TextBlock Text="{Binding Availability.Department}" Style="{ThemeResource MetaDataValue}" />
 
-                                <TextBlock Text="TILGJENGELIGHET" Style="{ThemeResource MetaDataLabel}" />
+                                <TextBlock Text="Tilgjengelighet" Style="{ThemeResource MetaDataLabel}" />
                                 <TextBlock Style="{ThemeResource MetaDataValue}">
                                     <Run Text="{Binding Availability.AvailableCount}" /><Run Text=" av "/><Run Text="{Binding Availability.TotalCount}" /><Run Text=" tilgjengelig for utlån." />
                                 </TextBlock>
                             </StackPanel>
                         </Grid>
                     </DataTemplate>
-                </HubSection.ContentTemplate>
             </HubSection>
             <HubSection Header="Fakta om boken" HeaderTemplate="{StaticResource HubSectionHeaderTemplate}">
                 <DataTemplate>
-                    <Grid Width="1150">
+                    <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
 
-                        <Border Margin="0,0,48,0">
+                        <Border Margin="0,0,48,0" VerticalAlignment="Top">
                             <Image Width="300" Height="463" Stretch="UniformToFill" Source="{Binding Document, Converter={StaticResource DocumentImage}}" />
                         </Border>
-
-                        <GridView Grid.Column="1" ItemsSource="{Binding Facts}" ItemTemplate="{StaticResource MetaDataItemTemplate}" SelectionMode="None" />
+                        
+                        <ItemsControl x:Name="Facts" Grid.Column="1" ItemsSource="{Binding Facts}" ItemTemplate="{StaticResource MetaDataItemTemplate}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <controls:WrapPanel Orientation="Vertical" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
 
                     </Grid>
                 </DataTemplate>
             </HubSection>
-            <HubSection Header="Omtale" HeaderTemplate="{StaticResource HubSectionHeaderTemplate}" Visibility="{Binding Review, Converter={StaticResource VisibleWhenTrue}}">
+            <HubSection Header="Omtale" HeaderTemplate="{StaticResource HubSectionHeaderTemplate}" Visibility="{Binding Review.Review, Converter={StaticResource VisibleWhenTrue}}">
                 <DataTemplate>
                     <ScrollViewer Margin="0,0,48,0">
-                        <TextBlock Text="{Binding Review.Review}" TextWrapping="Wrap" FontSize="25" Width="600" Margin="0,0,0,48" />
+                            <TextBlock Text="{Binding Review.Review}" TextWrapping="Wrap" FontSize="25" Width="600" Margin="0,0,0,48" />
                     </ScrollViewer>
                 </DataTemplate>
             </HubSection>

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Linq;
+using Windows.UI.Xaml.Media.Imaging;
 using Caliburn.Micro;
 using Solvberget.Core.DTOs;
 using Solvberget.Core.Services.Interfaces;
+using ZXing;
+using ZXing.QrCode;
 
 namespace Solvberget.Search8.Pages
 {
@@ -31,17 +34,15 @@ namespace Solvberget.Search8.Pages
 
             Facts = new BindableCollection<MetaDataItem>();
         }
-
-        protected override void OnInitialize()
-        {
-            base.OnInitialize();
-
-            LoadDocument();
-        }
-
+        
         private async void LoadDocument()
         {
             IsLoading = true;
+            
+            Document = null;
+            Availability = null;
+            Facts.Clear();
+
             Document = await _search.Get(DocumentId);
             Review = await _search.GetReview(DocumentId);
             Availability = Document.Availability.FirstOrDefault(); // todo: choose the one from currently configured library
@@ -50,7 +51,7 @@ namespace Solvberget.Search8.Pages
 
             IsLoading = false;
         }
-
+        
         private void PopulateFacts()
         {
             Facts.Clear();
@@ -197,6 +198,8 @@ namespace Solvberget.Search8.Pages
                 if (value == _documentId) return;
                 _documentId = value;
                 NotifyOfPropertyChange("DocumentId");
+
+                LoadDocument();
             }
         }
 

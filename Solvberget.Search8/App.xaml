@@ -164,14 +164,15 @@
         </DataTemplate>
         <Style x:Key="MetaDataLabel" TargetType="TextBlock">
             <Setter Property="Foreground" Value="{ThemeResource ThemeColor}" />
-            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontSize" Value="18" />
         </Style>
 
         <Style x:Key="MetaDataValue" TargetType="TextBlock">
             <Setter Property="Foreground" Value="Black" />
-            <Setter Property="FontSize" Value="30" />
-            <Setter Property="Margin" Value="0,12,0,36"></Setter>
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="Margin" Value="0,6,0,24"></Setter>
         </Style>
+        <local:QrCodeConverter x:Key="AsQrCode" />
 
     </micro:CaliburnApplication.Resources>
 </micro:CaliburnApplication>
