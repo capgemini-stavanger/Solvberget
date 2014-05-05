@@ -9,6 +9,7 @@
         <SolidColorBrush x:Name="ThemeColor" Color="#34b445" />
         <SolidColorBrush x:Name="MediumColor" Color="#7f7f7f" />
         <SolidColorBrush x:Name="SubtleColor" Color="#f2f2f2" />
+        <SolidColorBrush x:Key="ErrorColor" Color="OrangeRed" />
         <SolidColorBrush x:Name="VerySubtleColor" Color="#f2f2f2" Opacity="0.5" />
         
         <Style x:Key="ApplicationPage" TargetType="Grid">
@@ -173,6 +174,7 @@
             <Setter Property="Margin" Value="0,6,0,24"></Setter>
         </Style>
         <local:QrCodeConverter x:Key="AsQrCode" />
+        <local:DimIfNoValueConverter x:Key="DimIfNoValue" />
 
     </micro:CaliburnApplication.Resources>
 </micro:CaliburnApplication>

@@ -11,7 +11,7 @@
         <DataTemplate x:Key="MetaDataItemTemplate">
             <StackPanel Width="350" Margin="0,0,60,36">
                 <TextBlock Text="{Binding Label}" Style="{ThemeResource MetaDataLabel}" TextWrapping="Wrap" />
-                <TextBlock Text="{Binding Value}" Style="{ThemeResource MetaDataValue}" TextWrapping="Wrap" />
+                <TextBlock Text="{Binding Value, Converter={StaticResource DimIfNoValue}}" Style="{ThemeResource MetaDataValue}" TextWrapping="Wrap" />
             </StackPanel>
         </DataTemplate>
     </Page.Resources>
@@ -44,7 +44,7 @@
 
         </Grid>
 
-        <Hub Grid.Row="1" Padding="0">
+        <Hub Grid.Row="1" Padding="0" Visibility="{Binding IsLoading, Converter={StaticResource CollapseWhenTrue}}">
             <HubSection Header="Tilgjengelighet" HeaderTemplate="{StaticResource HubSectionHeaderTemplate}">
                 <DataTemplate>
                         <Grid>
@@ -53,22 +53,20 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             
-                            <StackPanel>
+                            <StackPanel MaxWidth="450">
                                 <TextBlock Text="Filial" Style="{ThemeResource MetaDataLabel}" />
-                                <TextBlock Style="{ThemeResource MetaDataValue}" TextWrapping="Wrap">
-                                    <Run Text="{Binding Availability.Branch}" />
-                                </TextBlock>
+                            <TextBlock Style="{ThemeResource MetaDataValue}" TextWrapping="Wrap" Text="{Binding Availability.Branch, Converter={StaticResource DimIfNoValue}}" />
 
                                 <TextBlock Text="Samling" Style="{ThemeResource MetaDataLabel}" />
-                                <TextBlock Text="{Binding Availability.Collection}" Style="{ThemeResource MetaDataValue}" />
+                            <TextBlock Text="{Binding Availability.Collection, Converter={StaticResource DimIfNoValue}}" Style="{ThemeResource MetaDataValue}" />
 
                                 <TextBlock Text="Finnes på hylle" Style="{ThemeResource MetaDataLabel}" />
 
                                 <StackPanel  Orientation="Horizontal" Margin="0,12">
-                                    <Border Background="{StaticResource ThemeColor}" Padding="48,24">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Text="{Binding Document.Classification}" Visibility="{Binding Document.Classification, Converter={StaticResource VisibleWhenTrue}}" Margin="0,0,24,0"/>
-                                            <TextBlock FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Text="{Binding Availability.Location}" />
+                                    <Border Background="{StaticResource ThemeColor}" Padding="12,24">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Informasjon om plassering mangler." Margin="12" Foreground="White" FontSize="20" TextWrapping="Wrap" Width="185" VerticalAlignment="Center" Visibility="{Binding AvailabilityLocation, Converter={StaticResource CollapseWhenTrue}}" />
+                                        <TextBlock FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Text="{Binding AvailabilityLocation}" Margin="12,0" />
                                         </StackPanel>
                                     </Border>
                                     <Border Background="White">
@@ -76,22 +74,29 @@
                                     </Border>
                                 </StackPanel>
 
-                                <TextBlock Text="Du kan se tilgjengelighet ved andre filialer i mobilappen (skann QR-koden!)" Foreground="{StaticResource MediumColor}" />
+                                <TextBlock Text="Du kan også se tilgjengelighet for denne samt våre andre filialer i bibliotekets mobilapp (skann QR-koden!)" FontSize="16" 
+                                           HorizontalAlignment="Left" TextWrapping="Wrap"  Foreground="{StaticResource MediumColor}" />
                             </StackPanel>
 
-                            <StackPanel Grid.Column="1">
+                            <StackPanel Grid.Column="1" MaxWidth="450">
                                 <TextBlock Text="Avdeling" Style="{ThemeResource MetaDataLabel}" />
-                                <TextBlock Text="{Binding Availability.Department}" Style="{ThemeResource MetaDataValue}" />
+                            <TextBlock Text="{Binding Availability.Department, Converter={StaticResource DimIfNoValue}}" Style="{ThemeResource MetaDataValue}" />
 
                                 <TextBlock Text="Tilgjengelighet" Style="{ThemeResource MetaDataLabel}" />
+                                
+                                <StackPanel Orientation="Horizontal" Visibility="{Binding Availability.TotalCount, Converter={StaticResource VisibleWhenTrue}}">
+                                <TextBlock Text="&#xe070;&#xe001;" FontFamily="Segoe UI Symbol" Foreground="{StaticResource ThemeColor}" FontSize="22" Width="44" Margin="0,4" Visibility="{Binding Availability.AvailableCount, Converter={StaticResource VisibleWhenTrue}}" />
+                                <TextBlock Text="&#xe070;  /" FontFamily="Segoe UI Symbol" Foreground="{StaticResource ErrorColor}" FontSize="22" Width="44" Margin="0,4"  Visibility="{Binding Availability.AvailableCount, Converter={StaticResource CollapseWhenTrue}}" />
                                 <TextBlock Style="{ThemeResource MetaDataValue}">
                                     <Run Text="{Binding Availability.AvailableCount}" /><Run Text=" av "/><Run Text="{Binding Availability.TotalCount}" /><Run Text=" tilgjengelig for utlån." />
                                 </TextBlock>
                             </StackPanel>
+                                <TextBlock Text="Ukjent" Visibility="{Binding Availability.TotalCount, Converter={StaticResource CollapseWhenTrue}}" />
+                            </StackPanel>
                         </Grid>
                     </DataTemplate>
             </HubSection>
-            <HubSection Header="Fakta om boken" HeaderTemplate="{StaticResource HubSectionHeaderTemplate}">
+            <HubSection Header="{Binding FactsHeader}" HeaderTemplate="{StaticResource HubSectionHeaderTemplate}" Visibility="{Binding IsLoading, Converter={StaticResource CollapseWhenTrue}}">
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -99,8 +104,11 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
 
-                        <Border Margin="0,0,48,0" VerticalAlignment="Top">
-                            <Image Width="300" Height="463" Stretch="UniformToFill" Source="{Binding Document, Converter={StaticResource DocumentImage}}" />
+                        <Border Margin="0,0,48,0" VerticalAlignment="Top" BorderBrush="White" BorderThickness="4">
+                            <Grid>
+                                <TextBlock Text="bilde mangler" VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0.2" FontSize="15" />
+                                <Image Width="300" Height="463" Stretch="UniformToFill" Source="{Binding Document, Converter={StaticResource DocumentImage}}" />
+                            </Grid>
                         </Border>
                         
                         <ItemsControl x:Name="Facts" Grid.Column="1" ItemsSource="{Binding Facts}" ItemTemplate="{StaticResource MetaDataItemTemplate}">

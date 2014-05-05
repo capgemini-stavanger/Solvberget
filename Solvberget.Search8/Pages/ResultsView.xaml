@@ -46,9 +46,8 @@
         </Grid>
         
         <ProgressRing
-            Foreground="{StaticResource ThemeColor}" 
-            Grid.Row="1" Width="100" Height="100" IsActive="{Binding IsSearching}" />
-
+            Foreground="{StaticResource ThemeColor}"
+            Grid.Row="1" Width="200" Height="200" IsActive="{Binding IsSearching}" />
 
         <SemanticZoom Grid.Row="1" x:Name="SemanticZoom">
             <SemanticZoom.ZoomedInView>
@@ -57,7 +56,7 @@
                   ScrollViewer.IsHorizontalScrollChainingEnabled="False">
                     <GridView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Background="White" 
+                            <StackPanel Orientation="Horizontal" Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                         Tapped="Result_OnTapped">
                                 <Border Width="75" Height="135" Background="{StaticResource VerySubtleColor}">
                                 <Image Stretch="UniformToFill" Source="{Binding Converter={StaticResource DocumentImage}}" />
@@ -81,7 +80,7 @@
                             <Setter Property="Margin" Value="12" />
                             <Setter Property="Background" Value="White" />
                             <Setter Property="HorizontalAlignment" Value="Stretch" />
-                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                         </Style>
                     </GridView.ItemContainerStyle>
                 </GridView>

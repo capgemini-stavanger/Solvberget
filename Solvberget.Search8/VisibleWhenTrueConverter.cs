@@ -13,6 +13,11 @@ namespace Solvberget.Search8
                 return System.Convert.ToBoolean(value) ? Visibility.Visible : Visibility.Collapsed;
             }
             
+            if (value is String)
+            {
+                return !String.IsNullOrEmpty(value as String) ? Visibility.Visible : Visibility.Collapsed;
+            }
+            
             return null == value ? Visibility.Collapsed : Visibility.Visible;
         }
 

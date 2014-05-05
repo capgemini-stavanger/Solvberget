@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Linq;
-using Windows.UI.Xaml.Media.Imaging;
+using System.Text;
 using Caliburn.Micro;
 using Solvberget.Core.DTOs;
 using Solvberget.Core.Services.Interfaces;
-using ZXing;
-using ZXing.QrCode;
 
 namespace Solvberget.Search8.Pages
 {
@@ -13,6 +11,7 @@ namespace Solvberget.Search8.Pages
     {
         public string Label { get; set; }
         public string Value { get; set; }
+
     }
 
     public class ResultDetailsViewModel : Screen
@@ -26,6 +25,8 @@ namespace Solvberget.Search8.Pages
         private bool _isLoading;
         private DocumentAvailabilityDto _availability;
         private DocumentReviewDto _review;
+        private string _factsHeader = "Fakta";
+        private string _availabilityLocation;
 
         public ResultDetailsViewModel(INavigationService navigation, ISearchService search)
         {
@@ -70,6 +71,8 @@ namespace Solvberget.Search8.Pages
                     Facts.Add(new MetaDataItem {Label = "Serietittel", Value = book.Series.Title});
                     Facts.Add(new MetaDataItem {Label = "Serienummer", Value = book.Series.SequenceNo});
                 }
+
+                FactsHeader = "Fakta om boken";
             }
             else if (Document is CdDto)
             {
@@ -80,6 +83,8 @@ namespace Solvberget.Search8.Pages
                 Facts.Add(new MetaDataItem {Label = "Språk", Value = cd.Language});
                 Facts.Add(new MetaDataItem {Label = "Label/utgiver", Value = cd.Publisher});
                 Facts.Add(new MetaDataItem {Label = "Publikasjonsår", Value = cd.Year.ToString()});
+
+                FactsHeader = "Fakta om Cden";
             }
             else if (Document is FilmDto)
             {
@@ -100,6 +105,8 @@ namespace Solvberget.Search8.Pages
                 });
                 Facts.Add(new MetaDataItem {Label = "Språk", Value = film.Language});
                 Facts.Add(new MetaDataItem {Label = "Utgiver ", Value = film.Publisher});
+
+                FactsHeader = "Fakta om filmen";
             }
             else if (Document is GameDto)
             {
@@ -110,6 +117,8 @@ namespace Solvberget.Search8.Pages
                 Facts.Add(new MetaDataItem {Label = "Oversatt til", Value = String.Join(", ", game.Languages)});
                 Facts.Add(new MetaDataItem {Label = "Utgiver", Value = game.Publisher});
                 Facts.Add(new MetaDataItem {Label = "Publikasjonsår", Value = game.Year.ToString()});
+
+                FactsHeader = "Fakta om spillet";
             }
             else if (Document is JournalDto)
             {
@@ -130,6 +139,42 @@ namespace Solvberget.Search8.Pages
                 Facts.Add(new MetaDataItem {Label = "Undertittel", Value = sm.SubTitle});
                 Facts.Add(new MetaDataItem {Label = "Forlag", Value = sm.Publisher});
                 Facts.Add(new MetaDataItem {Label = "Publikasjonsår", Value = sm.Year.ToString()});
+
+                FactsHeader = "Fakta om noteheftet";
+            }
+        }
+
+        public string AvailabilityLocation
+        {
+            get
+            {
+                var loc = new StringBuilder();
+                
+                if (Document is BookDto)
+                {
+                    var c = ((BookDto) Document).Classification;
+
+                    if (String.IsNullOrEmpty(c))
+                    {
+                        loc.Append(c);
+                        loc.Append(" ");
+                    }
+                }
+
+                if(null != Availability) loc.Append(Availability.Location);
+
+                return loc.ToString();
+            }
+        }
+
+        public string FactsHeader
+        {
+            get { return _factsHeader; }
+            set
+            {
+                if (value == _factsHeader) return;
+                _factsHeader = value;
+                NotifyOfPropertyChange("FactsHeader");
             }
         }
 
@@ -163,6 +208,7 @@ namespace Solvberget.Search8.Pages
                 if (Equals(value, _document)) return;
                 _document = value;
                 NotifyOfPropertyChange("Document");
+                NotifyOfPropertyChange("AvailabilityLocation");
             }
         }
 
@@ -174,6 +220,7 @@ namespace Solvberget.Search8.Pages
                 if (Equals(value, _availability)) return;
                 _availability = value;
                 NotifyOfPropertyChange("Availability");
+                NotifyOfPropertyChange("AvailabilityLocation");
             }
         }
 

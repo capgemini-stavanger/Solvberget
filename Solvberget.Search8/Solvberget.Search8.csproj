@@ -108,6 +108,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="CollapseWhenTrueConverter.cs" />
+    <Compile Include="DimIfNoValueConverter.cs" />
     <Compile Include="DocumentImageConverter.cs" />
     <Compile Include="Pages\FilterOptionVm.cs" />
     <Compile Include="Pages\ResultDetailsView.xaml.cs">
