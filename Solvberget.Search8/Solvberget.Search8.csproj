@@ -111,6 +111,9 @@
     <Compile Include="DimIfNoValueConverter.cs" />
     <Compile Include="DocumentImageConverter.cs" />
     <Compile Include="Pages\FilterOptionVm.cs" />
+    <Compile Include="Pages\IdleUserTimeout.xaml.cs">
+      <DependentUpon>IdleUserTimeout.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ResultDetailsView.xaml.cs">
       <DependentUpon>ResultDetailsView.xaml</DependentUpon>
     </Compile>
@@ -173,6 +176,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Pages\IdleUserTimeout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\ResultDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
