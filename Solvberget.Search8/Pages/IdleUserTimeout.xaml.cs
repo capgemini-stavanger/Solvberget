@@ -44,13 +44,9 @@ namespace Solvberget.Search8.Pages
         {
             _seconds++;
 
-            Debug.WriteLine("Seconds: " + _seconds);
-
             if (_seconds > WarnAfter)
             {
                 var remaining = NavigateAfter - _seconds;
-
-                Debug.WriteLine("Remaining: " + remaining);
                 
                 Execute.OnUIThread(() =>
                 {
@@ -80,11 +76,6 @@ namespace Solvberget.Search8.Pages
             Window.Current.CoreWindow.PointerMoved -= ResetIdle;
             Window.Current.CoreWindow.KeyDown -= ResetIdle;
             Window.Current.CoreWindow.PointerWheelChanged -= ResetIdle;
-        }
-
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        {
-            ResetIdle(null, null);
         }
     }
 }
