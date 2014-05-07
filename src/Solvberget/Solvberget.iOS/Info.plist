@@ -21,7 +21,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>Sølvberget, Stavanger bibliotek</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.2</string>
 	<key>CFBundleIconFiles</key>
 	<array>
 		<string>Icon-60@2x</string>
