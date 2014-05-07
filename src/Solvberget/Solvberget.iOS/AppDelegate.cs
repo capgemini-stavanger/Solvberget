@@ -4,6 +4,7 @@ using Solvberget.Core.DTOs;
 using Cirrious.MvvmCross.Views;
 using System.Collections.Generic;
 using MonoTouch.FacebookConnect;
+using Solvberget.Core.Services.Interfaces;
 
 namespace Solvberget.iOS
 {
@@ -78,5 +79,4 @@ namespace Solvberget.iOS
 		}
 
     }
-
 }

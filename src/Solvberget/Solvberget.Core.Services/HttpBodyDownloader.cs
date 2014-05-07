@@ -23,13 +23,22 @@ namespace Solvberget.Core.Services
 
         public async Task<string> Download(string url, string method)
         {
-            var request = HttpWebRequest.Create(url);
+            var request = (HttpWebRequest) HttpWebRequest.Create(url);
             if (_userAuthSerice.UserInfoRegistered())
             {
                 request.Headers["Authorization"] = _userAuthSerice.GetUserId() + ":" +
                                                     _userAuthSerice.GetUserPassword();
             }
+
             request.Method = method;
+
+            if (method.ToUpperInvariant() != "GET")
+            {
+                // workaround to get ContentLength set, or request will fail with a 411
+                var contentStream = await request.GetRequestStreamAsync();
+                contentStream.Write(Encoding.UTF8.GetBytes(string.Empty), 0, 0);
+            }
+
             var result = await request.GetResponseAsync();
 
             return new StreamReader(result.GetResponseStream(), Encoding.UTF8).ReadToEnd();
