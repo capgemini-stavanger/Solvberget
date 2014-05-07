@@ -35,7 +35,7 @@ namespace Solvberget.Nancy.Modules
 
                     AppendInstagramBlacklistToSlideOptions(slideConfig);
 
-                    return Response.AsJson(slideConfig).AsCacheable(DateTime.Now.AddMinutes(20));
+                    return Response.AsJson(slideConfig);
                 };
         }
 
@@ -76,7 +76,7 @@ namespace Solvberget.Nancy.Modules
                 var imageFile = Path.Combine(pathProvider.GetInfoscreenImagesPath(), args.name);
                 string mimeType = MimeTypes.GetMimeType(imageFile);
 
-                return new GenericFileResponse(imageFile, mimeType);
+                return new StreamResponse(() => File.OpenRead(imageFile), mimeType);
             };
         }
     }

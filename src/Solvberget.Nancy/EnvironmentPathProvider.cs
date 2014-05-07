@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Net;
 using System.Web.Configuration;
 using Nancy;
 using Nancy.Helpers;
@@ -120,12 +121,12 @@ namespace Solvberget.Nancy
 
         public string GetWebAppUrl()
         {
-            return "http://app.solvberget.no";
+            return "http://app.solvberget.no/#/";
         }
 
         public string GetWebAppDocumentDetailsPath(Document document)
         {
-            var docUrl = Path.Combine(GetWebAppUrl(), GetWebType(document.DocType), document.DocumentNumber, HttpUtility.UrlEncode(document.Title));
+            var docUrl = Path.Combine(GetWebAppUrl(), GetWebType(document.DocType), document.DocumentNumber, HttpUtility.UrlEncode(document.Title)).Replace("\\", "/");
             return docUrl;
         }
 
