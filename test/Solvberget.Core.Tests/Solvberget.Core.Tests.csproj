@@ -87,13 +87,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Solvberget.Core.Services\Solvberget.Core.Services.csproj">
-      <Project>{352bb203-2499-4319-ba3e-d27a5207d0ed}</Project>
-      <Name>Solvberget.Core.Services</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Solvberget.Core.DTOs\Solvberget.Core.DTOs.csproj">
       <Project>{C74B2533-6F19-4047-A4D0-434A1FE5F027}</Project>
       <Name>Solvberget.Core.DTOs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Solvberget\Solvberget.Core.Services\Solvberget.Core.Services.csproj">
+      <Project>{352BB203-2499-4319-BA3E-D27A5207D0ED}</Project>
+      <Name>Solvberget.Core.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Solvberget\Solvberget.Core\Solvberget.Core.csproj">
       <Project>{747706F4-ECBF-4D50-8D72-B0DDCC18395C}</Project>
