@@ -15,10 +15,14 @@ namespace Solvberget.Core
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
+            CreatableTypes(typeof(SearchService).Assembly) // Solvberget.Core.Services assembly
+                .EndingWith("Service")
+                .AsInterfaces()
+                .RegisterAsLazySingleton();
+
             Mvx.LazyConstructAndRegisterSingleton<IStringDownloader, HttpBodyDownloader>();
 			Mvx.LazyConstructAndRegisterSingleton<DtoDownloader, DtoDownloader>();
-            
-            Mvx.RegisterSingleton<IServiceUrls>(new ServiceUrlsFromResources());
+            Mvx.LazyConstructAndRegisterSingleton<IServiceUrls, ServiceUrlsFromResources>();
 
             // Bootstrapping up some stubs while developing. Just remove these lines to start using proper implementations
             // Mvx.LazyConstructAndRegisterSingleton<ISearchService, SearchServiceTemporaryStub>();

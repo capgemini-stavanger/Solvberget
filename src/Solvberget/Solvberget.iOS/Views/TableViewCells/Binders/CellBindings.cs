@@ -29,15 +29,23 @@ namespace Solvberget.iOS
 			sc.SetImage(UIImage.FromBundle("/Images/Placeholders/Blog.png"));
 		};
 
+        private static string GetMediaFormatSuffix(string mediaFormat)
+        {
+            if (String.IsNullOrEmpty(mediaFormat))
+                return null;
+
+            return " - " + mediaFormat;
+        }
+
 		public static Action<ISimpleCell, SearchResultViewModel> SearchResults = (sc, model) =>
 		{
-			sc.Bind(model.Name, model.PresentableTypeWithYear); 
+            sc.Bind(model.Name, model.PresentableTypeWithYear + GetMediaFormatSuffix(model.MediaFormat)); 
 			sc.ImageUrl = model.Image;
 		};
 
 		public static Action<ISimpleCell, FavoriteViewModel> Favorites = (sc, model) =>
 		{
-			sc.Bind(model.Name, model.PresentableTypeWithYear); 
+            sc.Bind(model.Name, model.PresentableTypeWithYear); 
 			sc.ImageUrl = model.Image;
 		};
 
