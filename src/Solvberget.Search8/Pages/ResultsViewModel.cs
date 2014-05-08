@@ -27,6 +27,7 @@ namespace Solvberget.Search8.Pages
         private async void DoSearch()
         {
             Results.Clear();
+            SelectedFilter = new FilterOptionVm { Name = "Alle typer medier" }; // temp
             NotifyOfPropertyChange("FilteredResults");
             
             IsSearching = true;
@@ -38,6 +39,7 @@ namespace Solvberget.Search8.Pages
             Results.Clear();
             Results.AddRange(results);
             
+            // recalculate filters
             FilterOptions.Clear();
             FilterOptions.Add(new FilterOptionVm { Name = "Alle typer medier", Count = ResultCount });
             FilterOptions.Add(new FilterOptionVm { Name = "Kun bøker", Count = Results.Count(r => r.Type == "Book"), Predicate = doc => doc.Type == "Book" });
@@ -85,7 +87,6 @@ namespace Solvberget.Search8.Pages
             get { return _isSearching; }
             set
             {
-                if (value.Equals(_isSearching)) return;
                 _isSearching = value;
                 NotifyOfPropertyChange("IsSearching");
             }
@@ -96,7 +97,6 @@ namespace Solvberget.Search8.Pages
             get { return _resultCount; }
             set
             {
-                if (value == _resultCount) return;
                 _resultCount = value;
                 NotifyOfPropertyChange("ResultCount");
             }
@@ -107,7 +107,6 @@ namespace Solvberget.Search8.Pages
             get { return _query; }
             set
             {
-                if (value == _query) return;
                 _query = value;
 
                 DoSearch();
