@@ -61,7 +61,7 @@ namespace Solvberget.Core.ViewModels
                 {
                     DocumentTitle = r.Document.Title,
                     DocumentNumber = r.Document.Id,
-                    HoldRequestFrom = r.Reserved,
+                    HoldRequestFrom = r.ReservedString,
                     ReadyForPickup = r.ReadyForPickup,
                     PickupLocation = r.PickupLocation.Equals("Hovedbibl.") ? "Hovedbiblioteket" : r.PickupLocation,
                     Parent = this,
@@ -71,7 +71,7 @@ namespace Solvberget.Core.ViewModels
                     ButtonText = "Fjern",
                     Status = r.ReadyForPickup ? "" : "Ikke klar for henting",
                     Image = Resources.ServiceUrl + string.Format(Resources.ServiceUrl_MediaImage, r.Document.Id),
-                    PickupDeadline = r.PickupDeadline
+                    PickupDeadline = r.PickupDeadlineString
                 });
             }
 
