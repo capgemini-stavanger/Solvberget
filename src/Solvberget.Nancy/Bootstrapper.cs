@@ -57,7 +57,8 @@ namespace Solvberget.Nancy
             var jsonSettings = new JsonSerializerSettings
             {
                 NullValueHandling = NullValueHandling.Ignore,
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
+                ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                DateFormatHandling = DateFormatHandling.IsoDateFormat
             };
             
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Solvberget.Core.DTOs;
@@ -55,13 +56,7 @@ namespace Solvberget.Core.ViewModels
 
             foreach (ReservationDto r in res)
             {
-                var deadline = "";
-
-                if (r.PickupDeadline != null)
-                    deadline = r.ReadyForPickup ? r.PickupDeadline.Value.ToString("dd.MM.yyyy") : null;
-
                 
-
                 Reservations.Add(new ReservationViewModel
                 {
                     DocumentTitle = r.Document.Title,
@@ -76,7 +71,7 @@ namespace Solvberget.Core.ViewModels
                     ButtonText = "Fjern",
                     Status = r.ReadyForPickup ? "" : "Ikke klar for henting",
                     Image = Resources.ServiceUrl + string.Format(Resources.ServiceUrl_MediaImage, r.Document.Id),
-                    PickupDeadline = deadline
+                    PickupDeadline = r.PickupDeadline
                 });
             }
 

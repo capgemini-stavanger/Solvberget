@@ -7,11 +7,11 @@ namespace Solvberget.Core.DTOs
     {
         public DocumentDto Document { get; set; }
 
-        public DateTime Reserved { get; set; }
+        public string Reserved { get; set; }
 
         public bool ReadyForPickup { get; set; }
 
-        public DateTime? PickupDeadline { get; set; }
+        public string PickupDeadline { get; set; }
         public string PickupLocation { get; set; }
     }
 }
