@@ -39,13 +39,23 @@ namespace Solvberget.Nancy.Mapping
 
         public static ReservationDto Map(Reservation reservation, IRepository documents)
         {
+            DateTime holdEnd;
+            DateTime holdFrom;
+            DateTime holdTo;
+
+            DateTime.TryParse(reservation.HoldRequestEnd, out holdEnd);
+            DateTime.TryParse(reservation.HoldRequestFrom, out holdFrom);
+            DateTime.TryParse(reservation.HoldRequestTo, out holdTo);
+
             return new ReservationDto
             {
                 Document = Map(documents.GetDocument(reservation.DocumentNumber, true)),
-                Reserved = reservation.HoldRequestFrom,
+                Reserved = holdFrom,
+                ReservedString = reservation.HoldRequestFrom,
                 ReadyForPickup = !UnavailableStatuses.Contains(reservation.Status), // business logic should not be here! :(
                 PickupLocation = reservation.PickupLocation,
-                PickupDeadline = reservation.HoldRequestEnd
+                PickupDeadline = DateTime.SpecifyKind(holdEnd, DateTimeKind.Utc),
+                PickupDeadlineString = reservation.HoldRequestEnd
             };
         }
 
