@@ -79,35 +79,8 @@ namespace Solvberget.Nancy.Modules
 
         private dynamic ResolvePlaceHolderImageForDocumentType(IEnvironmentPathProvider pathProvider, dynamic doc)
         {
-            if (doc is Cd)
-            {
-                return Response.AsFile(Path.Combine(pathProvider.GetPlaceHolderImagesPath(), "Cd.png"));
-            }
-            if (doc is Book)
-            {
-                return Response.AsFile(Path.Combine(pathProvider.GetPlaceHolderImagesPath(), "Book.png"));
-            }
-            if (doc is Film)
-            {
-                return Response.AsFile(Path.Combine(pathProvider.GetPlaceHolderImagesPath(), "Film.png"));
-            }
-            if (doc is SheetMusic)
-            {
-                return Response.AsFile(Path.Combine(pathProvider.GetPlaceHolderImagesPath(), "SheetMusic.png"));
-            }
-            if (doc is Journal)
-            {
-                return Response.AsFile(Path.Combine(pathProvider.GetPlaceHolderImagesPath(), "Journal.png"));
-            }
-            if (doc is Game)
-            {
-                return Response.AsFile(Path.Combine(pathProvider.GetPlaceHolderImagesPath(), "Game.png"));
-            }
-            if (doc is AudioBook)
-            {
-                return Response.AsFile(Path.Combine(pathProvider.GetPlaceHolderImagesPath(), "AudioBook.png"));
-            }
-            return Response.AsFile(Path.Combine(pathProvider.GetPlaceHolderImagesPath(), "Document.png"));
+            var path = Path.Combine(pathProvider.GetPlaceHolderImagesPath(), doc.GetType().Name + ".png");
+            return Response.FromStream(() => File.OpenRead(path), "image/png");
         }
     }
 }
