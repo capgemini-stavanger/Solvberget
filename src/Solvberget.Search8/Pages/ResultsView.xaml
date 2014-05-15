@@ -59,8 +59,8 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                         Tapped="Result_OnTapped">
-                                <Border Width="75" Height="135" Background="{StaticResource VerySubtleColor}">
-                                <Image Stretch="UniformToFill" Source="{Binding Converter={StaticResource DocumentImage}}" />
+                                <Border Width="75" Height="103" Background="{StaticResource VerySubtleColor}">
+                                <Image Stretch="Fill" Source="{Binding Converter={StaticResource DocumentImage}}" />
                                 </Border>
                                 <StackPanel Margin="12">
                                     <TextBlock Text="{Binding Title}" 

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="97c599c6-bbad-4c59-8f69-23a02608fbaa" Publisher="CN=Solvberget" Version="1.0.0.1" />
+  <Identity Name="97c599c6-bbad-4c59-8f69-23a02608fbaa" Publisher="CN=Solvberget" Version="1.0.0.2" />
   <Properties>
     <DisplayName>Solvberget.Search8</DisplayName>
     <PublisherDisplayName>Fredrik</PublisherDisplayName>

@@ -27,8 +27,10 @@ namespace Solvberget.Nancy
             var dataPath = WebConfigurationManager.AppSettings["DataPath"];
             if (String.IsNullOrEmpty(dataPath)) dataPath = _rootPath;
 
-            _applicationAppDataPath = Path.Combine(dataPath, @"Data");
-            _applicationContentDataPath = Path.Combine(rootPathProvider.GetRootPath(), @"Content");
+            if (!dataPath.EndsWith("\\")) dataPath += "\\";
+
+            _applicationAppDataPath = dataPath + @"Data";
+            _applicationContentDataPath = rootPathProvider.GetRootPath() + @"Content";
         }
 
         public string GetDictionaryPath()
