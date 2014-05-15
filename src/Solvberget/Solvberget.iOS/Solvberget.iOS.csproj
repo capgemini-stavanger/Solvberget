@@ -74,9 +74,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
-    <CodesignKey>iPhone Distribution: Capgemini Norge AS (2DSX5WDBX9)</CodesignKey>
+    <CodesignKey>iPhone Developer: Bjorn Kjetil Fredriksen (B52BY2W779)</CodesignKey>
     <BuildIpa>True</BuildIpa>
-    <CodesignProvision>F6095899-151E-48BB-9951-BEF78D74A928</CodesignProvision>
+    <CodesignProvision>61FC1AE3-148D-49E1-B1A9-4368FF462AC2</CodesignProvision>
     <MtouchI18n>
     </MtouchI18n>
     <MtouchArch>ARMv7</MtouchArch>
