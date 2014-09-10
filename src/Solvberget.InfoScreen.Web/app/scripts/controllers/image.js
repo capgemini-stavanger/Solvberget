@@ -6,6 +6,6 @@ angular.module('solvbergetinfoScreenwebApp').controller('ImageCtrl', function ($
 
     $scope.imageSrc = $$config.apiPrefix + "/infoscreen/image/" + $scope.template.slideOptions.image;
     
-    $rootScope.title = "Arrangement hos Sølvberget";
+    $rootScope.title = "Sølvberget";
   });
 

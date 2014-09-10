@@ -5,15 +5,22 @@ angular.module('solvbergetinfoScreenwebApp').controller('MainCtrl', function ($s
     // Each slide defines its own timeout interval.
     $scope.onSlidesReceived = function () {
 
-        console.log(console.log("onSlidesReceived", $scope.slides));
+        console.log("onSlidesReceived", $scope.slides);
 
         $scope.template=$scope.slides[0];
         $scope.count=0;
 
-        $scope.nextSlide=function(timeOut) {
-            $timeout(function() {
+        $scope.nextSlide = function (timeOut) {
+            
+
+            console.log("next slide in " + timeOut + "ms.");
+
+            $timeout(function () {
+
+                console.log("NEXT SLIDE. $scope", $scope);
+
                 $scope.template = $scope.slides[$scope.count];
-                $scope.templateName = "views/slides/" + $scope.template.template + ".html";
+                $scope.templateName = "views/slides/" + $scope.template.template + ".html?" + new Date().getTime();
                 $scope.count+=1;
                 if($scope.count>=$scope.slides.length) {
                     $scope.count=0;
@@ -31,7 +38,11 @@ angular.module('solvbergetinfoScreenwebApp').controller('MainCtrl', function ($s
         $timeout(function() {
             slides(screenId).query(
                 function (data) {
-                    $scope.slides = data.slides;
+
+                    console.log("update. ", data);
+
+                    $scope.slides = data;
+                    
                     $scope.reloadSlides(timeOut, screenId);
                 }
             );
