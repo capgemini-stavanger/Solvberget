@@ -17,5 +17,6 @@ namespace Solvberget.Core.DTOs
 
         public double TicketPrice { get; set; }
         public string TicketUrl { get; set; }
+        public string TicketCoId { get; set; }
     }
 }

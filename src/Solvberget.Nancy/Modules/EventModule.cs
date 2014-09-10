@@ -23,19 +23,54 @@ namespace Solvberget.Nancy.Modules
     {
         public EventModule(IEnvironmentPathProvider env) : base("/events")
         {
+            var events = DownloadEvents();
+
+            // todo: implement after new events integration in place
+            Get["/"] = _ => events.OrderBy(ev => ev.Start).ToArray();
+
+            Get["/{id}"] = args => events.FirstOrDefault(ev => ev.Id == args.id);
+
+            Get["/ind-export/{org}/{id}"] = args =>
+            {
+                EventDto[] selection;
+
+                List<EventDto> evs = DownloadEvents(args.Org);
+
+                string name = "arrangementer-org-" + args.Org;
+
+                if (args.id == "all")
+                {
+                    name += "-all.xml";
+                    selection = evs.OrderBy(ev => ev.Start).ToArray();
+                }
+                else
+                {
+                    name = string.Format(name+"-id-{0}.xml", args.id);
+                    selection = evs.Where(ev => ev.TicketCoId == args.id).ToArray();
+                }
+
+                string xml = new InDesignXmlBuilder().Build(selection);
+
+                return Response.AsText(xml).AsAttachment(name, "text/xml; charset=utf-8");
+
+            };
+        }
+
+        private static List<EventDto> DownloadEvents(string organizerId = null)
+        {
             var events = new List<EventDto>();
 
             var client = new WebClient();
             client.Encoding = Encoding.UTF8;
 
-            var organizerId = ConfigurationManager.AppSettings["TicketCoOrganizerId"];
+            organizerId = organizerId ?? ConfigurationManager.AppSettings["TicketCoOrganizerId"];
             var apiToken = ConfigurationManager.AppSettings["TicketCoApiToken"];
 
             try
             {
                 var eventsJson = client.DownloadString(new Uri(
-                String.Format("https://ticketco.no/api/public/v1/events?organizer_id={0}&token={1}", organizerId,
-                    apiToken)));
+                    String.Format("https://ticketco.no/api/public/v1/events?organizer_id={0}&token={1}", organizerId,
+                        apiToken)));
 
                 var serializer = new JsonSerializer();
                 serializer.Culture = new CultureInfo("nb-no");
@@ -47,6 +82,7 @@ namespace Solvberget.Nancy.Modules
                     var ev = new EventDto();
                     events.Add(ev);
 
+                    ev.TicketCoId = element.id;
                     ev.Id = element.mobile_link.GetHashCode();
                     ev.Name = element.title;
                     ev.Description = element.description;
@@ -61,11 +97,85 @@ namespace Solvberget.Nancy.Modules
             catch
             {
             }
+            return events;
+        }
 
-            // todo: implement after new events integration in place
-            Get["/"] = _ => events.OrderBy(ev => ev.Start).ToArray();
+        public class InDesignXmlBuilder
+        {
 
-            Get["/{id}"] = args => events.FirstOrDefault(ev => ev.Id == args.id);
+            /*
+             * InDesign crazy xml format:
+             * 
+             * <Root>
+             * <arr_description>
+             * 
+             * <!-- event #1 -->
+             * <nest_arr_place>$location</nest_arr_place>
+             * <arr_tittel>$title</arr_tittel>
+             * <arr_description>$description</arr_description>
+             * 
+             * <!-- event #2... -->
+             * <!-- event #n... -->
+             *  * 
+             * </arr_description>
+             * 
+             * <!-- time info for event #1 -->
+             * <arr_description>
+             * <nest_dato_box_right>
+             * <nest_dag>$day_name </nest_dag><nest_dato>$day_num</nest_dato>
+             * $time
+             * </nest_dato_box_right>
+             * <arr_description>
+             * <mnd_box>$month_name</mnd_box>
+             * </arr_description>
+             * 
+             * <!-- time info event #2... ->
+             * <!-- time info event #n... ->
+             * 
+             * </Root>
+
+            */
+
+            public string Build(EventDto[] events)
+            {
+                // xml format for In-Design is a bit.. weird, so lets just build it using a StringBuilder...
+                var root = new StringBuilder();
+
+                root.AppendLine("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+                root.AppendLine("<Root>");
+                root.AppendLine("<arr_description>");
+                
+                foreach (var ev in events)
+                {
+                    root.AppendFormat("<nest_arr_place>{0}</nest_arr_place>", ev.Location);
+                    root.AppendLine();
+                    root.AppendFormat("<arr_tittel>{0}</arr_tittel>", ev.Name);
+                    root.AppendLine();
+                    root.AppendFormat("<arr_description>{0}</arr_description>", ev.Description);
+                    root.AppendLine();
+                }
+
+                root.AppendLine("</arr_description>");
+
+                foreach (var ev in events)
+                {
+                    string dayName = ev.Start.ToString("dddd");
+                    int dayNum = ev.Start.Day;
+                    string time = ev.Start.ToString("HH.mm");
+
+                    root.AppendLine("<arr_description>");
+                    root.AppendLine("<nest_dato_box_right>");
+                    root.AppendFormat("<nest_dag>{0} </nest_dag><nest_dato>{1}</nest_dato>", dayName, dayNum);
+                    root.AppendLine();
+                    root.AppendLine(time);
+                    root.AppendLine("</nest_dato_box_right>");
+                    root.AppendLine("</arr_description>");
+                }
+
+                root.AppendLine("</Root>");
+
+                return root.ToString();
+            }
         }
 
         public class TicketCoResult
@@ -75,6 +185,7 @@ namespace Solvberget.Nancy.Modules
 
         public class TicketCoEventResult
         {
+            public string id;
             public double ticket_price { get; set; } // missing?
             public string title { get; set; }
             public string description { get; set; }
