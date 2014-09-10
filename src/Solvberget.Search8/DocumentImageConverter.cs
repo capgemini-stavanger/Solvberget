@@ -15,7 +15,8 @@ namespace Solvberget.Search8
             
             var urls = IoC.Get<IServiceUrls>();
 
-            return urls.ServiceUrl + String.Format(urls.ServiceUrl_MediaImage, doc.Id);
+            var url = urls.ServiceUrl + String.Format(urls.ServiceUrl_MediaImage, doc.Id);
+            return url;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

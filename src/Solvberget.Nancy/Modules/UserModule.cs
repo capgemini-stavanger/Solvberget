@@ -51,22 +51,27 @@ namespace Solvberget.Nancy.Modules
                     Status = f.Status,
                     Sum = f.Sum
                 }).OrderByDescending(f => f.Date);
-
-                var loans = loansList.Select(l => new LoanDto
+                
+                var loans = loansList.Select(delegate(Loan l)
                 {
-                    Document = String.IsNullOrEmpty(l.DocumentNumber) ? null : DtoMaps.Map(documents.GetDocument(l.DocumentNumber, true)),
-                    AdminisrtativeDocumentNumber = l.AdminisrtativeDocumentNumber,
-                    Barcode = l.Barcode,
-                    DocumentNumber = l.DocumentNumber,
-                    DocumentTitle = l.DocumentTitle,
-                    DueDate = ParseDateString(l.DueDate),
-                    ItemSequence = l.ItemSequence,
-                    ItemStatus = l.ItemStatus,
-                    LoanDate = ParseDateString(l.LoanDate),
-                    LoanHour = l.LoanHour,
-                    Material = l.Material,
-                    OriginalDueDate = ParseDateString(l.OriginalDueDate),
-                    SubLibrary = l.SubLibrary
+                    var document = String.IsNullOrEmpty(l.DocumentNumber) ? null : documents.GetDocument(l.DocumentNumber, true);
+
+                    return new LoanDto
+                    {
+                        Document = null == document ? null : DtoMaps.Map(document),
+                        AdminisrtativeDocumentNumber = l.AdminisrtativeDocumentNumber,
+                        Barcode = l.Barcode,
+                        DocumentNumber = l.DocumentNumber,
+                        DocumentTitle = l.DocumentTitle,
+                        DueDate = ParseDateString(l.DueDate),
+                        ItemSequence = l.ItemSequence,
+                        ItemStatus = l.ItemStatus,
+                        LoanDate = ParseDateString(l.LoanDate),
+                        LoanHour = l.LoanHour,
+                        Material = l.Material,
+                        OriginalDueDate = ParseDateString(l.OriginalDueDate),
+                        SubLibrary = l.SubLibrary
+                    };
                 });
 
                 var notifications = notificationList.Select(n => new NotificationDto

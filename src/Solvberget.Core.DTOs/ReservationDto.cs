@@ -12,6 +12,11 @@ namespace Solvberget.Core.DTOs
         public bool ReadyForPickup { get; set; }
 
         public DateTime? PickupDeadline { get; set; }
+
+        // v1.2
+        public string PickupDeadlineString { get; set; }
+        public string ReservedString { get; set; }
+
         public string PickupLocation { get; set; }
     }
 }

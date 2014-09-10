@@ -42,8 +42,8 @@ namespace Solvberget.Core.ViewModels
             set { _image = value; RaisePropertyChanged(() => Image);}
         }
 
-        private DateTime? _holdRequestFrom;
-        public DateTime? HoldRequestFrom
+        private string _holdRequestFrom;
+        public string HoldRequestFrom
         {
             get { return _holdRequestFrom; }
             set { _holdRequestFrom = value; RaisePropertyChanged(() => HoldRequestFrom); }

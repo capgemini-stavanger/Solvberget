@@ -51,9 +51,11 @@ namespace Solvberget.Nancy.Mapping
             {
                 Document = Map(documents.GetDocument(reservation.DocumentNumber, true)),
                 Reserved = holdFrom,
+                ReservedString = reservation.HoldRequestFrom,
                 ReadyForPickup = !UnavailableStatuses.Contains(reservation.Status), // business logic should not be here! :(
                 PickupLocation = reservation.PickupLocation,
-                PickupDeadline = holdEnd
+                PickupDeadline = DateTime.SpecifyKind(holdEnd, DateTimeKind.Utc),
+                PickupDeadlineString = reservation.HoldRequestEnd
             };
         }
 
