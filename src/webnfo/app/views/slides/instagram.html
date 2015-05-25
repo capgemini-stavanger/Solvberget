@@ -1,0 +1,61 @@
+﻿<div id="instagram-slide" class="container-fluid span-height" ng-controller="InstagramCtrl" view-loaded="viewLoaded">
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="ig-carousel" class="carousel slide" data-ride="carousel">
+                <div id="carousel-items" class="carousel-inner"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    function viewLoaded($scope) {
+        
+        var feed = new Instafeed({
+            template: '<div class="item ig-item"><div class="col-xs-7"><img src="{{image}}" /></div><div class="col-xs-5 ig-item-caption"><div class="ig-item-caption">{{caption}}</div><h1>Fra @{{model.user.username}} på Instagram.</h1><h2>Tagg dine bilder med #sølvberget!</h2></div></div>',
+            target: 'carousel-items',
+            get: 'tagged',
+            tagName: $scope.tagName,
+            resolution: 'standard_resolution',
+            links: false,
+            limit: 15,
+            clientId: '8cb0d60e537d4098b2c0f79194b2f82e',
+            after: function (a) {
+
+                delete $scope.lastError;
+
+                $(".ig-item:first").addClass("active");
+
+                $(".carousel").carousel({
+                    interval: 10000
+                });
+
+            },
+            filter: function (image) {
+
+                emoji.img_path = 'http://solvbergetapp.cloudapp.net/infoscreen/images/emoji/';
+                image.caption.text = emoji.replace_unified(image.caption.text);
+                return true;
+            },
+            error: function(msg) {
+
+                console.log("insta error", msg);
+                $scope.lastError = msg;
+            },
+            success: function(response) {
+                for (var i = 0; i< response.data.length; i++) {
+                    if ($scope.template.slideOptions && $scope.template.slideOptions.blacklist && $scope.template.slideOptions.blacklist.indexOf(response.data[i].user.username) > -1) {
+                        console.log("Removing blacklisted item by user: " + response.data[i].user.username);
+                        response.data.splice(i, 1);
+                    }
+                }
+
+                // Limit to ten images like before.
+                response.data = response.data.splice(0, 10);
+            }
+        });
+
+        feed.run();
+    }
+
+</script>

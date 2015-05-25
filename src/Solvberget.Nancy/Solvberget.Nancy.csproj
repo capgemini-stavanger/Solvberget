@@ -98,6 +98,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\events\events.xml" />
+    <Content Include="Data\infoscreen\images\test.gif" />
+    <Content Include="Data\infoscreen\instagram_blacklist.txt" />
     <Content Include="Data\info\contact.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -193,7 +195,11 @@
     <Compile Include="EnvironmentPathProvider.cs" />
     <Compile Include="Mapping\DtoMaps.cs" />
     <Compile Include="Modules\BlogModule.cs" />
-    <Compile Include="Modules\SlideConfigModule.cs" />
+    <Compile Include="Modules\InfoScreen\InfoscreenImageModule.cs" />
+    <Compile Include="Modules\InfoScreen\InfoScreenStatusModule.cs" />
+    <Compile Include="Modules\InfoScreen\ScreenStatus.cs" />
+    <Compile Include="Modules\InfoScreen\ScreenStatusUpdate.cs" />
+    <Compile Include="Modules\InfoScreen\SlideConfigModule.cs" />
     <Compile Include="Modules\EventModule.cs" />
     <Compile Include="Modules\FavoritesModule.cs" />
     <Compile Include="Modules\InformationModule.cs" />
@@ -203,6 +209,7 @@
     <Compile Include="Modules\NewsModule.cs" />
     <Compile Include="Modules\RenewalsModule.cs" />
     <Compile Include="Modules\ReservationsModule.cs" />
+    <Compile Include="Modules\InfoScreen\StatusModel.cs" />
     <Compile Include="Modules\SuggestionModule.cs" />
     <Compile Include="Modules\TwitterModule.cs" />
     <Compile Include="Modules\UserModule.cs" />
@@ -210,6 +217,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <BundleResource Include="Data\infoscreen\screen_configuration.json" />
     <None Include="Properties\PublishProfiles\PRod.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -251,7 +259,7 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v12.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ProjectExtensions>
     <VisualStudio>
-      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+      <FlavorProperties GUID="{349C5851-65DF-11DA-9384-00065B846F21}">
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>

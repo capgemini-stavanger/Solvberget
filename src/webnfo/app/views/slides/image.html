@@ -1,0 +1,27 @@
+<div id="qrc"></div>
+<div class="container-fluid span-height" ng-controller="ImageCtrl" style="width:100%">
+    <img ng-src="{{imageSrc}}" onload="centerImage(this)" />
+    
+</div>
+<script type="text/javascript">
+    function centerImage(img) {
+        
+        img = $(img);
+
+        var container = img.parent();
+        
+        var ih = img.height();
+        var iw = img.width();
+        var ch = container.height();
+        var cw = container.width();
+
+        var ix = (ch - ih)/2;
+        var iy = (cw - iw) / 2;
+
+        img.offset({ top: ix, left: iy });
+
+    }
+</script>
+
+
+

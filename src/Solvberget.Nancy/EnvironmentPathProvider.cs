@@ -159,7 +159,7 @@ namespace Solvberget.Nancy
         {
             return Path.Combine(_applicationAppDataPath, @"infoscreen\screen_configuration.json");
         }
-
+        
         public string GetEventsPath()
         {
             return Path.Combine(_applicationAppDataPath, @"events\events.xml");

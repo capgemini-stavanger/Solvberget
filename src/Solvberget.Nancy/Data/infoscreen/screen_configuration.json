@@ -1,5 +1,72 @@
-{
-    "default": [{"template" : "instagram", "duration" : 40}],
-   	
-	
-}
+﻿
+
+/*** OBS: CONFIG-FILEN HAR F�TT NYTT FORMAT. ***/
+
+
+
+[
+    {
+        id :  "default",
+        name : "z. Default layout",
+        config:  [{"template": "news", "duration": 120}, {"template" : "events", "duration" : 120}, {"template" : "instagram", "duration" : 40 }, {"template": "twitter", "duration": 120}]
+    },  
+    
+    
+       
+    {
+        id: "HSJMXT",
+        name:  "3x2: Top left",
+        config: [{"template": "instagram", "duration": 40, SlideOptions : { "tagName" : "sølvberget"}}]
+    },     
+    {
+        id: "USAAWX",
+        name:  "3x2: Top right",
+        config: [{"template": "instagram", "duration": 40, SlideOptions : { "tagName" : "sølvberget"}}]
+    },     
+    {
+        id: "DDNWMN",
+        name:  "3x2: Middle left",
+        config: [{"template" : "events", "duration" : 120}]
+    },     
+    {
+        id: "XVHVQT",
+        name:  "3x2: Middle right",
+        config: [{"template" : "events", "duration" : 120}]
+    },     
+    {
+        id: "CHXFOG",
+        name:  "3x2: Bottom left",
+        config: [{"template": "image", "duration": 400, SlideOptions : { "image" : "solvbergetapp.jpg"}}]
+    },     
+    {
+        id: "MILRGL",
+        name:  "3x2: Bottom right",
+        config: [{"template": "image", "duration": 400, SlideOptions : { "image" : "skjermplakater_ebokbib2.jpg"}}]
+    },    
+    
+
+     
+    {
+        id: "IVFWUL",
+        name:  "Reception: Left",
+        config: [{"template" : "events", "duration" : 120}]
+    },     
+    {
+        id: "OTLXNU",
+        name:  "Reception: Right",
+        config: [{"template": "instagram", "duration": 40, SlideOptions : { "tagName" : "sølvberget"}}]
+    }, 
+        
+
+
+    {
+        id: "JLYREX",
+        name:  "Entry: left",
+        config: [{"template" : "events", "duration" : 120}]
+    },     
+    {
+        id: "PPKVRU",
+        name:  "Entry: right",
+        config: [{"template": "instagram", "duration": 40, SlideOptions : { "tagName" : "sølvberget"}}]
+    }
+]

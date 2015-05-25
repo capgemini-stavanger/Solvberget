@@ -1,0 +1,58 @@
+{
+  "default": {
+    "ScreenId": "default",
+    "Heartbeat": "2015-02-03T12:33:48.8710634+00:00",
+    "LastTemplate": "news",
+    "Log": [],
+    "ScreenName": "z. Default layout",
+    "ConfigSummary": "news, events, instagram, twitter"
+  },
+  "id=HCA503": {
+    "ScreenId": "id=HCA503",
+    "Heartbeat": "2015-01-30T11:26:38.7231445+00:00",
+    "LastTemplate": "instagram",
+    "Log": [],
+    "ScreenName": null,
+    "ConfigSummary": null
+  },
+  "HCA503": {
+    "ScreenId": "HCA503",
+    "Heartbeat": "2015-01-30T11:26:42.7123783+00:00",
+    "LastTemplate": "news",
+    "Log": [],
+    "ScreenName": null,
+    "ConfigSummary": null
+  },
+  "HSJMXT": {
+    "ScreenId": "HSJMXT",
+    "Heartbeat": "2015-02-03T12:35:01.5189042+00:00",
+    "LastTemplate": "instagram",
+    "Log": [],
+    "ScreenName": "3x2: Top left",
+    "ConfigSummary": "instagram"
+  },
+  "XVHVQT": {
+    "ScreenId": "XVHVQT",
+    "Heartbeat": "2015-02-01T20:05:52.5633149+00:00",
+    "LastTemplate": "events",
+    "Log": [],
+    "ScreenName": "3x2: Middle right",
+    "ConfigSummary": "events"
+  },
+  "CHXFOG": {
+    "ScreenId": "CHXFOG",
+    "Heartbeat": "2015-02-03T12:34:01.0963964+00:00",
+    "LastTemplate": "image",
+    "Log": [],
+    "ScreenName": "3x2: Bottom left",
+    "ConfigSummary": "image"
+  },
+  "USAAWX": {
+    "ScreenId": "USAAWX",
+    "Heartbeat": "2015-02-03T13:01:09.4979426+00:00",
+    "LastTemplate": "instagram",
+    "Log": [],
+    "ScreenName": "3x2: Top right",
+    "ConfigSummary": "instagram"
+  }
+}

@@ -4,6 +4,7 @@ using Nancy;
 using Nancy.Authentication.Stateless;
 using Nancy.Bootstrapper;
 using Nancy.Bootstrappers.Autofac;
+using Nancy.Diagnostics;
 using Nancy.LightningCache.Extensions;
 using Nancy.Responses;
 using Nancy.Responses.Negotiation;
@@ -48,6 +49,11 @@ namespace Solvberget.Nancy
                 return new TextResponse(a.Message) {StatusCode = HttpStatusCode.InternalServerError};
             });
 
+        }
+        
+        protected override DiagnosticsConfiguration DiagnosticsConfiguration
+        {
+            get { return new DiagnosticsConfiguration { Password = @"Kapittel12" }; }
         }
         
         protected override void ConfigureApplicationContainer(ILifetimeScope container)
