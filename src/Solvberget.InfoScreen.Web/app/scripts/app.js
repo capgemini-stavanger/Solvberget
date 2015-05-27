@@ -12,7 +12,8 @@ angular.module('solvbergetinfoScreenwebApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'angularMoment'
 ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -27,7 +28,9 @@ angular.module('solvbergetinfoScreenwebApp', [
       .otherwise({
         redirectTo: '/'
       });
+
   }).run(function ($locale) {
     console.log("Current locale: " + $locale.id);
+
   });
-    
+

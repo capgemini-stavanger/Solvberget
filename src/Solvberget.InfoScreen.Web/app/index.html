@@ -29,10 +29,10 @@
     <![endif]-->
 
       <div class="container-liquid" ng-view></div>
-      
+
       <div style="background-color:red; position:absolute; bottom:0px; padding:10px; font-size:20px" ng-show="lastError !== undefined">Nettverksfeil: {{lastError}}</div>
-      
-      <script src="bower_components/jquery/jquery.js"></script> 
+
+      <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
 
 
@@ -46,11 +46,15 @@
       <script src="scripts/plugins/qrcode.min.js"></script>
       <script src="scripts/plugins/instafeed.min.js"></script>
       <script src="scripts/plugins/twitterlib.min.js"></script>
-
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/moment-timezone/builds/moment-timezone-with-data.js"></script>
+    <script src="bower_components/moment-timezone/moment-timezone.js"></script>
+    <script src="bower_components/angular-moment/angular-moment.js"></script>
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
+
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/news.js"></script>

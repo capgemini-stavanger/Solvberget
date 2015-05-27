@@ -11,7 +11,7 @@ angular.module('solvbergetinfoScreenwebApp').controller('MainCtrl', function ($s
         $scope.count=0;
 
         $scope.nextSlide = function (timeOut) {
-            
+
 
             console.log("next slide in " + timeOut + "ms.");
 
@@ -20,12 +20,16 @@ angular.module('solvbergetinfoScreenwebApp').controller('MainCtrl', function ($s
                 console.log("NEXT SLIDE. $scope", $scope);
 
                 $scope.template = $scope.slides[$scope.count];
-                $scope.templateName = "views/slides/" + $scope.template.template + ".html?" + new Date().getTime();
+
+                var timeNow= moment.tz("Europe/Copenhagen");
+                console.log("timezone copenhagen"+timeNow.format());
+
+                $scope.templateName = "views/slides/" + $scope.template.template + ".html?" +  timeNow.format();
                 $scope.count+=1;
                 if($scope.count>=$scope.slides.length) {
                     $scope.count=0;
                 }
-                
+
                 $scope.nextSlide($scope.template.duration * 1000);
             }, timeOut);
         };
@@ -42,7 +46,7 @@ angular.module('solvbergetinfoScreenwebApp').controller('MainCtrl', function ($s
                     console.log("update. ", data);
 
                     $scope.slides = data;
-                    
+
                     $scope.reloadSlides(timeOut, screenId);
                 }
             );
@@ -55,7 +59,7 @@ angular.module('solvbergetinfoScreenwebApp').controller('MainCtrl', function ($s
     // Load slides and start slideshow
 
     console.log("screenId = " + screenId);
-    
+
     $scope.slides = slides(screenId).query($scope.onSlidesReceived);
 
     // Start reload rotation of slides
