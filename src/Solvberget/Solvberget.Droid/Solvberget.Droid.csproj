@@ -20,7 +20,8 @@
     <AndroidSupportedAbis>armeabi,armeabi-v7a,x86</AndroidSupportedAbis>
     <AndroidStoreUncompressedFileExtensions />
     <MandroidI18n />
-    <JavaMaximumHeapSize />
+    <JavaMaximumHeapSize>
+    </JavaMaximumHeapSize>
     <JavaOptions />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -336,7 +337,9 @@
     <AndroidResource Include="Resources\Values\Strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Properties\AndroidManifest.xml" />
+    <Content Include="Properties\AndroidManifest.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <AndroidResource Include="Resources\Drawable\splash.png" />
     <AndroidResource Include="Resources\Drawable\background_card.9.png" />
     <AndroidResource Include="Resources\Drawable\background_card_inverse.9.png" />
@@ -423,7 +426,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Solvberget.Core.Services\Solvberget.Core.Services.csproj">
-      <Project>{352bb203-2499-4319-ba3e-d27a5207d0ed}</Project>
+      <Project>{352BB203-2499-4319-BA3E-D27A5207D0ED}</Project>
       <Name>Solvberget.Core.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Solvberget.Core\Solvberget.Core.csproj">

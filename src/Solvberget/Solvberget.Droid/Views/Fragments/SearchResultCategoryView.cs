@@ -1,4 +1,5 @@
 using Android.OS;
+using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Cirrious.MvvmCross.Binding.BindingContext;
@@ -9,6 +10,7 @@ using Solvberget.Core.ViewModels;
 
 namespace Solvberget.Droid.Views.Fragments
 {
+    [Register("solvberget.droid.views.fragments.SearchResultCategoryView")]
     public class SearchResultCategoryView : MvxFragment
     {
         public SearchResultCategoryView()

@@ -7,6 +7,7 @@ using Android.Widget;
 
 namespace Solvberget.Droid.Views.Components
 {
+    [Register("solvberget.droid.views.components.BackgroundBindableLinearLayout")]
     public class BackgroundBindableLinearLayout : LinearLayout
     {
         protected BackgroundBindableLinearLayout(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)

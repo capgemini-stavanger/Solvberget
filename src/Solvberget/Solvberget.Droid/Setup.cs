@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Reflection;
 using Android.Content;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Droid.Platform;
@@ -14,6 +16,16 @@ namespace Solvberget.Droid
     {
         public Setup(Context applicationContext) : base(applicationContext)
         {
+        }
+
+        protected override IList<Assembly> AndroidViewAssemblies
+        {
+            get
+            {
+                var assemblies = base.AndroidViewAssemblies;
+                assemblies.Add(typeof(Android.Support.V4.Widget.DrawerLayout).Assembly);
+                return assemblies;
+            }
         }
 
         protected override IMvxApplication CreateApp()

@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-
-    <Solvberget.Droid.Views.Components.BackgroundBindableLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:local="http://schemas.android.com/apk/res-auto"
+    <Solvberget.Droid.Views.Components.BackgroundBindableLinearLayout
         android:layout_width="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
@@ -44,7 +41,6 @@
             android:id="@+id/textView2"
             local:MvxBind="Text Title" />
     </Solvberget.Droid.Views.Components.BackgroundBindableLinearLayout>
-
     <RelativeLayout
         android:layout_marginTop="5dp"
         android:layout_marginRight="10dp"
@@ -65,6 +61,6 @@
             android:text="2"
             android:id="@+id/notificationAmount"
             android:background="@drawable/badge"
-            local:MvxBind="Text BadgeContent"/>
+            local:MvxBind="Text BadgeContent" />
     </RelativeLayout>
 </RelativeLayout>
