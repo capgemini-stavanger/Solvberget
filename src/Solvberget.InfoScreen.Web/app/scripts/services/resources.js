@@ -48,6 +48,14 @@ angular.module('solvbergetinfoScreenwebApp')
 
         return { link: link };
     })
+	.filter('zDate', function($filter){
+	
+		return function(input)
+		{
+			return $filter('date')(input.substring(0,19), 'HH:mm'); // show time in original timezone
+		};
+	
+	})
     .filter('firstParagraph', function() {
         return function(input) {
 
@@ -69,14 +77,14 @@ angular.module('solvbergetinfoScreenwebApp')
                     if (lastspace !== -1) {
                         input = input.substr(0, lastspace);
                     }
-                } else {
+                } else { 
                     while (input.charAt(input.length - 1) == ' ') {
                         input = input.substr(0, input.length - 1);
                     }
                 }
-                return input + '...';
+                return $(input).text() + '...';
             }
-            return input;
+            return $(input).text();
         };
     })
     .filter('words', function () {
