@@ -9,15 +9,18 @@
     mc:Ignorable="d">
 
     <Grid Style="{ThemeResource ApplicationPage}">
+        <Grid.Background>
+            <ImageBrush x:Name="BackgroundGrid" ImageSource="/Assets/background.png"></ImageBrush>
+        </Grid.Background>
         <Grid.Transitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.Transitions>
         <StackPanel Margin="100,0" VerticalAlignment="Center">
-            
-            <TextBlock Text="Hei!" Style="{ThemeResource XTitleText}" />
-            <TextBlock Text="Kan vi hjelpe deg å finne noe?" Style="{ThemeResource TitleText}" />
+
+            <TextBlock Text="Hei!" Style="{ThemeResource XTitleText}" Foreground="Black" />
+            <TextBlock Text="Kan vi hjelpe deg å finne noe?" Style="{ThemeResource TitleText}" Foreground="Black" />
 
             <Grid Margin="0,100,0,0">
                 <TextBox x:Name="Query" Style="{StaticResource XInput}" InputScope="Search"
@@ -25,10 +28,6 @@
                          KeyDown="Query_OnKeyDown" Height="113"
                          PlaceholderText="Trykk her for å starte et søk." />
             </Grid>
-
         </StackPanel>
-        
-        <Image Source="/Assets/app.icon.512.png" Width="150" Height="150"
-               VerticalAlignment="Top" HorizontalAlignment="Right" Margin="100,0"/>
     </Grid>
 </Page>
