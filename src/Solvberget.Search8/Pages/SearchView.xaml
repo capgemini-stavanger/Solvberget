@@ -10,7 +10,7 @@
 
     <Grid Style="{ThemeResource ApplicationPage}">
         <Grid.Background>
-            <ImageBrush x:Name="BackgroundGrid" ImageSource="/Assets/background.png"></ImageBrush>
+            <ImageBrush x:Name="BackgroundGrid" ImageSource="/Assets/background.png" ></ImageBrush>
         </Grid.Background>
         <Grid.Transitions>
             <TransitionCollection>
