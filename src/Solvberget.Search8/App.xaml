@@ -175,6 +175,8 @@
         </Style>
         <local:QrCodeConverter x:Key="AsQrCode" />
         <local:DimIfNoValueConverter x:Key="DimIfNoValue" />
+        <local:StringToVisibilityConverter x:Key="StringToVisibility" />
+
 
     </micro:CaliburnApplication.Resources>
 </micro:CaliburnApplication>
