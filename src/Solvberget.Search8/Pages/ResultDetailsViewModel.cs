@@ -154,7 +154,7 @@ namespace Solvberget.Search8.Pages
                 {
                     var c = ((BookDto) Document).Classification;
 
-                    if (String.IsNullOrEmpty(c))
+                    if (!String.IsNullOrEmpty(c))
                     {
                         loc.Append(c);
                         loc.Append(" ");
