@@ -17,7 +17,7 @@
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.Transitions>
-        <StackPanel Margin="100,0" VerticalAlignment="Center">
+        <StackPanel Margin="150,-130,150,0" VerticalAlignment="Center">
 
             <TextBlock Text="Hei!" Style="{ThemeResource XTitleText}" Foreground="Black" />
             <TextBlock Text="Kan vi hjelpe deg å finne noe?" Style="{ThemeResource TitleText}" Foreground="Black" />

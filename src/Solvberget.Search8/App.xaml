@@ -39,7 +39,7 @@
         <Style x:Name="TitleText" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="/Assets/OpenSans-Regular.ttf#Open Sans"></Setter>
             <Setter Property="Foreground" Value="White" />
-            <Setter Property="FontSize" Value="80"></Setter>
+            <Setter Property="FontSize" Value="75"></Setter>
         </Style>
 
         <Style x:Name="TitleText2" TargetType="TextBlock">
