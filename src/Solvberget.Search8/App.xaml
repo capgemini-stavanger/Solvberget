@@ -160,6 +160,7 @@
         <local:CollapseWhenTrueConverter x:Key="CollapseWhenTrue" />
         <local:VisibleWhenTrueConverter x:Key="VisibleWhenTrue" />
         <local:DocumentImageConverter x:Key="DocumentImage" />
+        <local:DocumentImageHeightConverter x:Key="DocumentImageHeight" />
         <DataTemplate x:Key="HubSectionHeaderTemplate">
             <TextBlock Text="{Binding}" Foreground="{ThemeResource ThemeColor}" FontSize="35" Margin="0,0,24,12" />
         </DataTemplate>

@@ -111,7 +111,7 @@
                         <Border Margin="0,0,48,0" VerticalAlignment="Top" BorderBrush="White" BorderThickness="4">
                             <Grid>
                                 <TextBlock Text="bilde mangler" VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0.2" FontSize="15" />
-                                <Image Width="300" Height="463" Stretch="Fill" Source="{Binding Document, Converter={StaticResource DocumentImage}}" />
+                                <Image Width="300" Height="{Binding Document, Converter={StaticResource DocumentImageHeight}}" Stretch="Fill" Source="{Binding Document, Converter={StaticResource DocumentImage}}" />
                             </Grid>
                         </Border>
 

@@ -113,6 +113,7 @@
     <Compile Include="CollapseWhenTrueConverter.cs" />
     <Compile Include="DimIfNoValueConverter.cs" />
     <Compile Include="DocumentImageConverter.cs" />
+    <Compile Include="DocumentImageHeightConverter.cs" />
     <Compile Include="Pages\FilterOptionVm.cs" />
     <Compile Include="Pages\IdleUserTimeout.xaml.cs">
       <DependentUpon>IdleUserTimeout.xaml</DependentUpon>
