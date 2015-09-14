@@ -1,5 +1,6 @@
 using Android.App;
 using Android.OS;
+using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
@@ -8,6 +9,7 @@ using Solvberget.Core.ViewModels;
 
 namespace Solvberget.Droid.Views.Fragments
 {
+    [Register("solvberget.droid.views.fragments.MyPageFavoritesView")]
     public class MyPageFavoritesView : MvxFragment
     {
         private MyPageFavoritesViewModel _viewModel;

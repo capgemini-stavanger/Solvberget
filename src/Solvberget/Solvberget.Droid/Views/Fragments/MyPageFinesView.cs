@@ -1,4 +1,5 @@
 using Android.OS;
+using Android.Runtime;
 using Android.Views;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.Fragging.Fragments;
@@ -6,6 +7,7 @@ using Solvberget.Core.ViewModels;
 
 namespace Solvberget.Droid.Views.Fragments
 {
+    [Register("solvberget.droid.views.fragments.MyPageFinesView")]
     public class MyPageFinesView : MvxFragment
     {
         private MyPageFinesViewModel _viewModel;

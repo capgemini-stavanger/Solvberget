@@ -5,9 +5,11 @@ using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.Fragging.Fragments;
 using Solvberget.Core.ViewModels;
 using Solvberget.Droid.Views.Adapters;
+using Android.Runtime;
 
 namespace Solvberget.Droid.Views.Fragments
 {
+    [Register("solvberget.droid.views.fragments.MyPageView")]
     public class MyPageView : MvxFragment
     {
         private MyPageViewModel _viewModel;

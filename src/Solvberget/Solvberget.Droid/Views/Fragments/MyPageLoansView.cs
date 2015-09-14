@@ -6,9 +6,11 @@ using Android.Widget;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.Fragging.Fragments;
 using Solvberget.Core.ViewModels;
+using Android.Runtime;
 
 namespace Solvberget.Droid.Views.Fragments
 {
+    [Register("solvberget.droid.views.fragments.MyPageLoansView")]
     public class MyPageLoansView : MvxFragment
     {
         private MyPageLoansViewModel _viewModel;
