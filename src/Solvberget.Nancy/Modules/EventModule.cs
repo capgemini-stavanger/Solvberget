@@ -5,17 +5,12 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Security.Cryptography;
 using System.Text;
-using System.Xml.Linq;
-using System.Xml.Serialization;
-using System.Xml.XPath;
 using Nancy;
 using Newtonsoft.Json;
 using Solvberget.Core.DTOs;
-using Solvberget.Domain.Events;
 using Solvberget.Domain.Utils;
-using Solvberget.Nancy.Mapping;
+using Ganss.XSS;
 
 namespace Solvberget.Nancy.Modules
 {
@@ -66,6 +61,7 @@ namespace Solvberget.Nancy.Modules
             organizerId = organizerId ?? ConfigurationManager.AppSettings["TicketCoOrganizerId"];
             var apiToken = ConfigurationManager.AppSettings["TicketCoApiToken"];
 
+
             try
             {
                 var eventsJson = client.DownloadString(new Uri(
@@ -77,6 +73,8 @@ namespace Solvberget.Nancy.Modules
 
                 var ticketCoEvents = serializer.Deserialize<TicketCoResult>(new JsonTextReader(new StringReader(eventsJson)));
 
+                var sanitizer = new HtmlSanitizer();
+
                 foreach (var element in ticketCoEvents.events)
                 {
                     var ev = new EventDto();
@@ -85,7 +83,7 @@ namespace Solvberget.Nancy.Modules
                     ev.TicketCoId = element.id;
                     ev.Id = element.mobile_link.GetHashCode();
                     ev.Name = element.title;
-                    ev.Description = element.description;
+                    ev.Description = sanitizer.Sanitize(element.description);
                     ev.ImageUrl = element.image.iphone2x.url;
                     ev.Location = element.location_name;
                     ev.Start = element.start_at;
