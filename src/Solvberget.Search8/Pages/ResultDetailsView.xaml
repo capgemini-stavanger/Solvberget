@@ -15,6 +15,15 @@
                 <TextBlock Text="{Binding Value, Converter={StaticResource DimIfNoValue}}" Style="{ThemeResource MetaDataValue}" TextWrapping="Wrap" />
             </StackPanel>
         </DataTemplate>
+        <DataTemplate x:Key="LocationsItemTemplate">
+            <StackPanel Width="350" Margin="0,0,60,36">
+                <TextBlock Tapped="Availability_OnTapped" Style="{ThemeResource MetaDataValue}" Foreground="Blue" TextWrapping="Wrap">
+                    <Underline>
+                        <Run Text="{Binding Branch}"></Run>
+                    </Underline>
+                </TextBlock>
+            </StackPanel>
+        </DataTemplate>
     </Page.Resources>
     <Grid Style="{ThemeResource ResultsPage}">
         <Grid.Transitions>
@@ -56,14 +65,14 @@
 
                         <StackPanel MaxWidth="450">
                             <TextBlock Text="Filial" Style="{ThemeResource MetaDataLabel}" />
-                            <TextBlock Style="{ThemeResource MetaDataValue}" TextWrapping="Wrap" Text="{Binding Availability.Branch, Converter={StaticResource DimIfNoValue}}" />
+                            <TextBlock Text="{Binding Availability.Branch, Converter={StaticResource DimIfNoValue}}" TextWrapping="Wrap"  Style="{ThemeResource MetaDataValue}" />
 
                             <TextBlock Text="Avdeling" Style="{ThemeResource MetaDataLabel}" />
                             <TextBlock Text="{Binding Availability.Department, Converter={StaticResource DimIfNoValue}}" Style="{ThemeResource MetaDataValue}" />
 
                             <TextBlock Text="Samling" Style="{ThemeResource MetaDataLabel}" Visibility="{Binding Availability.Collection, Converter={StaticResource StringToVisibility}}" />
                             <TextBlock Text="{Binding Availability.Collection, Converter={StaticResource DimIfNoValue}}" Visibility="{Binding Availability.Collection, Converter={StaticResource StringToVisibility}}" Style="{ThemeResource MetaDataValue}" />
-                            
+
                             <TextBlock Text="Finnes på hylle" Style="{ThemeResource MetaDataLabel}" />
 
                             <StackPanel Orientation="Horizontal" Margin="0,12">
@@ -84,8 +93,6 @@
 
                         <StackPanel Grid.Column="1" MaxWidth="450">
 
-                            
-
                             <TextBlock Text="Tilgjengelighet" Style="{ThemeResource MetaDataLabel}" />
 
                             <StackPanel Orientation="Horizontal" Visibility="{Binding Availability.TotalCount, Converter={StaticResource VisibleWhenTrue}}">
@@ -96,6 +103,16 @@
                                 </TextBlock>
                             </StackPanel>
                             <TextBlock Text="Ukjent" Visibility="{Binding Availability.TotalCount, Converter={StaticResource CollapseWhenTrue}}" />
+
+                            <TextBlock Text="Tilgjengelighet på andre filialer" Style="{StaticResource MetaDataLabel}" ></TextBlock>
+                            <ItemsControl x:Name="OtherAvailableLocations" ItemsSource="{Binding OtherAvailableLocations}" ItemTemplate="{StaticResource LocationsItemTemplate}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <controls:WrapPanel Orientation="Vertical" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
