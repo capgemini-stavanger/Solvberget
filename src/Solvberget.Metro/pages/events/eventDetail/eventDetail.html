@@ -19,22 +19,22 @@
             <article>
 
                 <header>
-                    <h2 class="event-title" data-win-bind="innerText: Name"></h2>
+                    <!--<h2 class="event-title" data-win-bind="innerText: name"></h2>-->
 
-                    <h4 class="event-time" data-win-bind="innerText: DateFormatted"></h4>
-                    <h4 class="event-time" data-win-bind="innerText: StartFormatted EventItemConverters.startConverter"></h4>
-                    <h4 class="event-time" data-win-bind="innerText: StopFormatted EventItemConverters.stopConverter"></h4>
+                    <h4 class="event-time" data-win-bind="innerText: start EventItemConverters.dateConverter"></h4>
+                    <h4 class="event-time" data-win-bind="innerText: start EventItemConverters.startConverter"></h4>
+                    <h4 class="event-time" data-win-bind="innerText: end EventItemConverters.stopConverter"></h4>
 
-                    <h3 class="event-location" data-win-bind="innerText: Location"></h3>
+                    <h3 class="event-location" data-win-bind="innerText: location"></h3>
 
                 </header>
 
                 <div class="event-image-container" data-win-control="Solvberget.Utils.DelayImageLoader">
-                    <img class="event-image" src="#" data-win-bind="src: PictureUrl; alt: Title" />
+                    <img class="event-image" src="#" data-win-bind="src: imageUrl; alt: name" />
                 </div>
 
                 <div class="event-content-holder">
-                    <div class="event-content" data-win-bind="innerHTML: Description"></div>
+                    <div class="event-content" data-win-bind="innerHTML: description"></div>
                     <div class="event-content" data-win-bind="innerText: TicketPrice EventItemConverters.priceConverter"></div>
                     <div class="event-content" data-win-bind="innerText: TypeName EventItemConverters.typeConverter"></div>
                     <br />

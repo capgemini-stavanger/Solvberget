@@ -44,6 +44,7 @@
 
         .eventspage .eventItemsListView .win-item .item-image-container .item-image {
             max-height: 160px;
+            -ms-transform: translateY(30%);
         }
 
     .eventspage .eventItemsListView .win-item .item-overlay {

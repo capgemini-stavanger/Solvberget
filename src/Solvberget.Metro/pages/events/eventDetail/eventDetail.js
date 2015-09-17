@@ -7,24 +7,27 @@
     ui.Pages.define("/pages/events/eventDetail/eventDetail.html", {
 
         ready: function (element, options) {
-            var item = options && options.item ? EventData.resolveItemReference(options.item) : EventData.items.getAt(0);
-            event = item;
+            var item = options.item;
+            event = options.item;
             WinJS.Binding.processAll(element, item);
-            
-            if (!item.PictureUrl) {
+
+            if (!item.imageUrl) {
                 $(".event-image-container").css("display", "none");
                 $(".event-image-container").css("-ms-grid-row", "0");
                 $(".event-content-holder").css("-ms-grid-row", "2");
             }
 
-            element.querySelector(".titlearea .pagetitle").textContent = EventData.getGroupByKey(item.TypeId).Name;
+            element.querySelector(".titlearea .pagetitle").textContent = event.name;
             document.getElementById("cal-button").addEventListener("click", this.openIcalForEvent);
             document.getElementById("link-button").addEventListener("click", this.openLinkToEvent);
             element.querySelector(".content").focus();
         },
 
         openIcalForEvent: function () {
-            var uriRaw = event.ICalLink;
+            // create custom iCalendar-link
+            var pathArray = event.ticketUrl.split("/");
+            var host = pathArray[0] + "//" + pathArray[2];
+            var uriRaw = host + "/events/" + event.ticketCoId + ".ics";
             var uri = new Windows.Foundation.Uri(uriRaw);
             Windows.System.Launcher.launchUriAsync(uri).then(
             function (success) {
@@ -37,7 +40,7 @@
         },
 
         openLinkToEvent: function () {
-            var uriRaw = event.Link;
+            var uriRaw = event.ticketUrl;
             var uri = new Windows.Foundation.Uri(uriRaw);
             Windows.System.Launcher.launchUriAsync(uri).then(
             function (success) {
@@ -54,11 +57,11 @@
     WinJS.Namespace.define("EventItemConverters", {
 
         startConverter: WinJS.Binding.converter(function (start) {
-            return (start == undefined || start === "") ? "" : "Starter kl. " + start;
+            return (start == undefined || start === "") ? "" : "Starter kl. " + moment(start).format("HH:mm");
         }),
 
         stopConverter: WinJS.Binding.converter(function (stop) {
-            return (stop == undefined || stop === "") ? "" : "Slutter kl. " + stop;
+            return (stop == undefined || stop === "") ? "" : "Slutter kl. " + moment(stop).format("HH:mm");
         }),
 
         typeConverter: WinJS.Binding.converter(function (type) {
@@ -67,7 +70,12 @@
 
         priceConverter: WinJS.Binding.converter(function (price) {
             return (price == undefined || price === "") ? "" : "Pris: " + price + " kr";
+        }),
+        dateConverter: WinJS.Binding.converter(function (date) {
+            return (date == undefined || date === "") ? "" : moment(date).lang("nb").format("L");
         })
+
+
 
     });
 

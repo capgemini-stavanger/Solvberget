@@ -51,8 +51,10 @@
     function setData(items) {
         items.forEach(function (item) {
             addGroupFor(item);
-            if (!itemAlreadyExist(item.Id))
+            if (!itemAlreadyExist(item.id)) {
+                item.dateTimeFormatted = moment(item.start).lang("nb").format("llll");
                 list.push(item);
+            }
         });
         
     }

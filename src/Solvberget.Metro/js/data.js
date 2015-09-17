@@ -11,6 +11,7 @@
     var news = "/images/home/News.png";
     var activePage = "home";
 
+    // TODO: Find out where the hell this server is and how to fix it
     //var serverBaseUrl = "http://localhost:7089";
     var serverBaseUrl = "http://31.24.130.26";
 
@@ -211,7 +212,7 @@
         var homepage = getActivePage();
         Data.activePage = "mypage";
         if (homepage == "/pages/home/home.html") {
-            loginThenNavigateTo("/pages/mypage/mypage.html", ".win-container:nth-child(1)");
+            loginThenNavigateTo("/pages/mypage/mypage.html", ".win-container:nth-child(2)");
         }
         else {
             loginThenNavigateTo("/pages/mypage/mypage.html", "#toMyPageButton");

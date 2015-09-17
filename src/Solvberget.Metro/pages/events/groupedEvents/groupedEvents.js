@@ -21,7 +21,7 @@
         getEvents: function (listViewWinControl) {
             var url = window.Data.serverBaseUrl + eventsReqUrl;
             var context = { listViewWinControl: listViewWinControl, that: this };
-            window.Solvberget.Queue.QueueDownload("events", { url: url }, this.getEventsCallback, context, true);
+            window.Solvberget.Queue.QueueDownload("events", { url: "http://solvbergetapp.cloudapp.net/api/events" }, this.getEventsCallback, context, true);
         },
 
         getEventsCallback: function (request, context) {
@@ -57,7 +57,7 @@
             } else {
                 //Not snapped: User invoked an item.
                 var item = EventData.items.getAt(args.detail.itemIndex);
-                nav.navigate("/pages/events/eventDetail/eventDetail.html", { item: EventData.getItemReference(item) });
+                nav.navigate("/pages/events/eventDetail/eventDetail.html", { item: item });
             }
         },
 
