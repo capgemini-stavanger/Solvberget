@@ -1,6 +1,17 @@
-﻿.templates {
-    display: none;
+﻿.blogs .content {
+    display: block;
+    height: 100%;
+    overflow-x: auto;
+    position: relative;
+    width: 100%;
+    z-index: 0;
 }
+
+    .blogs .content article {
+        height: calc(100% - 50px);
+        margin-left: 120px;
+        margin-top: 5px;
+    }
 
 .blogs .titlecontainer {
     border: none;
@@ -11,7 +22,7 @@
 }
 
 progress.withText {
-    color: inherit; /* Uses the same text color as the page */
+    color: inherit;
 }
 
 progress.withText {
@@ -29,26 +40,6 @@ progress.withText {
     text-overflow: ellipsis;
 }
 
-.blogs .content {
-    -ms-grid-row: 2;
-    display: block;
-    height: 100%;
-    overflow-x: auto;
-    position: relative;
-    width: 100%;
-    z-index: 0;
-}
-
-    .blogs .content article {
-        /* Define a multi-column, horizontally scrolling article by default. */
-        column-gap: 80px;
-        column-width: 480px;
-        height: calc(100% - 50px);
-        margin-left: 120px;
-        margin-top: 5px;
-        width: 480px;
-    }
-
 .blogs #mainBlogsContentSection {
     overflow: auto;
 }
@@ -61,38 +52,14 @@ progress.withText {
     -ms-flex-align: center;
 }
 
-.blogs .blog {
-    margin-top: 20px;
-    padding: 20px;
-    /*border-width: 1px;
-    border-color: white;
-    border-style: dotted;
-    border-radius: 5px 5px 5px 5px;*/
-    width: 400px;
-    margin-right: 50px;
-    background-color: #330033;
+.blogs .blog-template-container:active {
+    background: #5B4350;
+    background-repeat: repeat;
 }
 
-    .blogs .blog:active {
-        background: #5B4350;
-        background-repeat: repeat;
-    }
-
-    .blogs .blog:hover {
-        cursor: pointer;
-    }
-
-.blogs #blogsContent {
-    display: inline;
+.blogs .blog-template-container:hover {
+    cursor: pointer;
 }
-
-.blogs #blogsTemplateHolder {
-    margin-top: 120px;
-    display: -ms-flexbox;
-    -ms-flex-direction: row;
-    -ms-flex-align: stretch;
-}
-
 
 .blogs .blogSite:link, .blogSite:visited {
     color: white;
@@ -102,87 +69,26 @@ progress.withText {
     margin-top: 10px;
 }
 
-@media screen and (-ms-view-state: snapped) {
-    
-    .blogs .content article {
-        /* Define a single column, vertically scrolling article in snapped mode. */
-        -ms-grid-columns: 300px 1fr;
-        -ms-grid-row: 2;
-        -ms-grid-rows: auto 60px;
-        display: -ms-grid;
-        height: calc(100% - 40px);
-        margin-left: 5px;
-        max-width: 300px;
-        margin-top: 0px;
-    }
-
-    .blogs #blogsContent {
-        margin-left: 5px;
-        width: calc(100% - 5px);
-        height: 100%;
-        -ms-grid-column: inherit;
-    }
-
-    .blogs .blog {
-        max-width: 240px;
-        margin-right: 0px;
-        margin-top: 10px;
-        overflow: hidden;
-    }
-
-    .blogs #mainBlogsContentSection {
-        margin-top: 10px;
-        margin-left: 10px;
-        width: calc(100% - 10px);
-        height: calc(100% - 10px);
-        overflow: auto;
-    }
-
-    .blogs #blogsTemplateHolder {
-        display: -ms-flexbox;
-        -ms-flex-direction: column;
-        -ms-flex-align: stretch;
-        margin-top: 0px;
-    }
-
-    .blogs .win-type-ellipsis {
-        white-space: normal;
-    }
-
+#blogs-listview .win-item {
+    width: 400px;
+    height: 250px;
 }
 
-@media screen and (-ms-view-state: fullscreen-portrait) {
+.blog-template-container {
+    height: 100%;
+    background-color: #330033;
+    padding: 20px;
+}
 
-    .blogs .content article {
-        /* Define a single column, vertically scrolling article in snapped mode. */
-        -ms-grid-columns: 300px 1fr;
-        -ms-grid-row: 2;
-        -ms-grid-rows: auto 60px;
-        display: -ms-grid;
-        height: calc(100% - 30px);
-        width: 300px;
-        margin-top: 20px;
-        margin-left: 100px;
-    }
+.blogs.fragment {
+    -ms-grid-rows: 138px 1fr 0px;
+}
 
-    .blogs #blogsContent {
-        margin-left: 0px;
-        -ms-grid-column: inherit;
-    }
+.blogs #blogs-listview.win-listview .win-horizontal.win-viewport .win-surface {
+    margin-top: 20px;
+}
 
-    .blogs .blog {
-        width: 400px;
-        height: 230px;
-        margin-top: 20px;
-        margin-right: 0px;
-    }
-
-
-    .blogs #blogsTemplateHolder {
-        display: -ms-flexbox;
-        -ms-flex-direction: column;
-        -ms-flex-align: stretch;
-        margin-top: 0px;
-    }
-
+.blogs #blogs-listview.win-listview {
+    height: 100%;
+    width: 100%;
 }

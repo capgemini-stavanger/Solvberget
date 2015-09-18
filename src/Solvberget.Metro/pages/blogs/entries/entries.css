@@ -116,10 +116,9 @@ progress.withText {
     line-height: 25pt;
 }
 
-@media screen and (-ms-view-state: snapped) {
+/*@media screen and (-ms-view-state: snapped) {
 
     .entries .content article {
-        /* Define a single column, vertically scrolling article in snapped mode. */
         -ms-grid-columns: 300px 1fr;
         -ms-grid-row: 2;
         -ms-grid-rows: auto 60px;
@@ -168,9 +167,9 @@ progress.withText {
         padding-right: 5px;
     }
 
-}
+}*/
 
-@media screen and (-ms-view-state: fullscreen-portrait) {
+
 
     .entries .entry {
         margin-right: 0px;
@@ -190,4 +189,4 @@ progress.withText {
         .entries .content article #entriesTemplateHolder .entry:first-child {
             margin-top: 10px;
         }
-}
+

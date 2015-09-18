@@ -1,17 +1,12 @@
 ﻿(function () {
     "use strict";
 
-    var appViewState = Windows.UI.ViewManagement.ApplicationViewState;
-    var binding = WinJS.Binding;
-    var nav = WinJS.Navigation;
-    var utils = WinJS.Utilities;
     var ui = WinJS.UI;
 
     ui.Pages.define("/pages/blogs/main/blogs.html", {
 
-        ready: function (element, options) {
+        ready: function () {
             getBlogs();
-
             document.getElementById("appBar").addEventListener("beforeshow", setAppbarButton());
         },
         unload: function () {
@@ -20,12 +15,12 @@
     });
 })();
 
-var ajaxGetBlogs = function() {
+var ajaxGetBlogs = function () {
     var url = window.Data.serverBaseUrl + "/Blog/GetBlogs";
     Solvberget.Queue.QueueDownload("blogs", { url: url }, ajaxGetBlogsCallback, this, true);
 };
 
-var ajaxGetBlogsCallback = function (request, context) {
+var ajaxGetBlogsCallback = function (request) {
     var response = request.responseText == "" ? "" : JSON.parse(request.responseText);
     if (response != undefined && response !== "") {
         populateBlogs(response);
@@ -36,31 +31,20 @@ var ajaxGetBlogsCallback = function (request, context) {
 
 var populateBlogs = function (response) {
 
-    var blogsTemplateDiv = document.getElementById("blogTemplate");
-    var blogsTemplateHolder = document.getElementById("blogsTemplateHolder");
+    var itemTemplate = document.getElementById("blog-template");
+    var listview = document.getElementById("blogs-listview").winControl;
 
-    var blogTemplate = undefined;
-    if (blogsTemplateDiv)
-        blogTemplate = new WinJS.Binding.Template(blogsTemplateDiv);
+    var bindingList = new WinJS.Binding.List();
+    for (var i = 0; i < response.length; i++) {
+        bindingList.push(response[i]);
+    }
 
-    var model;
-
-    if (response) {
-        for (var i = 0; i < response.length; i++) {
-            model = response[i];
-            var context = { model: model, index: i };
-            if (blogTemplate && blogsTemplateHolder && model) {
-                blogTemplate.render(model, blogsTemplateHolder).done($.proxy(function () {
-                    $(".blog:last").css("background-color", Data.getColorFromBlogsPool(i%3, "1.0"));
-
-                    $(".blog:last").click($.proxy(function () {
-                        var blogId = this.index;
-                        var blogModel = this.model;
-                        WinJS.Navigation.navigate("pages/blogs/entries/entries.html", { blogId: blogId, blogModel: blogModel });
-                    }, this));
-                }, context));
-            }
-        }
+    listview.itemDataSource = bindingList.dataSource;
+    listview.itemTemplate = itemTemplate;
+    listview.oniteminvoked = function (args) {
+        args.detail.itemPromise.done(function (item) {
+            WinJS.Navigation.navigate("/pages/blogs/entries/entries.html", { blogId: args.detail.itemIndex, blogModel: item });
+        });
     }
 };
 
@@ -79,6 +63,9 @@ WinJS.Namespace.define("BlogConverters", {
         }
         outputStr = outputStr.substr(0, outputStr.length - 2);
         return outputStr;
+    }),
+    backgroundColorConverter: WinJS.Binding.converter(function (index) {
+        return Data.getColorFromBlogsPool(index % 3, "1.0");
     }),
     entriesConverter: WinJS.Binding.converter(function (entries) {
         return "Antall innlegg: " + entries.length;
@@ -103,5 +90,5 @@ WinJS.Namespace.define("BlogConverters", {
     }),
     undefinedHider: WinJS.Binding.converter(function (attr) {
         return attr ? "block" : "none";
-    }),
+    })
 });

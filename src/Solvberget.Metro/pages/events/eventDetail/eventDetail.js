@@ -7,11 +7,10 @@
     ui.Pages.define("/pages/events/eventDetail/eventDetail.html", {
 
         ready: function (element, options) {
-            var item = options.item;
             event = options.item;
-            WinJS.Binding.processAll(element, item);
+            WinJS.Binding.processAll(element, event);
 
-            if (!item.imageUrl) {
+            if (!event.imageUrl) {
                 $(".event-image-container").css("display", "none");
                 $(".event-image-container").css("-ms-grid-row", "0");
                 $(".event-content-holder").css("-ms-grid-row", "2");

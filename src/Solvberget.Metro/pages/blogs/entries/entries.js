@@ -12,7 +12,7 @@
         ready: function (element, options) {
 
             var blogId = options.blogId;
-            var blogModel = options.blogModel;
+            var blogModel = options.blogModel.data;
 
             if (blogModel) {
                 if (blogModel.Title) {
