@@ -1,32 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
   <Identity Name="SlvbergetKFStavangerbibli.Slvberget" Version="1.1.0.4" Publisher="CN=9996F995-FE52-4CC6-A6D3-40DC06CD472E" />
+  <mp:PhoneIdentity PhoneProductId="22a00adb-8a98-4271-b41a-181f24de228e" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Sølvberget</DisplayName>
     <PublisherDisplayName>Sølvberget KF</PublisherDisplayName>
     <Logo>images\solvberget50.png</Logo>
   </Properties>
-  <Prerequisites>
-    <OSMinVersion>6.2.1</OSMinVersion>
-    <OSMaxVersionTested>6.2.1</OSMaxVersionTested>
-  </Prerequisites>
+<Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
   <Resources>
     <Resource Language="x-generate" />
   </Resources>
   <Applications>
     <Application Id="App" StartPage="default.html">
-      <VisualElements DisplayName="Sølvberget" Logo="images\solvberget150.png" SmallLogo="images\solvberget30.png" Description="I appen til Rogalands best besøkte kulturinstitusjon får du mange bok, film - og musikktips. Du kan også sjekke de mange arrangementene våre, få oversikt over nyheter og søke i bibliotekets katalog. Forny utlån, sjekk åpningstider, finn kontaktinfo og mye mye mer." ForegroundText="light" BackgroundColor="#000000" ToastCapable="true">
-        <DefaultTile ShowName="allLogos" WideLogo="images\solvberget_wide.png" ShortName="Solvberget" />
-        <SplashScreen Image="images\solvberget_splash.png" />
-        <InitialRotationPreference>
-          <Rotation Preference="portrait" />
-          <Rotation Preference="landscape" />
-          <Rotation Preference="portraitFlipped" />
-          <Rotation Preference="landscapeFlipped" />
-        </InitialRotationPreference>
-      </VisualElements>
+      <uap:VisualElements DisplayName="Sølvberget" Description="I appen til Rogalands best besøkte kulturinstitusjon får du mange bok, film - og musikktips. Du kan også sjekke de mange arrangementene våre, få oversikt over nyheter og søke i bibliotekets katalog. Forny utlån, sjekk åpningstider, finn kontaktinfo og mye mye mer." BackgroundColor="transparent" Square150x150Logo="images\Square150x150Logo.png" Square44x44Logo="images\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="images\solvberget_wide.png">
+        </uap:DefaultTile>
+        <uap:SplashScreen Image="images\solvberget_splash.png" BackgroundColor="#000000" />
+      </uap:VisualElements>
       <Extensions>
-        <Extension Category="windows.search" />
+        <uap:Extension Category="windows.search" />
       </Extensions>
     </Application>
   </Applications>
