@@ -13,8 +13,8 @@
     <div class="templates">
         
         <section class="entriesSection">
-            <div id="entryTemplate">
-                <div class="entry">
+            <div id="blog-entry-template" data-win-control="WinJS.Binding.Template">
+                <div class="blog-entry-container" data-win-bind="style.backgroundColor: Index BlogConverters.backgroundColorEntryConverter">
                     <div class="document-image-container entries-doc-img-container" data-win-control="Solvberget.Utils.DelayImageLoader">
                         <img src="#" alt="" class="entryThumbnail" data-win-bind="src: ThumbnailUrl BlogConverters.thumbnailConverter; alt: Title; title: Title; style.display: ThumbnailUrl BlogConverters.undefinedHider" />
                     </div>
@@ -41,22 +41,19 @@
             </div>
         </header>
 
-        <section aria-label="Main content" id="mainEntriesContentSection" role="main">
-            
+        <section aria-label="Main content" id="mainEntriesContentSection" role="main">          
             <div id="entriesLoading">
                 <label class="progressRingText">
                     <progress class="win-ring withText"></progress>
                 </label>
             </div>
-
             <div class="content" id="entriesContent" aria-label="Main content" role="main">
                 <article>
-                    <div>
-                        <div id="entriesTemplateHolder"></div>
+                    <div style="height: 100%">
+                        <div id="blog-entries-listview" data-win-control="WinJS.UI.ListView"></div>
                     </div>
                 </article>
             </div>
-
         </section>
 
     </div>

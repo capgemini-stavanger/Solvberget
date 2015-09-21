@@ -1,16 +1,11 @@
 ﻿(function () {
     "use strict";
 
-    var appViewState = Windows.UI.ViewManagement.ApplicationViewState;
-    var binding = WinJS.Binding;
-    var nav = WinJS.Navigation;
-    var utils = WinJS.Utilities;
     var ui = WinJS.UI;
 
     ui.Pages.define("/pages/blogs/entries/entries.html", {
 
         ready: function (element, options) {
-
             var blogId = options.blogId;
             var blogModel = options.blogModel.data;
 
@@ -24,7 +19,6 @@
 
             WinJS.Binding.processAll(element.querySelector(".fragment"), blogModel);
             getBlogWithEntries(blogId);
-
         },
         unload: function () {
             Solvberget.Queue.CancelQueue('blogs');
@@ -50,40 +44,30 @@ var ajaxGetBlogWithEntriesCallback = function (request, context) {
 
 var populateEntries = function (response) {
 
-    var entriesTemplateDiv = document.getElementById("entryTemplate");
-    var entriesTemplateHolder = document.getElementById("entriesTemplateHolder");
+    var itemTemplate = document.getElementById("blog-entry-template");
+    var listview = document.getElementById("blog-entries-listview").winControl;
 
-    var entryTemplate = undefined;
-    if (entriesTemplateDiv)
-        entryTemplate = new WinJS.Binding.Template(entriesTemplateDiv);
-
-    var model;
-    if (response) {
-
-        for (var i = 0; i < response.Entries.length; i++) {
-
-            model = response.Entries[i];
-
-            if (entryTemplate && entriesTemplateHolder && model)
-                entryTemplate.render(model, entriesTemplateHolder).done($.proxy(function () {
-
-                    $(".entry:last").css("background-color", Data.getColorFromSubsetPool(i%8, "1.0"));
-
-                    $(".entry:last").click($.proxy(function () {
-                        WinJS.Navigation.navigate("pages/blogs/entry/entry.html", { model: this });
-                    }, this));
-                }, model));
-        }
+    var bindingList = new WinJS.Binding.List();
+    for (var i = 0; i < response.Entries.length; i++) {
+        response.Entries[i].Index = i;
+        bindingList.push(response.Entries[i]);
     }
+
+    listview.itemDataSource = bindingList.dataSource;
+    listview.itemTemplate = itemTemplate;
+    listview.oniteminvoked = function (args) {
+        args.detail.itemPromise.done(function (item) {
+            WinJS.Navigation.navigate("/pages/blogs/entry/entry.html", { model: item.data });
+        });
+    }
+
 };
 
 var getBlogWithEntries = function (blogId) {
-
     // Show progress-ring, hide content
     $("#entriesContent").hide();
     $("#entriesLoading").fadeIn();
 
     // Get the user information from server
     ajaxGetBlogWithEntries(blogId);
-
 };

@@ -13,6 +13,12 @@
         margin-top: 5px;
     }
 
+    .blogs .blog-template-container {
+    height: 100%;
+    background-color: #330033;
+    padding: 20px;
+}
+
 .blogs .titlecontainer {
     border: none;
 }
@@ -23,9 +29,6 @@
 
 progress.withText {
     color: inherit;
-}
-
-progress.withText {
     width: 100px;
     height: 100px;
     text-align: center;
@@ -74,16 +77,6 @@ progress.withText {
     height: 250px;
 }
 
-.blog-template-container {
-    height: 100%;
-    background-color: #330033;
-    padding: 20px;
-}
-
-.blogs.fragment {
-    -ms-grid-rows: 138px 1fr 0px;
-}
-
 .blogs #blogs-listview.win-listview .win-horizontal.win-viewport .win-surface {
     margin-top: 20px;
 }
@@ -91,4 +84,8 @@ progress.withText {
 .blogs #blogs-listview.win-listview {
     height: 100%;
     width: 100%;
+}
+
+.blogs.fragment {
+    -ms-grid-rows: 138px 1fr 0px;
 }

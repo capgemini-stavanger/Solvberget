@@ -36,6 +36,7 @@ var populateBlogs = function (response) {
 
     var bindingList = new WinJS.Binding.List();
     for (var i = 0; i < response.length; i++) {
+        response[i].Index = i;
         bindingList.push(response[i]);
     }
 
@@ -66,6 +67,9 @@ WinJS.Namespace.define("BlogConverters", {
     }),
     backgroundColorConverter: WinJS.Binding.converter(function (index) {
         return Data.getColorFromBlogsPool(index % 3, "1.0");
+    }),
+    backgroundColorEntryConverter: WinJS.Binding.converter(function (index) {
+        return Data.getColorFromSubsetPool(index % 8, "1.0");
     }),
     entriesConverter: WinJS.Binding.converter(function (entries) {
         return "Antall innlegg: " + entries.length;

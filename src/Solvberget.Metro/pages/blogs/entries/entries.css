@@ -1,5 +1,4 @@
 ﻿.entries .content {
-    -ms-grid-row: 2;
     display: block;
     height: 100%;
     overflow-x: auto;
@@ -9,40 +8,67 @@
 }
 
     .entries .content article {
-        /* Define a multi-column, horizontally scrolling article by default. */
-        column-fill: auto;
-        column-gap: 20px;
-        column-width: 530px;
         height: calc(100% - 50px);
         margin-left: 120px;
         margin-top: 5px;
-        width: 530px;
     }
 
-.entries .entry {
-    margin-top: 20px;
+.blog-entry-container {
+    /*margin-top: 20px;*/
     padding: 20px;
-    /*border-width: 1px;
-    border-color: white;
-    border-style: dotted;
-    border-radius: 5px 5px 5px 5px;*/
     height: 330px;
     max-height: 330px;
     width: 480px;
     max-width: 480px;
     margin-right: 50px;
-    background-color: #330033;
+    background-color: #FF00FF;
     overflow: hidden;
 }
 
-    .entries .entry:active {
-        background: #5B4350;
-        background-repeat: repeat;
-    }
+.entries .titlecontainer {
+    border: none;
+}
 
-    .entries .entry:hover {
-        cursor: pointer;
-    }
+.entries .titlearea {
+    overflow: visible;
+}
+
+progress.withText {
+    color: inherit; /* Uses the same text color as the page */
+    width: 100px;
+    height: 100px;
+    text-align: center;
+}
+
+.progressRingText {
+    font-size: 20pt;
+    line-height: 25pt;
+}
+
+.entries .pagesubtitle {
+    text-overflow: ellipsis;
+}
+
+.entries #mainEntriesContentSection {
+    overflow: auto;
+}
+
+.entries #entriesLoading {
+    width: 100%;
+    height: 100%;
+    display: -ms-flexbox;
+    -ms-flex-pack: center;
+    -ms-flex-align: center;
+}
+
+.entries .blog-entry-container:active {
+    background: #5B4350;
+    background-repeat: repeat;
+}
+
+.entries .blog-entry-container:hover {
+    cursor: pointer;
+}
 
 .entries .entryThumbnail {
     max-width: 72px;
@@ -59,16 +85,18 @@
     height: auto;
 }
 
-.entries #mainEntriesContentSection {
-    /*margin-left: 10px;*/
-    overflow: auto;
-}
 
-.entries #entriesTemplateHolder {
+
+.entries #blog-entries-listview {
     margin-top: 120px;
     display: -ms-flexbox;
     -ms-flex-direction: row;
     -ms-flex-align: stretch;
+}
+
+#blog-entries-listview-listview .win-item {
+    width: 480px;
+    height: 330px;
 }
 
 .entries .entriesSection {
@@ -81,112 +109,36 @@
     display: inline;
 }
 
-.entries #entriesLoading {
-    width: 100%;
+
+.entries #blog-entries-listview.win-listview {
     height: 100%;
-    display: -ms-flexbox;
-    -ms-flex-pack: center;
-    -ms-flex-align: center;
+    width: 100%;
 }
 
-#templates {
-    display: none;
-}
 
-.titlearea {
-    overflow: visible;
-}
-
-.titlecontainer {
-    border: none;
-}
-
-progress.withText {
-    color: inherit; /* Uses the same text color as the page */
-}
-
-progress.withText {
-    width: 100px;
-    height: 100px;
-    text-align: center;
-}
-
-.progressRingText {
-    font-size: 20pt;
-    line-height: 25pt;
-}
-
-/*@media screen and (-ms-view-state: snapped) {
-
-    .entries .content article {
-        -ms-grid-columns: 300px 1fr;
-        -ms-grid-row: 2;
-        -ms-grid-rows: auto 60px;
-        display: -ms-grid;
-        height: 100%;
-        margin-left: 5px;
-        width: 300px;
-        margin-top: 0px;
+/*@media screen and (max-width: 640px) {
+    .blog-entry-container {
+        background-color: #FF00FF;
     }
-
-    .entries #entriesContent {
-        margin-left: 5px;
-        width: calc(100% - 5px);
-        -ms-grid-column: inherit;
-    }
-
-    .entries #mainEntriesContentSection {
-        margin-top: 50px;
-        margin-left: 10px;
-        height: calc(100% - 50px);
-        width: calc(100% - 10px);
-        overflow: auto;
-    }
-
-    .entries #entriesTemplateHolder {
-        margin-top: 0px;
-        -ms-flex-direction: column;
-    }
-
-    .entries .entry {
-        margin-top: 10px;
-        width: 240px;
-        height: 370px;
-        max-height: 500px;
-    }
-
-    .entries .entry:first-child {
-        margin-top: 0px;
-    }
-
-    .entries .win-type-ellipsis {
-        white-space: normal;
-    }
-
-    .entries .pagesubtitle {
-        padding-right: 5px;
-    }
-
 }*/
 
 
 
-    .entries .entry {
-        margin-right: 0px;
-    }
+.entries .blog-entry-container {
+    margin-right: 0px;
+}
 
-    .entries #entriesTemplateHolder {
+.entries #blog-entries-listview {
+    margin-top: 10px;
+    -ms-flex-direction: column;
+}
+
+.entries .content article {
+    margin-left: 100px;
+    margin-top: 20px;
+    margin-right: 0px;
+}
+
+/*.entries .content article #blog-entries-listview .blog-entry-container:first-child {
         margin-top: 10px;
-        -ms-flex-direction: column;
-    }
-
-    .entries .content article {
-        margin-left: 100px;
-        margin-top: 20px;
-        margin-right: 0px;
-    }
-
-        .entries .content article #entriesTemplateHolder .entry:first-child {
-            margin-top: 10px;
-        }
-
+    }*/

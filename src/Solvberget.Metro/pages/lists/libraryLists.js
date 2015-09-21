@@ -305,11 +305,13 @@
             var that = this;
 
             var completed = function (request, context) {
-                var obj = JSON.parse(request.responseText);
-                context.listItem.Documents.push(obj);
-                context.listItem.DocumentNumbers[context.docNo] = true;
-                that.processThumbnailOnDoc(context.listItem);
-                that.updateContentSectionIfDocIsVisible(obj.DocumentNumber);
+                if (request.responseText !== "") {
+                    var obj = JSON.parse(request.responseText);
+                    context.listItem.Documents.push(obj);
+                    context.listItem.DocumentNumbers[context.docNo] = true;
+                    that.processThumbnailOnDoc(context.listItem);
+                    that.updateContentSectionIfDocIsVisible(obj.DocumentNumber);
+                }
             }
 
             for (var i = 0; i < lists.length; i++) {
