@@ -1,5 +1,6 @@
 ﻿body {
     background-size: 100% 100%;
+    font-family: "Segoe UI", sans-serif, "Segoe MDL2 Assets", "Symbols";
 }
 
 #searchField {
@@ -34,7 +35,7 @@ html {
 }
 
 #command .win-command {
-    -ms-grid-coulumn: 2;
+    -ms-grid-column: 2;
 }
 
 .win-commandimage {

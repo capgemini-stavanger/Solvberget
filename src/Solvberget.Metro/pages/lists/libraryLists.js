@@ -195,7 +195,8 @@
                 var doc = listModel.Documents[i];
                 if (documentTemplate && documentTemplateHolder && doc) {
                     context.populateDocElement(doc);
-                    documentTemplateHolder.innerHTML += window.toStaticHTML(doc.element.innerHTML);
+                    // TODO: replace toStaticHTML with something else that will sanitize the html
+                    documentTemplateHolder.innerHTML += doc.element.innerHTML;
 
                     $('#' + doc.DocumentNumber).die('click').live('click', function () {
                         var model = { DocumentNumber: $(this).attr("id") };

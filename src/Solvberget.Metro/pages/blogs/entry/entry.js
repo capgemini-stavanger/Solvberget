@@ -8,7 +8,7 @@
         ready: function (element, options) {
             var model = options.model;
             // Sanitize HTML (remove dynamic HTML like iframes and script)
-            model.Content = window.toStaticHTML(model.Content);
+            model.Content = model.Content;
             
             // Float images inside the text 
             WinJS.Binding.processAll(element, model).done(function () {
