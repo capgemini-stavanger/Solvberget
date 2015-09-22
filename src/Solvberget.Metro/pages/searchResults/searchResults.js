@@ -296,7 +296,8 @@
             } else {
                 listView.layout = new ui.GridLayout();
                 document.querySelector(".titlearea .pagetitle").innerHTML = "Søk";
-                document.querySelector(".titlearea .pagesubtitle").innerHTML = "Resultater for " + modernQuotationMark + window.toStaticHTML(this.lastSearch) + modernQuotationMark;
+                // TODO: make sure this is working properly after win 10 upgrade
+                document.querySelector(".titlearea .pagesubtitle").innerHTML = "Resultater for " + modernQuotationMark + this.lastSearch + modernQuotationMark;
             }
         },
 

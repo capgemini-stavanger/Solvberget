@@ -44,7 +44,7 @@
 
         .eventspage .eventItemsListView .win-item .item-image-container .item-image {
             max-height: 160px;
-            -ms-transform: translateY(30%);
+            transform: translateY(30%);
         }
 
     .eventspage .eventItemsListView .win-item .item-overlay {
@@ -58,15 +58,19 @@
             -ms-grid-row: 1;
             overflow: hidden;
             width: 220px;
+            margin: 0;
+            line-height: 1.1;
         }
 
         .eventspage .eventItemsListView .win-item .item-overlay .item-location {
             -ms-grid-row: 2;
+            margin: 0;
             width: 220px;
         }
 
         .eventspage .eventItemsListView .win-item .item-overlay .item-time {
             -ms-grid-row: 3;
+            margin: 0;
             width: 220px;
         }
 

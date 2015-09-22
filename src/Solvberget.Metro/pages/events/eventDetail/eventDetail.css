@@ -37,6 +37,11 @@
                 margin-top: 0;
             }
 
+            .event-detail-page .content article header .event-time {
+                margin: 0;
+                
+            }
+
         .event-detail-page .content article .event-image-container {
             -ms-grid-row: 1;
             -ms-grid-column: 2;
