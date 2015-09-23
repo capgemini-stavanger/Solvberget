@@ -20,13 +20,14 @@
             var allData = JSON.parse(request.responseText);
             suggestionMethods.suggestionList = allData;
         },
-        
+
         getSuggestionListFromServer: function () {
             // DO AJAX (get suggestion list from server)
-            Solvberget.Queue.QueueDownload("search", { url: suggestionMethods.url }, suggestionMethods.populateSuggestionList, this, false);
+            // TODO: Not working anymore. Can't find the server it's calling..
+            //Solvberget.Queue.QueueDownload("search", { url: suggestionMethods.url }, suggestionMethods.populateSuggestionList, this, false);
 
         },
-        
+
         updateSuggestionsCallback: function (request, context) {
             // AJAX CALLBACK (check if suggestion is different from search then show)
             var query = context.q;
@@ -60,7 +61,7 @@
             }
 
         },
-        
+
         updateSuggestions: function (query) {
 
             // Reset suggestion
@@ -72,9 +73,9 @@
             Solvberget.Queue.QueueDownload("search", { url: searchUrl }, this.updateSuggestionsCallback, context, false);
 
         },
-        
+
         didYouMean: "",
-        
+
         suggestionQuery: "",
 
     };
@@ -91,13 +92,13 @@
 
     // ----------------------AJAX METHODS---------------//
 
-    var ajaxSearchDocuments = function(query, context) {
+    var ajaxSearchDocuments = function (query, context) {
 
         var url = window.Data.serverBaseUrl + "/Document/Search/" + query;
         Solvberget.Queue.QueueDownload("search", { url: url }, ajaxSearchDocumentsCallback, context, true);
 
     };
-    var ajaxGetThumbnailDocumentImage = function(query, size, context) {
+    var ajaxGetThumbnailDocumentImage = function (query, size, context) {
 
         var url = window.Data.serverBaseUrl + "/Document/GetDocumentThumbnailImage/";
         url = size == undefined ? url + query : url + query + "/" + size;
@@ -110,10 +111,10 @@
 
     //-------------CALLBACKS-------------//
 
-    var ajaxGetThumbnailDocumentImageCallback = function(request, context) {
+    var ajaxGetThumbnailDocumentImageCallback = function (request, context) {
 
         var response = request.responseText == "" ? "" : JSON.parse(request.responseText);
-        
+
         if (response && response != "") {
             // Set the new value in the model of this item                   
             context.item.data.BackgroundImage = response;
@@ -244,7 +245,7 @@
             var queryTextEscaped = args.queryText.replace(/\:/g, ' ');
 
             this.lastSearch = queryTextEscaped;
-            
+
             /** http://msdn.microsoft.com/en-us/library/windows/apps/hh465233.aspx 
             *
             * If your app is activated with an empty queryText string and your app is already running or is suspended, 
@@ -281,7 +282,7 @@
         },
         getAndSetThumbImage: function (item, index) {
             var context = { item: item, index: index };
-            ajaxGetThumbnailDocumentImage(item.data.DocumentNumber, null, context);   
+            ajaxGetThumbnailDocumentImage(item.data.DocumentNumber, null, context);
         },
 
         // This function updates the ListView with new layouts
@@ -421,6 +422,7 @@
         }
     });
 
+    // TODO: deprecated. Check for replacement
     appModel.Search.SearchPane.getForCurrentView().onquerysubmitted = function (args) { nav.navigate(searchPageURI, args); };
 
     // Populate suggestionList from server

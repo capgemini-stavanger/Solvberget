@@ -14,7 +14,7 @@
             {
                 element: {
                     get: function () { return this._element; }
-                },
+                }
             });
 
     WinJS.Namespace.define("Solvberget.Utils", {
@@ -49,8 +49,6 @@
             }
         }
 
-
-
         function processQueue() {
             if (isConnectedToInternet()) {
                 document.numInProgress++;
@@ -67,8 +65,6 @@
                 showNoInternetDialog();
             }
         };
-
-
 
         function showNoInternetDialog() {
 
@@ -98,16 +94,12 @@
 
         }
 
-
-
         function commandInvokedHandler(command) {
             if (command.id == 0) {
                 // Try again
                 processQueue();
             }
         }
-
-
 
         if (!document.numInProgress) document.numInProgress = 0;
         if (!document.queue) document.queue = { q: {}, r: [] };
@@ -125,7 +117,7 @@
                     if (callBacks.error) { callBacks.error(req, callBacks.context); }
                 }
 
-                    document.numInProgress--;
+                document.numInProgress--;
                 if (document.queue.q[queue].length > 0 && document.numInProgress < maxNumInProgress) {
                     for (var i = document.numInProgress; i <= maxNumInProgress && i < document.queue.q[queue].length; i++) {
                         processQueue();
@@ -152,8 +144,6 @@
 
 
     });
-
-
 
     var cancelQueue = WinJS.Class.define(function (queue) {
         if (document.queue) {
@@ -394,7 +384,7 @@
                 roamingSettings.values["Notifications"] = "";
             }
         }
-        
+
         Notifications.setAreNotificationsSeen(false);
 
         document.getElementById("logoutConfimationMsg").innerHTML = "Du blir nå logget ut";

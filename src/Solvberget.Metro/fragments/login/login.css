@@ -6,6 +6,11 @@
     float: right;
 }
 
+.win-flyout {
+    background-color: white;
+    color: black;
+}
+
 .error {
     color: #cc3300;
 }

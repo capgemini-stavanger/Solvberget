@@ -147,11 +147,14 @@
     <Content Include="images\smalllogo.png" />
     <Content Include="images\solvberget150.png" />
     <Content Include="images\solvberget30.png" />
+    <Content Include="images\solvberget44.png" />
     <Content Include="images\solvberget50.png" />
+    <Content Include="images\solvberget71.scale-100.png" />
     <Content Include="images\solvberget_125.svg" />
     <Content Include="images\solvberget_125_nosvg.svg" />
     <Content Include="images\solvberget_splash.png" />
     <Content Include="images\solvberget_wide.png" />
+    <Content Include="images\Square44x44Logo.scale-100.png" />
     <Content Include="images\sølvberget_sort.eps" />
     <Content Include="images\sølvberget_sort.tif" />
     <Content Include="js\documentImage.js" />

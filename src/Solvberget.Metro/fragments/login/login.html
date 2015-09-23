@@ -2,14 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Logg inn</title>
+
     <link rel="stylesheet" href="login.css" />
-
-
     <script type="text/javascript" src="login.js"></script>
 </head>
 <body>
     <div id="loginFlyout" style="display: none" data-win-control="WinJS.UI.Flyout" aria-label="{Login flyout}">
-        <form onsubmit="return false;">
+
 
         <div id="logoutDiv">
             <div id="logoutConfimationMsg">Du vil nå bli logget ut</div>
@@ -20,7 +19,7 @@
         <p>
             <label for="userId" id="labelForUserId">
                 Lånernummer
-                    <br />
+                <br />
             </label>
             <input type="text" id="userId" />
             <br />
@@ -37,13 +36,13 @@
             <span id="pinError" class="error"></span>
 
         </p>
-        <button id="submitLoginButton">
-            Logg inn</button>
+        <button id="submitLoginButton">Logg inn</button>
         <br />
+
         <span id="outputMsg" class="normal">Glemt pin-kode?</span>
         <div id="loginLoading"><progress class="win-ring"></progress></div>
 
-        </form>
+
     </div>
 
 </body>

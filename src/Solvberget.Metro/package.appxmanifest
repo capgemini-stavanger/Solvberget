@@ -7,7 +7,7 @@
     <PublisherDisplayName>Sølvberget KF</PublisherDisplayName>
     <Logo>images\solvberget50.png</Logo>
   </Properties>
-<Dependencies>
+  <Dependencies>
     <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
   </Dependencies>
   <Resources>
@@ -16,7 +16,7 @@
   <Applications>
     <Application Id="App" StartPage="default.html">
       <uap:VisualElements DisplayName="Sølvberget" Description="I appen til Rogalands best besøkte kulturinstitusjon får du mange bok, film - og musikktips. Du kan også sjekke de mange arrangementene våre, få oversikt over nyheter og søke i bibliotekets katalog. Forny utlån, sjekk åpningstider, finn kontaktinfo og mye mye mer." BackgroundColor="transparent" Square150x150Logo="images\Square150x150Logo.png" Square44x44Logo="images\Square44x44Logo.png">
-        <uap:DefaultTile Wide310x150Logo="images\solvberget_wide.png">
+        <uap:DefaultTile Wide310x150Logo="images\solvberget_wide.png" Square71x71Logo="images\solvberget71.png" ShortName="Sølvberget">
         </uap:DefaultTile>
         <uap:SplashScreen Image="images\solvberget_splash.png" BackgroundColor="#000000" />
       </uap:VisualElements>
