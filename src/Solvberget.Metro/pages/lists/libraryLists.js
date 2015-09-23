@@ -54,6 +54,7 @@
                 listView.layout = new ui.ListLayout();
                 listView.onselectionchanged = this.listViewSelectionChanged.bind(this);
                 listView.itemTemplate = document.getElementById("listViewTemplateId");
+                
             }
 
             //Hide either ListView (if we have selectionIndex != -1) or ListContent (selectionIndex == -1)
@@ -198,7 +199,9 @@
                     // TODO: replace toStaticHTML with something else that will sanitize the html
                     documentTemplateHolder.innerHTML += doc.element.innerHTML;
 
-                    $('#' + doc.DocumentNumber).die('click').live('click', function () {
+                    var docDiv = $("#" + doc.DocumentNumber);
+                    $("#" + doc.DocumentNumber).off("click");
+                    $("#" + doc.DocumentNumber).on("click", function () {
                         var model = { DocumentNumber: $(this).attr("id") };
                         context.saveListSelectionIndex();
                         nav.navigate("/pages/documentDetail/documentDetail.html", { documentModel: model });

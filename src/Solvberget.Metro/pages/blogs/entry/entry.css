@@ -30,9 +30,9 @@
 .blogentry #entryLoading {
     width: 100%;
     height: 100%;
-    display: -ms-flexbox;
-    -ms-flex-pack: center;
-    -ms-flex-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .blogentry .titlecontainer {

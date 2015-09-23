@@ -11,23 +11,6 @@
     border: none;
 }
 
-/*.myPage header[role=banner] .titlearea {
-    margin-top: 45px;
-}
-
-    .myPage header[role=banner] .titlearea .pagetitle {
-        display: inline;
-        padding: 0;
-        padding-right: 5px;
-    }
-
-    .myPage header[role=banner] .titlearea .pagesubtitle {
-        display: inline;
-        margin: 0;
-        padding: 0;
-        padding-left: 10px;
-    }*/
-
 .myPage #mainContentSection {
     margin-top: 10px;
     margin-left: 0px;
@@ -36,15 +19,12 @@
 }
 
     .myPage #mainContentSection #mypageData {
-        display: -ms-flexbox;
-        -ms-flex-direction: row;
-        -ms-flex-align: stretch;
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
         height: calc(100% - 20px);
         margin-left: 112px;
     }
-
-        .myPage #mainContentSection #mypageData > div {
-        }
 
 .myPage .box {
     margin: 10px;
@@ -106,9 +86,9 @@
 .myPage #mainContentSection #mypageLoading {
     width: 100%;
     height: 100%;
-    display: -ms-flexbox;
-    -ms-flex-pack: center;
-    -ms-flex-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 progress.withText {
@@ -133,9 +113,6 @@ progress.withText {
         margin-left: 75px;
     }
 
-        .myPage .favorite-item .favorite-section .favorite-title {
-        }
-
         .myPage .favorite-item .favorite-section .favorite-subtitle {
             margin-top: 2px;
         }
@@ -149,13 +126,12 @@ progress.withText {
             max-height: 120px;
         }
 
-    .myPage .favorite-item .favorite-button {
-    }
 
 .myPage .clear-float {
     clear: both;
 }
 
+/* TODO: fix to correspond to win10 */
 @media screen and (orientation: portrait) {
 
     .myPage .box {
@@ -183,7 +159,7 @@ progress.withText {
 
     .myPage #mainContentSection #mypageData {
         margin-top: 30px;
-        -ms-flex-direction: column;
+        flex-direction: column;
         margin-left: auto;
         margin-right: auto;
         margin-bottom: 30px;
