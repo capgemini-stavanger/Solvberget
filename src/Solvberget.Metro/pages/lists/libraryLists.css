@@ -137,27 +137,35 @@ progress.header {
             text-overflow: ellipsis;
         }
 
-        .listpage .listContentSection #listContent-article #documentsHolder {
+        .listpage .listContentSection #listContent-article #contents-listview {
             margin-top: 30px;
         }
 
-            .listpage .listContentSection #listContent-article #documentsHolder .documentHolder {
+            .listpage .listContentSection #listContent-article #contents-listview .documentHolder {
                 margin-top: 20px;
             }
 
-                .listpage .listContentSection #listContent-article #documentsHolder .documentHolder .documentSection {
+                .listpage .listContentSection #listContent-article #contents-listview .documentHolder .documentSection {
                     margin-left: 75px;
                 }
 
-                .listpage .listContentSection #listContent-article #documentsHolder .documentHolder .documentImageContainer {
+                .listpage .listContentSection #listContent-article #contents-listview .documentHolder .documentSection .documentTitle {
+                    margin: 0;
+                }
+
+                .listpage .listContentSection #listContent-article #contents-listview .documentHolder .documentSection .documentSubTitle {
+                    margin: 0;
+                }
+
+                .listpage .listContentSection #listContent-article #contents-listview .documentHolder .documentImageContainer {
                     float: left;
                 }
 
-                    .listpage .listContentSection #listContent-article #documentsHolder .documentHolder .documentImageContainer .documentImage {
+                    .listpage .listContentSection #listContent-article #contents-listview .documentHolder .documentImageContainer .documentImage {
                         max-width: 60px;
                     }
 
-                .listpage .listContentSection #listContent-article #documentsHolder .documentHolder:hover {
+                .listpage .listContentSection #listContent-article #contents-listview .documentHolder:hover {
                     color: rgba(204, 51, 0, 1);
                     cursor: pointer;
                 }
@@ -212,11 +220,11 @@ progress.header {
                 font-weight: 500;
             }
 
-            .listpage .listContentSection #listContent-article #documentsHolder {
+            .listpage .listContentSection #listContent-article #contents-listview {
                 margin-top: 15px;
             }
 
-                .listpage .listContentSection #listContent-article #documentsHolder .documentHolder {
+                .listpage .listContentSection #listContent-article #contents-listview .documentHolder {
                     margin-top: 20px;
                 }
 
@@ -287,4 +295,8 @@ progress.header {
             height: 94%;
             overflow: auto;
         }
+}
+
+#contents-listview.win-listview {
+    height: 100%;
 }

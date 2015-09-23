@@ -54,7 +54,7 @@
                 listView.layout = new ui.ListLayout();
                 listView.onselectionchanged = this.listViewSelectionChanged.bind(this);
                 listView.itemTemplate = document.getElementById("listViewTemplateId");
-                
+
             }
 
             //Hide either ListView (if we have selectionIndex != -1) or ListContent (selectionIndex == -1)
@@ -72,11 +72,16 @@
 
             if (this.isSingleColumn()) {
                 if (listSelectionIndex >= 0) {
+
+
+
+
                     var listContent = this.element.querySelector(".listContentSection");
                     binding.processAll(listContent, lists[listSelectionIndex]);
                     this.renderList(lists[listSelectionIndex]);
                     listContent.scrollTop = 0;
                     Solvberget.Queue.PrioritizeUrls('libraryList', lists[listSelectionIndex].urls);
+
                     if (this.doneLoadingDocuments(lists[listSelectionIndex].DocumentNumbers)) {
                         $(".headerProgress").hide();
                     }
@@ -119,10 +124,29 @@
                         else {
                             // If fullscreen or filled, update the details column with new data.
                             that.saveListSelectionIndex();
-                            var listContent = that.element.querySelector(".listContentSection");
-                            binding.processAll(listContent, items[0].data);
-                            that.renderList(items[0].data);
-                            listContent.scrollTop = 0;
+
+                            var mynewListview = document.getElementById("contents-listview").winControl;
+                            var myTemplate = document.getElementById("documentTemplate");
+
+                            var bindingList = new WinJS.Binding.List(items[0].data.Documents);
+
+                            mynewListview.itemDataSource = bindingList.dataSource;
+                            mynewListview.itemTemplate = myTemplate;
+                            mynewListview.layout = new WinJS.UI.ListLayout();
+                            mynewListview.oniteminvoked = function (args) {
+                                args.detail.itemPromise.done(function (item) {
+
+                                    nav.navigate("/pages/documentDetail/documentDetail.html", { documentModel: item.data });
+
+                                });
+                            }
+
+
+                            //var listContent = that.element.querySelector(".listContentSection");
+                            //binding.processAll(listContent, items[0].data);
+                            //that.renderList(items[0].data);
+                            //listContent.scrollTop = 0;
+
                             Solvberget.Queue.PrioritizeUrls('libraryList', items[0].data.urls);
                             if (that.doneLoadingDocuments(items[0].data.DocumentNumbers)) {
                                 $(".headerProgress").hide();
@@ -199,13 +223,7 @@
                     // TODO: replace toStaticHTML with something else that will sanitize the html
                     documentTemplateHolder.innerHTML += doc.element.innerHTML;
 
-                    var docDiv = $("#" + doc.DocumentNumber);
-                    $("#" + doc.DocumentNumber).off("click");
-                    $("#" + doc.DocumentNumber).on("click", function () {
-                        var model = { DocumentNumber: $(this).attr("id") };
-                        context.saveListSelectionIndex();
-                        nav.navigate("/pages/documentDetail/documentDetail.html", { documentModel: model });
-                    });
+
                 }
             }
         },
@@ -263,10 +281,27 @@
                     listViewForLists.selection.getItems().done(function updateDetails(items) {
                         if (items.length > 0) {
                             listSelectionIndex = items[0].index;
-                            var listContent = that.element.querySelector(".listContentSection");
-                            binding.processAll(listContent, items[0].data);
-                            that.renderList(items[0].data);
-                            listContent.scrollTop = 0;
+
+                            var mynewListview = document.getElementById("contents-listview").winControl;
+                            var myTemplate = document.getElementById("documentTemplate");
+
+                            var bindingList = new WinJS.Binding.List(items[0].data.Documents);
+
+                            mynewListview.itemDataSource = bindingList.dataSource;
+                            mynewListview.itemTemplate = myTemplate;
+                            mynewListview.oniteminvoked = function (args) {
+                                args.detail.itemPromise.done(function (item) {
+
+                                    nav.navigate("/pages/documentDetail/documentDetail.html", { documentModel: item.data });
+
+                                });
+                            }
+
+                            //var listContent = that.element.querySelector(".listContentSection");
+                            //binding.processAll(listContent, items[0].data);
+                            //that.renderList(items[0].data);
+
+                            //listContent.scrollTop = 0;
                             if (that.doneLoadingDocuments(items[0].data.DocumentNumbers)) {
                                 $(".headerProgress").hide();
                             }
@@ -290,6 +325,16 @@
                         documentTemplate.renderItem(WinJS.Promise.wrap(item), true).renderComplete.then(function (renderedElement) {
                             doc.element = renderedElement;
                             doc.element.firstElementChild.id = doc.DocumentNumber;
+
+                            var docDiv = $("#" + doc.DocumentNumber);
+
+                            $("#" + doc.DocumentNumber).off("click");
+                            $("#" + doc.DocumentNumber).on("click", function () {
+                                var model = { DocumentNumber: $(this).attr("id") };
+                                //context.saveListSelectionIndex();
+                                nav.navigate("/pages/documentDetail/documentDetail.html", { documentModel: model });
+                            });
+
                             if (doc.ThumbnailUrl !== undefined && doc.ThumbnailUrl != "") {
                                 WinJS.Utilities.query("img", doc.element).forEach(function (img) {
                                     img.addEventListener("load", function () {

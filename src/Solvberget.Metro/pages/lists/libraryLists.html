@@ -30,7 +30,7 @@
         </div>
 
         <!-- DocumentTemplate for each item in a list -->
-        <div id="documentTemplate" >
+        <div id="documentTemplate" data-win-control="WinJS.Binding.Template">
             <div class="documentHolder">
                 <div class="documentImageContainer" data-win-control="Solvberget.Utils.DelayImageLoader">
                     <img class="documentImage" src="#" data-win-bind="src: ThumbnailUrl; alt: Title" />
@@ -87,11 +87,16 @@
                     <label class="progress-ring-text headerProgress"><progress class="win-ring header"></progress></label>
                 </header>
                 <div class="clearFloat"></div>
-                <hr />
+                <hr/>
 
-                <div id="documentsHolder"></div>
+
+                <!--<div id="documentsHolder"></div>-->
+                <!-- NEW -->
+                <div id="contents-listview" data-win-control="WinJS.UI.ListView"></div>
             </article>
         </div>
+
+        
 
 
 
