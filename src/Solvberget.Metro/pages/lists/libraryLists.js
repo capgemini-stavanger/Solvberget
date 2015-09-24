@@ -135,21 +135,14 @@
                             mynewListview.layout = new WinJS.UI.ListLayout();
                             mynewListview.oniteminvoked = function (args) {
                                 args.detail.itemPromise.done(function (item) {
-
                                     nav.navigate("/pages/documentDetail/documentDetail.html", { documentModel: item.data });
-
                                 });
                             }
-
-
-                            //var listContent = that.element.querySelector(".listContentSection");
-                            //binding.processAll(listContent, items[0].data);
-                            //that.renderList(items[0].data);
-                            //listContent.scrollTop = 0;
 
                             Solvberget.Queue.PrioritizeUrls('libraryList', items[0].data.urls);
                             if (that.doneLoadingDocuments(items[0].data.DocumentNumbers)) {
                                 $(".headerProgress").hide();
+                                $(".listTitle").text(items[0].data.Name);
                             }
                         }
 
@@ -220,10 +213,7 @@
                 var doc = listModel.Documents[i];
                 if (documentTemplate && documentTemplateHolder && doc) {
                     context.populateDocElement(doc);
-                    // TODO: replace toStaticHTML with something else that will sanitize the html
                     documentTemplateHolder.innerHTML += doc.element.innerHTML;
-
-
                 }
             }
         },
@@ -291,17 +281,10 @@
                             mynewListview.itemTemplate = myTemplate;
                             mynewListview.oniteminvoked = function (args) {
                                 args.detail.itemPromise.done(function (item) {
-
                                     nav.navigate("/pages/documentDetail/documentDetail.html", { documentModel: item.data });
-
                                 });
                             }
 
-                            //var listContent = that.element.querySelector(".listContentSection");
-                            //binding.processAll(listContent, items[0].data);
-                            //that.renderList(items[0].data);
-
-                            //listContent.scrollTop = 0;
                             if (that.doneLoadingDocuments(items[0].data.DocumentNumbers)) {
                                 $(".headerProgress").hide();
                             }
@@ -325,15 +308,6 @@
                         documentTemplate.renderItem(WinJS.Promise.wrap(item), true).renderComplete.then(function (renderedElement) {
                             doc.element = renderedElement;
                             doc.element.firstElementChild.id = doc.DocumentNumber;
-
-                            var docDiv = $("#" + doc.DocumentNumber);
-
-                            $("#" + doc.DocumentNumber).off("click");
-                            $("#" + doc.DocumentNumber).on("click", function () {
-                                var model = { DocumentNumber: $(this).attr("id") };
-                                //context.saveListSelectionIndex();
-                                nav.navigate("/pages/documentDetail/documentDetail.html", { documentModel: model });
-                            });
 
                             if (doc.ThumbnailUrl !== undefined && doc.ThumbnailUrl != "") {
                                 WinJS.Utilities.query("img", doc.element).forEach(function (img) {

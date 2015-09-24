@@ -46,6 +46,7 @@
         -ms-grid-row: 1;
         overflow: hidden;
         width: 340px;
+        margin: 0;
     }
 
     .newspage .newsItemsListView .win-item .news-pub-date {

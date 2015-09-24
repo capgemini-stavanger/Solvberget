@@ -19,6 +19,10 @@
     padding: 20px;
 }
 
+    .blogs .blog-template-container h2 {
+        margin: 0;
+    }
+
 .blogs .titlecontainer {
     border: none;
 }

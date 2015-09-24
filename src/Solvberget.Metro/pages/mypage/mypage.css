@@ -12,7 +12,7 @@
 }
 
 .myPage #mainContentSection {
-    margin-top: 10px;
+    margin-top: 30px;
     margin-left: 0px;
     overflow: auto;
     height: calc(100% - 10px);

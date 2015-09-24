@@ -93,6 +93,7 @@
 
             .searchResults section[role=main] .resultslist .item .item-content .item-title, .searchResults section[role=main] .resultslist .item .item-content .item-subtitle {
                 margin: 0;
+                font-weight: 100;
             }
 
                 .searchResults section[role=main] .resultslist .item .item-content .item-subtitle, .searchResults section[role=main] .resultslist .item .item-content .item-description {

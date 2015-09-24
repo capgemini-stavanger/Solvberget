@@ -51,6 +51,7 @@ progress.withText {
 
 .entries #mainEntriesContentSection {
     overflow: auto;
+    margin-top: 30px;
 }
 
 .entries #entriesLoading {
