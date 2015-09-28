@@ -12,6 +12,9 @@
         ready: function (element, options) {
             getUserInformation(true);
             document.getElementById("appBar").addEventListener("beforeshow", setAppbarButton());
+            $(".logout-button").on("click", function () {
+                LoginFlyout.logout();
+            });
         },
 
         unload: function () {
@@ -32,6 +35,8 @@ var getUserInformation = function (loadingMypage) {
     ajaxGetUserInformation(loadingMypage);
 
 };
+
+
 
 var ajaxGetUserInformation = function (isLoadingMyPage) {
 

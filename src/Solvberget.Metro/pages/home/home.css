@@ -341,7 +341,7 @@
             }
 }
 
-@media screen and (-ms-view-state: fullscreen-portrait) {
+@media screen and (max-width: 800px) {
 
     .homepage {
         display: -ms-grid;

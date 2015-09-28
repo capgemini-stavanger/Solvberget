@@ -387,11 +387,14 @@
 
         Notifications.setAreNotificationsSeen(false);
 
-        document.getElementById("logoutConfimationMsg").innerHTML = "Du blir nå logget ut";
+
+        var logoutMessage = document.getElementById("logoutConfimationMsg");
+        if (logoutMessage.innerHTML != undefined)
+            logoutMessage.innerHTML = "Du blir nå logget ut";
 
         setTimeout(function () {
             var flyout = document.getElementById("loginFlyout");
-            if (flyout != undefined)
+            if (flyout.winControl != undefined)
                 flyout.winControl.hide();
             if (WinJS.Navigation.location == "/pages/mypage/mypage.html")
                 Data.navigateToHome();

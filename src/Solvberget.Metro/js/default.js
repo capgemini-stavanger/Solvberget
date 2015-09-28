@@ -16,12 +16,12 @@
             // Get the error message and name for this exception
             if (customEventObject.detail.error == null) {
                 exceptionError("Beklager, det oppstod en feil. \n\nTeknisk informasjon:\n\n " + customEventObject.detail.exception.message, "Feilmelding (" + customEventObject.detail.exception.name + ")");
-                return true
+                return true;
             }
 
             if (customEventObject.detail.error.status == 500) {
                 exceptionError("Kunne ikke hente data fra webtjener.", "Feil ved tilkobling til webtjener");
-                return true
+                return true;
             }
 
             exceptionError("Beklager, det oppstod en feil. \n\nTeknisk informasjon:\n\nFeil: " + customEventObject.detail.error.name +
@@ -71,8 +71,9 @@
 
         if (args.detail.kind === activation.ActivationKind.launch) {
 
-            var settingsPane = Windows.UI.ApplicationSettings.SettingsPane.getForCurrentView();
-            settingsPane.addEventListener("commandsrequested", onCommandsRequested);
+            // TODO: applies only to desktop. Target for desktop.
+            //var settingsPane = Windows.UI.ApplicationSettings.SettingsPane.getForCurrentView();
+            //settingsPane.addEventListener("commandsrequested", onCommandsRequested);
 
             var applicationData = Windows.Storage.ApplicationData.current;
             applicationData.addEventListener("datachanged", roamingDataChangeHandler);

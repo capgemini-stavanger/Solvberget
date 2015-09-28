@@ -422,34 +422,35 @@
         }
     });
 
-    // TODO: deprecated. Check for replacement
-    appModel.Search.SearchPane.getForCurrentView().onquerysubmitted = function (args) { nav.navigate(searchPageURI, args); };
+    // TODO: deprecated. Check for replacement, or just target to only desktop
+
+    //appModel.Search.SearchPane.getForCurrentView().onquerysubmitted = function (args) { nav.navigate(searchPageURI, args); };
 
     // Populate suggestionList from server
     suggestionMethods.getSuggestionListFromServer();
 
-    Windows.ApplicationModel.Search.SearchPane.getForCurrentView().onsuggestionsrequested = function (eventObject) {
-        var queryText = eventObject.queryText, suggestionRequest = eventObject.request;
-        var query = queryText.toLowerCase();
-        var maxNumberOfSuggestions = 5;
+    //Windows.ApplicationModel.Search.SearchPane.getForCurrentView().onsuggestionsrequested = function (eventObject) {
+    //    var queryText = eventObject.queryText, suggestionRequest = eventObject.request;
+    //    var query = queryText.toLowerCase();
+    //    var maxNumberOfSuggestions = 5;
 
-        // Suggestion based on content
+    //    // Suggestion based on content
 
-        for (var i = 0, len = suggestionMethods.suggestionList.length; i < len; i++) {
-            if (suggestionMethods.suggestionList[i].substr(0, query.length).toLowerCase() === query) {
-                suggestionRequest.searchSuggestionCollection.appendQuerySuggestion(suggestionMethods.suggestionList[i]);
-                if (suggestionRequest.searchSuggestionCollection.size === maxNumberOfSuggestions) {
-                    break;
-                }
-            }
-        }
+    //    for (var i = 0, len = suggestionMethods.suggestionList.length; i < len; i++) {
+    //        if (suggestionMethods.suggestionList[i].substr(0, query.length).toLowerCase() === query) {
+    //            suggestionRequest.searchSuggestionCollection.appendQuerySuggestion(suggestionMethods.suggestionList[i]);
+    //            if (suggestionRequest.searchSuggestionCollection.size === maxNumberOfSuggestions) {
+    //                break;
+    //            }
+    //        }
+    //    }
 
-        if (suggestionRequest.searchSuggestionCollection.size > 0) {
-            WinJS.log && WinJS.log("Suggestions provided for query: " + queryText, "sample", "status");
-        } else {
-            WinJS.log && WinJS.log("No suggestions provided for query: " + queryText, "sample", "status");
-        }
-    };
+    //    if (suggestionRequest.searchSuggestionCollection.size > 0) {
+    //        WinJS.log && WinJS.log("Suggestions provided for query: " + queryText, "sample", "status");
+    //    } else {
+    //        WinJS.log && WinJS.log("No suggestions provided for query: " + queryText, "sample", "status");
+    //    }
+    //};
 
 
 })();

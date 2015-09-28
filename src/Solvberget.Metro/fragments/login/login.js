@@ -5,14 +5,23 @@
 
         }
     });
-    
+
     // Track if the log in was successful
     var loggedIn;    // Track if the log in was successful
-    
+
     function cancel() {
         var flyout = document.getElementById("loginFlyout");
         flyout.winControl.hide();
     }
+
+    // custom event handler for when user types in credentials and presses enter for login
+    $(document).keypress(function (e) {
+        if (e.which == 13) {
+            if ($('#pin').is(":focus")) {
+                submitLogin();
+            }
+        }
+    });
 
 
 
