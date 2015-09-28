@@ -3,7 +3,7 @@ using Solvberget.Core.Services;
 using Solvberget.Core.DTOs;
 using Cirrious.MvvmCross.Views;
 using System.Collections.Generic;
-using MonoTouch.FacebookConnect;
+using FacebookConnect;
 using Solvberget.Core.Services.Interfaces;
 
 namespace Solvberget.iOS
@@ -12,8 +12,8 @@ namespace Solvberget.iOS
     using Cirrious.MvvmCross.Touch.Platform;
     using Cirrious.MvvmCross.Touch.Views.Presenters;
     using Cirrious.MvvmCross.ViewModels;
-    using MonoTouch.Foundation;
-    using MonoTouch.UIKit;
+    using Foundation;
+    using UIKit;
 
     /// <summary>
     /// The UIApplicationDelegate for the application. This class is responsible for launching the 
@@ -43,9 +43,9 @@ namespace Solvberget.iOS
 
 			UIApplication.SharedApplication.StatusBarStyle = UIStatusBarStyle.LightContent;
 
-            var presenter = new MvxSlidingPanelsTouchViewPresenter(this, this.window);
-            var setup = new Setup(this, presenter);
-            setup.Initialize();
+            //var presenter = new MvxSlidingPanelsTouchViewPresenter(this, this.window);
+            //var setup = new Setup(this, presenter);
+            //setup.Initialize();
 
 			var appStart = new MvxAppStart<HomeScreenViewModel>();
 			Mvx.RegisterSingleton<IMvxAppStart>(appStart);

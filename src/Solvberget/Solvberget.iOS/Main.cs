@@ -8,7 +8,7 @@ using Solvberget.Core.ViewModels.Base;
 
 namespace Solvberget.iOS
 {
-    using MonoTouch.UIKit;
+    using UIKit;
 
     /// <summary>
     ///    Defines the Main type.
