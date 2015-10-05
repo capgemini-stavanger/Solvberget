@@ -28,6 +28,8 @@ namespace Solvberget.Search8.Pages
         private DocumentReviewDto _review;
         private string _factsHeader = "Fakta";
         private string _branchToCheck;
+        private string _defaultBranch = "Hovedbibl.";
+        //private string _defaultBranch = "Madla";
         private List<DocumentAvailabilityDto> _otherAvailableLocations;
 
         public ResultDetailsViewModel(INavigationService navigation, ISearchService search)
@@ -49,13 +51,14 @@ namespace Solvberget.Search8.Pages
             Document = await _search.Get(DocumentId);
             Review = await _search.GetReview(DocumentId);
 
-            Availability = BranchToCheck != null
-                ? Document.Availability.FirstOrDefault(x => x.Branch == BranchToCheck)
-                : Document.Availability.FirstOrDefault();
+            Availability = BranchToCheck == null ? Document.Availability.FirstOrDefault(x => x.Branch == _defaultBranch)
+                : Document.Availability.FirstOrDefault(x => x.Branch == BranchToCheck);
+            if (Availability == null)
+                Availability = Document.Availability.FirstOrDefault();
 
             OtherAvailableLocations = Document.Availability.Count() > 1
                 ? Document.Availability.Where(x => x.Branch != Availability.Branch).ToList()
-                : OtherAvailableLocations = null;
+                : null;
 
             PopulateFacts();
 
