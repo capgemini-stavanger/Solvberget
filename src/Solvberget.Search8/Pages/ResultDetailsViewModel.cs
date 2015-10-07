@@ -28,8 +28,8 @@ namespace Solvberget.Search8.Pages
         private DocumentReviewDto _review;
         private string _factsHeader = "Fakta";
         private string _branchToCheck;
-        private string _defaultBranch = "Hovedbibl.";
-        //private string _defaultBranch = "Madla";
+        //private string _defaultBranch = "Hovedbibl.";
+        private string _defaultBranch = "Madla";
         private List<DocumentAvailabilityDto> _otherAvailableLocations;
 
         public ResultDetailsViewModel(INavigationService navigation, ISearchService search)

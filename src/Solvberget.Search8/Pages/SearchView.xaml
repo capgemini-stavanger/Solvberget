@@ -26,7 +26,7 @@
                 <TextBox x:Name="Query" Style="{StaticResource XInput}" InputScope="Search"
                          GotFocus="Query_OnGotFocus" LostFocus="Query_OnLostFocus"
                          KeyDown="Query_OnKeyDown" Height="113"
-                         PlaceholderText="Trykk her for å starte et søk." />
+                         PlaceholderText="Trykk her for å starte et søk." Margin="0,-24,0,24" />
             </Grid>
         </StackPanel>
     </Grid>
