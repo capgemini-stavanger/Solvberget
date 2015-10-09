@@ -1,7 +1,7 @@
 using System;
 using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using Foundation;
+using UIKit;
 using Cirrious.MvvmCross.Touch.Views;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using SlidingPanels.Lib;
@@ -37,7 +37,7 @@ namespace Solvberget.iOS
 
 		}
 
-		public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
+		public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
 		{
 			return 95;
 		}

@@ -1,7 +1,7 @@
 using System;
 using Solvberget.Core.ViewModels;
 using Cirrious.MvvmCross.Binding.BindingContext;
-using MonoTouch.UIKit;
+using UIKit;
 using Solvberget.Core.Services.Interfaces;
 
 namespace Solvberget.iOS

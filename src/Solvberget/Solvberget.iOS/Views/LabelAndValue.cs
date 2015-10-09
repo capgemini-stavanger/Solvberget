@@ -1,8 +1,9 @@
 using System;
-using MonoTouch.UIKit;
+using UIKit;
 using System.Drawing;
 using System.Linq;
-using MonoTouch.Foundation;
+using Foundation;
+using CoreGraphics;
 
 namespace Solvberget.iOS
 {
@@ -11,15 +12,15 @@ namespace Solvberget.iOS
 		UILabel _label = new UILabel();
 		UILabel _value = new UILabel();
 
-		public LabelAndValue(UIView container, string label, string value, int colspan = 1, Action onTap = null)
+		public LabelAndValue(UIView container, string label, string value, nint colspan = 1, Action onTap = null)
 			: this(container, label, value, false, colspan: colspan, onTap : onTap)
 		{}
 
 
-		const int LabelTag = 2;
-		const int ValueTag = 3;
+		private nint LabelTag = 2;
+		private nint ValueTag = 3;
 
-		public LabelAndValue(UIView container, string label, string value, bool bold, int colspan=1, Action onTap = null)
+		public LabelAndValue(UIView container, string label, string value, bool bold, nint colspan = 1, Action onTap = null)
         {
 			// style 
 			_label.Tag = LabelTag;
@@ -42,24 +43,24 @@ namespace Solvberget.iOS
 
 			if (bold) _value.Font = Application.ThemeColors.DefaultFontBold;
 
-			var padding = 10f;
-			int columnWidth = 300; //single column on phone portrait;
+			nfloat padding = 10f;
+			nint columnWidth = 300; //single column on phone portrait;
 			var maxColspan = 1;
 
 			// show 2 columns on phone landscape
 			if (container.Frame.Width > 300)
 			{
-				columnWidth = (int)Math.Floor((container.Frame.Width - 3*padding) / 2f);
+				columnWidth = (nint)Math.Floor((container.Frame.Width - 3*padding) / 2f);
 				maxColspan = 2;
 			}
 			// show 3 columns on ipad portrait+landscape
 			if (container.Frame.Width > 700)
 			{
-				columnWidth = (int)Math.Floor((container.Frame.Width - 4*padding) / 3f);
+				columnWidth = (nint)Math.Floor((container.Frame.Width - 4*padding) / 3f);
 				maxColspan = 3;
 			}
 
-			columnWidth = columnWidth * Math.Min(maxColspan, colspan) + (int)padding * (colspan-1);
+			columnWidth = (nint)(columnWidth * Math.Min(maxColspan, colspan) + (nint)padding * (colspan-1));
 
 			UIView lastLabel = container.Subviews.LastOrDefault(v => v.Tag == LabelTag);
 
@@ -95,23 +96,23 @@ namespace Solvberget.iOS
 			}
 
 			// determine minimum size
-			var labelSize = _label.SizeThatFits(new SizeF(columnWidth, 0));
-			var valueSize = _value.SizeThatFits(new SizeF(columnWidth, 0));
+			var labelSize = _label.SizeThatFits(new CGSize(columnWidth, 0));
+			var valueSize = _value.SizeThatFits(new CGSize(columnWidth, 0));
 
 			// expand size to fill column width
-			labelSize = new SizeF(columnWidth, labelSize.Height);
-			valueSize = new SizeF(columnWidth, valueSize.Height);
+			labelSize = new CGSize(columnWidth, labelSize.Height);
+			valueSize = new CGSize(columnWidth, valueSize.Height);
 
-			_label.Frame = new RectangleF(new PointF(x,y), labelSize);
+			_label.Frame = new CGRect(new CGPoint(x,y), labelSize);
 
 			y = _label.Frame.Bottom;
-			_value.Frame = new RectangleF(new PointF(x,y), valueSize);
+			_value.Frame = new CGRect(new CGPoint(x,y), valueSize);
 
 			// resize container to fit new label/value pair
 			var newHeight = container.Subviews.Max(s => s.Frame.Bottom) + padding;
 
-			container.Frame = new RectangleF(container.Frame.Location, 
-				new SizeF(container.Frame.Width, newHeight));
+			container.Frame = new CGRect(container.Frame.Location, 
+				new CGSize(container.Frame.Width, newHeight));
 
 			if (null != onTap)
 			{

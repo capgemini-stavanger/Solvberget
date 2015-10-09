@@ -1,12 +1,12 @@
 using System;
 using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using Foundation;
+using UIKit;
 using Cirrious.MvvmCross.Touch.Views;
 using Cirrious.MvvmCross.Binding.BindingContext;
-using SlidingPanels.Lib;
+//using SlidingPanels.Lib;
 using System.Collections.Generic;
-using SlidingPanels.Lib.PanelContainers;
+//using SlidingPanels.Lib.PanelContainers;
 using Solvberget.Core.ViewModels;
 using Cirrious.MvvmCross.Binding.Touch.Views;
 

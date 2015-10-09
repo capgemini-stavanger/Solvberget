@@ -1,7 +1,7 @@
 using System;
 using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using Foundation;
+using UIKit;
 using Solvberget.Core.ViewModels;
 using Cirrious.MvvmCross.Binding.BindingContext;
 
@@ -36,7 +36,7 @@ namespace Solvberget.iOS
 
 			if (ViewModel.Fines.Count == 0)
 			{
-				_noRows = new UILabel(new RectangleF(10, 10, 300, 30)){ Text = "Du har ingen gebyrer.", Font = Application.ThemeColors.DefaultFont };
+				_noRows = new UILabel(new CGRect(10, 10, 300, 30)){ Text = "Du har ingen gebyrer.", Font = Application.ThemeColors.DefaultFont };
 				Add(_noRows);
 			}
 		}

@@ -10,8 +10,8 @@ namespace Solvberget.iOS
     using Cirrious.MvvmCross.Touch.Platform;
     using Cirrious.MvvmCross.Touch.Views.Presenters;
     using Cirrious.MvvmCross.ViewModels;
-    using MonoTouch.Foundation;
-    using MonoTouch.UIKit;
+    using Foundation;
+    using UIKit;
 
 	public class IosDtoDownloader : DtoDownloader
 	{

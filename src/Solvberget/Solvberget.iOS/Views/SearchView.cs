@@ -1,11 +1,12 @@
 using System;
 using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using Foundation;
+using UIKit;
 using Solvberget.Core.ViewModels;
 using Cirrious.MvvmCross.Touch.Views;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Binding.Touch.Views;
+using CoreGraphics;
 
 namespace Solvberget.iOS
 {
@@ -81,7 +82,7 @@ namespace Solvberget.iOS
 			{
 				_overlay = new UIView();
 				_overlay.AddGestureRecognizer(new UITapGestureRecognizer(ToggleFilterPanel));
-				_overlay.Frame = new RectangleF(PointF.Empty, View.Frame.Size);
+				_overlay.Frame = new CGRect(CGPoint.Empty, View.Frame.Size);
 				_filterOptions = new UIPickerView();
 				_filterOptions.BackgroundColor = UIColor.White;
 				_overlay.AddSubview(_filterOptions);
@@ -108,14 +109,14 @@ namespace Solvberget.iOS
 			Query.ResignFirstResponder();
 
 			_overlay.BackgroundColor = new UIColor(0f, 0f, 0f, 0f);
-			_overlay.Frame = new RectangleF(PointF.Empty, View.Frame.Size);
+			_overlay.Frame = new CGRect(CGPoint.Empty, View.Frame.Size);
 
-			_filterOptions.Center = new PointF(View.Frame.Width / 2, View.Frame.Height + (_filterOptions.Frame.Height / 2));
-			_filterOptions.Frame = new RectangleF(0, _filterOptions.Frame.Top, View.Frame.Width, _filterOptions.Frame.Height);
+			_filterOptions.Center = new CGPoint(View.Frame.Width / 2, View.Frame.Height + (_filterOptions.Frame.Height / 2));
+			_filterOptions.Frame = new CGRect(0, _filterOptions.Frame.Top, View.Frame.Width, _filterOptions.Frame.Height);
 			View.AddSubview(_overlay);
 			UIView.Animate(0.25, 0, UIViewAnimationOptions.CurveEaseInOut, () => 
 			{
-				_filterOptions.Center = new PointF(View.Frame.Width / 2, View.Frame.Height - (_filterOptions.Frame.Height / 2));
+				_filterOptions.Center = new CGPoint(View.Frame.Width / 2, View.Frame.Height - (_filterOptions.Frame.Height / 2));
 				_overlay.BackgroundColor = new UIColor(0f, 0f, 0f, 0.75f);
 			}, null);
 		}
@@ -124,7 +125,7 @@ namespace Solvberget.iOS
 		{
 			UIView.Animate(0.25, 0, UIViewAnimationOptions.CurveEaseInOut, () => 
 			{
-				_filterOptions.Center = new PointF(View.Frame.Width / 2, View.Frame.Height + (_filterOptions.Frame.Height / 2));
+				_filterOptions.Center = new CGPoint(View.Frame.Width / 2, View.Frame.Height + (_filterOptions.Frame.Height / 2));
 				_overlay.BackgroundColor = new UIColor(0f, 0f, 0f, 0f);
 			}, () => 
 			{
@@ -153,6 +154,7 @@ namespace Solvberget.iOS
 					break;
 				case "CDer":
 					set.Bind(_resultsSource).To(vm => vm.CDResults);
+                    break;
 				case "Lydbøker":
 					set.Bind(_resultsSource).To(vm => vm.AudioBookResults);
 					break;

@@ -1,9 +1,10 @@
 using System;
 using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using Foundation;
+using UIKit;
 using Solvberget.Core.ViewModels;
 using Cirrious.MvvmCross.Binding.BindingContext;
+using CoreGraphics;
 
 namespace Solvberget.iOS
 {
@@ -26,7 +27,7 @@ namespace Solvberget.iOS
 			if (null != scrollView)
 				scrollView.RemoveFromSuperview();
 		
-			scrollView = new UIScrollView(new RectangleF(PointF.Empty,View.Frame.Size));
+			scrollView = new UIScrollView(new CGRect(CGPoint.Empty, View.Frame.Size));
 			scrollView.BackgroundColor = UIColor.White;
 
 			Add(scrollView);

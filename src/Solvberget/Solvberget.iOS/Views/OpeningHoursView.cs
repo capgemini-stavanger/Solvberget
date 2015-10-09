@@ -1,7 +1,7 @@
 using System;
 using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using Foundation;
+using UIKit;
 using Cirrious.MvvmCross.Touch.Views;
 using Solvberget.Core.ViewModels;
 using Cirrious.MvvmCross.Binding.Touch.Views;
