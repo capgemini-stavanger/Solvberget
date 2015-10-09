@@ -1,21 +1,17 @@
 using System;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
-using Cirrious.MvvmCross.Touch.Views;
+using CoreGraphics;
+using Foundation;
+using UIKit;
 using SlidingPanels.Lib;
 using SlidingPanels.Lib.PanelContainers;
-using Solvberget.Core.ViewModels.Base;
 using Solvberget.Core.ViewModels;
 using System.Linq;
-using MonoTouch.CoreGraphics;
-using System.Diagnostics;
 
 namespace Solvberget.iOS
 {
 
 
-	public partial class HomeScreenView : NamedViewController
+    public partial class HomeScreenView : NamedViewController
     {
         public HomeScreenView() : base("HomeScreenView", null)
 		{
@@ -26,7 +22,7 @@ namespace Solvberget.iOS
 
 		private UIBarButtonItem CreateSliderButton(string imageName, PanelType panelType)
 		{
-			var button = new UIBarButtonItem(UIImage.FromBundle(imageName).Scale(new SizeF(20,20)), UIBarButtonItemStyle.Plain, 
+			var button = new UIBarButtonItem(UIImage.FromBundle(imageName).Scale(new CGSize(20,20)), UIBarButtonItemStyle.Plain, 
 
 				(s,e) => {
 				SlidingPanelsNavigationViewController navController = NavigationController as SlidingPanelsNavigationViewController;
@@ -72,11 +68,11 @@ namespace Solvberget.iOS
 
 			if (View.Bounds.Width > 700)
 			{
-				var centeredBox = new UIView(new RectangleF(0, 0, 640, 320));
+				var centeredBox = new UIView(new CGRect(0, 0, 640, 320));
 				ScrollView.Add(centeredBox);
 				ScrollView.ContentSize = ScrollView.Frame.Size;
 
-				centeredBox.Center = new PointF(ScrollView.Bounds.Width / 2, ScrollView.Bounds.Height / 2);
+				centeredBox.Center = new CGPoint(ScrollView.Bounds.Width / 2, ScrollView.Bounds.Height / 2);
 				centeredBox.AutoresizingMask = UIViewAutoresizing.FlexibleMargins;
 
 				// tablet layout
@@ -100,10 +96,10 @@ namespace Solvberget.iOS
 				var extraPadding = UIScreen.MainScreen.Bounds.Height > 480 ? 15f : 0f;
 
 				// phone layout
-				var centeredBox = new UIView(new RectangleF(0, 0, 390+extraPadding*3, 190+extraPadding));
+				var centeredBox = new UIView(new CGRect(0, 0, 390+extraPadding*3, 190+extraPadding));
 				ScrollView.Add(centeredBox);
 
-				centeredBox.Center = new PointF(ScrollView.Bounds.Width / 2, ScrollView.Bounds.Height / 2);
+				centeredBox.Center = new CGPoint(ScrollView.Bounds.Width / 2, ScrollView.Bounds.Height / 2);
 				centeredBox.AutoresizingMask = UIViewAutoresizing.FlexibleMargins;
 
 				centeredBox.Add(myPageBox = CreateBox(0f, 0f, 90f, 90f, "m"));
@@ -121,10 +117,10 @@ namespace Solvberget.iOS
 				var extraPadding = UIScreen.MainScreen.Bounds.Height > 480 ? 15f : 0f;
 
 				// phone layout
-				var centeredBox = new UIView(new RectangleF(0, 0, 190 + extraPadding, 390 + extraPadding*3));
+				var centeredBox = new UIView(new CGRect(0, 0, 190 + extraPadding, 390 + extraPadding*3));
 				ScrollView.Add(centeredBox);
 
-				centeredBox.Center = new PointF(ScrollView.Bounds.Width / 2, ScrollView.Bounds.Height / 2);
+				centeredBox.Center = new CGPoint(ScrollView.Bounds.Width / 2, ScrollView.Bounds.Height / 2);
 				centeredBox.AutoresizingMask = UIViewAutoresizing.FlexibleMargins;
 
 				centeredBox.Add(myPageBox = CreateBox(0f, 0f, 90f, 90f, "m"));
@@ -140,7 +136,7 @@ namespace Solvberget.iOS
 				centeredBox.Add(CreateBox(100f + extraPadding, 300f + extraPadding*3, 90f, 90f, "c"));
 			}
 
-			ScrollView.ContentSize = new SizeF(
+			ScrollView.ContentSize = new CGSize(
 				ScrollView.Subviews.Max(s => s.Frame.Right), 
 				ScrollView.Subviews.Max(s => s.Frame.Bottom + 20f));
 
@@ -176,8 +172,8 @@ namespace Solvberget.iOS
 		UIView CreateBox(float x, float y, float width, float height, string itemChar)
 		{
 			var item = ViewModel.ListElements.First(l => l.IconChar == itemChar);
-			UIView view = new UIView(new RectangleF(0,0, width, height));
-			view.Center = new PointF(x + width / 2, y + height / 2);
+			UIView view = new UIView(new CGRect(0,0, width, height));
+			view.Center = new CGPoint(x + width / 2, y + height / 2);
 
 			view.AddGestureRecognizer(new BoxGestureRecognizer(view));
 			view.AddGestureRecognizer(new UITapGestureRecognizer(() => item.GoToCommand.Execute(null)));
@@ -194,11 +190,11 @@ namespace Solvberget.iOS
 
 			title.Text = item.Title;
 
-			var size = title.SizeThatFits(new SizeF(width, 0));
+			var size = title.SizeThatFits(new CGSize(width, 0));
 			var titleX = (width-size.Width) / 2;
 			var titleY = height-size.Height-5f;
 
-			title.Frame = new RectangleF(new PointF(titleX,titleY), size);
+			title.Frame = new CGRect(new CGPoint(titleX,titleY), size);
 
 			view.Add(title);
 
@@ -211,8 +207,8 @@ namespace Solvberget.iOS
 			icon.TextColor = UIColor.White;
 			icon.TextAlignment = UITextAlignment.Center;
 			icon.LineBreakMode = UILineBreakMode.CharacterWrap;
-			icon.Frame = new RectangleF(0,0, height - 40, height - 40);
-			icon.Center = new PointF(width / 2, (height / 2)+heightOffset);
+			icon.Frame = new CGRect(0,0, height - 40, height - 40);
+			icon.Center = new CGPoint(width / 2, (height / 2)+heightOffset);
 			icon.Text = item.IconChar;
 
 			view.Add(icon);
@@ -232,8 +228,8 @@ namespace Solvberget.iOS
 			badge.BackgroundColor = Application.ThemeColors.Main2.ColorWithAlpha(0.35f);
 			badge.Text = text;
 			badge.TextAlignment = UITextAlignment.Center;
-			badge.Frame = new RectangleF(new PointF(
-				(box.Frame.Width - badgeSize), 0f), new SizeF(badgeSize,badgeSize));
+			badge.Frame = new CGRect(new CGPoint(
+				(box.Frame.Width - badgeSize), 0f), new CGSize(badgeSize,badgeSize));
 
 			box.Add(badge);
 

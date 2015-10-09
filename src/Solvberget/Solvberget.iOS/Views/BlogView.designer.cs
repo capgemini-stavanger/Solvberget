@@ -4,7 +4,7 @@
 // actions made in the UI designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using MonoTouch.Foundation;
+using Foundation;
 using System.CodeDom.Compiler;
 
 namespace Solvberget.iOS
@@ -13,16 +13,16 @@ namespace Solvberget.iOS
 	partial class BlogView
 	{
 		[Outlet]
-		MonoTouch.UIKit.UIView DescriptionContainer { get; set; }
+		UIKit.UIView DescriptionContainer { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel DescriptionLabel { get; set; }
+		UIKit.UILabel DescriptionLabel { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIView ItemsContainer { get; set; }
+		UIKit.UIView ItemsContainer { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIScrollView ScrollContainer { get; set; }
+		UIKit.UIScrollView ScrollContainer { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

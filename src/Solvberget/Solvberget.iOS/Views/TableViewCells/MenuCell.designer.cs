@@ -4,7 +4,7 @@
 // actions made in the UI designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using MonoTouch.Foundation;
+using Foundation;
 using System.CodeDom.Compiler;
 
 namespace Solvberget.iOS
@@ -13,10 +13,10 @@ namespace Solvberget.iOS
 	partial class MenuCell
 	{
 		[Outlet]
-		MonoTouch.UIKit.UILabel _iconLabel { get; set; }
+		UIKit.UILabel _iconLabel { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel _titleLabel { get; set; }
+		UIKit.UILabel _titleLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

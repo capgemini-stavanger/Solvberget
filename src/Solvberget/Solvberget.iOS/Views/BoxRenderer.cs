@@ -1,8 +1,6 @@
 using System;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
-using Solvberget.Core.ViewModels;
+using CoreGraphics;
+using UIKit;
 using System.Linq;
 
 namespace Solvberget.iOS
@@ -17,19 +15,19 @@ namespace Solvberget.iOS
 			_boxWidthMinusPadding = container.Bounds.Width - (2*_padding);
 		}
 
-		float _padding = 10.0f;
-		float _boxWidthMinusPadding;
+		nfloat _padding = 10.0f;
+		nfloat _boxWidthMinusPadding;
 
 		public UIView StartBox()
 		{
-			var box = new UIView(new RectangleF(_padding, _padding, _boxWidthMinusPadding,_padding));
+			var box = new UIView(new CGRect(_padding, _padding, _boxWidthMinusPadding,_padding));
 			box.BackgroundColor = Application.ThemeColors.VerySubtle;
 
 			var prev = _container.Subviews.LastOrDefault();
 
 			if (null != prev)
 			{
-				box.Frame = new RectangleF(_padding, prev.Frame.Bottom + _padding, _boxWidthMinusPadding,_padding);
+				box.Frame = new CGRect(_padding, prev.Frame.Bottom + _padding, _boxWidthMinusPadding,_padding);
 			}
 		
 			_container.Add(box);
@@ -45,7 +43,7 @@ namespace Solvberget.iOS
 			label.TextColor = Application.ThemeColors.Main;
 
 			var y = _container.Subviews.Length == 0 ? _padding : _container.Subviews.Last().Frame.Bottom + _padding;
-			label.Frame = new RectangleF(_padding, y, _boxWidthMinusPadding, label.SizeThatFits(new SizeF(_boxWidthMinusPadding, 0)).Height);
+			label.Frame = new CGRect(_padding, y, _boxWidthMinusPadding, label.SizeThatFits(new CGSize(_boxWidthMinusPadding, 0)).Height);
 
 			_container.Add(label);
 		}

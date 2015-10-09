@@ -6,12 +6,8 @@ using System.Collections.Generic;
 
 namespace Solvberget.iOS
 {
-    using Cirrious.CrossCore;
-    using Cirrious.MvvmCross.Touch.Platform;
-    using Cirrious.MvvmCross.Touch.Views.Presenters;
     using Cirrious.MvvmCross.ViewModels;
-    using MonoTouch.Foundation;
-    using MonoTouch.UIKit;
+    using UIKit;
 
 	public class IosDtoDownloader : DtoDownloader
 	{

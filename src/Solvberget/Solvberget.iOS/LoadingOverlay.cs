@@ -4,8 +4,8 @@
 //
 
 using System;
-using MonoTouch.UIKit;
-using System.Drawing;
+using UIKit;
+using CoreGraphics;
 
 namespace Solvberget.iOS
 {
@@ -29,15 +29,15 @@ namespace Solvberget.iOS
 			BackgroundColor = UIColor.White;
 			AutoresizingMask = UIViewAutoresizing.All;
 
-			var centeredBox = new UIView(new RectangleF(0,0,Frame.Width, 100));
+			var centeredBox = new UIView(new CGRect(0,0,Frame.Width, 100));
 			centeredBox.AutoresizingMask = UIViewAutoresizing.FlexibleMargins;
-			centeredBox.Center = new PointF(Frame.Width / 2, Frame.Height / 2);
+			centeredBox.Center = new CGPoint(Frame.Width / 2, Frame.Height / 2);
 
 			// create the activity spinner, center it horizontall and put it 5 points above center x
 			activitySpinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
 			activitySpinner.Color = Application.ThemeColors.Main;
 			activitySpinner.AutoresizingMask = UIViewAutoresizing.FlexibleMargins;
-			activitySpinner.Center = new PointF(centeredBox.Frame.Width / 2, (centeredBox.Frame.Height / 2) - 60);
+			activitySpinner.Center = new CGPoint(centeredBox.Frame.Width / 2, (centeredBox.Frame.Height / 2) - 60);
 
 			centeredBox.Add(activitySpinner);
 			activitySpinner.StartAnimating ();
@@ -51,8 +51,8 @@ namespace Solvberget.iOS
 			loadingLabel.TextAlignment = UITextAlignment.Center;
 			loadingLabel.AutoresizingMask = UIViewAutoresizing.FlexibleMargins;
 
-			loadingLabel.Frame = new RectangleF(0, 0, centeredBox.Frame.Width, 50);
-			loadingLabel.Center = new PointF(centeredBox.Frame.Width / 2, centeredBox.Frame.Height / 2);
+			loadingLabel.Frame = new CGRect(0, 0, centeredBox.Frame.Width, 50);
+			loadingLabel.Center = new CGPoint(centeredBox.Frame.Width / 2, centeredBox.Frame.Height / 2);
 
 			centeredBox.Add(loadingLabel);
 			Add(centeredBox);

@@ -1,13 +1,8 @@
 using Cirrious.MvvmCross.Touch.Views.Presenters;
-using MonoTouch.UIKit;
 using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.ViewModels;
 using Cirrious.MvvmCross.Touch.Platform;
-using Cirrious.MvvmCross;
 using Solvberget.Core;
-using Cirrious.CrossCore;
-using Solvberget.Core.ViewModels;
-using System.Diagnostics;
 using System;
 
 namespace Solvberget.iOS

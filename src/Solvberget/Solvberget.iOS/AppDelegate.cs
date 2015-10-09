@@ -1,19 +1,14 @@
-﻿using Solvberget.Core.ViewModels;
+using Solvberget.Core.ViewModels;
 using Solvberget.Core.Services;
-using Solvberget.Core.DTOs;
-using Cirrious.MvvmCross.Views;
-using System.Collections.Generic;
-using MonoTouch.FacebookConnect;
-using Solvberget.Core.Services.Interfaces;
+using Facebook.CoreKit;
 
 namespace Solvberget.iOS
 {
     using Cirrious.CrossCore;
     using Cirrious.MvvmCross.Touch.Platform;
-    using Cirrious.MvvmCross.Touch.Views.Presenters;
     using Cirrious.MvvmCross.ViewModels;
-    using MonoTouch.Foundation;
-    using MonoTouch.UIKit;
+    using Foundation;
+    using UIKit;
 
     /// <summary>
     /// The UIApplicationDelegate for the application. This class is responsible for launching the 
@@ -43,7 +38,7 @@ namespace Solvberget.iOS
 
 			UIApplication.SharedApplication.StatusBarStyle = UIStatusBarStyle.LightContent;
 
-            var presenter = new MvxSlidingPanelsTouchViewPresenter(this, this.window);
+			var presenter = new MvxSlidingPanelsTouchViewPresenter(this, this.window);
             var setup = new Setup(this, presenter);
             setup.Initialize();
 
@@ -53,29 +48,28 @@ namespace Solvberget.iOS
 			Mvx.LazyConstructAndRegisterSingleton<DtoDownloader, IosDtoDownloader>();
 
             var startup = Mvx.Resolve<IMvxAppStart>();
-            startup.Start();
+			startup.Start();
+
+			Settings.AppID = FacebookAppId;
+			Settings.DisplayName = DisplayName;
 
             this.window.MakeKeyAndVisible();
 
-			FBSettings.DefaultAppID = FacebookAppId;
-			FBSettings.DefaultDisplayName = DisplayName;
-
-
-            return true;
+			return ApplicationDelegate.SharedInstance.FinishedLaunching (app, options);
         }
 
 		public override bool OpenUrl (UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
 		{
 			// We need to handle URLs by passing them to FBSession in order for SSO authentication
 			// to work.
-			return FBSession.ActiveSession.HandleOpenURL(url);
+			return ApplicationDelegate.SharedInstance.OpenUrl(application, url, sourceApplication, annotation);
 		}
 
 		public override void OnActivated (UIApplication application)
 		{
 			// We need to properly handle activation of the application with regards to SSO
 			// (e.g., returning from iOS 6.0 authorization dialog or from fast app switching).
-			FBSession.ActiveSession.HandleDidBecomeActive();
+			//FBSession.ActiveSession.HandleDidBecomeActive();
 		}
 
     }

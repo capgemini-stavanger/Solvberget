@@ -1,11 +1,8 @@
 using System;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
-using Cirrious.MvvmCross.Touch.Views;
+using CoreGraphics;
+using Foundation;
+using UIKit;
 using Solvberget.Core.ViewModels;
-using Cirrious.MvvmCross.Binding.Touch.Views;
-using Cirrious.MvvmCross.Binding.BindingContext;
 using System.Globalization;
 
 namespace Solvberget.iOS
@@ -42,7 +39,7 @@ namespace Solvberget.iOS
 		
 			//View.Frame = new RectangleF(View.Frame);
 			View.AutoresizingMask = UIViewAutoresizing.All;
-			container = new UIScrollView(new RectangleF(PointF.Empty, View.Frame.Size));
+			container = new UIScrollView(new CGRect(CGPoint.Empty, View.Frame.Size));
 
 			View.Add(container);
 
@@ -58,14 +55,14 @@ namespace Solvberget.iOS
 		private void RenderView()
 		{
 
-			var padding = 10.0f;
+			nfloat padding = 10.0f;
 
-			var y = padding;
+			nfloat y = padding;
 
 			foreach (var item in ViewModel.Stories)
 			{
 				var itemCtrl = new TitleAndSummaryItem();
-				itemCtrl.View.Frame = new RectangleF(padding, y, container.Frame.Width - (2*padding), 50.0f);
+				itemCtrl.View.Frame = new CGRect(padding, y, container.Frame.Width - (2*padding), 50.0f);
 
 				itemCtrl.Clicked += (sender, e) => UIApplication.SharedApplication.OpenUrl(new NSUrl(item.Uri.OriginalString));
 
@@ -80,7 +77,7 @@ namespace Solvberget.iOS
 				y += itemCtrl.Frame.Height + padding;
 			}
 
-			container.ContentSize = new SizeF(320, y);
+			container.ContentSize = new CGSize(320, y);
 			container.ScrollEnabled = true;
 		}
     }

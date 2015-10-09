@@ -1,10 +1,6 @@
 using System;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using UIKit;
 using Cirrious.MvvmCross.Touch.Views;
-using SlidingPanels.Lib;
-using SlidingPanels.Lib.PanelContainers;
 using Solvberget.Core.ViewModels.Base;
 
 namespace Solvberget.iOS

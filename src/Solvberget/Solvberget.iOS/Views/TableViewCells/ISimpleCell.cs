@@ -1,9 +1,5 @@
 using System;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
-using Cirrious.MvvmCross.Binding.Touch.Views;
-using Solvberget.Core.ViewModels;
+using UIKit;
 
 namespace Solvberget.iOS
 {
@@ -12,7 +8,7 @@ namespace Solvberget.iOS
 		void SetImage(UIImage image);
 		string ImageUrl{get;set;}
 
-		float TableWidth { get; set;}
+		nfloat TableWidth { get; set;}
 	}
 	
 }

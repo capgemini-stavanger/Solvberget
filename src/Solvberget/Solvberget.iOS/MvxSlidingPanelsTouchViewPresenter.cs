@@ -3,18 +3,13 @@
 //
 using System;
 using Cirrious.MvvmCross.Touch.Views.Presenters;
-using MonoTouch.UIKit;
+using UIKit;
 using SlidingPanels.Lib;
 using SlidingPanels.Lib.PanelContainers;
 using Cirrious.MvvmCross.Touch.Views;
 using Cirrious.MvvmCross.ViewModels;
-using Cirrious.CrossCore.Exceptions;
-using Cirrious.CrossCore.Platform;
-using Cirrious.MvvmCross.Views;
-using System.Drawing;
 using Solvberget.Core.ViewModels;
 using System.Collections.Generic;
-using Solvberget.Core.ViewModels.Base;
 
 namespace Solvberget.iOS
 {
@@ -82,6 +77,7 @@ namespace Solvberget.iOS
 				Show(view);
 			} catch (Exception e) 
 			{
+				Console.WriteLine (e.Message);
 			}
 		}
 
@@ -148,17 +144,16 @@ namespace Solvberget.iOS
             
 			RootController = new UIViewController ();
 
-			if (navController.RespondsToSelector(new MonoTouch.ObjCRuntime.Selector("interactivePopGestureRecognizer")))
+			if (navController.RespondsToSelector(new ObjCRuntime.Selector("interactivePopGestureRecognizer")))
 			{
 				navController.InteractivePopGestureRecognizer.Enabled = false;
 			}
 
-			navController.NavigationBar.SetTitleTextAttributes(new UITextAttributes()
-				{
-					TextColor = UIColor.White,
-					TextShadowColor = UIColor.Clear,
-					Font = Application.ThemeColors.HeaderFont
-				});
+			navController.NavigationBar.TitleTextAttributes = new UIStringAttributes
+            {
+				ForegroundColor = UIColor.White,
+				Font = Application.ThemeColors.HeaderFont
+			};
 
 			if (UIHelpers.MinVersion7)
 			{
