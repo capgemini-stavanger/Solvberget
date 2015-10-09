@@ -4,7 +4,7 @@
 // actions made in the UI designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using Foundation;
+using MonoTouch.Foundation;
 using System.CodeDom.Compiler;
 
 namespace Solvberget.iOS
@@ -13,10 +13,10 @@ namespace Solvberget.iOS
 	partial class TitleAndSummaryItem
 	{
 		[Outlet]
-		UIKit.UILabel SummaryLabel { get; set; }
+		MonoTouch.UIKit.UILabel SummaryLabel { get; set; }
 
 		[Outlet]
-		UIKit.UILabel TitleLabel { get; set; }
+		MonoTouch.UIKit.UILabel TitleLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

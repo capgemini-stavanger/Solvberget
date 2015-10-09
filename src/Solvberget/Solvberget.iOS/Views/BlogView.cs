@@ -1,7 +1,7 @@
 using System;
-using CoreGraphics;
-using Foundation;
-using UIKit;
+using System.Drawing;
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
 using Solvberget.Core.ViewModels;
 using System.Globalization;
 using System.Text.RegularExpressions;
@@ -44,17 +44,17 @@ namespace Solvberget.iOS
 		{
 			base.ViewModelReady();
 
-			nfloat padding = 10.0f;
+			var padding = 10.0f;
 
 			DescriptionLabel.Text = ViewModel.Description;
 
-			var labelSize = DescriptionLabel.SizeThatFits(new CGSize(View.Frame.Width-2*padding, 0f));
+			var labelSize = DescriptionLabel.SizeThatFits(new SizeF(View.Frame.Width-2*padding, 0f));
 
-			DescriptionLabel.Frame = new CGRect(new CGPoint(padding,padding), labelSize);
+			DescriptionLabel.Frame = new RectangleF(new PointF(padding,padding), labelSize);
 			DescriptionContainer.BackgroundColor = Application.ThemeColors.Hero;
-			DescriptionContainer.Frame = new CGRect(0, 0, View.Frame.Width, labelSize.Height + padding+padding);
+			DescriptionContainer.Frame = new RectangleF(0, 0, View.Frame.Width, labelSize.Height + padding+padding);
 
-			nfloat y = padding;
+			var y = padding;
 
 
 			foreach (var s in ItemsContainer.Subviews)
@@ -63,7 +63,7 @@ namespace Solvberget.iOS
 			foreach (var item in ViewModel.Posts)
 			{
 				var itemCtrl = new TitleAndSummaryItem();
-				itemCtrl.Frame = new CGRect(padding, y, View.Frame.Width - 2 * padding, 10);
+				itemCtrl.Frame = new RectangleF(padding, y, View.Frame.Width - 2 * padding, 10);
 
 				itemCtrl.Clicked += (sender, e) =>
 				{
@@ -87,8 +87,8 @@ namespace Solvberget.iOS
 				y += itemCtrl.Frame.Height + padding;
 			}
 
-			ItemsContainer.Frame = new CGRect(0, DescriptionLabel.Frame.Bottom + padding, View.Frame.Width, y);
-			ScrollContainer.ContentSize = new CGSize(ScrollContainer.Bounds.Width, y);
+			ItemsContainer.Frame = new RectangleF(0, DescriptionLabel.Frame.Bottom + padding, View.Frame.Width, y);
+			ScrollContainer.ContentSize = new SizeF(ScrollContainer.Bounds.Width, y);
 		}
 
 		private void OnViewInBrowser(object sender, EventArgs e)

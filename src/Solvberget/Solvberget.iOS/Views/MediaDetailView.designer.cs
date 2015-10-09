@@ -4,7 +4,7 @@
 // actions made in the UI designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using Foundation;
+using MonoTouch.Foundation;
 using System.CodeDom.Compiler;
 
 namespace Solvberget.iOS
@@ -13,28 +13,28 @@ namespace Solvberget.iOS
 	partial class MediaDetailView
 	{
 		[Outlet]
-		UIKit.UILabel HeaderLabel { get; set; }
+		MonoTouch.UIKit.UILabel HeaderLabel { get; set; }
 
 		[Outlet]
-		UIKit.UIView HeaderView { get; set; }
+		MonoTouch.UIKit.UIView HeaderView { get; set; }
 
 		[Outlet]
-		UIKit.UIImageView Image { get; set; }
+		MonoTouch.UIKit.UIImageView Image { get; set; }
 
 		[Outlet]
-		UIKit.UILabel RatingSourceLabel { get; set; }
+		MonoTouch.UIKit.UILabel RatingSourceLabel { get; set; }
 
 		[Outlet]
-		UIKit.UIScrollView ScrollView { get; set; }
+		MonoTouch.UIKit.UIScrollView ScrollView { get; set; }
 
 		[Outlet]
-		UIKit.UIView StarsContainer { get; set; }
+		MonoTouch.UIKit.UIView StarsContainer { get; set; }
 
 		[Outlet]
-		UIKit.UILabel SubtitleLabel { get; set; }
+		MonoTouch.UIKit.UILabel SubtitleLabel { get; set; }
 
 		[Outlet]
-		UIKit.UILabel TypeLabel { get; set; }
+		MonoTouch.UIKit.UILabel TypeLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

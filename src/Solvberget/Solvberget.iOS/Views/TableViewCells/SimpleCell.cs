@@ -1,8 +1,10 @@
 using System;
-using CoreGraphics;
-using Foundation;
-using UIKit;
+using System.Drawing;
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
 using Cirrious.MvvmCross.Binding.Touch.Views;
+using Solvberget.Core.ViewModels;
+using System.Diagnostics;
 
 namespace Solvberget.iOS
 {
@@ -31,8 +33,8 @@ namespace Solvberget.iOS
 				var imageHeight = Math.Min(image.Size.Height * imageScale, box.Frame.Height);
 				var imageY = (box.Frame.Height - imageHeight) / 2;
 
-				var imageSize = new CGSize(imageWidth, imageHeight);
-				var imageView = new UIImageView(new CGRect(new CGPoint(0, imageY), imageSize));
+				var imageSize = new SizeF(imageWidth, imageHeight);
+				var imageView = new UIImageView(new RectangleF(new PointF(0, imageY), imageSize));
 				imageView.Image = image;
 
 				box.Add(imageView);
@@ -41,7 +43,7 @@ namespace Solvberget.iOS
 
 		UIView box;
 
-		public nfloat TableWidth {get;set;}
+		public float TableWidth {get;set;}
 
 		public void Bind(string title, string subtitle)
 		{
@@ -50,25 +52,25 @@ namespace Solvberget.iOS
 				box.RemoveFromSuperview();
 			}
 
-			nfloat padding = 10.0f;
-			nfloat widthMinusPadding = TableWidth - (2 * padding);
+			var padding = 10.0f;
+			float widthMinusPadding = TableWidth - (2 * padding);
 
 			if (_isFirstBinding)
 			{
 				_isFirstBinding = false;
-				var bgBox = new UIView(new CGRect(padding,padding,widthMinusPadding,80));
+				var bgBox = new UIView(new RectangleF(padding,padding,widthMinusPadding,80));
 				SelectedBackgroundView = new UIView();
 				SelectedBackgroundView.Add(bgBox);
 				SelectedBackgroundView.BackgroundColor = UIColor.White;
 				bgBox.BackgroundColor = Application.ThemeColors.Hero;
 			}
 
-			box = new UIView(new CGRect(padding, padding, widthMinusPadding, 80));
+			box = new UIView(new RectangleF(padding, padding, widthMinusPadding, 80));
 
 			var x = 70.0f;
 
 			// align text on x-axis
-			var l1Frame = new CGRect(new CGPoint(x, 0), new CGSize(box.Frame.Width - x, 0));
+			var l1Frame = new RectangleF(new PointF(x, 0), new SizeF(box.Frame.Width - x, 0));
 
 			var label1 = new UILabel(l1Frame);
 			label1.BackgroundColor = UIColor.Clear;
@@ -86,11 +88,11 @@ namespace Solvberget.iOS
 			UILabel label2 = null;
 
 			var size1 = UIHelpers.CalculateHeightForWidthStrategy(this, label1, title);
-			CGSize size2 = CGSize.Empty;
+			SizeF size2 = SizeF.Empty;
 
 			if (!String.IsNullOrEmpty(subtitle))
 			{
-				var l2Frame = new CGRect(new CGPoint(x, 0), new CGSize(box.Frame.Width - x, 0));
+				var l2Frame = new RectangleF(new PointF(x, 0), new SizeF(box.Frame.Width - x, 0));
 				label2 = new UILabel(l2Frame);
 				label2.BackgroundColor = UIColor.Clear;
 				label2.Font = Application.ThemeColors.SubTitleFont;
@@ -114,11 +116,11 @@ namespace Solvberget.iOS
 			var y1 = (box.Frame.Height - totalHeight) / 2;
 			var y2 = y1 + size1.Height + textYPadding;
 
-			label1.Frame = new CGRect(new CGPoint(label1.Frame.X, y1), size1);
+			label1.Frame = new RectangleF(new PointF(label1.Frame.X, y1), size1);
 
 			if (null != label2)
 			{
-				label2.Frame = new CGRect(new CGPoint(label2.Frame.X, y2), size2);
+				label2.Frame = new RectangleF(new PointF(label2.Frame.X, y2), size2);
 
 			}
 

@@ -41,6 +41,14 @@
     <Reference Include="Autofac">
       <HintPath>..\..\packages\Autofac.3.1.5\lib\net40\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="CsQuery, Version=1.3.3.249, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CsQuery.1.3.4\lib\net40\CsQuery.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HtmlSanitizer, Version=2.0.5735.24296, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\HtmlSanitizer.2.0.5735.24296\lib\net40\HtmlSanitizer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="LinqToTwitter">
       <HintPath>..\..\packages\LinqToTwitter.2.1.11\lib\net45\LinqToTwitter.dll</HintPath>
     </Reference>
@@ -92,12 +100,6 @@
     </Reference>
     <Reference Include="System.Spatial, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\..\packages\System.Spatial.5.2.0\lib\net40\System.Spatial.dll</HintPath>
-    </Reference>
-    <Reference Include="CsQuery, Version=1.3.3.249, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\packages\CsQuery.1.3.4\lib\net40\CsQuery.dll</HintPath>
-    </Reference>
-    <Reference Include="HtmlSanitizer, Version=2.0.5735.24296, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\packages\HtmlSanitizer.2.0.5735.24296\lib\net40\HtmlSanitizer.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -284,7 +286,7 @@
       </FlavorProperties>
     </VisualStudio>
     <MonoDevelop>
-      <Properties>
+      <Properties VerifyCodeBehindFields="True" VerifyCodeBehindEvents="True">
         <XspParameters Port="8080" Address="127.0.0.1" SslMode="None" SslProtocol="Default" KeyType="None" CertFile="" KeyFile="" PasswordOptions="None" Password="" Verbose="True" />
       </Properties>
     </MonoDevelop>

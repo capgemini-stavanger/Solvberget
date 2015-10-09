@@ -1,7 +1,7 @@
 using System;
-using CoreGraphics;
-using Foundation;
-using UIKit;
+using System.Drawing;
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
 
 namespace Solvberget.iOS
 {
@@ -20,7 +20,7 @@ namespace Solvberget.iOS
 			set;
 		}
 
-		public CGRect Frame
+		public RectangleF Frame
 		{
 			get { return View.Frame; }
 			set { View.Frame = value; }
@@ -39,15 +39,15 @@ namespace Solvberget.iOS
 		{
 			TitleLabel.Text = TitleLabelText;
 			SummaryLabel.Text = SummaryLabelText;
-			TitleLabel.Frame = new CGRect(TitleLabel.Frame.Location, TitleLabel.SizeThatFits(new CGSize(TitleLabel.Frame.Width, 0)));
+			TitleLabel.Frame = new RectangleF(TitleLabel.Frame.Location, TitleLabel.SizeThatFits(new SizeF(TitleLabel.Frame.Width, 0)));
 			var padding = 10.0f;
 			var titlePadding = 5.0f;
-			SummaryLabel.Frame = new CGRect(new CGPoint(SummaryLabel.Frame.X, TitleLabel.Frame.Bottom + titlePadding), 
-				SummaryLabel.SizeThatFits(new CGSize(SummaryLabel.Frame.Width, 0)));
+			SummaryLabel.Frame = new RectangleF(new PointF(SummaryLabel.Frame.X, TitleLabel.Frame.Bottom + titlePadding), 
+				SummaryLabel.SizeThatFits(new SizeF(SummaryLabel.Frame.Width, 0)));
 
 			var totalHeight = SummaryLabel.Frame.Bottom + padding;
 
-			View.Frame = new CGRect(View.Frame.Location, new CGSize(View.Frame.Width, totalHeight));
+			View.Frame = new RectangleF(View.Frame.Location, new SizeF(View.Frame.Width, totalHeight));
 
 			#if DEBUG
 			//TitleLabel.BackgroundColor = UIColor.Red.ColorWithAlpha(0.5f);

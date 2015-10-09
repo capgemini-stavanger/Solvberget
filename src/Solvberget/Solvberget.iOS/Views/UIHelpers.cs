@@ -1,7 +1,11 @@
 using System;
-using CoreGraphics;
-using Foundation;
-using UIKit;
+using System.Drawing;
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
+using Cirrious.MvvmCross.Touch.Views;
+using Solvberget.Core.ViewModels;
+using Cirrious.MvvmCross.Binding.Touch.Views;
+using Cirrious.MvvmCross.Binding.BindingContext;
 using System.Linq;
 
 namespace Solvberget.iOS
@@ -17,11 +21,11 @@ namespace Solvberget.iOS
 				return null != data ? UIImage.LoadFromData(data) : null;
 		}
 
-		public static CGSize CalculateHeightForWidthStrategy(UIView context, UILabel label, string text)
+		public static SizeF CalculateHeightForWidthStrategy(UIView context, UILabel label, string text)
 		{
-			var maxSize = new CGSize(label.Frame.Width, float.MaxValue);
+			var maxSize = new SizeF(label.Frame.Width, float.MaxValue);
 
-			var size = UIStringDrawing.StringSize(text, label.Font, maxSize, UILineBreakMode.WordWrap);
+			var size = context.StringSize(text, label.Font, maxSize, UILineBreakMode.WordWrap);
 			return size;
 		}
 
@@ -29,11 +33,11 @@ namespace Solvberget.iOS
 		{
 			if (scrollView.Subviews.Length == 0)
 			{
-				scrollView.ContentSize = CGSize.Empty;
+				scrollView.ContentSize = SizeF.Empty;
 				return;
 			}
 
-			scrollView.ContentSize = new CGSize(320, scrollView.Subviews.Last().Frame.Bottom + 10.0f);
+			scrollView.ContentSize = new SizeF(320, scrollView.Subviews.Last().Frame.Bottom + 10.0f);
 		}
 
 

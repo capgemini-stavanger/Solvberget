@@ -4,7 +4,7 @@
 // actions made in the UI designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using Foundation;
+using MonoTouch.Foundation;
 using System.CodeDom.Compiler;
 
 namespace Solvberget.iOS
@@ -13,25 +13,25 @@ namespace Solvberget.iOS
 	partial class LoginView
 	{
 		[Outlet]
-		UIKit.UILabel ErrorMessage { get; set; }
+		MonoTouch.UIKit.UILabel ErrorMessage { get; set; }
 
 		[Outlet]
-		UIKit.UIButton LoginButton { get; set; }
+		MonoTouch.UIKit.UIButton LoginButton { get; set; }
 
 		[Outlet]
-		UIKit.UIButton LostCredentialsButton { get; set; }
+		MonoTouch.UIKit.UIButton LostCredentialsButton { get; set; }
 
 		[Outlet]
-		UIKit.UITextField Password { get; set; }
+		MonoTouch.UIKit.UITextField Password { get; set; }
 
 		[Outlet]
-		UIKit.UILabel PinLabel { get; set; }
+		MonoTouch.UIKit.UILabel PinLabel { get; set; }
 
 		[Outlet]
-		UIKit.UITextField Username { get; set; }
+		MonoTouch.UIKit.UITextField Username { get; set; }
 
 		[Outlet]
-		UIKit.UILabel UsernameLAbel { get; set; }
+		MonoTouch.UIKit.UILabel UsernameLAbel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

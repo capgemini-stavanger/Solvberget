@@ -1,13 +1,16 @@
 using System;
-using CoreGraphics;
-using Foundation;
-using UIKit;
+using System.Drawing;
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
+using Cirrious.MvvmCross.Touch.Views;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Solvberget.Core.ViewModels;
+using System.Threading;
 using System.Linq;
 using Solvberget.Core.DTOs;
-using Twitter;
-using Facebook.ShareKit;
+using System.Web;
+using MonoTouch.Twitter;
+using MonoTouch.FacebookConnect;
 
 namespace Solvberget.iOS
 {
@@ -86,11 +89,11 @@ namespace Solvberget.iOS
 
 		private void UpdateFavoriteButtonState()
 		{
-			var favStateImage = UIImage.FromBundle("/Images/star.on.png").Scale(new CGSize(26, 26));
+			var favStateImage = UIImage.FromBundle("/Images/star.on.png").Scale(new SizeF(26, 26));
 
 			if(!ViewModel.IsFavorite && !UIHelpers.MinVersion7)
 			{
-				favStateImage = UIImage.FromBundle("/Images/star.off.png").Scale(new CGSize(26, 26));
+				favStateImage = UIImage.FromBundle("/Images/star.off.png").Scale(new SizeF(26, 26));
 			}
 
 			if (null == _favButton)
@@ -133,11 +136,23 @@ namespace Solvberget.iOS
 				{
 					case 0:
 
-					var content = new ShareLinkContent();
-					content.ContentDescription = shareMessage;
-					content.SetContentUrl(new NSUrl(ViewModel.RawDto.WebAppUrl));
+						if(!FBDialogs.CanPresentOSIntegratedShareDialog(FBSession.ActiveSession))
+						{
+							UIAlertView alert = new UIAlertView(View.Frame);
+							alert.Title = "Facebook oppsett mangler";
+							alert.Message = "Du må koble din iPhone/iPad til Facebook før du kan dele (selv om du kanskje har installet Facebook appen). Gå til Instillinger - Facebook.";
+							alert.AddButton("Ok");
+							alert.Show();
+							return;
+						}
 
-					ShareDialog.Show(this, content, null);
+						FBDialogs.PresentOSIntegratedShareDialogModally(this,
+							shareMessage, null, new NSUrl(ViewModel.RawDto.WebAppUrl),new FBOSIntegratedShareDialogHandler((res,err) => {
+
+								var ex = err;
+
+							}));
+
 
 						break;
 					case 1:
@@ -159,7 +174,6 @@ namespace Solvberget.iOS
 
 			shareView.Show();
 		}
-
 
 		private void Update()
 		{
@@ -205,8 +219,8 @@ namespace Solvberget.iOS
 			{
 				var imageScale = Image.Frame.Width / Image.Image.Size.Width;
 				var imageHeight = Math.Min(Image.Image.Size.Height * imageScale, Image.Frame.Height);
-				var imageSize = new CGSize(Image.Frame.Width, imageHeight);
-				Image.Frame = new CGRect(Image.Frame.Location, imageSize);
+				var imageSize = new SizeF(Image.Frame.Width, imageHeight);
+				Image.Frame = new RectangleF(Image.Frame.Location, imageSize);
 			}
 
 			Position();
@@ -251,10 +265,10 @@ namespace Solvberget.iOS
 
 				var btnPadding = UIHelpers.MinVersion7 ? 0f : padding;
 
-				reserve.Frame = new CGRect(padding, box.Subviews.Last().Frame.Bottom+padding, 165f, reserve.SizeThatFits(new CGSize(0f,0f)).Height + btnPadding);
+				reserve.Frame = new RectangleF(padding, box.Subviews.Last().Frame.Bottom+padding, 165f, reserve.SizeThatFits(new SizeF(0f,0f)).Height + btnPadding);
 
 				box.Add(reserve);
-				box.Frame = new CGRect(box.Frame.Location, new CGSize(box.Frame.Width, reserve.Frame.Bottom+padding));
+				box.Frame = new RectangleF(box.Frame.Location, new SizeF(box.Frame.Width, reserve.Frame.Bottom+padding));
 
 			}
 		}
@@ -269,7 +283,7 @@ namespace Solvberget.iOS
 				var x = 0;
 				for (int i = 0; i < (int)ViewModel.Rating.MaxScore; i++)
 				{
-					var star = new UIImageView(new CGRect(x, 0, 14, 14));
+					var star = new UIImageView(new RectangleF(x, 0, 14, 14));
 					if (i < (int)ViewModel.Rating.Score)// add star.half.on.png for better precision?
 					{
 						star.Image = UIImage.FromBundle("/Images/star.on.png");
@@ -399,21 +413,21 @@ namespace Solvberget.iOS
 
 		private void Position()
 		{
-			var headerSize = HeaderLabel.SizeThatFits(new CGSize(HeaderLabel.Frame.Width, 0));
+			var headerSize = HeaderLabel.SizeThatFits(new SizeF(HeaderLabel.Frame.Width, 0));
 
-			HeaderLabel.Frame = new CGRect(HeaderLabel.Frame.Location, headerSize);
+			HeaderLabel.Frame = new RectangleF(HeaderLabel.Frame.Location, headerSize);
 
-			var subtitleSize = SubtitleLabel.SizeThatFits(new CGSize(SubtitleLabel.Frame.Width, 0));
-			var subtitlePos = new CGPoint(SubtitleLabel.Frame.X, HeaderLabel.Frame.Bottom);
+			var subtitleSize = SubtitleLabel.SizeThatFits(new SizeF(SubtitleLabel.Frame.Width, 0));
+			var subtitlePos = new PointF(SubtitleLabel.Frame.X, HeaderLabel.Frame.Bottom);
 
-			SubtitleLabel.Frame = new CGRect(subtitlePos, subtitleSize);
+			SubtitleLabel.Frame = new RectangleF(subtitlePos, subtitleSize);
 
-			var typeSize = TypeLabel.SizeThatFits(new CGSize(TypeLabel.Frame.Width, 0));
-			var typePos = new CGPoint(TypeLabel.Frame.X, SubtitleLabel.Frame.Bottom);
+			var typeSize = TypeLabel.SizeThatFits(new SizeF(TypeLabel.Frame.Width, 0));
+			var typePos = new PointF(TypeLabel.Frame.X, SubtitleLabel.Frame.Bottom);
 
-			TypeLabel.Frame = new CGRect(typePos, typeSize);
+			TypeLabel.Frame = new RectangleF(typePos, typeSize);
 
-			ScrollView.ContentSize = new CGSize(320, ScrollView.Subviews.Last().Frame.Bottom + padding);
+			ScrollView.ContentSize = new SizeF(320, ScrollView.Subviews.Last().Frame.Bottom + padding);
 		}
     }
 }

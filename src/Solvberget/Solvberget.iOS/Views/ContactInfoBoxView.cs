@@ -1,7 +1,9 @@
 using System;
-using Foundation;
-using UIKit;
+using System.Drawing;
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
 using Solvberget.Core.ViewModels;
+using System.Linq;
 
 namespace Solvberget.iOS
 {

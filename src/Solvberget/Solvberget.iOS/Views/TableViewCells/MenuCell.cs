@@ -1,7 +1,7 @@
 using System;
-using CoreGraphics;
-using Foundation;
-using UIKit;
+using System.Drawing;
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
 using Solvberget.Core.ViewModels;
 
 namespace Solvberget.iOS

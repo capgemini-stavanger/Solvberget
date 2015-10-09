@@ -1,14 +1,18 @@
 using System;
-using UIKit;
+using System.Drawing;
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
+using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Touch.Views;
 using Solvberget.Core.ViewModels;
 using Cirrious.MvvmCross.ViewModels;
 using System.Collections.Generic;
+using Cirrious.MvvmCross.Binding.BindingContext;
 using System.Linq;
 
 namespace Solvberget.iOS
 {
-    public class MyPageSection
+	public class MyPageSection
 	{
 		public string Title {get;set;}
 		public IMvxViewModel ViewModel {get;set;}

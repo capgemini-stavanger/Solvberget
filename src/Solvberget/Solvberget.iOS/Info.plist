@@ -51,7 +51,5 @@
 	<string>com.capgemini.solvberget</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>UIRequiresFullScreen</key>
-	<true/>
 </dict>
 </plist>

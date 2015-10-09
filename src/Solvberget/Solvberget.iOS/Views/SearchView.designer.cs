@@ -4,7 +4,7 @@
 // actions made in the UI designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using Foundation;
+using MonoTouch.Foundation;
 using System.CodeDom.Compiler;
 
 namespace Solvberget.iOS
@@ -13,13 +13,13 @@ namespace Solvberget.iOS
 	partial class SearchView
 	{
 		[Outlet]
-		UIKit.UILabel NoResultsLabel { get; set; }
+		MonoTouch.UIKit.UILabel NoResultsLabel { get; set; }
 
 		[Outlet]
-		UIKit.UISearchBar Query { get; set; }
+		MonoTouch.UIKit.UISearchBar Query { get; set; }
 
 		[Outlet]
-		UIKit.UITableView Results { get; set; }
+		MonoTouch.UIKit.UITableView Results { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

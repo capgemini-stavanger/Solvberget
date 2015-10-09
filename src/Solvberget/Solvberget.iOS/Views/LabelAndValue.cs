@@ -1,8 +1,8 @@
 using System;
-using UIKit;
-using CoreGraphics;
+using MonoTouch.UIKit;
+using System.Drawing;
 using System.Linq;
-using Foundation;
+using MonoTouch.Foundation;
 
 namespace Solvberget.iOS
 {
@@ -42,7 +42,7 @@ namespace Solvberget.iOS
 
 			if (bold) _value.Font = Application.ThemeColors.DefaultFontBold;
 
-			nfloat padding = 10f;
+			var padding = 10f;
 			int columnWidth = 300; //single column on phone portrait;
 			var maxColspan = 1;
 
@@ -95,28 +95,28 @@ namespace Solvberget.iOS
 			}
 
 			// determine minimum size
-			var labelSize = _label.SizeThatFits(new CGSize(columnWidth, 0));
-			var valueSize = _value.SizeThatFits(new CGSize(columnWidth, 0));
+			var labelSize = _label.SizeThatFits(new SizeF(columnWidth, 0));
+			var valueSize = _value.SizeThatFits(new SizeF(columnWidth, 0));
 
 			// expand size to fill column width
-			labelSize = new CGSize(columnWidth, labelSize.Height);
-			valueSize = new CGSize(columnWidth, valueSize.Height);
+			labelSize = new SizeF(columnWidth, labelSize.Height);
+			valueSize = new SizeF(columnWidth, valueSize.Height);
 
-			_label.Frame = new CGRect(new CGPoint(x,y), labelSize);
+			_label.Frame = new RectangleF(new PointF(x,y), labelSize);
 
 			y = _label.Frame.Bottom;
-			_value.Frame = new CGRect(new CGPoint(x,y), valueSize);
+			_value.Frame = new RectangleF(new PointF(x,y), valueSize);
 
 			// resize container to fit new label/value pair
 			var newHeight = container.Subviews.Max(s => s.Frame.Bottom) + padding;
 
-			container.Frame = new CGRect(container.Frame.Location, 
-				new CGSize(container.Frame.Width, newHeight));
+			container.Frame = new RectangleF(container.Frame.Location, 
+				new SizeF(container.Frame.Width, newHeight));
 
 			if (null != onTap)
 			{
 				_value.TextColor = Application.ThemeColors.Main;
-				var onTapAction = new Action(onTap);
+				var onTapAction = new NSAction(onTap);
 
 				_label.AddGestureRecognizer(new UITapGestureRecognizer(onTapAction));
 				_value.AddGestureRecognizer(new UITapGestureRecognizer(onTapAction));

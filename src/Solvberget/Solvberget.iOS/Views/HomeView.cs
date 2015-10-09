@@ -1,10 +1,14 @@
-using CoreGraphics;
-using UIKit;
+using System;
+using System.Drawing;
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
 using Cirrious.MvvmCross.Touch.Views;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using SlidingPanels.Lib;
+using System.Collections.Generic;
 using SlidingPanels.Lib.PanelContainers;
 using Solvberget.Core.ViewModels;
+using Cirrious.MvvmCross.Binding.Touch.Views;
 using System.Linq;
 
 namespace Solvberget.iOS
@@ -29,7 +33,7 @@ namespace Solvberget.iOS
 
 		private UIBarButtonItem CreateSliderButton(string imageName, PanelType panelType)
 		{
-			UIButton button = new UIButton(new CGRect(0, 0, 40f, 40f));
+			UIButton button = new UIButton(new RectangleF(0, 0, 40f, 40f));
 			button.SetBackgroundImage(UIImage.FromBundle(imageName), UIControlState.Normal);
 			button.TouchUpInside += delegate
 			{

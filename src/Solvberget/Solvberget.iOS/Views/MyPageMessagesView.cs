@@ -1,5 +1,7 @@
-using CoreGraphics;
-using UIKit;
+using System;
+using System.Drawing;
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
 using Solvberget.Core.ViewModels;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Solvberget.Core.DTOs;
@@ -35,7 +37,7 @@ namespace Solvberget.iOS
 
 			if (ViewModel.Notifications.Count == 0)
 			{
-				_noRows = new UILabel(new CGRect(10, 10, 300, 30)){ Text = "Du har ingen meldinger.", Font = Application.ThemeColors.DefaultFont };
+				_noRows = new UILabel(new RectangleF(10, 10, 300, 30)){ Text = "Du har ingen meldinger.", Font = Application.ThemeColors.DefaultFont };
 				Add(_noRows);
 			}
 		}

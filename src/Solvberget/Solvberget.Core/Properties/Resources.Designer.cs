@@ -10,7 +10,6 @@
 
 namespace Solvberget.Core.Properties {
     using System;
-	using System.Reflection;
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
@@ -30,7 +29,7 @@ namespace Solvberget.Core.Properties {
         internal static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-					System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Solvberget.Core.Properties.Resources", typeof(Resources).GetTypeInfo().Assembly);
+					System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Solvberget.Core.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

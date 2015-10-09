@@ -1,7 +1,10 @@
 using System;
-using UIKit;
-using Foundation;
+using Cirrious.MvvmCross.Binding.Touch.Views;
+using Cirrious.MvvmCross.Touch.Views;
+using MonoTouch.UIKit;
+using MonoTouch.Foundation;
 using Solvberget.Core.ViewModels;
+using Cirrious.MvvmCross.Binding.BindingContext;
 
 namespace Solvberget.iOS
 {
