@@ -13,7 +13,7 @@ namespace Solvberget.iOS
 	partial class HomeScreenView
 	{
 		[Outlet]
-		MonoTouch.UIKit.UIScrollView ScrollView { get; set; }
+		UIKit.UIScrollView ScrollView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

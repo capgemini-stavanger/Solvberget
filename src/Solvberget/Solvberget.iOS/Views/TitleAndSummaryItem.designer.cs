@@ -13,10 +13,10 @@ namespace Solvberget.iOS
 	partial class TitleAndSummaryItem
 	{
 		[Outlet]
-		MonoTouch.UIKit.UILabel SummaryLabel { get; set; }
+		UIKit.UILabel SummaryLabel { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel TitleLabel { get; set; }
+		UIKit.UILabel TitleLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

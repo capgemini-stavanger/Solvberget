@@ -1,12 +1,11 @@
 using System;
-using System.Drawing;
+using CoreGraphics;
 using Foundation;
 using UIKit;
 using Solvberget.Core.ViewModels;
 using Cirrious.MvvmCross.Touch.Views;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Binding.Touch.Views;
-using CoreGraphics;
 
 namespace Solvberget.iOS
 {
@@ -155,7 +154,7 @@ namespace Solvberget.iOS
 				case "CDer":
 					set.Bind(_resultsSource).To(vm => vm.CDResults);
                     break;
-				case "Lydbøker":
+                case "Lydbøker":
 					set.Bind(_resultsSource).To(vm => vm.AudioBookResults);
 					break;
 				case "Noter":

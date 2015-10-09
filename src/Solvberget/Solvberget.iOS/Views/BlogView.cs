@@ -1,11 +1,10 @@
 using System;
-using System.Drawing;
+using CoreGraphics;
 using Foundation;
 using UIKit;
 using Solvberget.Core.ViewModels;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using CoreGraphics;
 
 namespace Solvberget.iOS
 {
@@ -45,7 +44,7 @@ namespace Solvberget.iOS
 		{
 			base.ViewModelReady();
 
-			var padding = 10.0f;
+			nfloat padding = 10.0f;
 
 			DescriptionLabel.Text = ViewModel.Description;
 
@@ -55,7 +54,7 @@ namespace Solvberget.iOS
 			DescriptionContainer.BackgroundColor = Application.ThemeColors.Hero;
 			DescriptionContainer.Frame = new CGRect(0, 0, View.Frame.Width, labelSize.Height + padding+padding);
 
-			var y = padding;
+			nfloat y = padding;
 
 
 			foreach (var s in ItemsContainer.Subviews)

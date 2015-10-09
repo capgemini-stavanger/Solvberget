@@ -1,5 +1,5 @@
 using System;
-using System.Drawing;
+using CoreGraphics;
 using Foundation;
 using UIKit;
 using Cirrious.MvvmCross.Touch.Views;
@@ -7,7 +7,6 @@ using Solvberget.Core.ViewModels;
 using Cirrious.MvvmCross.Binding.Touch.Views;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using System.Linq;
-using CoreGraphics;
 
 namespace Solvberget.iOS
 {
@@ -24,9 +23,9 @@ namespace Solvberget.iOS
 
 		public static CGSize CalculateHeightForWidthStrategy(UIView context, UILabel label, string text)
 		{
-			var maxSize = new CGSize(label.Frame.Width, nfloat.MaxValue);
+			var maxSize = new CGSize(label.Frame.Width, float.MaxValue);
 
-			var size = context.StringSize(text, label.Font, maxSize, UILineBreakMode.WordWrap);
+			var size = UIStringDrawing.StringSize(text, label.Font, maxSize, UILineBreakMode.WordWrap);
 			return size;
 		}
 

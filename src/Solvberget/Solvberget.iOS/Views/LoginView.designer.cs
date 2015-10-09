@@ -13,25 +13,25 @@ namespace Solvberget.iOS
 	partial class LoginView
 	{
 		[Outlet]
-		MonoTouch.UIKit.UILabel ErrorMessage { get; set; }
+		UIKit.UILabel ErrorMessage { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIButton LoginButton { get; set; }
+		UIKit.UIButton LoginButton { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIButton LostCredentialsButton { get; set; }
+		UIKit.UIButton LostCredentialsButton { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UITextField Password { get; set; }
+		UIKit.UITextField Password { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel PinLabel { get; set; }
+		UIKit.UILabel PinLabel { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UITextField Username { get; set; }
+		UIKit.UITextField Username { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel UsernameLAbel { get; set; }
+		UIKit.UILabel UsernameLAbel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

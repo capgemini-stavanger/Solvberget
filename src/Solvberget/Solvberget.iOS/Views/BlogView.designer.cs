@@ -13,16 +13,16 @@ namespace Solvberget.iOS
 	partial class BlogView
 	{
 		[Outlet]
-		MonoTouch.UIKit.UIView DescriptionContainer { get; set; }
+		UIKit.UIView DescriptionContainer { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel DescriptionLabel { get; set; }
+		UIKit.UILabel DescriptionLabel { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIView ItemsContainer { get; set; }
+		UIKit.UIView ItemsContainer { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIScrollView ScrollContainer { get; set; }
+		UIKit.UIScrollView ScrollContainer { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

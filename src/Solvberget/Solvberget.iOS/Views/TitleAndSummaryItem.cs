@@ -1,8 +1,7 @@
 using System;
-using System.Drawing;
+using CoreGraphics;
 using Foundation;
 using UIKit;
-using CoreGraphics;
 
 namespace Solvberget.iOS
 {

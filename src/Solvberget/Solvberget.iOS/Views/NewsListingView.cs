@@ -1,5 +1,5 @@
 using System;
-using System.Drawing;
+using CoreGraphics;
 using Foundation;
 using UIKit;
 using Cirrious.MvvmCross.Touch.Views;
@@ -7,7 +7,6 @@ using Solvberget.Core.ViewModels;
 using Cirrious.MvvmCross.Binding.Touch.Views;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using System.Globalization;
-using CoreGraphics;
 
 namespace Solvberget.iOS
 {
@@ -41,7 +40,7 @@ namespace Solvberget.iOS
 			if (null != container)
 				container.RemoveFromSuperview();
 		
-			//View.Frame = new CGRect(View.Frame);
+			//View.Frame = new RectangleF(View.Frame);
 			View.AutoresizingMask = UIViewAutoresizing.All;
 			container = new UIScrollView(new CGRect(CGPoint.Empty, View.Frame.Size));
 
@@ -59,9 +58,9 @@ namespace Solvberget.iOS
 		private void RenderView()
 		{
 
-			var padding = 10.0f;
+			nfloat padding = 10.0f;
 
-			var y = padding;
+			nfloat y = padding;
 
 			foreach (var item in ViewModel.Stories)
 			{

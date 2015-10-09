@@ -13,10 +13,10 @@ namespace Solvberget.iOS
 	partial class MenuCell
 	{
 		[Outlet]
-		MonoTouch.UIKit.UILabel _iconLabel { get; set; }
+		UIKit.UILabel _iconLabel { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel _titleLabel { get; set; }
+		UIKit.UILabel _titleLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

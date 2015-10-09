@@ -13,7 +13,7 @@ namespace Solvberget.iOS
 	partial class HomeView
 	{
 		[Outlet]
-		MonoTouch.UIKit.UITableView MenuTableView { get; set; }
+		UIKit.UITableView MenuTableView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

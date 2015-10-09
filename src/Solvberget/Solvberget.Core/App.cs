@@ -3,6 +3,7 @@ using Cirrious.CrossCore.IoC;
 using Solvberget.Core.Properties;
 using Solvberget.Core.Services;
 using Solvberget.Core.ViewModels;
+using System.Reflection;
 
 namespace Solvberget.Core
 {
@@ -15,7 +16,7 @@ namespace Solvberget.Core
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
-            CreatableTypes(typeof(SearchService).Assembly) // Solvberget.Core.Services assembly
+			CreatableTypes(typeof(SearchService).GetTypeInfo().Assembly) // Solvberget.Core.Services assembly
                 .EndingWith("Service")
                 .AsInterfaces()
                 .RegisterAsLazySingleton();

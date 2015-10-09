@@ -13,13 +13,13 @@ namespace Solvberget.iOS
 	partial class SearchView
 	{
 		[Outlet]
-		MonoTouch.UIKit.UILabel NoResultsLabel { get; set; }
+		UIKit.UILabel NoResultsLabel { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UISearchBar Query { get; set; }
+		UIKit.UISearchBar Query { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UITableView Results { get; set; }
+		UIKit.UITableView Results { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

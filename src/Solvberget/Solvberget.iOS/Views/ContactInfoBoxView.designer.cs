@@ -13,7 +13,7 @@ namespace Solvberget.iOS
 	partial class ContactInfoBoxView
 	{
 		[Outlet]
-		MonoTouch.UIKit.UIScrollView ScrollView { get; set; }
+		UIKit.UIScrollView ScrollView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

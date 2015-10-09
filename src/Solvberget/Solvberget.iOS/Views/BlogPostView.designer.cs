@@ -13,7 +13,7 @@ namespace Solvberget.iOS
 	partial class BlogPostView
 	{
 		[Outlet]
-		MonoTouch.UIKit.UIWebView WebView { get; set; }
+		UIKit.UIWebView WebView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

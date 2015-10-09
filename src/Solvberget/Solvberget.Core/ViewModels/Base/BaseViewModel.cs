@@ -4,6 +4,7 @@ using System.Threading;
 using System;
 using Solvberget.Core.Services;
 using Solvberget.Core.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace Solvberget.Core.ViewModels.Base
 {
@@ -22,11 +23,10 @@ namespace Solvberget.Core.ViewModels.Base
 
 		public void WaitForReady(Action onReady)
 		{
-			ThreadPool.QueueUserWorkItem(s =>
-				{
-					_viewModelReady.WaitOne();
-					onReady();
-				});
+			Task stuff = Task.Run(() => {
+				_viewModelReady.WaitOne ();
+				onReady ();
+			});
 		}
 
         public override void Start()

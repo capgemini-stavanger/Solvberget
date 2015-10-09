@@ -13,28 +13,28 @@ namespace Solvberget.iOS
 	partial class MediaDetailView
 	{
 		[Outlet]
-		MonoTouch.UIKit.UILabel HeaderLabel { get; set; }
+		UIKit.UILabel HeaderLabel { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIView HeaderView { get; set; }
+		UIKit.UIView HeaderView { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIImageView Image { get; set; }
+		UIKit.UIImageView Image { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel RatingSourceLabel { get; set; }
+		UIKit.UILabel RatingSourceLabel { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIScrollView ScrollView { get; set; }
+		UIKit.UIScrollView ScrollView { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIView StarsContainer { get; set; }
+		UIKit.UIView StarsContainer { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel SubtitleLabel { get; set; }
+		UIKit.UILabel SubtitleLabel { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel TypeLabel { get; set; }
+		UIKit.UILabel TypeLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

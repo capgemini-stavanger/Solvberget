@@ -1,9 +1,8 @@
 using System;
 using UIKit;
-using System.Drawing;
+using CoreGraphics;
 using System.Linq;
 using Foundation;
-using CoreGraphics;
 
 namespace Solvberget.iOS
 {
@@ -12,15 +11,15 @@ namespace Solvberget.iOS
 		UILabel _label = new UILabel();
 		UILabel _value = new UILabel();
 
-		public LabelAndValue(UIView container, string label, string value, nint colspan = 1, Action onTap = null)
+		public LabelAndValue(UIView container, string label, string value, int colspan = 1, Action onTap = null)
 			: this(container, label, value, false, colspan: colspan, onTap : onTap)
 		{}
 
 
-		private nint LabelTag = 2;
-		private nint ValueTag = 3;
+		const int LabelTag = 2;
+		const int ValueTag = 3;
 
-		public LabelAndValue(UIView container, string label, string value, bool bold, nint colspan = 1, Action onTap = null)
+		public LabelAndValue(UIView container, string label, string value, bool bold, int colspan=1, Action onTap = null)
         {
 			// style 
 			_label.Tag = LabelTag;
@@ -44,23 +43,23 @@ namespace Solvberget.iOS
 			if (bold) _value.Font = Application.ThemeColors.DefaultFontBold;
 
 			nfloat padding = 10f;
-			nint columnWidth = 300; //single column on phone portrait;
+			int columnWidth = 300; //single column on phone portrait;
 			var maxColspan = 1;
 
 			// show 2 columns on phone landscape
 			if (container.Frame.Width > 300)
 			{
-				columnWidth = (nint)Math.Floor((container.Frame.Width - 3*padding) / 2f);
+				columnWidth = (int)Math.Floor((container.Frame.Width - 3*padding) / 2f);
 				maxColspan = 2;
 			}
 			// show 3 columns on ipad portrait+landscape
 			if (container.Frame.Width > 700)
 			{
-				columnWidth = (nint)Math.Floor((container.Frame.Width - 4*padding) / 3f);
+				columnWidth = (int)Math.Floor((container.Frame.Width - 4*padding) / 3f);
 				maxColspan = 3;
 			}
 
-			columnWidth = (nint)(columnWidth * Math.Min(maxColspan, colspan) + (nint)padding * (colspan-1));
+			columnWidth = columnWidth * Math.Min(maxColspan, colspan) + (int)padding * (colspan-1);
 
 			UIView lastLabel = container.Subviews.LastOrDefault(v => v.Tag == LabelTag);
 
@@ -117,7 +116,7 @@ namespace Solvberget.iOS
 			if (null != onTap)
 			{
 				_value.TextColor = Application.ThemeColors.Main;
-				var onTapAction = new NSAction(onTap);
+				var onTapAction = new Action(onTap);
 
 				_label.AddGestureRecognizer(new UITapGestureRecognizer(onTapAction));
 				_value.AddGestureRecognizer(new UITapGestureRecognizer(onTapAction));

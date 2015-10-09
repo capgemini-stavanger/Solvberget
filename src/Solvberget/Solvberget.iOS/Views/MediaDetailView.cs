@@ -1,5 +1,5 @@
 using System;
-using System.Drawing;
+using CoreGraphics;
 using Foundation;
 using UIKit;
 using Cirrious.MvvmCross.Touch.Views;
@@ -10,8 +10,8 @@ using System.Linq;
 using Solvberget.Core.DTOs;
 using System.Web;
 using Twitter;
-using FacebookConnect;
-using CoreGraphics;
+using Facebook.ShareKit;
+using Facebook.CoreKit;
 
 namespace Solvberget.iOS
 {
@@ -137,23 +137,11 @@ namespace Solvberget.iOS
 				{
 					case 0:
 
-						if(!FBDialogs.CanPresentOSIntegratedShareDialog(FBSession.ActiveSession))
-						{
-							UIAlertView alert = new UIAlertView(View.Frame);
-							alert.Title = "Facebook oppsett mangler";
-							alert.Message = "Du må koble din iPhone/iPad til Facebook før du kan dele (selv om du kanskje har installet Facebook appen). Gå til Instillinger - Facebook.";
-							alert.AddButton("Ok");
-							alert.Show();
-							return;
-						}
+					var content = new ShareLinkContent();
+					content.ContentDescription = shareMessage;
+					content.SetContentUrl(new NSUrl(ViewModel.RawDto.WebAppUrl));
 
-						FBDialogs.PresentOSIntegratedShareDialogModally(this,
-							shareMessage, null, new NSUrl(ViewModel.RawDto.WebAppUrl),new FBOSIntegratedShareDialogHandler((res,err) => {
-
-								var ex = err;
-
-							}));
-
+					ShareDialog.Show(this, content, null);
 
 						break;
 					case 1:
@@ -174,6 +162,14 @@ namespace Solvberget.iOS
 			shareView.CancelButtonIndex = shareView.ButtonCount - 1;
 
 			shareView.Show();
+		}
+
+		public class MyShareDialog : ShareDialog
+		{
+			public MyShareDialog ():base(NSObjectFlag.Empty)
+			{
+				
+			}
 		}
 
 		private void Update()
@@ -282,10 +278,10 @@ namespace Solvberget.iOS
 				RatingSourceLabel.Text = "Fra " + ViewModel.Rating.Source;
 			
 				var x = 0;
-				for (nint i = 0; i < (nint)ViewModel.Rating.MaxScore; i++)
+				for (int i = 0; i < (int)ViewModel.Rating.MaxScore; i++)
 				{
 					var star = new UIImageView(new CGRect(x, 0, 14, 14));
-					if (i < (nint)ViewModel.Rating.Score)// add star.half.on.png for better precision?
+					if (i < (int)ViewModel.Rating.Score)// add star.half.on.png for better precision?
 					{
 						star.Image = UIImage.FromBundle("/Images/star.on.png");
 					}
@@ -410,7 +406,7 @@ namespace Solvberget.iOS
 
 		}
 
-		nfloat padding = 10.0f;
+		float padding = 10.0f;
 
 		private void Position()
 		{

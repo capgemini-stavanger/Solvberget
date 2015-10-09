@@ -1,11 +1,10 @@
 using System;
-using System.Drawing;
+using CoreGraphics;
 using Foundation;
 using UIKit;
 using Cirrious.MvvmCross.Binding.Touch.Views;
 using Solvberget.Core.ViewModels;
 using System.Diagnostics;
-using CoreGraphics;
 
 namespace Solvberget.iOS
 {
@@ -53,7 +52,7 @@ namespace Solvberget.iOS
 				box.RemoveFromSuperview();
 			}
 
-			var padding = 10.0f;
+			nfloat padding = 10.0f;
 			nfloat widthMinusPadding = TableWidth - (2 * padding);
 
 			if (_isFirstBinding)

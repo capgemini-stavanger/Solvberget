@@ -1,10 +1,9 @@
 using System;
-using System.Drawing;
+using CoreGraphics;
 using Foundation;
 using UIKit;
 using Solvberget.Core.ViewModels;
 using System.Linq;
-using CoreGraphics;
 
 namespace Solvberget.iOS
 {
