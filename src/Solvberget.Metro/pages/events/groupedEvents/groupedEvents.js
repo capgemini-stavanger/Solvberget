@@ -36,9 +36,10 @@
         },
 
         initializeLayout: function (listViewWinControl, viewState) {
-            if (viewState === appViewState.snapped) {
+            var screenWidth = screen.width;
+            if (screenWidth <= 400) {
                 listViewWinControl.itemTemplate = this.groupTemplateFunction;
-                listViewWinControl.itemDataSource = EventData.groups.dataSource;
+                listViewWinControl.itemDataSource = EventData.items.dataSource;
                 listViewWinControl.groupDataSource = null;
                 listViewWinControl.layout = new ui.ListLayout();
             } else {

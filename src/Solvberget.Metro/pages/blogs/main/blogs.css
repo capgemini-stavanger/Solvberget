@@ -13,9 +13,8 @@
         margin-top: 5px;
     }
 
-    .blogs .blog-template-container {
+.blogs .blog-template-container, .blogs .blog-mobile-template-container {
     height: 100%;
-    background-color: #330033;
     padding: 20px;
 }
 
@@ -49,6 +48,7 @@ progress.withText {
 
 .blogs #mainBlogsContentSection {
     overflow: auto;
+    margin-top: 30px;
 }
 
 .blogs #blogsLoading {
@@ -92,4 +92,47 @@ progress.withText {
 
 .blogs.fragment {
     -ms-grid-rows: 138px 1fr 0px;
+}
+
+@media screen and (max-width: 400px) {
+
+    .blogs .pagesubtitle {
+        font-size: 14pt;
+        overflow: hidden;
+    }
+
+    .blogs .blog-mobile-template-container h2 {
+        font-size: 16pt;
+        margin: 0;
+    }
+
+    .fragment header[role=banner] .titlearea .pagesubtitle {
+        width: calc(100% - 20px);
+    }
+
+    .blogs .content article {
+        height: calc(100% - 50px);
+        margin-left: 0px;
+        margin-top: 5px;
+    }
+
+    .blogs #blogs-listview .win-vertical.win-viewport .win-surface {
+        margin-bottom: 30px;
+        margin-left: 6px;
+    }
+
+    .blogs #blogs-listview .win-vertical.win-viewport .win-container {
+        margin-right: 42px;
+        margin-bottom: 15px;
+        padding: 7px;
+    }
+
+    .blogs #blogs-listview .win-item {
+        -ms-grid-columns: 1fr;
+        -ms-grid-rows: 1fr;
+        display: -ms-grid;
+        height: 100px;
+        width: 272px;
+    }
+
 }

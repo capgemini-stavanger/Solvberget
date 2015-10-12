@@ -64,7 +64,7 @@
                 margin-right: 20px;
             }
 
-@media screen and (-ms-view-state: snapped) {
+@media screen and (max-width: 400px) {
 
     .event-detail-page .content {
         overflow-x: hidden;

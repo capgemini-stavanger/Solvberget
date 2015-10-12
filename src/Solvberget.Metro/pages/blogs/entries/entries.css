@@ -14,14 +14,10 @@
     }
 
 .blog-entry-container {
-    /*margin-top: 20px;*/
     padding: 20px;
     height: 330px;
-    max-height: 330px;
     width: 480px;
-    max-width: 480px;
-    margin-right: 50px;
-    background-color: #FF00FF;
+    margin-right: 0;
     overflow: hidden;
 }
 
@@ -86,8 +82,6 @@ progress.withText {
     height: auto;
 }
 
-
-
 .entries #blog-entries-listview {
     margin-top: 120px;
     display: flex;
@@ -110,23 +104,9 @@ progress.withText {
     display: inline;
 }
 
-
 .entries #blog-entries-listview.win-listview {
     height: 100%;
     width: 100%;
-}
-
-
-/*@media screen and (max-width: 640px) {
-    .blog-entry-container {
-        background-color: #FF00FF;
-    }
-}*/
-
-
-
-.entries .blog-entry-container {
-    margin-right: 0px;
 }
 
 .entries #blog-entries-listview {
@@ -140,6 +120,47 @@ progress.withText {
     margin-right: 0px;
 }
 
-/*.entries .content article #blog-entries-listview .blog-entry-container:first-child {
-        margin-top: 10px;
-    }*/
+
+@media screen and (max-width: 400px) {
+
+    .entries .pagesubtitle {
+        font-size: 14pt;
+        overflow: hidden;
+    }
+
+    .entries .blog-entry-mobile-template-container {
+        padding: 20px;
+    }
+
+    .entries .blog-entry-mobile-template-container h2 {
+        font-size: 16pt;
+        margin: 0
+    }
+
+    .entries .content article {
+        height: calc(100% - 50px);
+        margin-left: 0px;
+        margin-top: 5px;
+    }
+
+    .entries #blog-entries-listview .win-vertical.win-viewport .win-surface {
+        margin-bottom: 30px;
+        margin-left: 6px;
+    }
+
+    .entries #blog-entries-listview .win-vertical.win-viewport .win-container {
+        margin-right: 42px;
+        margin-bottom: 15px;
+        padding: 7px;
+    }
+
+    .entries #blog-entries-listview .win-item {
+        -ms-grid-columns: 1fr;
+        -ms-grid-rows: 1fr;
+        display: -ms-grid;
+        height: 140px;
+        width: 272px;
+
+    }
+      
+}

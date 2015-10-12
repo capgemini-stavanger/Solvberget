@@ -58,7 +58,7 @@ progress.withText {
     line-height: 25pt;
 }
 
-@media screen and (-ms-view-state: snapped) {
+@media screen and (max-width: 400px) {
 
     .blogentry #mainEntryContentSection article {
         /* Define a single column, vertically scrolling article in snapped mode. */

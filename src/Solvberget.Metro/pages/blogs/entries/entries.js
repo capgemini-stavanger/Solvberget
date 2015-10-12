@@ -45,6 +45,7 @@ var ajaxGetBlogWithEntriesCallback = function (request, context) {
 var populateEntries = function (response) {
 
     var itemTemplate = document.getElementById("blog-entry-template");
+    var itemMobileTemplate = document.getElementById("blog-entry-mobile-template");
     var listview = document.getElementById("blog-entries-listview").winControl;
 
     var bindingList = new WinJS.Binding.List();
@@ -53,8 +54,16 @@ var populateEntries = function (response) {
         bindingList.push(response.Entries[i]);
     }
 
+    var screenWidth = screen.width;
+    if (screenWidth <= 400) {
+        listview.itemTemplate = itemMobileTemplate;
+        listview.layout = new WinJS.UI.ListLayout();
+    } else {
+        listview.itemTemplate = itemTemplate;
+    }
+
+
     listview.itemDataSource = bindingList.dataSource;
-    listview.itemTemplate = itemTemplate;
     listview.oniteminvoked = function (args) {
         args.detail.itemPromise.done(function (item) {
             WinJS.Navigation.navigate("/pages/blogs/entry/entry.html", { model: item.data });

@@ -52,14 +52,15 @@
 
         itemInvoked: function (args) {
             var viewState = Windows.UI.ViewManagement.ApplicationView.value;
-            if (viewState === appViewState.fullScreenLandscape) {
-                Data.menuItems[args.detail.itemIndex].navigateTo();
-            } else if (viewState === appViewState.fullScreenPortrait) {
-                Data.menuItemsPortrait[args.detail.itemIndex].navigateTo();
-            } else if (viewState === appViewState.snapped) {
+            var screenWidth = screen.width;
+            if (screenWidth <= 400) {
                 Data.menuItemsSnapped[args.detail.itemIndex].navigateTo();
             }
-            else {
+            else if (viewState === appViewState.fullScreenPortrait) {
+                Data.menuItemsPortrait[args.detail.itemIndex].navigateTo();
+            } else if (viewState === appViewState.fullScreenLandscape) {
+                Data.menuItems[args.detail.itemIndex].navigateTo();
+            } else {
                 Data.menuItems[args.detail.itemIndex].navigateTo();
             }
         },
