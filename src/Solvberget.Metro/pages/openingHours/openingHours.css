@@ -71,7 +71,7 @@ progress.withText {
     }
 }
 
-@media screen and (-ms-view-state: snapped) {
+@media screen and (max-width: 400px) {
 
     .opening-hours .content article {
         /* Define a single column, vertically scrolling article in snapped mode. */
@@ -90,7 +90,6 @@ progress.withText {
             margin-top: 8px;
             margin-bottom: 8px;
             width: 250px;
-            max-width: 250px;
             margin-right: 8px;
             overflow: hidden;
         }

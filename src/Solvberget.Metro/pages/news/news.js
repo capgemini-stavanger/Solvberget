@@ -3,9 +3,6 @@
 
     var appView = Windows.UI.ViewManagement.ApplicationView;
     var appViewState = Windows.UI.ViewManagement.ApplicationViewState;
-    var binding = WinJS.Binding;
-    var nav = WinJS.Navigation;
-    var utils = WinJS.Utilities;
     var ui = WinJS.UI;
 
     var newsReqUrl = "/News/GetNewsItems";
@@ -22,7 +19,6 @@
             this.getNewsItems(newsItemsListView);
 
             document.getElementById("appBar").addEventListener("beforeshow", setAppbarButton());
-
         },
 
         getNewsItems: function (newsItemsListView) {
@@ -75,7 +71,8 @@
 
         initializeLayout: function (newsItemsListView, viewState) {
             if (this.newsItems) {
-                if (viewState === appViewState.snapped) {
+                var screenWidth = screen.width;
+                if (screenWidth <= 400) {
                     $(".pagetitle").html("Nyheter");
                     newsItemsListView.itemDataSource = this.newsItems.dataSource;
                     newsItemsListView.layout = new ui.ListLayout();

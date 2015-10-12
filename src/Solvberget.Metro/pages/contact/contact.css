@@ -73,7 +73,7 @@ progress.withText {
     }
 }
 
-@media screen and (-ms-view-state: snapped) {
+@media screen and (max-width: 400px) {
 
     .contact-info .content article {
         /* Define a single column, vertically scrolling article in snapped mode. */

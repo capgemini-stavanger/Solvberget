@@ -61,7 +61,7 @@
         width: 340px;
     }
 
-@media screen and (-ms-view-state: snapped) {
+@media screen and (max-width: 400px) {
 
     /* This selector is used to prevent ui-dark/light.css from overwriting changes
    to .win-surface. */
@@ -69,12 +69,12 @@
     }
 
     .newspage .newsItemsListView.win-listview {
-        margin-top: 0px;
-        height: 100%;
-        position: relative;
-        width: 100%;
-        z-index: 0;
         display: none;
+        height: 100%;
+        width: 100%;
+        position: relative;
+        margin-top: 0px;
+        z-index: 0;
     }
 
     .newspage .newsItemsListView .win-item {
