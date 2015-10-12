@@ -232,6 +232,7 @@
     }
 
     function navigateToSearch() {
+        // TODO: no worky on Windows Phone.
         Windows.ApplicationModel.Search.SearchPane.getForCurrentView().show();
     }
     function navigateToBlogs() {

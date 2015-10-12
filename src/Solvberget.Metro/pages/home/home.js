@@ -31,11 +31,14 @@
         },
 
         initializeLayout: function (listView, viewState, element) {
-            if (viewState === appViewState.snapped) {
+            var screenWidth = screen.width;
+            var screenHeight = screen.height;
+            if (screenWidth <= 400) {
                 listView.itemDataSource = Data.itemsSnapped.dataSource;
                 listView.itemTemplate = snappedTemplateRenderer;
                 listView.layout = new ui.ListLayout();
-            } else if (viewState === appViewState.fullScreenPortrait) {
+            } else if (screenHeight > screenWidth) {
+                // screen height bigger than screen width, meaning portrait mode
                 listView.itemDataSource = Data.itemsPortrait.dataSource;
                 listView.itemTemplate = multisizeItemTemplateRendererPortrait;
                 listView.layout = new ui.GridLayout({ groupInfo: groupInfo, groupHeaderPosition: "top" });

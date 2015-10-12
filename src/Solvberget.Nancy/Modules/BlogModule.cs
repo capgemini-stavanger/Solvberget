@@ -6,7 +6,6 @@ using Nancy;
 using Nancy.LightningCache.Extensions;
 using Solvberget.Core.DTOs;
 using Solvberget.Domain.Blogs;
-using System.Linq;
 
 namespace Solvberget.Nancy.Modules
 {
