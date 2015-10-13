@@ -277,7 +277,7 @@
 
 
 
-@media screen and (-ms-view-state: snapped) {
+@media screen and (max-width: 400px) {
 
     .document-detail-page .titlearea .pagesubtitle {
         margin-top: 0px;

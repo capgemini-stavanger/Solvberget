@@ -271,7 +271,7 @@ var populateFragment = function (documentModel) {
         populateAvailability();
 
         $("#documentDetailLoading").css("display", "none").css("visibility", "hidden");
-        $("#document-content").css("display", "block").css("visibility", "visible").hide().fadeIn(500);
+        $("#document-content").css("visibility", "visible").hide().fadeIn(500);
 
         //Do not allow hold request for journals
         if (documentType == "Journal")
@@ -334,7 +334,7 @@ var populateAvailability = function () {
         var avv = Windows.UI.ViewManagement.ApplicationView.value;
         var avs = Windows.UI.ViewManagement.ApplicationViewState;
 
-        if (avv === avs.fullScreenLandscape || avv === avs.filled) {
+        if (screen.width > 400) {
             cssForLeftContentLandscapeOrFilled();
         } else if (avv === avs.fullScreenPortrait) {
             cssForLeftContentPortrait();

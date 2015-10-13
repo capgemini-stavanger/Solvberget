@@ -5,3 +5,11 @@
 #fragmentContent #left-content #reviewContent {
     margin-top: 20px;
 }
+
+@media screen and (max-width: 400px) {
+    
+    #reviewContent {
+        width: 85%;
+    }
+
+}

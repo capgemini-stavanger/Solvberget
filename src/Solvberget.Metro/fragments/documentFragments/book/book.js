@@ -68,7 +68,7 @@ var ajaxGetRatingCallback = function (request, context) {
 
         bokelskereTemplate.outerHTML = "";
         bokelskereTemplate.render(data, ratingContainer);
-        
+
         var element = document.getElementById("ratingControl");
         if (element === undefined || element == null) return;
         var rating = element.winControl;
@@ -77,6 +77,8 @@ var ajaxGetRatingCallback = function (request, context) {
             rating.averageRating = response;
         }
 
+    } else {
+        $("#ratingContainer").hide();
     }
     
 };
