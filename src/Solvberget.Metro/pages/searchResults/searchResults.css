@@ -165,7 +165,7 @@ progress.withText {
     display: none;
 }
 
-@media screen and (-ms-view-state: snapped) {
+@media screen and (max-width: 400px) {
     .searchResults header[role=banner] .titlearea {
         margin-top: 73px;
     }
@@ -173,7 +173,7 @@ progress.withText {
     .searchResults section[role=main] {
         /* Rows for the filters, spacing, and the results */
         -ms-grid-columns: 1fr;
-        -ms-grid-rows: 40px 21px 1fr;
+        -ms-grid-rows: 40px 40px 1fr;
         display: -ms-grid;
     }
 

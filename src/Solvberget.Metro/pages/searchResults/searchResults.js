@@ -290,9 +290,10 @@
             /// <param name="listView" value="WinJS.UI.ListView.prototype" />
 
             var modernQuotationMark = "&#148;";
-            if (viewState === appViewState.snapped) {
+            var screenWidth = screen.width;
+            if (screenWidth <= 400) {
                 listView.layout = new ui.ListLayout();
-                document.querySelector(".titlearea .pagetitle").innerHTML = modernQuotationMark + window.toStaticHTML(this.lastSearch) + modernQuotationMark;
+                document.querySelector(".titlearea .pagetitle").innerHTML = modernQuotationMark + this.lastSearch + modernQuotationMark;
                 document.querySelector(".titlearea .pagesubtitle").innerHTML = "";
             } else {
                 listView.layout = new ui.GridLayout();

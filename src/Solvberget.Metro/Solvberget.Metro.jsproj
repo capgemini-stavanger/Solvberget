@@ -168,6 +168,9 @@
     <Content Include="js\data.js" />
     <Content Include="js\default.js" />
     <Content Include="packages.config" />
+    <Content Include="pages\search\search.css" />
+    <Content Include="pages\search\search.html" />
+    <Content Include="pages\search\search.js" />
     <Content Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />

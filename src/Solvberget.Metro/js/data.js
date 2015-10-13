@@ -232,8 +232,13 @@
     }
 
     function navigateToSearch() {
-        // TODO: no worky on Windows Phone.
-        Windows.ApplicationModel.Search.SearchPane.getForCurrentView().show();
+        var screenWidth = screen.width;
+        if (screenWidth <= 400) {
+            Data.activePage = "search";
+            WinJS.Navigation.navigate("/pages/search/search.html");
+        } else {
+            Windows.ApplicationModel.Search.SearchPane.getForCurrentView().show();
+        }
     }
     function navigateToBlogs() {
         Data.activePage = "blogs"; WinJS.Navigation.navigate("/pages/blogs/main/blogs.html");
