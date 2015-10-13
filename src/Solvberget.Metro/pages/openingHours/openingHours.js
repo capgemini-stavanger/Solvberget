@@ -8,6 +8,8 @@
         ready: function (element, options) {
             this.ajaxGetOpeningHoursInformation();
             document.getElementById("appBar").addEventListener("beforeshow", setAppbarButton());
+            //var systemNavigationManager = Windows.UI.Core.SystemNavigationManager.getForCurrentView();
+            //systemNavigationManager.appViewBackButtonVisibility = Windows.UI.Core.AppViewBackButtonVisibility.visible;
         },
         
         ajaxGetOpeningHoursInformation: function () {

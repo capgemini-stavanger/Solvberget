@@ -65,6 +65,7 @@ button:hover .win-label, button:active .win-label {
         .fragment header[role=banner] .win-backbutton {
             margin-left: 39px;
             margin-top: 59px;
+            display: none;
         }
 
         .fragment header[role=banner] .titlearea {

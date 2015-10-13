@@ -171,11 +171,15 @@ progress.withText {
 }
 
 
-@media screen and (-ms-view-state: snapped) {
+@media screen and (max-width: 400px) {
 
     .myPage .box {
         max-width: 260px;
         margin-top: 0px;
+    }
+
+    .myPage header[role=banner] .titlearea .pagesubtitle {
+        display: none;
     }
 
     .myPage #mainContentSection #mypageData #fines, #loans, #reservations, #notifications, #favorites {
