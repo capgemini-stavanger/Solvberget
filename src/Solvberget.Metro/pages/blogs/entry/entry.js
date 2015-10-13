@@ -25,7 +25,11 @@
                 }
             }
 
-        },
+            var screenWidth = screen.width;
+            if (screenWidth <= 400) {
+                $(".blogentry.fragment").addClass("win-scrollview");
+            }
+        }
     });
 })();
 
