@@ -20,7 +20,7 @@
             Solvberget.Queue.CancelQueue('documentdetails');
         },
 
-        setShareButtonState: function() {
+        setShareButtonState: function () {
             if (avv === avs.snapped) {
                 $("#openShareButton").attr("disabled", "disabled");
             } else {
@@ -39,7 +39,7 @@
             }
 
             if (lastViewState === avs.fullScreenLandscape || lastViewState === avs.filled) {
-            
+
                 if (viewState === avs.fullScreenPortrait) {
 
                     if (haveAvailability) {
@@ -49,7 +49,7 @@
                     $("#details").css("-ms-grid-column", "1");
 
                 } else if (viewState === avs.snapped) {
-                    
+
                     if (haveAvailability) {
                         $("#details").css("margin-top", "20px");
                     }
@@ -59,7 +59,7 @@
                 }
 
             } else if (lastViewState === avs.fullScreenPortrait) {
-                
+
                 if (viewState === avs.fullScreenLandscape || viewState === avs.filled) {
 
                     if (haveAvailability) {
@@ -67,18 +67,18 @@
                     } else {
                         $("#details").css("-ms-grid-column", "1");
                     }
-                
+
                     $("#details").css("margin-top", "0px");
                     $("#details").css("margin-bottom", "0px");
 
                 } else if (viewState === avs.snapped) {
 
                     // We can't reach here?
-                    
+
                 }
 
             } else if (lastViewState === avs.snapped) {
-                
+
                 if (viewState === avs.fullScreenLandscape || viewState === avs.filled) {
 
                     if (haveAvailability) {
@@ -87,7 +87,7 @@
                     }
 
                 } else if (viewState === avs.fullScreenPortrait) {
-                    
+
                     if (haveAvailability) {
                         cssForLeftContentPortrait();
                     }
@@ -121,54 +121,45 @@
 
             var request = e.request;
 
-            // This documents title and img
             var documentTitle = documentModel.Title;
-
             if (documentTitle !== "") {
-                var replaceAll = function(txt, replace, with_this) {
-                    return txt.replace(new RegExp(replace, 'g'), with_this);
-                };
-                var range = document.createRange();
-                range.selectNode(document.getElementById("documentShareContent"));
-                request.data = MSApp.createDataPackage(range);
-
-                // Set the title and description of this share-event
                 request.data.properties.title = documentTitle;
                 request.data.properties.description = "Sjekk ut " + documentTitle + " fra bilioteket!";
 
-                var first = true;
-                $("img").each(function (index, item) {
-                    var path = $(this).attr("src");
-                    if (path !== undefined && path !== "undefined") {
+                var link = "http://app.solvberget.no/#/";
 
-                        if (path.indexOf("/images/placeholders") >= 0) {
-                            var path = "";
+                var type = documentModel.DocType;
+                var tmp;
+                if (type === "Book")
+                    tmp = "bok";
+                else if (type === "Film")
+                    tmp = "film";
+                else if (type === "AudioBook")
+                    tmp = "lydbok";
+                else if (type === "Cd")
+                    tmp = "cd";
+                else if (type === "SheetMusic")
+                    tmp = "noter";
+                else if (type === "LanguageCourse")
+                    tmp = "annet";
+                else if (type === "Journal")
+                    tmp = "journal";
+                else if (type === "Game")
+                    tmp = "spill";
+                else {
+                    tmp = "annet";
+                }
 
-                        } else {
-                            var imageUri = new Windows.Foundation.Uri(path);
-                            var streamReference = Windows.Storage.Streams.RandomAccessStreamReference.createFromUri(imageUri);
-                            if (path.indexOf("http") != -1) {
-                                request.data.setBitmap(streamReference);
-                                first = false;
-                            }
-                            request.data.resourceMap[path] = streamReference;
-                        }
-                    }
-                });
+                link = link.concat(tmp) + "/";
+                link = link.concat(documentModel.DocumentNumber) + "/";
+                var titleSpacesReplaced = documentTitle.replace(/ /g, "+");
+                link = link.concat(titleSpacesReplaced);
 
-                var deferral = request.getDeferral();
-                Windows.ApplicationModel.Package.current.installedLocation.getFileAsync("images\\solvberget30.png").then(function (thumbnailFile) {
-                    request.data.properties.thumbnail = Windows.Storage.Streams.RandomAccessStreamReference.createFromFile(thumbnailFile);
-
-                    deferral.complete();
-                }, function (err) {
-                    request.failWithDisplayText(err);
-                });
-
+                request.data.setText(link);
             } else {
                 request.failWithDisplayText("Hmm, vi fant faktisk ingen tittel å dele");
             }
-        },
+        }
 
     });
 
@@ -281,7 +272,7 @@ var populateFragment = function (documentModel) {
 
 };
 
-var callFragmentReady = function(type, dm) {
+var callFragmentReady = function (type, dm) {
     if (type === "Book")
         DocumentDetailFragment.readyBook(documentModel);
     else if (type === "Film")
@@ -330,7 +321,7 @@ var populateAvailability = function () {
             availabilityTemplate.render(model, availabilityTemplateHolderShared);
 
         }
-        
+
         var avv = Windows.UI.ViewManagement.ApplicationView.value;
         var avs = Windows.UI.ViewManagement.ApplicationViewState;
 
@@ -349,13 +340,13 @@ var populateAvailability = function () {
 
 };
 
-function cssForLeftContentLandscapeOrFilled () {
+function cssForLeftContentLandscapeOrFilled() {
     $("#fragmentContent").css("-ms-grid-columns", "280px 1fr");
     $("#left-content").css("display", "inline");
     $("#details").css("-ms-grid-column", "2");
 }
 
-function cssForLeftContentPortrait () {
+function cssForLeftContentPortrait() {
     $("#details").css("margin-top", "20px");
     $("#details").css("margin-bottom", "-25px");
 }
@@ -365,7 +356,7 @@ function cssForAvailabilityInSnapped() {
     $("#details").css("margin-top", "20px");
 }
 
-function cssForReview (avv) {
+function cssForReview(avv) {
 
     if (!avv) {
         avv = Windows.UI.ViewManagement.ApplicationView.value;
@@ -379,10 +370,10 @@ function cssForReview (avv) {
     } else {
         $("#fragmentContent").css("-ms-grid-columns", "1fr");
     }
-    
+
 }
 
-function setHaveReview () {
+function setHaveReview() {
     haveReview = true;
 }
 
@@ -396,7 +387,7 @@ var getDocument = function (documentNumber) {
     ajaxGetDocument(documentNumber);
 };
 
-function registerHoldRequest () {
+function registerHoldRequest() {
     var that = this;
     var holdRequestDiv = document.getElementById("holdRequestFragmentHolder");
     holdRequestDiv.innerHTML = "";
@@ -406,7 +397,7 @@ function registerHoldRequest () {
     });
 };
 
-function addToFavorites () {
+function addToFavorites() {
     var applicationData = Windows.Storage.ApplicationData.current;
     if (applicationData) {
         var internalLibraryUserId = LoginFlyout.getLoggedInLibraryUserId();
@@ -421,7 +412,7 @@ function addToFavorites () {
 
 }
 
-function addToRoamingStorage (applicationData, internalLibraryUserId) {
+function addToRoamingStorage(applicationData, internalLibraryUserId) {
 
     var roamingSettings = applicationData.roamingSettings;
 
@@ -438,7 +429,7 @@ function addToRoamingStorage (applicationData, internalLibraryUserId) {
 
 }
 
-function storeFavorites (roamingSettings, internalLibraryUserId) {
+function storeFavorites(roamingSettings, internalLibraryUserId) {
 
     var key = "favorites-" + internalLibraryUserId;
 
@@ -477,7 +468,7 @@ function storeFavorites (roamingSettings, internalLibraryUserId) {
 
 }
 
-function renderAddToFavoritesFlyout (success, message1, message2) {
+function renderAddToFavoritesFlyout(success, message1, message2) {
     var addToFavoritesDiv = document.getElementById("addToFavoritesFragmentHolder");
     addToFavoritesDiv.innerHTML = "";
     WinJS.UI.Fragments.renderCopy("/fragments/addToFavorites/addToFavorites.html", addToFavoritesDiv).done(function () {
