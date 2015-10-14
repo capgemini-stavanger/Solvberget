@@ -66,6 +66,109 @@
         Data.navigateToHome();
     };
 
+    // as AppBarCommands marked with secondary section aren't accessible through the DOM
+    // we need to make the AppBar and its commands programatically
+    function createAppBar() {
+        var appBar = document.getElementById("appBar");
+        var appBarCtrl = appBar.winControl;
+
+        var homeCmd = new WinJS.UI.AppBarCommand(null,
+        {
+            id: 'toHomeButton',
+            label: 'Hjem',
+            section: 'primary',
+            tooltip: 'Gå hjem',
+            icon: 'home'
+        });
+        homeCmd.onclick = Data.navigateToHome;
+
+        var myPageCmd = new WinJS.UI.AppBarCommand(null, {
+            id: 'toMyPageButton',
+            label: 'Min side',
+            section: 'primary',
+            tooltip: 'Gå til Min side',
+            icon: 'contact'
+        });
+        myPageCmd.onclick = Data.navigateToMypage;
+
+        var searchCmd = new WinJS.UI.AppBarCommand(null, {
+            id: 'toSearchButton',
+            label: 'Søk',
+            section: 'primary',
+            tooltip: 'Søk i biblioteket',
+            icon: 'find'
+        });
+        searchCmd.onclick = Data.navigateToSearch;
+
+        var loginCmd = new WinJS.UI.AppBarCommand(null, {
+            id: 'cmdLoginFlyout',
+            label: 'Logg ut',
+            section: 'secondary',
+            tooltip: 'Logg ut'
+
+        });
+        loginCmd.onclick = doLogin;
+
+        var eventsCmd = new WinJS.UI.AppBarCommand(null, {
+            id: 'toEventsButton',
+            label: 'Arrangementer',
+            section: 'secondary',
+            tooltip: 'Gå til arrangementer'
+        });
+        eventsCmd.onclick = Data.navigateToEvents;
+
+        var blogsCmd = new WinJS.UI.AppBarCommand(null, {
+            id: 'toBlogsPageButton',
+            label: 'Blogger',
+            section: 'secondary',
+            tooltip: 'Gå til blogger'
+        });
+        blogsCmd.onclick = Data.navigateToBlogs;
+
+        var newsCmd = new WinJS.UI.AppBarCommand(null, {
+            id: 'toNewsButton',
+            label: 'Nyheter',
+            section: 'secondary',
+            tooltip: 'Nyheter fra Sølvberget'
+        });
+        newsCmd.onclick = Data.navigateToNews;
+
+        var recommendationsCmd = new WinJS.UI.AppBarCommand(null, {
+            id: 'toListsButton',
+            label: 'Anbefalinger og topplister',
+            section: 'secondary',
+            tooltip: 'Gå til anbefalinger og topplister'
+        });
+        recommendationsCmd.onclick = Data.navigateToLists;
+
+        var openingHoursCmd = new WinJS.UI.AppBarCommand(null, {
+            id: 'toOpeningHoursButton',
+            label: 'Åpningstider',
+            section: 'secondary',
+            tooltip: 'Gå til åpningstider'
+        });
+        openingHoursCmd.onclick = Data.navigateToOpeningHours;
+
+        var contactCmd = new WinJS.UI.AppBarCommand(null, {
+            id: 'toContactButton',
+            label: 'Kontakt',
+            section: 'secondary',
+            tooltip: 'Gå til kontaktinformasjon'
+        });
+        contactCmd.onclick = Data.navigateToContact;
+
+        var pinCmd = new WinJS.UI.AppBarCommand(null, {
+            id: 'cmdPin',
+            section: 'secondary',
+            label: 'Fest til start'
+        });
+        pinCmd.onclick = pinToStart;
+
+        appBarCtrl.data = new WinJS.Binding.List([homeCmd, myPageCmd, searchCmd, loginCmd, eventsCmd, newsCmd, recommendationsCmd, openingHoursCmd, contactCmd, pinCmd]);
+
+        appBar.addEventListener("beforeshow", setAppbarButton());
+    }
+
 
     app.onactivated = function (args) {
 
@@ -115,21 +218,7 @@
 
             Notifications.setAreNotificationsSeen(false);
 
-            document.getElementById("appBar").addEventListener("beforeshow", setAppbarButton());
-
-            //Add functionality to the appbar buttons
-            document.getElementById("cmdLoginFlyout").addEventListener("click", doLogin);
-            document.getElementById("cmdPin").addEventListener("click", pinToStart);
-
-            document.getElementById("toNewsButton").addEventListener("click", Data.navigateToNews);
-            document.getElementById("toListsButton").addEventListener("click", Data.navigateToLists);
-            document.getElementById("toMyPageButton").addEventListener("click", Data.navigateToMypage);
-            document.getElementById("toBlogsPageButton").addEventListener("click", Data.navigateToBlogs);
-            document.getElementById("toEventsButton").addEventListener("click", Data.navigateToEvents);
-            document.getElementById("toOpeningHoursButton").addEventListener("click", Data.navigateToOpeningHours);
-            document.getElementById("toContactButton").addEventListener("click", Data.navigateToContact);
-            document.getElementById("toSearchButton").addEventListener("click", Data.navigateToSearch);
-            document.getElementById("toHomeButton").addEventListener("click", Data.navigateToHome);
+            createAppBar();
 
             LiveTile.liveTile();
         }
