@@ -29,14 +29,8 @@
         },
 
         updateLayout: function (element, viewState, lastViewState) {
-
+            var screenWidth = screen.width;
             // Long and maybe a bit of duplication due to time... 
-
-            if (viewState === avs.snapped) {
-                $("#openShareButton").attr("disabled", "disabled");
-            } else {
-                $("#openShareButton").removeAttr("disabled");
-            }
 
             if (lastViewState === avs.fullScreenLandscape || lastViewState === avs.filled) {
 
@@ -48,13 +42,13 @@
 
                     $("#details").css("-ms-grid-column", "1");
 
-                } else if (viewState === avs.snapped) {
+                } else if (screenWidth <= 400) {
 
                     if (haveAvailability) {
                         $("#details").css("margin-top", "20px");
                     }
 
-                    $("#details").css("-ms-grid-column", "1");
+                    //$("#details").css("-ms-grid-column", "1");
 
                 }
 
@@ -352,8 +346,8 @@ function cssForLeftContentPortrait() {
 }
 
 function cssForAvailabilityInSnapped() {
-    $("#left-content").css("display", "inline");
-    $("#details").css("margin-top", "20px");
+    //$("#left-content").css("display", "inline");
+    //$("#details").css("margin-top", "20px");
 }
 
 function cssForReview(avv) {
@@ -363,12 +357,12 @@ function cssForReview(avv) {
     }
     var avs = Windows.UI.ViewManagement.ApplicationViewState;
 
-    if (avv === avs.fullScreenLandscape || avv.value === avs.filled) {
+    if (screen.width > 400) {
         $("#fragmentContent").css("-ms-grid-columns", "360px 1fr");
     } else if (avv === avs.fullScreenPortrait) {
         $("#fragmentContent").css("-ms-grid-columns", "360px 1fr");
     } else {
-        $("#fragmentContent").css("-ms-grid-columns", "1fr");
+        //$("#fragmentContent").css("-ms-grid-columns", "1fr");
     }
 
 }

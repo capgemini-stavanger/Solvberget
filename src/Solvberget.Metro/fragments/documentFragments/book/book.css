@@ -1,4 +1,5 @@
-﻿#fragmentContent #left-content #reviewContainer {
+﻿
+#fragmentContent #left-content #reviewContainer {
     padding-right: 40px;
 }
 
@@ -7,9 +8,9 @@
 }
 
 @media screen and (max-width: 400px) {
-    
-    #reviewContent {
-        width: 85%;
+
+    #fragmentContent #left-content #reviewContainer {
+        padding-right: 0;
     }
 
 }

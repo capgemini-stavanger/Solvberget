@@ -47,27 +47,7 @@
     overflow: auto;
 }
 
-    .document-detail-page #document-content {
-        -ms-grid-row: 2;
-        margin-left: 120px;
-        margin-top: 30px;
-        -ms-grid-columns: 270px 1fr;
-        -ms-grid-rows: 1fr;
-        display: -ms-grid;
-        height: calc(100% - 30px);
-        width: calc(100% - 120px);
-    }
-
-    .document-detail-page #document-fragment-holder {
-        margin-left: 30px;
-        margin-top: 0px;
-        height: calc(100% - 23px);
-        width: calc(100% - 30px);
-        -ms-grid-column: 2;
-        -ms-grid-row: 1;
-        -ms-hyphenate-limit-zone: 0%;
-        -ms-hyphens: manual;
-    }
+    
 
     .document-detail-page .titlearea {
         overflow: visible;
@@ -80,10 +60,7 @@
 
 
     /*          LEFT BAR STATIC INFORMATION         */
-    .document-detail-page #documentStaticInformation {
-        -ms-grid-column: 1;
-        -ms-grid-row: 1;
-    }
+    
 
     .document-detail-page .document-compressedsubtitle-container {
         height: auto;
@@ -141,30 +118,20 @@
     }
 
 
+@media screen and (min-width: 401px) {
 
-
-    /*          FRAGMENT CONTENT        */
-
-    .document-detail-page #fragmentContent {
-        height: 100%;
-        width: 100%;
-        -ms-grid-column: inherit;
-        display: -ms-grid;
-        -ms-grid-columns: 1fr;
-        -ms-grid-rows: 1fr;
+    .fragment header[role=banner].titlearea h1 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
-        .document-detail-page #fragmentContent #left-content {
-            display: none;
-            -ms-grid-column: 1;
-            -ms-grid-row: 1;
-        }
-
-            .document-detail-page #fragmentContent #left-content #reviewContainer {
-                display: none;
-            }
-
-        .document-detail-page #fragmentContent #details {
+    .document-detail-page #documentStaticInformation {
+        -ms-grid-column: 1;
+        -ms-grid-row: 1;
+    }
+    
+    .document-detail-page #fragmentContent #details {
             -ms-grid-column: 1;
             -ms-grid-row: 1;
             column-fill: auto;
@@ -176,6 +143,57 @@
             padding-bottom: 10px;
             padding-right: 10px;
         }
+
+    .document-detail-page #fragmentContent #left-content {
+            display: none;
+            -ms-grid-column: 1;
+            -ms-grid-row: 1;
+        }
+
+    .document-detail-page #fragmentContent {
+        height: 100%;
+        width: 100%;
+        -ms-grid-column: inherit;
+        display: -ms-grid;
+        -ms-grid-columns: 1fr;
+        -ms-grid-rows: 1fr;
+    }
+
+    .document-detail-page #document-content {
+        -ms-grid-row: 2;
+        margin-left: 120px;
+        margin-top: 30px;
+        -ms-grid-columns: 270px 1fr;
+        -ms-grid-rows: 1fr;
+        display: -ms-grid;
+        height: calc(100% - 30px);
+        width: calc(100% - 120px);
+    }
+
+    .document-detail-page #document-fragment-holder {
+        margin-left: 30px;
+        margin-top: 0px;
+        height: calc(100% - 23px);
+        width: calc(100% - 30px);
+        -ms-grid-column: 2;
+        -ms-grid-row: 1;
+        -ms-hyphenate-limit-zone: 0%;
+        -ms-hyphens: manual;
+    }
+
+}
+
+    /*          FRAGMENT CONTENT        */
+
+    
+
+        
+
+            .document-detail-page #fragmentContent #left-content #reviewContainer {
+                display: none;
+            }
+
+        
 
     .document-detail-page .fact {
         margin-top: 20px;
@@ -279,28 +297,33 @@
 
 @media screen and (max-width: 400px) {
 
+    .document-detail-page {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
     .document-detail-page .titlearea .pagesubtitle {
-        margin-top: 0px;
+        display: none;
     }
 
     .document-detail-page #document-content {
-        -ms-grid-row: 2;
+        /*-ms-grid-row: 2;*/
         margin-left: 0px;
         margin-top: 0px;
-        -ms-grid-columns: 1fr;
-        -ms-grid-rows: auto 1fr;
-        display: -ms-grid;
+        /*-ms-grid-columns: 1fr;*/
+        /*-ms-grid-rows: auto 1fr;*/
+        /*display: -ms-grid;*/
         height: 100%;
-        width: calc(100% - 10px);
+        /*width: calc(100% - 10px);*/
     }
 
     .document-detail-page #document-fragment-holder {
         margin-left: 0px;
         margin-top: 0px;
         height: 100%;
-        width: 100%;
-        -ms-grid-column: 1;
-        -ms-grid-row: 2;
+        width: calc(100% - 20px);
+        /*-ms-grid-column: 1;*/
+        /*-ms-grid-row: 2;*/
         -ms-hyphenate-limit-zone: 0%;
         -ms-hyphens: manual;
     }
@@ -314,8 +337,8 @@
 
     /*      STATIC      */
     .document-detail-page #documentStaticInformation {
-        -ms-grid-column: 1;
-        -ms-grid-row: 1;
+        /*-ms-grid-column: 1;*/
+        /*-ms-grid-row: 1;*/
     }
 
     .document-detail-page .document-compressedsubtitle-container {
@@ -378,30 +401,30 @@
 
     .document-detail-page #fragmentContent {
         height: 100%;
-        width: 100%;
-        -ms-grid-column: inherit;
-        display: -ms-grid;
-        -ms-grid-columns: 1fr;
-        -ms-grid-rows: auto 1fr;
+        /*width: 100%;*/
+        /*-ms-grid-column: inherit;*/
+        /*display: -ms-grid;*/
+        /*-ms-grid-columns: 1fr;*/
+        /*-ms-grid-rows: auto 1fr;*/
         margin-left: 30px;
-        width: calc(100% - 30px);
+        /*width: calc(100% - 30px);*/
     }
 
         .document-detail-page #fragmentContent #left-content {
-            display: none;
-            -ms-grid-column: 1;
-            -ms-grid-row: 1;
+            /*display: none;*/
+            /*-ms-grid-column: 1;*/
+            /*-ms-grid-row: 1;*/
         }
 
         .document-detail-page #fragmentContent #details {
-            -ms-grid-column: 1;
-            -ms-grid-row: 2;
-            column-fill: auto;
-            column-gap: normal;
-            column-rule: 0px solid gray;
-            columns: auto auto;
-            height: calc(100% - 20px);
-            overflow: visible;
+            /*-ms-grid-column: 1;*/
+            /*-ms-grid-row: 2;*/
+            /*column-fill: auto;*/
+            /*column-gap: normal;*/
+            /*column-rule: 0px solid gray;*/
+            /*columns: auto auto;*/
+            /*height: calc(100% - 20px);*/
+            /*overflow: visible;*/
             padding-bottom: 10px;
             padding-right: 10px;
             margin-top: 30px;

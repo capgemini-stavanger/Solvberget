@@ -105,8 +105,9 @@ button:hover .win-label, button:active .win-label {
             margin-top: 68px;
         }
 
-        .fragment header[role=banner] .titlearea .pagetitle {
+            .fragment header[role=banner] .titlearea h1 {
                 margin: 0;
+                margin-right: 10px;
             }
 }
 
@@ -132,9 +133,9 @@ button:hover .win-label, button:active .win-label {
         -ms-transform: scale(1, 1);
     }
 
-    @media screen and (min-width: 300px) {
-        #contenthost {
-            margin-top: 90px;
-            /* Needs fixing */
-}
+@media screen and (min-width: 300px) {
+    #contenthost {
+        margin-top: 90px;
+        /* Needs fixing */
     }
+}
