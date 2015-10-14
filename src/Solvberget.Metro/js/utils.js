@@ -369,8 +369,6 @@
 
     function logout() {
 
-        var activePage = WinJS.Navigation.location;
-
         window.localStorage.setItem("BorrowerId", "");
         window.localStorage.setItem("LibraryUserId", "");
         window.localStorage.setItem("Notifications", "");
@@ -385,39 +383,16 @@
             }
         }
 
-        Notifications.setAreNotificationsSeen(false);
-
-
-        var logoutMessage = document.getElementById("logoutConfimationMsg");
-        if (logoutMessage.innerHTML != undefined)
-            logoutMessage.innerHTML = "Du blir nå logget ut";
-
-        setTimeout(function () {
-            var flyout = document.getElementById("loginFlyout");
-            if (flyout.winControl != undefined)
-                flyout.winControl.hide();
-            if (WinJS.Navigation.location == "/pages/mypage/mypage.html")
-                Data.navigateToHome();
-            updateAppBarButton();
-        }, 1200);
+        Notifications.setAreNotificationsSeen(false);      
 
         if (interval)
             clearInterval(interval);
         Windows.UI.Notifications.TileUpdateManager.createTileUpdaterForApplication().clear();
 
-        setTimeout(function () {
-            $("#logoutConfimationMsg").css("display", "none").css("visibility", "hidden");
-            $("#confirmLogoutButton").css("display", "none").css("visibility", "hidden");
-            $("#cancelLogoutButton").css("display", "none").css("visibility", "hidden");
+        if (WinJS.Navigation.location == "/pages/mypage/mypage.html")
+            Data.navigateToHome();
 
-            $("#labelForUserId").css("display", "block").css("visibility", "visible");
-            $("#userId").css("display", "block").css("visibility", "visible");
-            $("#laberForPin").css("display", "block").css("visibility", "visible");
-            $("#pin").css("display", "block").css("visibility", "visible");
-            $("#submitLoginButton").css("display", "block").css("visibility", "visible");
-            $("#outputMsg").css("display", "block").css("visibility", "visible");
-        }, 1300);
-
+        updateAppBarButton();
     }
 
     var interval;
@@ -453,16 +428,11 @@
         if (notifications[0] != "") {
             var tileNotification = new Windows.UI.Notifications.TileNotification(tileXml);
 
-
-            var scheduledTileNotifications = new Array();
-
             var title = "";
             var content = "";
-
             var number = 0;
 
             var tileImageAttributes = tileXml.getElementsByTagName("text");
-
 
             interval = setInterval(liveTileInterval, 5000);
         }
@@ -477,14 +447,14 @@
         getLoggedInBorrowerId: getLoggedInBorrowerId,
         getLoggedInLibraryUserId: getLoggedInLibraryUserId,
         updateAppBarButton: updateAppBarButton,
-        logout: logout,
+        logout: logout
     });
 
     WinJS.Namespace.define("Notifications", {
         getUserNotifications: getUserNotifications,
         setUserNotifications: setUserNotifications,
         setAreNotificationsSeen: setAreNotificationsSeen,
-        areNotificationsSeen: areNotificationsSeen,
+        areNotificationsSeen: areNotificationsSeen
     });
 
     WinJS.Namespace.define("LiveTile", {
@@ -493,7 +463,7 @@
     });
 
     WinJS.Namespace.define("Toast", {
-        showToast: showToast,
+        showToast: showToast
     });
 
 })();

@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>loginpage</title>
+
+    <link href="loginpage.css" rel="stylesheet" />
+    <script src="loginpage.js"></script>
+</head>
+<body>
+    <div class="loginpage fragment">
+        <header aria-label="Header content" role="banner">
+            <button class="win-backbutton" aria-label="Back"></button>
+            <div class="titlearea win-type-ellipsis">
+                <h1 class="pagetitle">Logg inn</h1>
+            </div>
+        </header>
+
+        <section aria-label="Main content" role="main">
+            <p id="loginErrorMessage"></p>
+            <p id="loginSuccessMessage"></p>
+
+            <p>Lånernummer</p>
+            <input id="loginUserId" class="win-textbox loginpage-inputs" type="text" />
+
+            <p>Pinkode</p>
+            <input id="loginPin" class="win-textbox loginpage-inputs" type="password" />
+            <br />
+            <button id="loginSubmit" class="win-button">Logg inn</button>
+            <button id="forgotPinCodeExpand" class="win-button">Glemt pin-kode?</button>
+
+            <div id="loginLoading">
+                <progress class="win-ring"></progress>
+            </div>
+            
+
+            <div id="pinRequestContainer" style="display: none; width: 90%" aria-label="{Pin request}">
+                <p>Få tilsendt din PIN-kode på SMS (Kr. 1,- per mottatt melding).</p>
+                <p>
+                    <label for="userIdPinReq">
+                        <b>Lånernummer</b>
+                        <br/>
+                    </label>
+                    <span id="userIdErrorPinReq" class="error"></span>
+
+                    <input type="text" id="userIdPinReq" class="win-textbox loginpage-inputs" />
+                    <br />
+                </p>
+                <span id="outputMsgPinReq" class="success"></span>
+
+                <div id="pinRequestLoading"><progress class="win-ring"></progress></div>
+
+                <button id="submitPinRequestButton" class="win-button">Send</button>
+                <button id="cancelExpandButton" class="win-button">Avbryt</button>
+            </div>
+
+        </section>
+    </div>
+</body>
+</html>

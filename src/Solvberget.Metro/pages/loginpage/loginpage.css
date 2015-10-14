@@ -1,0 +1,58 @@
+﻿.loginpage section {
+    margin: auto 120px;
+}
+
+.loginpage #loginLoading {
+    display: none;
+}
+
+.loginpage #loginSuccessMessage, .loginpage .success {
+    color: #448811;
+}
+
+.loginpage #loginErrorMessage, .loginpage .error {
+    color: #cc3300;
+}
+
+.loginpage #forgotPinCodeExpand {
+    margin-top: 10px;
+}
+
+.loginpage #loginSubmit {
+    margin-bottom: 10px;
+}
+
+.phone .loginpage .page-section {
+    margin: auto 24px;
+}
+
+.phone .loginpage .page-header .titlearea {
+    -ms-grid-column: 1;
+    margin-top: 37px;
+    margin-left: 24px;
+    font-size: 28pt;
+    width: calc(100vw - 20px);
+}
+
+.phone .loginpage .back-button {
+    display: none;
+}
+
+@media screen and (max-width: 400px) {
+    .loginpage.fragment {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .loginpage section {
+        margin: 20px;
+    }
+
+    .loginpage .back-button {
+        display: none;
+    }
+
+    .loginpage .loginpage-inputs {
+        width: 90%;
+    }
+}

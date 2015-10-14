@@ -26,7 +26,7 @@
         "rgba(102, 0, 102, ",
         "rgba(51, 0, 51, "
     ];
-    
+
     var colorPoolSubsetSorted = [
         "rgba(0, 51, 102, ",
         "rgba(0, 153, 204, ",
@@ -35,7 +35,7 @@
         "rgba(255, 153, 0, ",
         "rgba(204, 51, 0, "
     ];
-    
+
     var colorPoolBlogs = [
         "rgba(0, 51, 102, ",
         "rgba(0, 85, 34, ",
@@ -53,7 +53,7 @@
         "rgba(102, 0, 102, ",
         "rgba(76, 0, 76, "
     ];
-    
+
     var colorPoolSubsetSortedRefined = [
         colorPoolRgbaRefined[0],
         colorPoolRgbaRefined[1],
@@ -127,7 +127,7 @@
         }
     };
 
-    
+
     function getColorFromPool(index, alpha) {
         if (index >= 0 && index < colorPoolRgbaRefined.length) {
             var color = colorPoolRgbaRefined[index];
@@ -209,13 +209,12 @@
     }
 
     function navigateToMypage() {
-        var homepage = getActivePage();
-        Data.activePage = "mypage";
-        if (homepage == "/pages/home/home.html") {
-            loginThenNavigateTo("/pages/mypage/mypage.html", ".win-container:nth-child(2)");
-        }
-        else {
-            loginThenNavigateTo("/pages/mypage/mypage.html", "#toMyPageButton");
+        if (LoginFlyout.getLoggedInBorrowerId() == undefined || LoginFlyout.getLoggedInBorrowerId() === "") {
+            WinJS.Navigation.navigate("/pages/loginpage/loginpage.html");
+            Data.activePage = "login";
+        } else {
+            WinJS.Navigation.navigate("/pages/mypage/mypage.html");
+            Data.activePage = "mypage";
         }
     }
 
@@ -240,24 +239,21 @@
             Windows.ApplicationModel.Search.SearchPane.getForCurrentView().show();
         }
     }
+
     function navigateToBlogs() {
         Data.activePage = "blogs"; WinJS.Navigation.navigate("/pages/blogs/main/blogs.html");
     }
 
-    var loginThenNavigateTo = function (page, querySelector) {
+    function navigateToLogin() {
+        if (LoginFlyout.getLoggedInBorrowerId() == undefined || LoginFlyout.getLoggedInBorrowerId() === "") {
+            Data.activePage = "login";
+            WinJS.Navigation.navigate("/pages/loginpage/loginpage.html");
+        } else {
+            LoginFlyout.logout();
+            navigateToHome();
+        }
+    }
 
-
-        var loginDiv = document.getElementById("loginDiv");
-
-
-        WinJS.UI.Fragments.renderCopy("/fragments/login/login.html", loginDiv).done(function () {
-
-            var loginAnchor = document.querySelector(querySelector);
-            LoginFlyout.showLogin(loginAnchor, page);
-
-        });
-
-    };
 
     var itemByKey = function (key) {
 
@@ -286,6 +282,7 @@
         navigateToSearch: navigateToSearch,
         navigateToBlogs: navigateToBlogs,
         navigateToNews: navigateToNews,
+        navigateToLogin: navigateToLogin,
         colorPoolRgba: colorPoolRgba,
         getRandomColor: getRandomColor,
         getColorFromPool: getColorFromPool,

@@ -168,6 +168,9 @@
     <Content Include="js\data.js" />
     <Content Include="js\default.js" />
     <Content Include="packages.config" />
+    <Content Include="pages\loginpage\loginpage.css" />
+    <Content Include="pages\loginpage\loginpage.html" />
+    <Content Include="pages\loginpage\loginpage.js" />
     <Content Include="pages\search\search.css" />
     <Content Include="pages\search\search.html" />
     <Content Include="pages\search\search.js" />

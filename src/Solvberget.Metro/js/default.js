@@ -107,7 +107,7 @@
             tooltip: 'Logg ut'
 
         });
-        loginCmd.onclick = doLogin;
+        loginCmd.onclick = Data.navigateToLogin;
 
         var eventsCmd = new WinJS.UI.AppBarCommand(null, {
             id: 'toEventsButton',
