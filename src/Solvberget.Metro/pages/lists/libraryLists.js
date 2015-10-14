@@ -73,17 +73,25 @@
             if (this.isSingleColumn()) {
                 if (listSelectionIndex >= 0) {
 
+                    var mynewListview = document.getElementById("contents-listview").winControl;
+                    var myTemplate = document.getElementById("documentTemplate");
 
+                    var bindingList = new WinJS.Binding.List(lists[listSelectionIndex].Documents);
 
+                    mynewListview.itemDataSource = bindingList.dataSource;
+                    mynewListview.itemTemplate = myTemplate;
+                    mynewListview.layout = new WinJS.UI.ListLayout();
+                    mynewListview.oniteminvoked = function (args) {
+                        args.detail.itemPromise.done(function (item) {
+                            nav.navigate("/pages/documentDetail/documentDetail.html", { documentModel: item.data });
+                        });
+                    }
 
-                    var listContent = this.element.querySelector(".listContentSection");
-                    binding.processAll(listContent, lists[listSelectionIndex]);
-                    this.renderList(lists[listSelectionIndex]);
-                    listContent.scrollTop = 0;
                     Solvberget.Queue.PrioritizeUrls('libraryList', lists[listSelectionIndex].urls);
 
                     if (this.doneLoadingDocuments(lists[listSelectionIndex].DocumentNumbers)) {
                         $(".headerProgress").hide();
+                        $(".listTitle").text(lists[listSelectionIndex].Name);
                     }
                 }
             } else {
@@ -117,7 +125,7 @@
                     if (items.length > 0) {
                         listSelectionIndex = items[0].index;
                         if (that.isSingleColumn()) {
-                            // If snapped or portrait, navigate to a new page containing the
+                            // If mobile, navigate to a new page containing the
                             // selected item's details.
                             nav.navigate("/pages/lists/libraryLists.html", { selectedIndex: listSelectionIndex });
                         }
@@ -400,9 +408,7 @@
         updateLayout: function (element, viewState, lastViewState) {
 
             var listView = element.querySelector(".listView").winControl;
-
             if (listView) {
-
                 var firstVisible = listView.indexOfFirstVisible;
                 this.updateVisibility();
 
@@ -412,9 +418,7 @@
                 }
 
                 if (this.isSingleColumn()) {
-
                     listView.selection.clear();
-
                     if (listSelectionIndex >= 0) {
                         // If the app has snapped into a single-column detail view,
                         // add the single-column list view to the backstack.
@@ -456,8 +460,7 @@
         },
 
         isSingleColumn: function () {
-            var viewState = Windows.UI.ViewManagement.ApplicationView.value;
-            return (viewState === appViewState.snapped || viewState === appViewState.fullScreenPortrait);
+            return (screen.width < 400);
         },
 
         updateVisibility: function () {

@@ -169,7 +169,7 @@ progress.header {
 @media screen and (-ms-view-state: filled) {
 }
 
-@media screen and (-ms-view-state: snapped) {
+@media screen and (max-width: 400px) {
 
     .listpage {
         -ms-grid-columns: 320px 0px;
@@ -180,20 +180,19 @@ progress.header {
             margin-left: 6px;
         }
 
-        .listpage .listView .win-vertical.win-viewport .win-container {
-            margin-bottom: 0px;
-            margin-right: 0px;
-            padding-top: 7px;
-            width: 260px;
-        }
+            .listpage .listViewSection .listView .win-vertical.win-viewport .win-container {
+                margin-bottom: 0px;
+                margin-right: 0px;
+                padding-top: 7px;
+                width: 260px;
+            }
 
         .listpage .listViewSection {
             margin-top: 10px;
         }
 
             .listpage .listViewSection .listView .win-item {
-                height: 50px;
-                width: 265px;
+                height: 110px;
                 background: rgba(255,255,255,0.03);
             }
 
@@ -206,10 +205,16 @@ progress.header {
             -ms-grid-row: 2;
             -ms-grid-row-span: 1;
             margin-left: 20px;
-            padding-right: 36px;
             margin-top: 10px;
             margin-bottom: 10px;
         }
+
+            .listpage .listContentSection #contents-listview .win-vertical.win-viewport .win-container {
+                margin-bottom: 0px;
+                margin-right: 0px;
+                padding-top: 7px;
+                width: 260px;
+            }
 
             .listpage .listContentSection #listContent-article .listTitle {
                 font-size: 14pt;
@@ -222,7 +227,12 @@ progress.header {
 
                 .listpage .listContentSection #listContent-article #contents-listview .documentHolder {
                     margin-top: 20px;
+                    width: 260px;
                 }
+
+                    .listpage .listContentSection #listContent-article #contents-listview .documentHolder .documentSection {
+                        margin-left: 10px;
+                    }
 
 
 
@@ -234,6 +244,10 @@ progress.header {
         .listpage .primarycolumn {
             -ms-grid-column: 1;
             visibility: visible;
+        }
+
+        .listpage .listContentSection #listContent-article #contents-listview .documentHolder .documentImageContainer {
+            display: none;
         }
 }
 
