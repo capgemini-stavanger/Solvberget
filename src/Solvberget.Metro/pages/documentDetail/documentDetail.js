@@ -316,16 +316,11 @@ var populateAvailability = function () {
 
         }
 
-        var avv = Windows.UI.ViewManagement.ApplicationView.value;
-        var avs = Windows.UI.ViewManagement.ApplicationViewState;
-
         if (screen.width > 400) {
             cssForLeftContentLandscapeOrFilled();
-        } else if (avv === avs.fullScreenPortrait) {
+        } else if (screen.height > screen.width) {
             cssForLeftContentPortrait();
-        } else {
-            cssForAvailabilityInSnapped();
-        }
+        } 
 
     } else {
         $("#sendHoldRequestButton").attr("disabled", "disabled");
@@ -345,26 +340,10 @@ function cssForLeftContentPortrait() {
     $("#details").css("margin-bottom", "-25px");
 }
 
-function cssForAvailabilityInSnapped() {
-    //$("#left-content").css("display", "inline");
-    //$("#details").css("margin-top", "20px");
-}
-
-function cssForReview(avv) {
-
-    if (!avv) {
-        avv = Windows.UI.ViewManagement.ApplicationView.value;
-    }
-    var avs = Windows.UI.ViewManagement.ApplicationViewState;
-
+function cssForReview() {
     if (screen.width > 400) {
         $("#fragmentContent").css("-ms-grid-columns", "360px 1fr");
-    } else if (avv === avs.fullScreenPortrait) {
-        $("#fragmentContent").css("-ms-grid-columns", "360px 1fr");
-    } else {
-        //$("#fragmentContent").css("-ms-grid-columns", "1fr");
-    }
-
+    } 
 }
 
 function setHaveReview() {

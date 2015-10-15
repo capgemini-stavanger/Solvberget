@@ -3,13 +3,10 @@
 <head>
     <title>Bekreftelse</title>
     <link rel="stylesheet" href="cancelReservation.css" />
-
-
     <script type="text/javascript" src="cancelReservation.js"></script>
 </head>
 <body>
     <div id="cancelReservationFlyout" data-win-control="WinJS.UI.Flyout" aria-label="{Cancel Reservation flyout}">
-        <form onsubmit="return false;">
 
         <div id="cancelReservationMessage">Er du sikker på at du vil slette reservasjonen?</div>
 
@@ -17,16 +14,14 @@
         <br />
         <br />
         <div id="cancelReservationButtons">
-            <button id="submitCancelReservationButton">Slett reservering</button>
-            <button id="cancelCancelReservationButton">Avbryt</button>
+            <button id="submitCancelReservationButton" class="win-button">Slett reservering</button>
+            <button id="cancelCancelReservationButton" class="win-button">Avbryt</button>
         </div>
         <br />
         <br />
         <br />
         <span id="cancelReservationOutputMsg"></span>
 
-
-        </form>
     </div>
 
 </body>
