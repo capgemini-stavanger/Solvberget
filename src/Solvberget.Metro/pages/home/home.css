@@ -265,7 +265,7 @@
     }
 
         .homepage .home-list {
-            height: calc(100% - 25px);
+            height: calc(100% - 48px);
             width: calc(100% - 17px);
             -ms-grid-row: 1;
             -ms-grid-column: 1;
@@ -291,8 +291,6 @@
             -ms-grid-rows: 1fr;
             display: -ms-grid;
             height: 60px;
-            width: 272px;
-            /*margin-left: 10px;*/
         }
 
             .homepage .home-list .home-snapped-template .item-image, .homepage .home-list .win-item:hover .item-image {

@@ -96,23 +96,19 @@
 
 @media screen and (max-width: 400px) {
 
-    .eventspage .eventItemsListView .win-vertical.win-viewport .win-surface {
-        margin-bottom: 30px;
-        margin-left: 6px;
-    }
-
-    .eventspage .eventItemsListView .win-vertical.win-viewport .win-container {
-        margin-right: 42px;
-        margin-bottom: 15px;
-        padding: 7px;
-    }
-
+ 
     .eventspage .eventItemsListView .win-item {
         -ms-grid-columns: 1fr;
         -ms-grid-rows: 1fr;
         display: -ms-grid;
         height: 100px;
-        width: 272px;
+        width: 100%;
+        
+    }
+
+    .eventspage .eventItemsListView .win-item .group-title {
+        margin: 0;
+        padding: 10px;
     }
 
         .eventspage .eventItemsListView .win-item .item-image-container {
