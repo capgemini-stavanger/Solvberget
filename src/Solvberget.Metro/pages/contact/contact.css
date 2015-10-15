@@ -88,20 +88,18 @@ progress.withText {
         .contact-info .content article #contact-information-template-holder .contact-tile {
             -ms-grid-column: 1;
             height: 250px;
-            padding: 20px;
-            margin-top: 8px;
-            margin-bottom: 8px;
             width: 250px;
-            max-width: 250px;
-            margin-right: 8px;
+            padding: 20px;
+            margin-bottom: 8px;
             overflow: hidden;
         }
 
-            .contact-info .content article #contact-information-template-holder .contact-tile .contact-persons-holder {
+            .contact-info .content article #contact-information-template-holder .contact-tile .contact-persons-holder,
+            .contact-info .content article #contact-information-template-holder .contact-tile .contact-info-item {
                 font-size: 10pt;
             }
 
-            .contact-info .content article #contact-information-template-holder .contact-tile .contact-info-item {
-                font-size: 10pt;
+            .contact-info .content article #contact-information-template-holder .contact-tile .contact-info-header {
+                margin: 0;
             }
 }

@@ -79,7 +79,7 @@
             display: -ms-grid;
             height: calc(100% - 5px);
             margin-left: 20px;
-            width: 280px;
+            width: auto;
         }
 
             .event-detail-page .content article header {

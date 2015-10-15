@@ -164,7 +164,7 @@
         });
         pinCmd.onclick = pinToStart;
 
-        appBarCtrl.data = new WinJS.Binding.List([homeCmd, myPageCmd, searchCmd, loginCmd, eventsCmd, newsCmd, recommendationsCmd, openingHoursCmd, contactCmd, pinCmd]);
+        appBarCtrl.data = new WinJS.Binding.List([homeCmd, myPageCmd, searchCmd, eventsCmd, newsCmd, openingHoursCmd, contactCmd, pinCmd, loginCmd]);
 
         appBar.addEventListener("beforeshow", setAppbarButton());
     }

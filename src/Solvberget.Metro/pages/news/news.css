@@ -78,7 +78,7 @@
     }
 
     .newspage .newsItemsListView .win-item {
-        padding: 5px;
+        padding: 0;
         height: 220px;
         width: 100%;
         -ms-grid-columns: 1fr;
@@ -89,20 +89,23 @@
         .newspage .newsItemsListView .win-item .news-title {
             -ms-grid-row: 1;
             font-size: 14pt;
-            width: 285px;
+            width: auto;
             overflow: visible;
+            padding: 10px;
         }
 
         .newspage .newsItemsListView .win-item .news-pub-date {
             -ms-grid-row: 2;
             font-weight: bold;
-            width: 285px;
+            padding: 10px;
+            width: auto;
         }
 
         .newspage .newsItemsListView .win-item .news-description {
             -ms-grid-row: 3;
             overflow: hidden;
-            width: 285px;
+            padding: 10px;
+            width: auto;
         }
 }
 
