@@ -235,7 +235,7 @@
         background-color: rgba(204, 51, 0, 1.0);
     }
 
-@media screen and (-ms-view-state: fullscreen-landscape), screen and (-ms-view-state: fullscreen-portrait), screen and (-ms-view-state: filled) {
+@media screen and (-ms-view-state: fullscreen-landscape), screen and (-ms-view-state: fullscreen-portrait) {
 
     .homepage .home-list .win-item .item-overlay .item-title {
         color: rgba(255,255,255,0.87);

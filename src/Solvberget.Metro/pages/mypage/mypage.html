@@ -36,7 +36,7 @@
                     <span class="loanDate" data-win-bind="innerText: LoanDate MyPageConverters.loanDateConverter"></span>
                     <span class="loanDueDate" data-win-bind="innerText: DueDate MyPageConverters.dueDateConverter"></span>
                 </div>
-                <button class="renewLoanButton" data-win-bind="">Utvid lånetid</button>
+                <button class="renewLoanButton win-button" data-win-bind="">Utvid lånetid</button>
             </div>
 
         </div>
@@ -96,12 +96,12 @@
         <header aria-label="Header content" role="banner">
             <button class="win-backbutton" aria-label="Back"></button>
             <div class="titlearea win-type-ellipsis">
-                <h1 class="pagetitle">Min side</h1>
-                <h2 id="pageSubtitleName" class="pagesubtitle" data-win-bind="innerText: Name"></h2>
+                <h1 class="pagetitle win-h1">Min side</h1>
+                <h3 id="pageSubtitleName" class="pagesubtitle win-h3" data-win-bind="innerText: Name"></h3>
             </div>
         </header>
 
-        <section aria-label="Main content" id="mainContentSection" role="main">
+        <section id="mainContentSection" aria-label="Main content" role="main">
             
             <div id="mypageLoading">
                 <label class="progressRingText">
@@ -112,62 +112,62 @@
             <article id="mypageData">
                 
                 <div id="notifications" class="box">
-                    <h2><span class="detail-title">Meldinger</span></h2>
+                    <h3 class="win-h3"><span class="detail-title">Meldinger</span></h3>
                     <div id="notificationTemplateHolder">
                     </div>
                 </div>
 
                 <div id="myPagePersonalInformation">
                     <div class="box">
-                        <h2><span class="detail-title">Personalia</span></h2>
+                        <h3 class="win-h3"><span class="detail-title">Personalia</span></h3>
                         <span id="name" data-win-bind="innerText: Name"></span>
                         <span id="dateOfBirth" data-win-bind="innerText: DateOfBirth"></span>
                     </div>
 
                     <div class="box">
-                        <h2><span class="detail-title">Adresse</span></h2>
+                        <h3 class="win-h3"><span class="detail-title">Adresse</span></h3>
                         <span id="addressPrefix" data-win-bind="innerText: PrefixAddress"></span>
                         <span id="addressStreetName" data-win-bind="innerText: StreetAddress"></span>
                         <span id="addressCity" data-win-bind="innerText: CityAddress"></span>
                     </div>
 
                     <div class="box">
-                        <h2><span class="detail-title">Kontaktinformasjon</span></h2>
+                        <h3 class="win-h3"><span class="detail-title">Kontaktinformasjon</span></h3>
                         <span id="email" data-win-bind="innerText: Email"></span>
                         <span id="homePhone" data-win-bind="innerText: HomePhoneNumber"></span>
                         <span id="cellPhone" data-win-bind="innerText: CellPhoneNumber"></span>
                     </div>
 
                     <div class="box logout-button">
-                        <h2><span class="detail-title">Logg ut</span></h2>
+                        <h3 class="win-h3"><span class="detail-title">Logg ut</span></h3>
                         <span>Klikk her for å logge ut.</span>
                     </div>
                 </div>
 
                 <div id="loans" class="box">
                     <div id="loanHeader">
-                        <h2 class="detail-h2-title"><span class="detail-title">Lån</span></h2>
-                        <button class="renewAllButton">Utvid alle lån</button>
+                        <h3 class="win-h3 detail-h2-title"><span class="detail-title">Lån</span></h3>
+                        <button class="renewAllButton win-button">Utvid alle lån</button>
                     </div>
                     <div id="loanTemplateHolder">
                     </div>
                 </div>
 
                 <div id="reservations" class="box">
-                    <h2><span class="detail-title">Reserveringer</span></h2>
+                    <h3 class="win-h3"><span class="detail-title">Reserveringer</span></h3>
                     <div id="reservationTemplateHolder">
                     </div>
                 </div>
 
                 <div id="fines" class="box">
-                    <h2><span class="detail-title">Gebyrer</span></h2>
+                    <h3 class="win-h3"><span class="detail-title">Gebyrer</span></h3>
                     <span id="balance" data-win-bind="innerText: Balance MyPageConverters.balanceConverter"></span>
                     <div id="fineTemplateHolder">
                     </div>
                 </div>
 
                 <div id="favorites" class="box">
-                    <h2 class="detail-title"><span class="detail-title">Favoritter</span></h2>
+                    <h3 class="win-h3"><span class="detail-title">Favoritter</span></h3>
                     <div id="favoritesTemplateHolder">
                     </div>
                 </div>

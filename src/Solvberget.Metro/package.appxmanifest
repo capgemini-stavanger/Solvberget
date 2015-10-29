@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="SlvbergetKFStavangerbibli.Slvberget" Version="1.1.0.4" Publisher="CN=9996F995-FE52-4CC6-A6D3-40DC06CD472E" />
+  <Identity Name="SlvbergetKFStavangerbibli.Slvberget" Version="1.4.1.0" Publisher="CN=9996F995-FE52-4CC6-A6D3-40DC06CD472E" />
   <mp:PhoneIdentity PhoneProductId="22a00adb-8a98-4271-b41a-181f24de228e" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Sølvberget</DisplayName>
@@ -15,8 +15,11 @@
   </Resources>
   <Applications>
     <Application Id="App" StartPage="default.html">
-      <uap:VisualElements DisplayName="Sølvberget" Description="I appen til Rogalands best besøkte kulturinstitusjon får du mange bok, film - og musikktips. Du kan også sjekke de mange arrangementene våre, få oversikt over nyheter og søke i bibliotekets katalog. Forny utlån, sjekk åpningstider, finn kontaktinfo og mye mye mer." BackgroundColor="transparent" Square150x150Logo="images\Square150x150Logo.png" Square44x44Logo="images\Square44x44Logo.png">
+      <uap:VisualElements DisplayName="Sølvberget" Description="I appen til Rogalands best besøkte kulturinstitusjon får du mange bok, film - og musikktips. Du kan også sjekke de mange arrangementene våre, få oversikt over nyheter og søke i bibliotekets katalog. Forny utlån, sjekk åpningstider, finn kontaktinfo og mye mye mer." BackgroundColor="transparent" Square150x150Logo="images\solvberget150.png" Square44x44Logo="images\solvberget44.png">
         <uap:DefaultTile Wide310x150Logo="images\solvberget_wide.png" Square71x71Logo="images\solvberget71.png" ShortName="Sølvberget">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo" />
+          </uap:ShowNameOnTiles>
         </uap:DefaultTile>
         <uap:SplashScreen Image="images\solvberget_splash.png" BackgroundColor="#000000" />
       </uap:VisualElements>
@@ -27,5 +30,6 @@
   </Applications>
   <Capabilities>
     <Capability Name="internetClient" />
+    <Capability Name="privateNetworkClientServer" />
   </Capabilities>
 </Package>

@@ -20,19 +20,19 @@
 
         <!-- GROUP TEMPLATE -->
         <div id="group-item-template" data-win-control="WinJS.Binding.Template">
-            <h2 class="group-title" data-win-bind="textContent: name"></h2>
+            <h3 class="group-title win-h3" data-win-bind="textContent: name"></h3>
         </div>
 
         <!-- ITEM TEMPLATE -->
         <div id="event-item-template" data-win-control="WinJS.Binding.Template">
             <div class="item-image-container" data-win-control="Solvberget.Utils.DelayImageLoader">
-                <img class="item-image" src="#" data-win-bind="src: imageUrl; alt: name" />
+                <img class="item-image" src="#" data-win-bind="src: imageUrl Solvberget.Converters.imageOrPlaceholderConverter; alt: name" />
             </div>
 
             <div class="item-overlay">
-                <h4 class="item-title" data-win-bind="textContent: name"></h4>
-                <h6 class="item-location win-type-ellipsis" data-win-bind="textContent: location"></h6>
-                <h6 class="item-time win-type-ellipsis" data-win-bind="textContent: dateTimeFormatted"></h6>
+                <h5 class="item-title win-h5" data-win-bind="textContent: name"></h5>
+                <h6 class="item-location win-type-ellipsis win-h6" data-win-bind="textContent: location"></h6>
+                <h6 class="item-time win-type-ellipsis win-h6" data-win-bind="textContent: dateTimeFormatted"></h6>
 
             </div>
         </div>
@@ -43,7 +43,7 @@
         <header aria-label="Header content" role="banner">
             <button class="win-backbutton" aria-label="Back" disabled></button>
             <div class="titlearea win-type-ellipsis">
-                <h1 class="pagetitle">Arrangementer</h1>
+                <h1 class="pagetitle win-h1">Arrangementer</h1>
             </div>
         </header>
         <section aria-label="Main content" role="main">

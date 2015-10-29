@@ -8,10 +8,10 @@
 </head>
 <body>
     <!-- The content that will be loaded and displayed. -->
-    <div class="event-detail-page fragment">
+    <div class="event-detail-page single-detail-page fragment">
         <header aria-label="Header content" role="banner">
             <button class="win-backbutton" aria-label="Back" disabled></button>
-            <h1 class="titlearea win-type-ellipsis">
+            <h1 class="titlearea win-type-ellipsis win-h1">
                 <span class="pagetitle"></span>
             </h1>
         </header>
@@ -19,11 +19,11 @@
             <article>
 
                 <header>
-                    <h4 class="event-time" data-win-bind="innerText: start EventItemConverters.dateConverter"></h4>
-                    <h4 class="event-time" data-win-bind="innerText: start EventItemConverters.startConverter"></h4>
-                    <h4 class="event-time" data-win-bind="innerText: end EventItemConverters.stopConverter"></h4>
+                    <h4 class="event-time win-h4" data-win-bind="innerText: start EventItemConverters.dateConverter"></h4>
+                    <h4 class="event-time win-h4" data-win-bind="innerText: start EventItemConverters.startConverter"></h4>
+                    <h4 class="event-time win-h4" data-win-bind="innerText: end EventItemConverters.stopConverter"></h4>
 
-                    <h3 class="event-location" data-win-bind="innerText: location"></h3>
+                    <h3 class="event-location win-h3" data-win-bind="innerText: location"></h3>
                 </header>
 
                 <div class="event-image-container" data-win-control="Solvberget.Utils.DelayImageLoader">

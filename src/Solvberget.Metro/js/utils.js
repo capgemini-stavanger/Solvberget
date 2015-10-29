@@ -210,10 +210,21 @@
         return value == undefined ? "" : "mailto:" + value;
     });
 
+    var imageOrPlaceholderConverter = WinJS.Binding.converter(function (value) {
+        // Placeholder link retrieved from the item isn't valid for our solution.
+        // Use our own placeholder icon if it's the broken placeholder link retrieved.
+        if (value === "/assets/admin/iphone2x_default_event_image.png") {
+            return "/images/calendar_ph.png";
+        } else {
+            return value;
+        }
+    });
+
     WinJS.Namespace.define("Solvberget.Converters", {
         styleNullToHiddenConverter: styleNullToHiddenConverter,
         nullConverter: nullConverter,
-        emailToMailtoConverter: emailToMailtoConverter
+        emailToMailtoConverter: emailToMailtoConverter,
+        imageOrPlaceholderConverter: imageOrPlaceholderConverter
     });
 
 })();
@@ -383,7 +394,7 @@
             }
         }
 
-        Notifications.setAreNotificationsSeen(false);      
+        Notifications.setAreNotificationsSeen(false);
 
         if (interval)
             clearInterval(interval);

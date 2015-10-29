@@ -96,9 +96,21 @@ progress.withText {
 
 @media screen and (max-width: 400px) {
 
+    .blogs.fragment {
+        /*-ms-grid-rows: 1fr 1fr 0px;*/
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .blogs .win-type-ellipsis {
+        white-space: normal;
+        /*overflow: visible;*/
+    }
+
     .blogs .pagesubtitle {
         font-size: 14pt;
-        overflow: hidden;
+        /*overflow: hidden;*/
+        margin-top: 10px;
     }
 
     .blogs .blog-mobile-template-container h2 {

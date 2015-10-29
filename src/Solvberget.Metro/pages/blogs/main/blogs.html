@@ -11,7 +11,7 @@
 <body>
     <div id="blog-template" data-win-control="WinJS.Binding.Template">
         <div class="blog-template-container" data-win-bind="style.backgroundColor: Index BlogConverters.backgroundColorConverter">
-            <h2 data-win-bind="innerText: Title"></h2>
+            <h2 class="win-h2" data-win-bind="innerText: Title"></h2>
             <div class="blogSite" data-win-bind="innerText: Site"></div>
             <br />
             <div class="blogDescription" data-win-bind="innerText: Description"></div>
@@ -21,7 +21,7 @@
 
     <div id="blog-mobile-template" data-win-control="WinJS.Binding.Template">
         <div class="blog-mobile-template-container" data-win-bind="style.backgroundColor: Index BlogConverters.backgroundColorConverter">
-            <h2 data-win-bind="innerText: Title"></h2>
+            <h2 class="win-h2" data-win-bind="innerText: Title"></h2>
         </div>
     </div>
 
@@ -29,8 +29,8 @@
         <header aria-label="Header content" role="banner">
             <button class="win-backbutton" aria-label="Back"></button>
             <div class="titlearea win-type-ellipsis">
-                <h1 class="pagetitle">Blogger</h1>
-                <h2 id="pageSubtitleName" class="pagesubtitle">Utvalgte blogger fra Stavanger Bibliotek</h2>
+                <h1 class="pagetitle win-h1">Blogger</h1>
+                <h2 id="pageSubtitleName" class="pagesubtitle win-h2">Utvalgte blogger fra Stavanger Bibliotek</h2>
             </div>
         </header>
         <section aria-label="Main content" id="mainBlogsContentSection" role="main">

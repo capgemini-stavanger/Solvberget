@@ -6,9 +6,9 @@
     <link href="/css/default.css" rel="stylesheet" />
     <link href="/pages/home/home.css" rel="stylesheet" />
     <link href="/css/font-awesome.css" rel="stylesheet" />
-    <script src="/js/data.js"></script>
+    <!--<script src="/js/data.js"></script>-->
     <script src="/pages/home/home.js"></script>
-    <script type="text/javascript" src="/pages/searchResults/searchResults.js"></script>
+    <!--<script type="text/javascript" src="/pages/searchResults/searchResults.js"></script>-->
 </head>
 
 <body>
@@ -19,8 +19,8 @@
             <!--<img class="item-image" src="#" data-win-bind="src: backgroundImage; alt: title" />-->
             <div class="item-vector-icon" data-win-bind="textContent: icon"></div>
             <div class="item-overlay">
-                <h4 class="item-title" data-win-bind="textContent: title"></h4>
-                <h6 class="item-subtitle win-type-ellipsis" data-win-bind="textContent: subtitle"></h6>
+                <h5 class="item-title win-h5" data-win-bind="textContent: title"></h5>
+                <h6 class="item-subtitle win-type-ellipsis win-h6" data-win-bind="textContent: subtitle"></h6>
             </div>
         </div>
 
@@ -33,8 +33,6 @@
         </div>
 
         <div class="home-list" aria-label="List of groups" data-win-control="WinJS.UI.ListView" data-win-options="{ selectionMode: 'none' }"></div>
-
-        <div id="loginDiv"></div>
 
     </div>
 

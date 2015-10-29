@@ -52,7 +52,7 @@
         items.forEach(function (item) {
             addGroupFor(item);
             if (!itemAlreadyExist(item.id)) {
-                item.dateTimeFormatted = moment(item.start).lang("nb").format("llll");
+                item.dateTimeFormatted = moment(item.start).locale("nb").format("llll");
                 list.push(item);
             }
         });

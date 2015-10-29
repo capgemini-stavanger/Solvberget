@@ -40,12 +40,12 @@ progress.withText {
 @media screen and (min-width: 401px) {
     
     .blogentry #mainEntryContentSection {
+    width: 100%;
+    height: 100%;
     -ms-grid-row: 2;
     display: block;
-    height: 100%;
-    overflow-x: auto;
     position: relative;
-    width: 100%;
+    overflow-x: auto;
     margin-top: 30px;
     z-index: 0;
 }

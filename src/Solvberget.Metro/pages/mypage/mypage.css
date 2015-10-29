@@ -11,7 +11,8 @@
     border: none;
 }
 
-.myPage #mainContentSection {
+@media screen and (min-width: 401px) {
+    .myPage #mainContentSection {
     margin-top: 30px;
     margin-left: 0px;
     overflow: auto;
@@ -25,6 +26,7 @@
         height: calc(100% - 20px);
         margin-left: 112px;
     }
+}   
 
 .myPage .box {
     margin: 10px;
@@ -35,6 +37,10 @@
     max-width: 350px;
     min-width: 175px;
     min-height: 120px;
+}
+
+.myPage .box h2 {
+    margin: 0
 }
 
     .myPage .box span {
@@ -58,7 +64,7 @@
         font-weight: bold;
     }
 
-.myPage #fines, #loans, #reservations, #notifications, #favorites {
+#fines, #loans, #reservations, #notifications, #favorites {
     max-width: 750px;
     max-height: calc(100% - 20px);
     overflow: auto;
@@ -132,7 +138,7 @@ progress.withText {
 }
 
 /* TODO: fix to correspond to win10 */
-@media screen and (orientation: portrait) {
+@media screen and (orientation: portrait) and (min-width: 600px) {
 
     .myPage .box {
         float: none;
@@ -148,7 +154,7 @@ progress.withText {
         width: calc(100% - 50px);
     }
 
-        .myPage #mainContentSection #mypageData #fines, #loans, #reservations, #notifications, #favorites {
+        #fines, #loans, #reservations, #notifications, #favorites {
             max-height: none;
             max-width: calc(100% - 150px);
         }
@@ -174,29 +180,36 @@ progress.withText {
 @media screen and (max-width: 400px) {
 
     .myPage .box {
-        max-width: 260px;
-        margin-top: 0px;
+        width: auto;
+        margin: 0;
+        margin-bottom: 10px;
     }
 
     .myPage header[role=banner] .titlearea .pagesubtitle {
         display: none;
     }
 
-    .myPage #mainContentSection #mypageData #fines, #loans, #reservations, #notifications, #favorites {
-        max-height: none;
-        max-width: 260px;
+    #fines, #loans, #reservations, #notifications, #favorites {
+        /*max-height: none;
+        margin-right: 0;
+        width: auto;*/
+        /*max-width: 260px;*/
+        /*margin-left: 0;*/
     }
 
     .myPage #mainContentSection {
-        width: calc(100% - 15px);
-        margin-left: 15px;
+        /*width: auto;*/
+        overflow-y: auto;
+        /*overflow-x: hidden;*/
     }
 
         .myPage #mainContentSection #mypageData {
-            margin-top: 0px;
+            /*margin-top: 0px;*/
+            /*width: auto;*/
+            margin-right: 24px;
         }
 
         .myPage #mainContentSection #notifications {
-            margin-top: 0px;
+            /*margin-top: 0px;*/
         }
 }

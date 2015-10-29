@@ -71,20 +71,24 @@
         overflow-y: auto;
     }
 
+    .event-detail-page .win-type-ellipsis {
+        overflow: visible;
+    }
+
         .event-detail-page .content article {
             /* Define a single column, vertically scrolling article in snapped mode. */
             -ms-grid-row: 2;
-            -ms-grid-rows: auto auto 1fr;
-            -ms-grid-columns: 1fr;
-            display: -ms-grid;
-            height: calc(100% - 5px);
+            /*-ms-grid-rows: 1fr;*/
+            /*-ms-grid-columns: 1fr;*/
+            /*display: -ms-grid;*/
+            /*height: calc(100% - 5px);*/
             margin-left: 20px;
-            width: auto;
+            /*width: auto;*/
         }
 
             .event-detail-page .content article header {
-                -ms-grid-row: 1;
-                -ms-grid-column: 1;
+                /*-ms-grid-row: 1;*/
+                /*-ms-grid-column: 1;*/
             }
 
                 .event-detail-page .content article header .event-title {
@@ -99,9 +103,9 @@
                 }
 
             .event-detail-page .content article .event-image-container {
-                -ms-grid-row: 2;
-                -ms-grid-column: 1;
-                -ms-grid-row-span: 1;
+                /*-ms-grid-row: 2;*/
+                /*-ms-grid-column: 1;*/
+                /*-ms-grid-row-span: 1;*/
                 margin-top: 20px;
                 padding-left: 0px;
             }
@@ -112,8 +116,8 @@
                 }
 
             .event-detail-page .content article .event-content-holder {
-                -ms-grid-row: 3;
-                -ms-grid-column: 1;
+                /*-ms-grid-row: 3;*/
+                /*-ms-grid-column: 1;*/
             }
 
                 .event-detail-page .content article .event-content-holder .event-content {
