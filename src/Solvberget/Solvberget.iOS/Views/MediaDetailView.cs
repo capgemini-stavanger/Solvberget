@@ -90,7 +90,7 @@ namespace Solvberget.iOS
 
 		private void UpdateFavoriteButtonState()
 		{
-			var favStateImage = UIImage.FromBundle("/Images/star.on.png").Scale(new CGSize(26, 26));
+			var favStateImage = UIImage.FromBundle("star.on.png").Scale(new CGSize(26, 26));
 
 			if(!ViewModel.IsFavorite && !UIHelpers.MinVersion7)
 			{
