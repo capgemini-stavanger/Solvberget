@@ -5,6 +5,7 @@ using Cirrious.MvvmCross.Views;
 using System.Collections.Generic;
 using Facebook.CoreKit;
 using Solvberget.Core.Services.Interfaces;
+using SlidingPanels.Lib;
 
 namespace Solvberget.iOS
 {
@@ -40,6 +41,15 @@ namespace Solvberget.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
 			this.window = new UIWindow(UIScreen.MainScreen.Bounds);
+			//this.window.RootViewController = new HomeScreenView();
+
+//			var navController = new SlidingPanelsNavigationViewController (new HomeScreenView ());
+//
+//			UIViewController rootCtrl = new UIViewController ();
+//			rootCtrl.AddChildViewController (navController);
+//			rootCtrl.View.AddSubview (navController.View);
+//
+//			this.window.RootViewController = rootCtrl;
 
 			UIApplication.SharedApplication.StatusBarStyle = UIStatusBarStyle.LightContent;
 
@@ -53,8 +63,8 @@ namespace Solvberget.iOS
 
 			Mvx.LazyConstructAndRegisterSingleton<DtoDownloader, IosDtoDownloader>();
 
-            var startup = Mvx.Resolve<IMvxAppStart>();
-			startup.Start();
+            var start = Mvx.Resolve<IMvxAppStart>();
+			start.Start();
 
 			Settings.AppID = FacebookAppId;
 			Settings.DisplayName = DisplayName;
@@ -78,6 +88,8 @@ namespace Solvberget.iOS
 			// (e.g., returning from iOS 6.0 authorization dialog or from fast app switching).
 			//FBSession.ActiveSession.HandleDidBecomeActive();
 		}
+
+
 
     }
 }

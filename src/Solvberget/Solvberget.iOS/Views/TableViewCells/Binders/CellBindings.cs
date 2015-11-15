@@ -26,7 +26,7 @@ namespace Solvberget.iOS
 		public static Action<ISimpleCell, BlogItemViewModel> Blogs = (sc, model) =>
 		{
 			sc.Bind(model.Title, null);
-			sc.SetImage(UIImage.FromBundle("/Images/Placeholders/Blog.png"));
+			sc.SetImage(UIImage.FromBundle("Placeholders/Blog.png"));
 		};
 
         private static string GetMediaFormatSuffix(string mediaFormat)
@@ -67,13 +67,13 @@ namespace Solvberget.iOS
 		public static Action<ISimpleCell, NotificationDto> Messages = (sc, model) =>
 		{
 			sc.Bind(model.Title, model.DocumentTitle); 
-			sc.SetImage(UIImage.FromBundle("/Images/Placeholders/Message.png"));
+			sc.SetImage(UIImage.FromBundle("Placeholders/Message.png"));
 		};
 
 		public static Action<ISimpleCell, FineViewModel> Fines = (sc, model) =>
 		{
 			sc.Bind(model.Description, model.Sum + " | " + model.DocumentTitle); 
-			sc.SetImage(UIImage.FromBundle("/Images/Placeholders/Fine.png"));
+			sc.SetImage(UIImage.FromBundle("Placeholders/Fine.png"));
 		};
 
 	}

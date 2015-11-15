@@ -94,7 +94,7 @@ namespace Solvberget.iOS
 
 			if(!ViewModel.IsFavorite && !UIHelpers.MinVersion7)
 			{
-				favStateImage = UIImage.FromBundle("/Images/star.off.png").Scale(new CGSize(26, 26));
+				favStateImage = UIImage.FromBundle("star.off.png").Scale(new CGSize(26, 26));
 			}
 
 			if (null == _favButton)
@@ -283,11 +283,11 @@ namespace Solvberget.iOS
 					var star = new UIImageView(new CGRect(x, 0, 14, 14));
 					if (i < (int)ViewModel.Rating.Score)// add star.half.on.png for better precision?
 					{
-						star.Image = UIImage.FromBundle("/Images/star.on.png");
+						star.Image = UIImage.FromBundle("star.on.png");
 					}
 					else
 					{
-						star.Image = UIImage.FromBundle("/Images/star.off.png");
+						star.Image = UIImage.FromBundle("star.off.png");
 					}
 					StarsContainer.Add(star);
 					x += 14;

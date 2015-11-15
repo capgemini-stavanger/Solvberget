@@ -46,7 +46,7 @@ namespace Solvberget.iOS
 
 		public HomeView() : base ("HomeView", null)
 		{
-			NavigationItem.LeftBarButtonItem = CreateSliderButton("Images/SlideRight40.png", PanelType.LeftPanel);
+			NavigationItem.LeftBarButtonItem = CreateSliderButton("SlideRight40.png", PanelType.LeftPanel);
 		}
 
 		MenuTableViewSource source;

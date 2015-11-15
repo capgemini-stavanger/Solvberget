@@ -18,7 +18,7 @@ namespace Solvberget.iOS
     {
         public HomeScreenView() : base("HomeScreenView", null)
 		{
-			NavigationItem.LeftBarButtonItem = CreateSliderButton("/Images/logo.white.png", PanelType.LeftPanel);
+			NavigationItem.LeftBarButtonItem = CreateSliderButton("logo.white.png", PanelType.LeftPanel);
         }
 
 		public new HomeScreenViewModel ViewModel { get { return base.ViewModel as HomeScreenViewModel; }}
