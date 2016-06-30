@@ -237,8 +237,6 @@
     <None Include="ToDo-MvvmCross\_ Touch UI.txt" />
     <None Include="AppDelegate.cs.txt" />
     <Compile Include="DebugTrace.cs" />
-    <Compile Include="Views\FirstView.cs" />
-    <Compile Include="Bootstrap\DownloadCachePluginBootstrap.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Solvberget.Core\Solvberget.Core.csproj">
@@ -308,7 +306,9 @@
       <HintPath>..\..\..\packages\Xamarin.Facebook.iOS.4.5.1.0\lib\Xamarin.iOS10\Facebook.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Resources\Placeholders\" />
+  </ItemGroup>
   <ItemGroup>
     <BundleResource Include="..\..\webapp\app\img\placeholder\Blog.png">
       <Link>Images\Placeholders\Blog.png</Link>
@@ -442,7 +442,5 @@
   <ItemGroup>
     <Content Include="Images\logo.white.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\Placeholders\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>
