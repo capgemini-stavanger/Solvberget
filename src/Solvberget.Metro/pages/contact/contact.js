@@ -11,7 +11,7 @@
         },
         
         ajaxGetContactInformation: function () {
-            var url = window.Data.serverBaseUrl + "/Information/GetContactInformation"; 
+            var url = window.Data.serverBaseUrl + "/info/contact"; 
             Solvberget.Queue.QueueDownload("contact", { url: url }, this.ajaxGetContantInformationCallback, this, true);
         },
 
@@ -39,23 +39,23 @@
                     if (contactTemplate && contactTemplateHolder && model)
                         contactTemplate.render(model, contactTemplateHolder).done($.proxy(function () {
 
-                            if (this.ContactPersons) {
+                            if (this.contactPersons) {
                                 var contactPersonsHtml = "";
                                 var person;
-                                for (var j = 0; j < this.ContactPersons.length; j++) {
-                                    person = this.ContactPersons[j];
+                                for (var j = 0; j < this.contactPersons.length; j++) {
+                                    person = this.contactPersons[j];
                                     contactPersonsHtml += "<div class=\"contact-person\">";
 
-                                    if (person.Position) contactPersonsHtml += "<b>" + person.Position + ":</b> ";
-                                    if (person.Name) {
-                                        if (person.Email) {
-                                            contactPersonsHtml += "<a href=\"mailto:" + person.Email + "\">" + person.Name + "</a><br />";
+                                    if (person.position) contactPersonsHtml += "<b>" + person.position + ":</b> ";
+                                    if (person.name) {
+                                        if (person.email) {
+                                            contactPersonsHtml += "<a href=\"mailto:" + person.email + "\">" + person.name + "</a><br />";
                                         }
                                         else {
-                                            contactPersonsHtml += person.Name + "<br />";
+                                            contactPersonsHtml += person.name + "<br />";
                                         }
                                     }
-                                    if (person.Phone) contactPersonsHtml += "Telefon: " + person.Phone;
+                                    if (person.phone) contactPersonsHtml += "Telefon: " + person.phone;
                                     contactPersonsHtml += "</div>";
 
                                 }
@@ -63,10 +63,10 @@
                                 $(".contact-persons-holder:last").html(contactPersonsHtml);
                             }
 
-                            if (this.GenericFields) {
+                            if (this.genericFields) {
                                 var genericFieldsHtml = "";
-                                for (var field in this.GenericFields) {
-                                    genericFieldsHtml += "<div class=\"contact-info-item\">" + this.GenericFields[field] + "</div>";
+                                for (var field in this.genericFields) {
+                                    genericFieldsHtml += "<div class=\"contact-info-item\">" + this.genericFields[field] + "</div>";
                                 }
 
                                 $(".generic-fields-holder:last").html(genericFieldsHtml);

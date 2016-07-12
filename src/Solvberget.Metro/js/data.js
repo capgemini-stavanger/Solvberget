@@ -13,7 +13,9 @@
 
     // TODO: Find out where the hell this server is and how to fix it
     //var serverBaseUrl = "http://localhost:7089";
-    var serverBaseUrl = "http://31.24.130.26";
+    // DEPRECATED: old service. Switching over to use Nancy service
+    //var serverBaseUrl = "http://31.24.130.26";
+    var serverBaseUrl = "http://solvbergetapp.cloudapp.net/api";
 
     // Original colors
     var colorPoolRgba = [
