@@ -17,7 +17,7 @@
         },
         
         ajaxGetOpeningHoursInformation: function () {
-            var url = window.Data.serverBaseUrl + "/Information/GetOpeningHoursInformation";
+            var url = window.Data.serverBaseUrl + "/info/opening-hours";
             Solvberget.Queue.QueueDownload("opening", { url: url }, this.ajaxGetOpeningHoursInformationCallback, this, true);
         },
 
@@ -48,14 +48,22 @@
                     if (openingHoursTemplate && openingHoursTemplateHolder && model)
                         openingHoursTemplate.render(model, openingHoursTemplateHolder).done($.proxy(function () {
 
-                            if (this.LocationOrDayOfWeekToTime) {
+                            if (this.hours) {
                                 var openingHourListHtml = "";
-                                for (var key in this.LocationOrDayOfWeekToTime) {
+                                for (var j = 0; j < this.hours.length; j++) {
+                                    var myItem = this.hours[j];
                                     openingHourListHtml += "<div class=\"opening-time-list-item\">";
-                                    openingHourListHtml += "<span>" + key + "</span>";
-                                    openingHourListHtml += "<div class=\"opening-time\">" + this.LocationOrDayOfWeekToTime[key] + "</div>";
+                                    openingHourListHtml += "<span>" + myItem.title + "</span>";
+                                    openingHourListHtml += "<div class=\"opening-time\">" + myItem.hours + "</div>";
                                     openingHourListHtml += "</div>";
                                 }
+
+                                //for (var key in this.hours) {
+                                //    openingHourListHtml += "<div class=\"opening-time-list-item\">";
+                                //    openingHourListHtml += "<span>" + key + "</span>";
+                                //    openingHourListHtml += "<div class=\"opening-time\">" + this.hours[key] + "</div>";
+                                //    openingHourListHtml += "</div>";
+                                //}
 
                                 $(".opening-hours-list:last").html(openingHourListHtml);
                             }
