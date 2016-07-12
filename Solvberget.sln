@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{162B0AAB-BC32-45B0-AD07-B7437A005060}"
 EndProject
@@ -19,9 +19,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solvberget.iOS", "src\Solvb
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "webapp", "webapp", "{F88C7019-63EF-494C-9B61-504384675E83}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "win8", "win8", "{D51237E7-92B9-45AC-8B23-6A978C9AFB11}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{D51237E7-92B9-45AC-8B23-6A978C9AFB11}"
 EndProject
-Project("{262852C6-CD72-467D-83FE-5EEB1973A190}") = "Solvberget.Metro", "src\Solvberget.Metro\Solvberget.Metro.jsproj", "{6A9BD7D1-7EF3-44CD-8B39-B4EB0DAADC04}"
+Project("{262852C6-CD72-467D-83FE-5EEB1973A190}") = "Solvberget.UWP", "src\Solvberget.Metro\Solvberget.UWP.jsproj", "{6A9BD7D1-7EF3-44CD-8B39-B4EB0DAADC04}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solvberget.Search8", "src\Solvberget.Search8\Solvberget.Search8.csproj", "{52133410-A861-4358-BF78-3EF0960F7962}"
 EndProject

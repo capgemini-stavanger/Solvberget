@@ -181,7 +181,7 @@
     <Content Include="WinJS\js\base.js" />
     <Content Include="WinJS\js\en-US\ui.strings.js" />
     <Content Include="WinJS\js\ui.js" />
-    <None Include="Solvberget.Metro_StoreKey.pfx" />
+    <None Include="Solvberget.UWP_StoreKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="pages\blogs\entries\entries.css" />
     <Content Include="pages\blogs\entries\entries.html" />
@@ -262,7 +262,7 @@
       <IncludedFiles>
       </IncludedFiles>
     </Content>
-    <None Include="Solvberget.Metro_TemporaryKey.pfx" />
+    <None Include="Solvberget.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\nb-NO\resources.resjson" />
