@@ -220,11 +220,16 @@
         }
     });
 
+    var publishedDateConverter = WinJS.Binding.converter(function (value) {
+        return "Publisert: " +  moment(value).format('DD.MM.YYYY');
+    });
+
     WinJS.Namespace.define("Solvberget.Converters", {
         styleNullToHiddenConverter: styleNullToHiddenConverter,
         nullConverter: nullConverter,
         emailToMailtoConverter: emailToMailtoConverter,
-        imageOrPlaceholderConverter: imageOrPlaceholderConverter
+        imageOrPlaceholderConverter: imageOrPlaceholderConverter,
+        publishedDateConverter: publishedDateConverter
     });
 
 })();

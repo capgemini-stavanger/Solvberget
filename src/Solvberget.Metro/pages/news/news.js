@@ -5,7 +5,7 @@
     var appViewState = Windows.UI.ViewManagement.ApplicationViewState;
     var ui = WinJS.UI;
 
-    var newsReqUrl = "/News/GetNewsItems";
+    var newsReqUrl = "/news";
 
     ui.Pages.define("/pages/news/news.html", {
 
@@ -39,7 +39,7 @@
         },
 
         newsItemInvoked: function (args) {
-            var uriRaw = this.newsItems.getItem(args.detail.itemIndex).data.Link;
+            var uriRaw = this.newsItems.getItem(args.detail.itemIndex).data.link;
             var uri = new Windows.Foundation.Uri(uriRaw);
             Windows.System.Launcher.launchUriAsync(uri).then(
             function (success) {
