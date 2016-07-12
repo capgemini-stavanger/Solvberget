@@ -11,11 +11,10 @@
 <body>
     <div id="blog-template" data-win-control="WinJS.Binding.Template">
         <div class="blog-template-container" data-win-bind="style.backgroundColor: Index BlogConverters.backgroundColorConverter">
-            <h2 class="win-h2" data-win-bind="innerText: Title"></h2>
-            <div class="blogSite" data-win-bind="innerText: Site"></div>
+            <h2 class="win-h2" data-win-bind="innerText: title"></h2>
+            <div class="blogSite" data-win-bind="innerText: url"></div>
             <br />
-            <div class="blogDescription" data-win-bind="innerText: Description"></div>
-            <div class="blogCategories" data-win-bind="innerText: Categories BlogConverters.cateogriesConverter"></div>
+            <div class="blogDescription" data-win-bind="innerText: description"></div>
         </div>
     </div>
 

@@ -10,9 +10,9 @@
             var blogModel = options.blogModel.data;
 
             if (blogModel) {
-                if (blogModel.Title) {
-                    if (blogModel.Title.length > 40) {
-                        blogModel.Title = blogModel.Title.substr(0, 37) + "...";
+                if (blogModel.title) {
+                    if (blogModel.title.length > 40) {
+                        blogModel.title = blogModel.title.substr(0, 37) + "...";
                     }    
                 }
             }
@@ -29,7 +29,7 @@
 
 
 var ajaxGetBlogWithEntries = function (blogId) {
-    var url = window.Data.serverBaseUrl + "/Blog/GetBlogWithEntries/" + blogId;
+    var url = window.Data.serverBaseUrl + "/blogs/" + blogId;
     Solvberget.Queue.QueueDownload("blogs", { url: url }, ajaxGetBlogWithEntriesCallback, this, true);
 };
 var ajaxGetBlogWithEntriesCallback = function (request, context) {
@@ -49,9 +49,9 @@ var populateEntries = function (response) {
     var listview = document.getElementById("blog-entries-listview").winControl;
 
     var bindingList = new WinJS.Binding.List();
-    for (var i = 0; i < response.Entries.length; i++) {
-        response.Entries[i].Index = i;
-        bindingList.push(response.Entries[i]);
+    for (var i = 0; i < response.posts.length; i++) {
+        response.posts[i].Index = i;
+        bindingList.push(response.posts[i]);
     }
 
     var screenWidth = screen.width;
@@ -66,7 +66,7 @@ var populateEntries = function (response) {
     listview.itemDataSource = bindingList.dataSource;
     listview.oniteminvoked = function (args) {
         args.detail.itemPromise.done(function (item) {
-            WinJS.Navigation.navigate("/pages/blogs/entry/entry.html", { model: item.data });
+            WinJS.Navigation.navigate("/pages/blogs/entry/entry.html", { blogId: response.id, entryId: item.data.id });
         });
     }
 

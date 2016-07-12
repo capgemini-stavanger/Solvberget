@@ -16,14 +16,13 @@
             <div id="blog-entry-template" data-win-control="WinJS.Binding.Template">
                 <div class="blog-entry-container" data-win-bind="style.backgroundColor: Index BlogConverters.backgroundColorEntryConverter">
                     <div class="document-image-container entries-doc-img-container" data-win-control="Solvberget.Utils.DelayImageLoader">
-                        <img src="#" alt="" class="entryThumbnail" data-win-bind="src: ThumbnailUrl BlogConverters.thumbnailConverter; alt: Title; title: Title; style.display: ThumbnailUrl BlogConverters.undefinedHider"/>
+                        <img src="#" alt="" class="entryThumbnail" data-win-bind="src: thumbnailUrl BlogConverters.thumbnailConverter; alt: title; title: title; style.display: thumbnailUrl BlogConverters.undefinedHider"/>
                     </div>
-                    <h2 class="win-h2" data-win-bind="innerText: Title"></h2>
-                    <div data-win-bind="innerText: PublishedDateFormatted BlogConverters.publishedDate; style.display: PublishedDateFormatted BlogConverters.undefinedHider"></div>
-                    <div data-win-bind="innerText: UpdatedDateFormatted BlogConverters.updatedDate; style.display: UpdatedDateFormatted BlogConverters.undefinedHider"></div>
-                    <div data-win-bind="innerText: AuthorName BlogConverters.authorConverter; style.display: AuthorName BlogConverters.undefinedHider"></div>
+                    <h2 class="win-h2" data-win-bind="innerText: title"></h2>
+                    <div data-win-bind="innerText: published BlogConverters.publishedDate; style.display: published BlogConverters.undefinedHider"></div>
+                    <div data-win-bind="innerText: author BlogConverters.authorConverter; style.display: author BlogConverters.undefinedHider"></div>
                     <br/>
-                    <div data-win-bind="innerHTML: Description BlogConverters.descriptionWrapper; style.display: Description BlogConverters.undefinedHider"></div>
+                    <div data-win-bind="innerHTML: description BlogConverters.descriptionWrapper; style.display: description BlogConverters.undefinedHider"></div>
 
                 </div>
             </div>
@@ -31,12 +30,11 @@
             <div id="blog-entry-mobile-template" data-win-control="WinJS.Binding.Template">
                 <div class="blog-entry-mobile-template-container" data-win-bind="style.backgroundColor: Index BlogConverters.backgroundColorEntryConverter">
                     <div class="document-image-container entries-doc-img-container" data-win-control="Solvberget.Utils.DelayImageLoader">
-                        <img src="#" alt="" class="entryThumbnail" data-win-bind="src: ThumbnailUrl BlogConverters.thumbnailConverter; alt: Title; title: Title; style.display: ThumbnailUrl BlogConverters.undefinedHider" />
+                        <img src="#" alt="" class="entryThumbnail" data-win-bind="src: thumbnailUrl BlogConverters.thumbnailConverter; alt: title; title: title; style.display: thumbnailUrl BlogConverters.undefinedHider" />
                     </div>
-                    <h2 class="win-h2" data-win-bind="innerText: Title"></h2>
-                    <div data-win-bind="innerText: PublishedDateFormatted BlogConverters.publishedDate; style.display: PublishedDateFormatted BlogConverters.undefinedHider"></div>
-                    <div data-win-bind="innerText: UpdatedDateFormatted BlogConverters.updatedDate; style.display: UpdatedDateFormatted BlogConverters.undefinedHider"></div>
-                    <div data-win-bind="innerText: AuthorName BlogConverters.authorConverter; style.display: AuthorName BlogConverters.undefinedHider"></div>
+                    <h2 class="win-h2" data-win-bind="innerText: title"></h2>
+                    <div data-win-bind="innerText: published BlogConverters.publishedDate; style.display: published BlogConverters.undefinedHider"></div>
+                    <div data-win-bind="innerText: author BlogConverters.authorConverter; style.display: author BlogConverters.undefinedHider"></div>
 
                 </div>
             </div>
@@ -49,8 +47,8 @@
         <header aria-label="Header content" role="banner">
             <button class="win-backbutton" aria-label="Back"></button>
             <div class="titlearea win-type-ellipsis">
-                <h1 class="pagetitle win-h1" data-win-bind="innerText: Title">Innlegg</h1>
-                <h2 id="pageSubtitleName" class="pagesubtitle win-h2" data-win-bind="innerText: Title BlogConverters.subtitleConverter">De siste innleggene fra denne bloggen</h2>
+                <h1 class="pagetitle win-h1" data-win-bind="innerText: title">Innlegg</h1>
+                <h2 id="pageSubtitleName" class="pagesubtitle win-h2" data-win-bind="innerText: title BlogConverters.subtitleConverter">De siste innleggene fra denne bloggen</h2>
             </div>
         </header>
 

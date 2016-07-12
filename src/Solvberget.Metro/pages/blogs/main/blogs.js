@@ -16,7 +16,7 @@
 })();
 
 var ajaxGetBlogs = function () {
-    var url = window.Data.serverBaseUrl + "/Blog/GetBlogs";
+    var url = window.Data.serverBaseUrl + "/blogs";
     Solvberget.Queue.QueueDownload("blogs", { url: url }, ajaxGetBlogsCallback, this, true);
 };
 
@@ -86,7 +86,7 @@ WinJS.Namespace.define("BlogConverters", {
         return "De siste innleggene fra " + title;
     }),
     publishedDate: WinJS.Binding.converter(function (published) {
-        return "Publisert: " + published;
+        return "Publisert: " + moment(published).format('DD.MM.YYYY');
     }),
     updatedDate: WinJS.Binding.converter(function (updated) {
         return "Sist oppdatert: " + updated;

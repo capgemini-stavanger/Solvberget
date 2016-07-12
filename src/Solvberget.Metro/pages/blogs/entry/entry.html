@@ -11,20 +11,20 @@
 <body>
 
     <!-- The content that will be loaded and displayed. -->
-    <div class="blogentry fragment">
+    <div id="mainBlogEntry" class="blogentry fragment">
         <header aria-label="Header content" role="banner">
             <button class="win-backbutton" aria-label="Back"></button>
             <div class="titlearea win-type-ellipsis">
-                <h1 class="pagetitle win-h1" data-win-bind="innerText: Title">Innlegg</h1>
+                <h1 class="pagetitle win-h1" data-win-bind="innerText: title">Innlegg</h1>
                 <h2 id="pageSubtitleName" class="pagesubtitle win-h2">
-                    <span data-win-bind="innerText: AuthorName BlogConverters.authorConverter"></span>
-                    <span data-win-bind="innerText: PublishedDateFormatted"></span>
+                    <span data-win-bind="innerText: author BlogConverters.authorConverter"></span>
+                    <span data-win-bind="innerText: published BlogConverters.publishedDate"></span>
                 </h2>
             </div>
         </header>
         <section aria-label="Main content" id="mainEntryContentSection" role="main">
             <article>
-                <div class="entry-content" data-win-bind="innerHTML: Content"></div>
+                <div class="entry-content" data-win-bind="innerHTML: content"></div>
             </article>
         </section>
 
