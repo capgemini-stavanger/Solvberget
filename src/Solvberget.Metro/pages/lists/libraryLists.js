@@ -2,16 +2,12 @@
 
     "use strict";
 
-    var appViewState = Windows.UI.ViewManagement.ApplicationViewState;
-    var binding = WinJS.Binding;
     var ui = WinJS.UI;
     var utils = WinJS.Utilities;
     var nav = WinJS.Navigation;
     var app = WinJS.Application;
 
-    var listRequestUrl = Data.serverBaseUrl + "/List/GetListsStaticAndDynamic";
-    var docRequestUrl = Data.serverBaseUrl + "/Document/GetDocumentLight/";
-    var thumbRequestUrl = Data.serverBaseUrl + "/Document/GetDocumentThumbnailImage/";
+    var listRequestUrl = Data.serverBaseUrl + "/lists/";
 
     var lists = new Array();
     var listsBinding;
@@ -19,11 +15,6 @@
     var listSelectionIndex = -1;
     var continueToGetDocuments = false;
     var getListsHasReturnedCallback = false;
-
-    var isUpdatingListContent = false;
-    var isPopulatingElement = false;
-
-    //var delayRendringLimit = 8;
 
     ui.Pages.define("/pages/lists/libraryLists.html", {
 
@@ -45,16 +36,12 @@
                 listSelectionIndex = -1;
             }
 
-            //Set page header
-            element.querySelector("header[role=banner] .pagetitle").textContent = "Anbefalinger";
-
             //Init ListView
-            var listView = element.querySelector(".listView").winControl;
-            if (listView) {
-                listView.layout = new ui.ListLayout();
-                listView.onselectionchanged = this.listViewSelectionChanged.bind(this);
-                listView.itemTemplate = document.getElementById("listViewTemplateId");
-
+            var primaryListView = element.querySelector(".primary-listview").winControl;
+            if (primaryListView) {
+                primaryListView.layout = new ui.ListLayout();
+                primaryListView.onselectionchanged = this.primaryListViewSelectionChanged.bind(this);
+                primaryListView.itemTemplate = document.getElementById("listViewTemplateId");
             }
 
             //Hide either ListView (if we have selectionIndex != -1) or ListContent (selectionIndex == -1)
@@ -62,26 +49,26 @@
 
             //Get the lists
             if (!getListsHasReturnedCallback)
-                this.getLists(listRequestUrl, listView);
+                this.getLists(listRequestUrl, primaryListView);
             else {
-                listView.itemDataSource = listsBinding.dataSource;
+                primaryListView.itemDataSource = listsBinding.dataSource;
                 $("#listsLoading").hide();
                 $("#listViewId").fadeIn();
-                this.processRemainingDocuments();
+                //this.processRemainingDocuments();
             }
 
             if (this.isSingleColumn()) {
                 if (listSelectionIndex >= 0) {
 
-                    var mynewListview = document.getElementById("contents-listview").winControl;
+                    var secondaryListView = document.getElementById("contents-listview").winControl;
                     var myTemplate = document.getElementById("documentTemplate");
 
                     var bindingList = new WinJS.Binding.List(lists[listSelectionIndex].Documents);
 
-                    mynewListview.itemDataSource = bindingList.dataSource;
-                    mynewListview.itemTemplate = myTemplate;
-                    mynewListview.layout = new WinJS.UI.ListLayout();
-                    mynewListview.oniteminvoked = function (args) {
+                    secondaryListView.itemDataSource = bindingList.dataSource;
+                    secondaryListView.itemTemplate = myTemplate;
+                    secondaryListView.layout = new WinJS.UI.ListLayout();
+                    secondaryListView.oniteminvoked = function (args) {
                         args.detail.itemPromise.done(function (item) {
                             nav.navigate("/pages/documentDetail/documentDetail.html", { documentModel: item.data });
                         });
@@ -102,7 +89,7 @@
                 }
                 // If this page has a selectionIndex, make that appear in the ListView.
                 listSelectionIndex = Math.max(listSelectionIndex, 0);
-                if (getListsHasReturnedCallback) listView.selection.set(listSelectionIndex);
+                if (getListsHasReturnedCallback) primaryListView.selection.set(listSelectionIndex);
             }
 
             //AppBar
@@ -115,13 +102,17 @@
             Solvberget.Queue.CancelQueue('libraryList');
         },
 
-        listViewSelectionChanged: function (args) {
+        primaryListViewSelectionChanged: function (args) {
             if (!continueToGetDocuments) return;
+
+            $(".headerProgress").show();
+            $(".listTitle").text("Laster..");
+
             var that = this;
-            var listViewForListsElement = this.element.querySelector(".listView");
-            var listViewForLists = listViewForListsElement.winControl;
-            if (listViewForLists) {
-                listViewForLists.selection.getItems().done(function updateDetails(items) {
+            var primaryListView = this.element.querySelector(".primary-listview");
+            var primaryListViewCtrl = primaryListView.winControl;
+            if (primaryListViewCtrl) {
+                primaryListViewCtrl.selection.getItems().done(function updateDetails(items) {
                     if (items.length > 0) {
                         listSelectionIndex = items[0].index;
                         if (that.isSingleColumn()) {
@@ -133,27 +124,47 @@
                             // If fullscreen or filled, update the details column with new data.
                             that.saveListSelectionIndex();
 
-                            var mynewListview = document.getElementById("contents-listview").winControl;
+                            var secondaryListView = document.getElementById("contents-listview").winControl;
                             var myTemplate = document.getElementById("documentTemplate");
+                            var requestUrl = listRequestUrl + items[0].data.id;
 
-                            var bindingList = new WinJS.Binding.List(items[0].data.Documents);
+                            WinJS.xhr({ url: requestUrl }).then(
+                                function (request) {
+                                    if (!continueToGetDocuments)
+                                        return;
 
-                            mynewListview.itemDataSource = bindingList.dataSource;
-                            mynewListview.itemTemplate = myTemplate;
-                            mynewListview.layout = new WinJS.UI.ListLayout();
-                            mynewListview.oniteminvoked = function (args) {
-                                args.detail.itemPromise.done(function (item) {
-                                    nav.navigate("/pages/documentDetail/documentDetail.html", { documentModel: item.data });
+                                    getListsHasReturnedCallback = true;
+                                    var obj = JSON.parse(request.responseText);
+                                    if (obj !== undefined) {
+                                        var documents = obj.documents;
+                                        var newList = [];
+                                        for (var i = 0; i < documents.length; i++) {
+                                            var stuff = documents[i];
+                                            stuff.thumbnailUrl = "/images/placeholders/" + stuff.type + ".png";
+                                            newList[i] = stuff;
+                                        }
+
+                                        var bindingList = new WinJS.Binding.List(newList);
+                                        secondaryListView.itemDataSource = bindingList.dataSource;
+                                        secondaryListView.itemTemplate = myTemplate;
+                                        secondaryListView.layout = new WinJS.UI.ListLayout();
+                                        secondaryListView.oniteminvoked = function (args) {
+                                            args.detail.itemPromise.done(function (item) {
+                                                nav.navigate("/pages/documentDetail/documentDetail.html", { documentModel: item.data });
+                                            });
+                                        }
+
+                                        // Hide progress-ring, show content
+                                        $(".headerProgress").hide();
+                                        $(".listTitle").text(items[0].data.name);
+                                    } else {
+                                        //Error handling   
+                                    }
+                                },
+                                function (request) {
+                                    //Error handling
                                 });
-                            }
-
-                            Solvberget.Queue.PrioritizeUrls('libraryList', items[0].data.urls);
-                            if (that.doneLoadingDocuments(items[0].data.DocumentNumbers)) {
-                                $(".headerProgress").hide();
-                                $(".listTitle").text(items[0].data.Name);
-                            }
                         }
-
                     }
                 });
             }
@@ -172,22 +183,19 @@
 
         getLists: function (requestStr, listView) {
 
-            var that = this;
-
             WinJS.xhr({ url: requestStr }).then(
                 function (request) {
                     if (!continueToGetDocuments) return;
                     getListsHasReturnedCallback = true;
                     var obj = JSON.parse(request.responseText);
-                    if (obj.Lists !== undefined) {
-                        lists = obj.Lists;
+                    if (obj !== undefined) {
+                        lists = obj;
                         listsBinding = new WinJS.Binding.List(lists);
                         listView.itemDataSource = listsBinding.dataSource;
                         listView.selection.set(listSelectionIndex);
                         // Hide progress-ring, show content
                         $("#listsLoading").hide();
                         $("#listViewId").fadeIn();
-                        that.processRemainingDocuments();
                     } else {
                         //Error handling   
                     }
@@ -197,209 +205,6 @@
                 });
         },
 
-        renderList: function (listModel) {
-            var that = this;
-            if (listModel.Documents) {
-                //if (Object.keys(listModel.DocumentNumbers).length > delayRendringLimit) {
-                //    if (!this.doneLoadingDocuments(listModel.DocumentNumbers)) {
-                //        return;
-                //    }
-                //}
-                this.renderListContent(listModel, that);
-            }
-        },
-
-        renderListContent: function (listModel, context) {
-            var documentTemplateHolder = document.getElementById("documentsHolder");
-            documentTemplateHolder.innerHTML = "";
-            var documentTemplateDiv = document.getElementById("documentTemplate");
-            var documentTemplate = undefined;
-            if (documentTemplateDiv)
-                documentTemplate = new WinJS.Binding.Template(documentTemplateDiv);
-
-            for (var i = 0; i < listModel.Documents.length; i++) {
-                var doc = listModel.Documents[i];
-                if (documentTemplate && documentTemplateHolder && doc) {
-                    context.populateDocElement(doc);
-                    documentTemplateHolder.innerHTML += doc.element.innerHTML;
-                }
-            }
-        },
-
-        resolveDocumentFromDocumentNumber: function (documentNumber) {
-            if (documentNumber) {
-                for (var i = 0; i < lists.length; i++) {
-                    var listItem = lists[i];
-                    for (var j = 0; j < listItem.Documents.length; j++) {
-                        var document = listItem.Documents[j];
-                        if (document.DocumentNumber == documentNumber) {
-                            return document;
-                        }
-                    }
-                }
-            }
-        },
-
-        docIsVisible: function (docNumber) {
-            if (docNumber) {
-                if (this.isSingleColumn()) {
-                    var contentIsPrimary = $(".listContentSection").hasClass("primarycolumn");
-                    if (contentIsPrimary) {
-                        var items = lists[listSelectionIndex];
-                        for (var i = 0; i < items.Documents.length; i++) {
-                            if (docNumber == items.Documents[i].DocumentNumber) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-                else {
-                    var items = lists[listSelectionIndex];
-                    for (var i = 0; i < items.Documents.length; i++) {
-                        if (docNumber == items.Documents[i].DocumentNumber) {
-                            return true;
-                        }
-                    }
-                }
-
-            }
-
-            return false;
-
-        },
-
-        updateContentSectionIfDocIsVisible: function (docNumber) {
-            if (!continueToGetDocuments) return;
-            var that = this;
-            if (!that.isUpdatingListContent && this.docIsVisible(docNumber)) {
-                that.isUpdatingListContent = true;
-                var listViewForListsElement = this.element.querySelector(".listView");
-                var listViewForLists = listViewForListsElement.winControl;
-                if (listViewForLists) {
-                    listViewForLists.selection.getItems().done(function updateDetails(items) {
-                        if (items.length > 0) {
-                            listSelectionIndex = items[0].index;
-
-                            var mynewListview = document.getElementById("contents-listview").winControl;
-                            var myTemplate = document.getElementById("documentTemplate");
-
-                            var bindingList = new WinJS.Binding.List(items[0].data.Documents);
-
-                            mynewListview.itemDataSource = bindingList.dataSource;
-                            mynewListview.itemTemplate = myTemplate;
-                            mynewListview.oniteminvoked = function (args) {
-                                args.detail.itemPromise.done(function (item) {
-                                    nav.navigate("/pages/documentDetail/documentDetail.html", { documentModel: item.data });
-                                });
-                            }
-
-                            if (that.doneLoadingDocuments(items[0].data.DocumentNumbers)) {
-                                $(".headerProgress").hide();
-                            }
-                        }
-                    });
-                }
-                that.isUpdatingListContent = false;
-            }
-        },
-
-        populateDocElement: function (doc) {
-            var that = this;
-            if (doc) {
-                if (!isPopulatingElement && doc.element === undefined) {
-                    isPopulatingElement = true;
-                    var item = new Object();
-                    item.data = doc;
-                    var documentTemplateDiv = document.getElementById("documentTemplate");
-                    if (documentTemplateDiv) {
-                        var documentTemplate = new WinJS.Binding.Template(documentTemplateDiv);
-                        documentTemplate.renderItem(WinJS.Promise.wrap(item), true).renderComplete.then(function (renderedElement) {
-                            doc.element = renderedElement;
-                            doc.element.firstElementChild.id = doc.DocumentNumber;
-
-                            if (doc.ThumbnailUrl !== undefined && doc.ThumbnailUrl != "") {
-                                WinJS.Utilities.query("img", doc.element).forEach(function (img) {
-                                    img.addEventListener("load", function () {
-                                        WinJS.Utilities.addClass(img, "loaded");
-                                        that.updateContentSectionIfDocIsVisible(doc.DocumentNumber);
-                                    });
-                                });
-                            }
-                        });
-                    }
-                    isPopulatingElement = false;
-                }
-            }
-        },
-
-        processRemainingDocuments: function () {
-            var that = this;
-
-            var completed = function (request, context) {
-                if (request.responseText !== "") {
-                    var obj = JSON.parse(request.responseText);
-                    context.listItem.Documents.push(obj);
-                    context.listItem.DocumentNumbers[context.docNo] = true;
-                    that.processThumbnailOnDoc(context.listItem);
-                    that.updateContentSectionIfDocIsVisible(obj.DocumentNumber);
-                }
-            }
-
-            for (var i = 0; i < lists.length; i++) {
-                var listItem = lists[i];
-                if (!listItem.urls) listItem.urls = [];
-                var documentNumbers = listItem.DocumentNumbers;
-
-                for (var documentNumber in documentNumbers) {
-                    if (!documentNumbers[documentNumber]) {
-                        if (!listItem.Documents) {
-                            listItem.Documents = new Array();
-                        }
-                        var reqStr = docRequestUrl + documentNumber;
-                        var jsonContext = { listItem: listItem, docNo: documentNumber };
-                        listItem.urls.push(reqStr);
-                        Solvberget.Queue.QueueDownload('libraryList', { url: reqStr }, completed, jsonContext);
-                    } else {
-                        that.processThumbnailOnDoc(listItem);
-                    }
-                }
-            }
-        },
-
-        processThumbnailOnDoc: function (doc) {
-            var that = this;
-            var completed = function (request, context) {
-                var obj = JSON.parse(request.responseText);
-                if (obj !== "") context.ThumbnailUrl = obj;
-                context.element = undefined;
-                that.populateDocElement(context);
-            }
-
-            if (doc !== undefined) {
-                if (!doc.urls) doc.urls = [];
-                var documents = doc.Documents;
-                if (documents !== undefined) {
-                    for (var j = 0; j < documents.length; j++) {
-                        var checkDoc = documents[j];
-                        if (checkDoc.ThumbnailUrl === undefined || checkDoc.ThumbnailUrl == "") {
-                            if (checkDoc.TriedFetchingThumbnail === undefined) {
-                                checkDoc.ThumbnailUrl = "/images/placeholders/" + checkDoc.DocType + ".png";
-                                checkDoc.TriedFetchingThumbnail = true;
-                                var url = thumbRequestUrl + checkDoc.DocumentNumber;
-                                doc.urls.push(url);
-                                Solvberget.Queue.QueueDownload('libraryList', { url: url }, completed, checkDoc, true);
-
-                            }
-                        }
-                        else {
-                            checkDoc.TriedFetchingThumbnail = true;
-                        }
-                        that.populateDocElement(checkDoc);
-                    }
-                }
-            }
-        },
-
         saveListSelectionIndex: function () {
             var indexObj = { index: listSelectionIndex };
             app.sessionState.listpageSelectionIndex = indexObj;
@@ -407,7 +212,7 @@
 
         updateLayout: function (element, viewState, lastViewState) {
 
-            var listView = element.querySelector(".listView").winControl;
+            var listView = element.querySelector(".primary-listview").winControl;
             if (listView) {
                 var firstVisible = listView.indexOfFirstVisible;
                 this.updateVisibility();
@@ -474,10 +279,10 @@
                     document.querySelector(".listContentSection").focus();
                 } else {
                     utils.addClass(document.querySelector(".listViewSection"), "primarycolumn");
-                    document.querySelector(".listView").focus();
+                    document.querySelector(".primary-listview").focus();
                 }
             } else {
-                document.querySelector(".listView").focus();
+                document.querySelector(".primary-listview").focus();
             }
         }
 

@@ -16,16 +16,13 @@
 </head>
 
 <body>
-
-
-
     <!----------------------- TEMPLATES ---------------------->
     <div class="templates">
 
         <!-- ItemTemplate for Listview -->
         <div id="listViewTemplateId" class="listViewTemplate" data-win-control="WinJS.Binding.Template">
             <div class="list-info">
-                <h2 class="item-title" data-win-bind="textContent: Name"></h2>
+                <h2 class="item-title" data-win-bind="textContent: name"></h2>
             </div>
         </div>
 
@@ -33,11 +30,11 @@
         <div id="documentTemplate" data-win-control="WinJS.Binding.Template">
             <div class="documentHolder">
                 <div class="documentImageContainer" data-win-control="Solvberget.Utils.DelayImageLoader">
-                    <img class="documentImage" src="#" data-win-bind="src: ThumbnailUrl; alt: Title" />
+                    <img class="documentImage" src="#" data-win-bind="src: thumbnailUrl; alt: title" />
                 </div>
                 <div class="documentSection">
-                    <h2 class="documentTitle" data-win-bind="innerText: Title"></h2>
-                    <h3 class="documentSubTitle" data-win-bind="innerText: CompressedSubTitle"></h3>
+                    <h2 class="documentTitle" data-win-bind="innerText: title"></h2>
+                    <h3 class="documentSubTitle" data-win-bind="innerText: subTitle"></h3>
                 </div>
             </div>
             <div class="clearFloat"></div>
@@ -49,8 +46,6 @@
     <!----------------------- THE PAGE ---------------------->
     <div class="listpage fragment">
 
-
-
         <!-- List loading wheel -->
         <div id="listsLoading">
             <label class="progress-ring-text">
@@ -58,47 +53,32 @@
             </label>
         </div>
 
-
-
-
         <!-- HEADER -->
-        <!-- <div class="wrapper">-->
         <header aria-label="Header content" role="banner">
             <button class="win-backbutton" aria-label="Back" disabled></button>
             <h1 class="titlearea win-type-ellipsis">
-                <span class="pagetitle"></span>
+                <span class="pagetitle">Anbefalinger</span>
             </h1>
         </header>
 
-
-
         <!-- ListView for Lists -->
         <div class="listViewSection" aria-label="List column">
-            <div id="listViewId" class="listView win-selectionstylefilled" aria-label="List of this group's items" data-win-control="WinJS.UI.ListView" data-win-options="{ selectionMode: 'single', tapBehavior: 'toggleSelect' }"></div>
+            <div id="listViewId" class="primary-listview win-selectionstylefilled" aria-label="List of this group's items" data-win-control="WinJS.UI.ListView" data-win-options="{ selectionMode: 'single', tapBehavior: 'toggleSelect' }"></div>
         </div>
-
-
 
         <!-- ListContent -->
         <div class="listContentSection" aria-atomic="true" aria-label="List Content Column" aria-live="assertive">
             <article id="listContent-article">
                 <header>
-                    <div class="listTitle" data-win-bind="textContent: Name">Laster..</div>
+                    <div class="listTitle" data-win-bind="textContent: name">Laster..</div>
                     <label class="progress-ring-text headerProgress"><progress class="win-ring header"></progress></label>
                 </header>
                 <div class="clearFloat"></div>
                 <hr/>
 
-
-                <!--<div id="documentsHolder"></div>-->
-                <!-- NEW -->
                 <div id="contents-listview" data-win-control="WinJS.UI.ListView"></div>
             </article>
         </div>
-
-        
-
-
 
     </div>
 

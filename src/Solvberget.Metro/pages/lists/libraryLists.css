@@ -8,9 +8,6 @@
 
 progress.withText {
     color: inherit; /* Uses the same text color as the page */
-}
-
-progress.withText {
     width: 100px;
     height: 100px;
     text-align: center;
@@ -23,9 +20,6 @@ progress.header {
     height: 25px;
     color: inherit;
 }
-
-
-
 
 
 /* LIST PAGE */
@@ -55,47 +49,46 @@ progress.header {
         margin-left: 106px;
     }
 
-        .listpage .listViewSection .listView {
+        .listpage .listViewSection .primary-listview {
             height: 100%;
             position: relative;
             width: 100%;
             z-index: 0;
         }
 
-            .listpage .listViewSection .listView .win-vertical.win-viewport .win-surface {
+            .listpage .listViewSection .primary-listview .win-vertical.win-viewport .win-surface {
                 margin-bottom: 40px;
             }
 
-            .listpage .listViewSection .listView .win-vertical.win-viewport .win-container {
+            .listpage .listViewSection .primary-listview .win-vertical.win-viewport .win-container {
                 margin-bottom: 15px;
                 margin-right: 42px;
                 padding: 7px;
             }
 
-            .listpage .listViewSection .listView .win-container .win-selectioncheckmark, .listpage .listViewSection .listView .win-container .win-selectioncheckmarkbackground {
+            .listpage .listViewSection .primary-listview .win-container .win-selectioncheckmark, .listpage .listViewSection .primary-listview .win-container .win-selectioncheckmarkbackground {
                 display: none;
             }
 
-            .listpage .listViewSection .listView .win-item {
+            .listpage .listViewSection .primary-listview .win-item {
                 height: 90px;
-                /*width: 412px;*/
             }
 
-                .listpage .listViewSection .listView .win-item .list-info {
+                .listpage .listViewSection .primary-listview .win-item .list-info {
                     margin: 0;
                     width: 100%;
                 }
 
-                    .listpage .listViewSection .listView .win-item .list-info .item-title {
+                    .listpage .listViewSection .primary-listview .win-item .list-info .item-title {
                         margin: 0px;
                         overflow: hidden;
                     }
 
-                    .listpage .listViewSection .listView .win-item .list-info .item-subtitle {
+                    .listpage .listViewSection .primary-listview .win-item .list-info .item-subtitle {
                         opacity: 0.6;
                     }
 
-                    .listpage .listViewSection .listView .win-item .list-info .item-description {
+                    .listpage .listViewSection .primary-listview .win-item .list-info .item-description {
                         max-height: 60px;
                         overflow: hidden;
                     }
@@ -166,9 +159,6 @@ progress.header {
                     cursor: pointer;
                 }
 
-@media screen and (-ms-view-state: filled) {
-}
-
 @media screen and (max-width: 400px) {
 
     .listpage {
@@ -178,25 +168,22 @@ progress.header {
 
         .listpage .listViewSection {
             margin-left: 6px;
+            margin-top: 10px;
         }
 
-            .listpage .listViewSection .listView .win-vertical.win-viewport .win-container {
+            .listpage .listViewSection .primary-listview .win-vertical.win-viewport .win-container {
                 margin-bottom: 0px;
                 margin-right: 0px;
                 padding-top: 7px;
                 width: 260px;
             }
 
-        .listpage .listViewSection {
-            margin-top: 10px;
-        }
-
-            .listpage .listViewSection .listView .win-item {
+            .listpage .listViewSection .primary-listview .win-item {
                 height: 110px;
                 background: rgba(255,255,255,0.03);
             }
 
-                .listpage .listViewSection .listView .win-item .list-info .item-title {
+                .listpage .listViewSection .primary-listview .win-item .list-info .item-title {
                     margin-top: 4px;
                     overflow: hidden;
                 }
@@ -262,12 +249,9 @@ progress.header {
         .listpage .listViewSection {
             margin-top: 30px;
             margin-left: 70px;
-            /*width: calc(100% - 85px - 70px);*/
-            /*visibility: hidden;*/
         }
 
-            .listpage .listViewSection .listView .win-item {
-                /*-ms-grid-columns: 110px 1fr;*/
+            .listpage .listViewSection .primary-listview .win-item {
                 -ms-grid-rows: 1fr;
                 display: -ms-grid;
                 height: 90px;
@@ -277,7 +261,7 @@ progress.header {
             }
 
 
-            .listpage .listViewSection .listView .win-vertical.win-viewport .win-container {
+            .listpage .listViewSection .primary-listview .win-vertical.win-viewport .win-container {
                 margin-right: calc(100% - 600px);
             }
 
