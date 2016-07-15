@@ -484,8 +484,7 @@ WinJS.Namespace.define("DocumentDetailConverters", {
         if (!persons) return "";
         var output = "";
         for (var x in persons) {
-            output += persons[x].Name;
-            if (persons[x].Role) output += " (" + persons[x].Role + ")";
+            output += persons[x];
             output += "\r\n";
         }
 

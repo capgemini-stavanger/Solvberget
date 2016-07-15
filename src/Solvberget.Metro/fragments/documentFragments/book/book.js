@@ -17,12 +17,12 @@ var fragmentReady = function (model) {
 };
 
 var ajaxGetReview = function () {
-    var url = window.Data.serverBaseUrl + "/Document/GetDocumentReview/" + documentModel.DocumentNumber;
+    var url = window.Data.serverBaseUrl + "/documents/" + documentModel.id +  "/review";
     Solvberget.Queue.QueueDownload("documentdetails", { url: url }, ajaxGetReviewCallback, this, true);
 };
 
 var ajaxGetRating = function () {
-    var url = window.Data.serverBaseUrl + "/Document/GetDocumentRating/" + documentModel.DocumentNumber;
+    var url = window.Data.serverBaseUrl + "/documents/" + documentModel.id + "/rating";
     Solvberget.Queue.QueueDownload("documentdetails", { url: url }, ajaxGetRatingCallback, this, true);
 };
 
@@ -34,9 +34,9 @@ var ajaxGetReviewCallback = function (request, context) {
         response = JSON.parse(request.responseText);
     }
 
-    if (response != undefined && response !== "") {
+    if (response.review !== "") {
 
-        var data = { documentReview: response };
+        var data = { documentReview: response.review };
 
         var reviewTemplate = new WinJS.Binding.Template(document.getElementById("reviewTemplate"));
         var reviewTemplateContainer = document.getElementById("reviewHolder");
@@ -59,7 +59,7 @@ var ajaxGetRatingCallback = function (request, context) {
 
     if (response != undefined && response !== "") {
 
-        if (response === "0.0") return;
+        if (response.score === "0.0" || response.score === 0) return;
 
         var data = { BokElskereRating: response };
 
@@ -74,7 +74,7 @@ var ajaxGetRatingCallback = function (request, context) {
         var rating = element.winControl;
         if (rating) {
             rating.maxRating = 6.0;
-            rating.averageRating = response;
+            rating.averageRating = response.score;
         }
 
     } else {

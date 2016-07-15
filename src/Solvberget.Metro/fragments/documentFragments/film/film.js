@@ -20,7 +20,7 @@ var fragmentReady = function (model) {
 
 // !------------ AJAX METHODS -------------! //
 var ajaxGetImdbRating = function () {
-    var url = window.Data.serverBaseUrl + "/Document/GetDocumentRating/" + documentModel.DocumentNumber;
+    var url = window.Data.serverBaseUrl + "/documents/" + documentModel.id + "/rating";
     Solvberget.Queue.QueueDownload("documentdetails", { url: url }, ajaxGetImdbRatingCallback, this, true);
 };
 
@@ -31,6 +31,8 @@ var ajaxGetImdbRatingCallback = function (request, context) {
     var response = request.responseText == "" ? "" : JSON.parse(request.responseText);
 
     if (response != undefined && response !== "") {
+
+        if (response.score === 0) return;
 
         var data = { ImdbRating: response };
 
