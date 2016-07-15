@@ -9,7 +9,7 @@
 
         ready: function (element, options) {
             documentModel = options.documentModel;
-            getDocument(documentModel.DocumentNumber);
+            getDocument(documentModel.id);
             this.registerForShare();
             document.getElementById("sendHoldRequestButton").addEventListener("click", registerHoldRequest);
             document.getElementById("addToFavoritesButton").addEventListener("click", addToFavorites);
@@ -115,14 +115,14 @@
 
             var request = e.request;
 
-            var documentTitle = documentModel.Title;
+            var documentTitle = documentModel.title;
             if (documentTitle !== "") {
                 request.data.properties.title = documentTitle;
                 request.data.properties.description = "Sjekk ut " + documentTitle + " fra bilioteket!";
 
                 var link = "http://app.solvberget.no/#/";
 
-                var type = documentModel.DocType;
+                var type = documentModel.type;
                 var tmp;
                 if (type === "Book")
                     tmp = "bok";
@@ -145,7 +145,7 @@
                 }
 
                 link = link.concat(tmp) + "/";
-                link = link.concat(documentModel.DocumentNumber) + "/";
+                link = link.concat(documentModel.id) + "/";
                 var titleSpacesReplaced = documentTitle.replace(/ /g, "+");
                 link = link.concat(titleSpacesReplaced);
 
@@ -161,17 +161,13 @@
 
 
 
-
-
 var documentModel = undefined;
 var haveAvailability = false;
 var haveReview = false;
 
 var ajaxGetDocumentImage = function () {
-
-    var url = window.Data.serverBaseUrl + "/Document/GetDocumentThumbnailImage/" + documentModel.DocumentNumber;
+    var url = window.Data.serverBaseUrl + "/documents/" + documentModel.id + "/thumbnail";
     Solvberget.Queue.QueueDownload("documentdetails", { url: url }, ajaxGetDocumentImageCallback, this, true);
-
 };
 
 var ajaxGetDocumentImageCallback = function (request, context) {
@@ -185,7 +181,7 @@ var ajaxGetDocumentImageCallback = function (request, context) {
 };
 
 var ajaxGetDocument = function (documentNumber) {
-    var url = window.Data.serverBaseUrl + "/Document/GetDocument/" + documentNumber;
+    var url = window.Data.serverBaseUrl + "/documents/" + documentNumber;
     Solvberget.Queue.QueueDownload("documentdetails", { url: url }, ajaxGetDocumentCallback, this, true);
 };
 
@@ -193,7 +189,7 @@ var ajaxGetDocumentCallback = function (request, context) {
 
     var response = request.responseText == "" ? "" : JSON.parse(request.responseText);
     if (response != undefined && response !== "") {
-
+        response.imageUrl = window.Data.serverBaseUrl + "/documents/" + response.id + "/thumbnail";
         documentModel = response;
         populateFragment(response);
 
@@ -212,15 +208,6 @@ var ajaxGetDocumentCallback = function (request, context) {
         if (documentSubTitleDiv != undefined && response != undefined)
             WinJS.Binding.processAll(documentSubTitleDiv, response);
 
-        // No need to do this...
-        //if (documentCompressedSubTitleDiv != undefined && response != undefined) {
-        //    if (response.MainResponsible != undefined) {
-        //        if (response.MainResponsible.Name != undefined) {
-        //            response.CompressedSubTitle = response.MainResponsible.Name + ", " + response.CompressedSubTitle;
-        //        }
-        //    }
-        //}
-
         WinJS.Binding.processAll(documentCompressedSubTitleDiv, response);
 
     }
@@ -234,11 +221,10 @@ var ajaxGetDocumentCallback = function (request, context) {
 
 var populateFragment = function (documentModel) {
 
-
     var documentFragmentHolder = document.getElementById("document-fragment-holder");
     documentFragmentHolder.innerHTML = "";
 
-    var documentType = documentModel.DocType;
+    var documentType = documentModel.type;
     var that = this;
 
     WinJS.UI.Fragments.renderCopy("/fragments/documentFragments/" + documentType + "/" + documentType + ".html", documentFragmentHolder).done(function () {
@@ -248,7 +234,7 @@ var populateFragment = function (documentModel) {
         if (fragmentContent != undefined && documentModel != undefined)
             WinJS.Binding.processAll(fragmentContent, documentModel);
 
-        var type = that.documentModel.DocType;
+        var type = that.documentModel.type;
         callFragmentReady(type, that.documentModel);
 
         WinJS.Resources.processAll();
@@ -259,7 +245,7 @@ var populateFragment = function (documentModel) {
         $("#document-content").css("visibility", "visible").hide().fadeIn(500);
 
         //Do not allow hold request for journals
-        if (documentType == "Journal")
+        if (documentType === "Journal")
             $("#sendHoldRequestButton").css("display", "none").css("visibility", "hidden");
 
     });
@@ -300,13 +286,13 @@ var populateAvailability = function () {
 
     var model;
 
-    if (documentModel.AvailabilityInfo) {
+    if (documentModel.availability.length > 0) {
 
         haveAvailability = true;
 
-        for (var i = 0; i < documentModel.AvailabilityInfo.length; i++) {
+        for (var i = 0; i < documentModel.availability.length; i++) {
 
-            model = documentModel.AvailabilityInfo[i];
+            model = documentModel.availability[i];
             model.LocationCode = documentModel.LocationCode;
             model.ClassificationNr = documentModel.ClassificationNr;
 
@@ -492,7 +478,7 @@ WinJS.Namespace.define("DocumentDetailConverters", {
         return totalCount + " " + pluralFix + " tilgjengelig";
     }),
     docEarliestAvailableDate: WinJS.Binding.converter(function (date) {
-        return (date || date != "") ? "Ventes å være ledig fra: " + date : "";
+        return (date) ? "Ventes å være ledig fra: " + moment(date).format('DD.MM.YYYY') : "";
     }),
     personConverter: WinJS.Binding.converter(function (persons) {
         if (!persons) return "";

@@ -1,44 +1,39 @@
 ﻿<!DOCTYPE html>
 <html>
-
 <head>
-
     <meta charset="utf-8" />
     <title>Detaljer</title>
 
     <link href="documentDetail.css" rel="stylesheet" />
     <script src="documentDetail.js"></script>
-    <!--<script src="../../js/localizationHelper.js"></script>-->
-
 </head>
-
 <body>
 
     <div class="templates">
 
         <div id="availabilityTemplate">
             <section class="availabilitySection">
-                <span class="doc-loc-branch" data-win-bind="innerText: Branch"></span>
-                <span class="doc-loc-department" data-win-bind="innerText: Department DocumentDetailConverters.listConverter;"></span>
-                <span class="doc-loc-collection" data-win-bind="innerText: PlacementCode"></span>
+                <span class="doc-loc-branch" data-win-bind="innerText: branch"></span>
+                <span class="doc-loc-department" data-win-bind="innerText: department"></span>
+                <span class="doc-loc-collection" data-win-bind="innerText: collection"></span>
                 <div class="doc-loc-hyllesign">
-                    <span class="doc-loc-classification" data-win-bind="innerText: ClassificationNr DocumentDetailConverters.classificationCodeConverter"></span>
-                    <span class="doc-loc-code" data-win-bind="innerText: LocationCode DocumentDetailConverters.nullToEmptyStringConverter"></span>
+                    <span class="doc-loc-classification" data-win-bind="innerText: classificationNr DocumentDetailConverters.classificationCodeConverter"></span>
+                    <span class="doc-loc-code" data-win-bind="innerText: location DocumentDetailConverters.nullToEmptyStringConverter"></span>
                 </div>
                 <br />
-                <i class="icon-sign-blank" data-win-bind="style.color: AvailableCount DocumentDetailConverters.docAvailableStyle"></i>
-                <span class="doc-availability-count" data-win-bind="innerText: AvailableCount DocumentDetailConverters.docAvailable"></span>
-                <span class="doc-availability-tot" data-win-bind="innerText: TotalCount DocumentDetailConverters.docTotalCount"></span>
-                <span class="doc-estimated-wait" style="" data-win-bind="innerText: EarliestAvailableDateFormatted DocumentDetailConverters.docEarliestAvailableDate"></span>
+                <i class="icon-sign-blank" data-win-bind="style.color: availableCount DocumentDetailConverters.docAvailableStyle"></i>
+                <span class="doc-availability-count" data-win-bind="innerText: availableCount DocumentDetailConverters.docAvailable"></span>
+                <span class="doc-availability-tot" data-win-bind="innerText: totalCount DocumentDetailConverters.docTotalCount"></span>
+                <span class="doc-estimated-wait" style="" data-win-bind="innerText: estimatedAvailableDate DocumentDetailConverters.docEarliestAvailableDate"></span>
             </section>
         </div>
 
         <div id="documentShareContent" style="background-color: #f2f2f2; padding: 1px 15px 20px 15px; margin-bottom: 40px; font-family: 'Segoe UI Semilight'">
-            <h2 data-win-bind="innerText: Title"></h2>
-            <img src="#" data-win-bind="src: ImageUrl DocumentDetailConverters.imageUrl; alt: Title; style.display:ImageUrl DocumentDetailConverters.hideNullOrEmptyConverter" />
+            <h2 data-win-bind="innerText: title"></h2>
+            <img src="#" data-win-bind="src: imageUrl DocumentDetailConverters.imageUrl; alt: title; style.display: imageUrl DocumentDetailConverters.hideNullOrEmptyConverter" />
             <br />
-            <h3 data-win-bind="style.display: Title DocumentDetailConverters.hideNullOrEmptyConverter">Tittel</h3>
-            <p data-win-bind="innerText: Title"></p>
+            <h3 data-win-bind="style.display: title DocumentDetailConverters.hideNullOrEmptyConverter">Tittel</h3>
+            <p data-win-bind="innerText: title"></p>
 
             <h3 data-win-bind="style.display: Author.Name DocumentDetailConverters.hideNullOrEmptyConverter">Forfatter</h3>
             <p data-win-bind="textContent: Author.Name; style.display: Author.Name DocumentDetailConverters.hideNullOrEmptyConverter"></p>
@@ -70,9 +65,8 @@
             <button class="win-backbutton" aria-label="Back"></button>
             <div class="titlearea">
                 <h1 class="win-h1">
-                    <span class="pagetitle" id="document-title" data-win-bind="textContent: Title"></span>
+                    <span class="pagetitle" id="document-title" data-win-bind="textContent: title"></span>
                 </h1>
-                <!--<h2 class="pagesubtitle win-type-ellipsis" id="document-subtitle" data-win-bind="textContent: SubTitle; style.display: SubTitle DocumentDetailConverters.hideNullOrEmptyConverter"></h2>-->
             </div>
         </header>
 
@@ -87,11 +81,11 @@
                 <div>
 
                     <div class="document-compressedsubtitle-container">
-                        <h3 id="document-compressedsubtitle" class="win-h3" data-win-bind="innerText: CompressedSubTitle"></h3>
+                        <h3 id="document-compressedsubtitle" class="win-h3" data-win-bind="innerText: subTitle"></h3>
                     </div>
 
                     <div class="document-image-container" data-win-control="Solvberget.Utils.DelayImageLoader">
-                        <img id="documentImage" src="#" data-win-bind="src: ImageUrl DocumentDetailConverters.imageUrl; alt: Title" alt="" />
+                        <img id="documentImage" src="#" data-win-bind="src: imageUrl DocumentDetailConverters.imageUrl; alt: title" alt="" />
                     </div>
 
                     <div id="documentButtonContainer">
