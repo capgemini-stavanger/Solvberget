@@ -17,7 +17,7 @@ var fragmentReady = function (model) {
 };
 
 var ajaxGetReview = function () {
-    var url = window.Data.serverBaseUrl + "/Document/GetDocumentReview/" + documentModel.DocumentNumber;
+    var url = window.Data.serverBaseUrl + "/documents/" + documentModel.id +  "/review";
     Solvberget.Queue.QueueDownload("documentdetails", { url: url }, ajaxGetReviewCallback, this, true);
 };
 
@@ -29,7 +29,7 @@ var ajaxGetReviewCallback = function (request, context) {
         response = JSON.parse(request.responseText);
     }
 
-    if (response != undefined && response !== "") {
+    if (response != undefined && response !== "" && response.review !== "") {
 
         var data = { documentReview: response };
 
@@ -49,5 +49,5 @@ var ajaxGetReviewCallback = function (request, context) {
 };
 
 WinJS.Namespace.define("DocumentDetailFragment", {
-    readyAudioBook: fragmentReady,
+    readyAudioBook: fragmentReady
 });
