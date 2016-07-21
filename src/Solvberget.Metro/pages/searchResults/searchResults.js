@@ -8,12 +8,11 @@
     var utils = WinJS.Utilities;
     var searchPageURI = "/pages/searchResults/searchResults.html";
 
-
     var suggestionMethods = {
 
         suggestionList: [],
 
-        url: window.Data.serverBaseUrl + "/Document/SuggestionList/",
+        url: window.Data.serverBaseUrl + "/suggestions/",
 
         populateSuggestionList: function (request, context) {
             // AJAX CALLBACK (populate suggestion list from server)
@@ -23,14 +22,13 @@
 
         getSuggestionListFromServer: function () {
             // DO AJAX (get suggestion list from server)
-            // TODO: Not working anymore. Can't find the server it's calling..
-            //Solvberget.Queue.QueueDownload("search", { url: suggestionMethods.url }, suggestionMethods.populateSuggestionList, this, false);
-
+            Solvberget.Queue.QueueDownload("search", { url: suggestionMethods.url }, suggestionMethods.populateSuggestionList, this, false);
         },
 
         updateSuggestionsCallback: function (request, context) {
             // AJAX CALLBACK (check if suggestion is different from search then show)
             var query = context.q;
+            if (request.responseText === "") return;
             var allData = JSON.parse(request.responseText);
             // Check to see if we have a suggestion
             if (query != allData && allData != "") {
@@ -69,7 +67,7 @@
             suggestionMethods.suggestionQuery = "";
             var context = { q: query };
 
-            var searchUrl = Data.serverBaseUrl + "/Document/SpellingDictionaryLookup/" + query;
+            var searchUrl = Data.serverBaseUrl + "/suggestions/lookup?query=" + query;
             Solvberget.Queue.QueueDownload("search", { url: searchUrl }, this.updateSuggestionsCallback, context, false);
 
         },
@@ -93,44 +91,12 @@
     // ----------------------AJAX METHODS---------------//
 
     var ajaxSearchDocuments = function (query, context) {
-
-        var url = window.Data.serverBaseUrl + "/Document/Search/" + query;
+        var url = window.Data.serverBaseUrl + "/documents/search?query=" + query;
         Solvberget.Queue.QueueDownload("search", { url: url }, ajaxSearchDocumentsCallback, context, true);
-
     };
-    var ajaxGetThumbnailDocumentImage = function (query, size, context) {
-
-        var url = window.Data.serverBaseUrl + "/Document/GetDocumentThumbnailImage/";
-        url = size == undefined ? url + query : url + query + "/" + size;
-        Solvberget.Queue.QueueDownload("search", { url: url }, ajaxGetThumbnailDocumentImageCallback, context, false);
-
-    };
-
-
-
 
     //-------------CALLBACKS-------------//
 
-    var ajaxGetThumbnailDocumentImageCallback = function (request, context) {
-
-        var response = request.responseText == "" ? "" : JSON.parse(request.responseText);
-
-        if (response && response != "") {
-            // Set the new value in the model of this item                   
-            context.item.data.BackgroundImage = response;
-
-            // Get the live DOM-object of this item
-            var section = document.getElementById("searchResultSection");
-            if (section) {
-                var listView = section.querySelector(".resultslist").winControl;
-                var htmlItem = listView.elementFromIndex(context.index);
-                if (htmlItem != null)
-                    WinJS.Binding.processAll(htmlItem, context.item.data);
-            }
-        }
-
-
-    };
     var ajaxSearchDocumentsCallback = function (request, context) {
 
         var response = request.responseText == "" ? "" : JSON.parse(request.responseText);
@@ -145,23 +111,8 @@
         else {
             var originalResults = new WinJS.Binding.List();
 
-            for (x in response) {
-
-                if (response[x].ThumbnailUrl !== "") {
-                    response[x].BackgroundImage = response[x].ThumbnailUrl;
-                }
-                else {
-                    if (response[x].DocType == "Film" && response[x].TypeOfMedia == "Blu-ray") {
-                        response[x].BackgroundImage = "images/placeholders/Blu-ray.png";
-                    }
-                    else if (response[x].DocType == "Film" && response[x].TypeOfMedia == "3D") {
-                        response[x].BackgroundImage = "images/placeholders/3D.png";
-                    }
-                    else {
-                        response[x].BackgroundImage = "images/placeholders/" + response[x].DocType + ".png";
-                    }
-                }
-
+            for (var x in response) {
+                response[x].backgroundImage = window.Data.serverBaseUrl + "/documents/" + response[x].id + "/thumbnail";
                 originalResults.push(response[x]);
             }
 
@@ -169,11 +120,6 @@
             context.applyFilter(context.filters[0], originalResults);
             $(".filterarea-hr").show();
             loadingWheel.stop();
-
-            for (var x in response) {
-                if (!response[x].ThumbnailUrl || response[x].ThumbnailUrl == "")
-                    self.getAndSetThumbImage(originalResults.getItem(x), x);
-            }
         }
 
     };
@@ -191,15 +137,15 @@
             this.filters = [];
 
             this.filters.push({ results: null, text: "Alle", predicate: function (item) { return true; } });
-            this.filters.push({ results: null, text: "Bøker", predicate: function (item) { return item.DocType == "Book"; } });
-            this.filters.push({ results: null, text: "Filmer", predicate: function (item) { return item.DocType == "Film"; } });
-            this.filters.push({ results: null, text: "Lydbøker", predicate: function (item) { return item.DocType == "AudioBook"; } });
-            this.filters.push({ results: null, text: "CDer", predicate: function (item) { return item.DocType == "Cd"; } });
-            this.filters.push({ results: null, text: "Språkkurs", predicate: function (item) { return item.DocType == "LanguageCourse"; } });
-            this.filters.push({ results: null, text: "Tidsskrift", predicate: function (item) { return item.DocType == "Journal"; } });
-            this.filters.push({ results: null, text: "Noter", predicate: function (item) { return item.DocType == "SheetMusic"; } });
-            this.filters.push({ results: null, text: "Spill", predicate: function (item) { return item.DocType == "Game"; } });
-            this.filters.push({ results: null, text: "Annet", predicate: function (item) { return item.DocType == "Document"; } });
+            this.filters.push({ results: null, text: "Bøker", predicate: function (item) { return item.type === "Book"; } });
+            this.filters.push({ results: null, text: "Filmer", predicate: function (item) { return item.type === "Film"; } });
+            this.filters.push({ results: null, text: "Lydbøker", predicate: function (item) { return item.type === "AudioBook"; } });
+            this.filters.push({ results: null, text: "CDer", predicate: function (item) { return item.type === "Cd"; } });
+            this.filters.push({ results: null, text: "Språkkurs", predicate: function (item) { return item.type === "LanguageCourse"; } });
+            this.filters.push({ results: null, text: "Tidsskrift", predicate: function (item) { return item.type === "Journal"; } });
+            this.filters.push({ results: null, text: "Noter", predicate: function (item) { return item.type === "SheetMusic"; } });
+            this.filters.push({ results: null, text: "Spill", predicate: function (item) { return item.type === "Game"; } });
+            this.filters.push({ results: null, text: "Annet", predicate: function (item) { return item.type === "Document"; } });
 
         },
 
