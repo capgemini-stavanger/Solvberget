@@ -28,7 +28,7 @@
     // !------------ AJAX METHODS -------------! //
 
     var ajaxDoLogin = function (userId, verification, context) {
-        var url = Data.serverBaseUrl + "/User/GetUserInformation/" + userId + "/" + verification;
+        var url = Data.serverBaseUrl + "/login/" + userId + "/" + verification;
         Solvberget.Queue.QueueDownload("login", { url: url }, ajaxDoLoginCallback, context, true);
     };
 
@@ -251,8 +251,7 @@
     }
 
     WinJS.Namespace.define("LoginFlyout", {
-        showLogin: showLoginFlyout,
-
+        showLogin: showLoginFlyout
     });
 
 })();

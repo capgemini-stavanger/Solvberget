@@ -42,17 +42,19 @@
         var context = { that: this };
 
         $("loginSubmit").attr("disabled", "disabled");
-        var url = Data.serverBaseUrl + "/User/GetUserInformation/" + userId + "/" + verification;
-        Solvberget.Queue.QueueDownload("login", { url: url }, ajaxDoLoginCallback, context, true);
-    }
+        // authentication needs to be in this format to be properly verified
+        var formParams = "username=" + userId + "&password=" + verification;
 
-
-    function ajaxDoLoginCallback(request) {
-        var response = request.responseText == "" ? "" : JSON.parse(request.responseText);
-
-        if (response.IsAuthorized) {
-
+        WinJS.xhr({
+            type: "post",
+            data: formParams,
+            url: Data.serverBaseUrl + "/login/",
+            headers: { "Content-type": "application/x-www-form-urlencoded" }
+        }).then(function(success) {
             $("#loginSuccessMessage").text("Innlogging vellykket! Vent litt...");
+
+            var response = JSON.parse(success.responseText);
+            // TODO: rewrite this part to use UserModule and get user info via "api/user/info"
 
             var borrowerId = response.BorrowerId;
             var libraryId = response.Id;
@@ -89,19 +91,17 @@
                 WinJS.Navigation.navigate("/pages/mypage/mypage.html");
                 LiveTile.liveTile();
             }, 1200);
-
-        }
-        else {
+        }, function(error) {
             $("#loginErrorMessage").text("Feil lånernummer/pin");
             $("#loginSubmit").removeAttr("disabled");
-        }
+        });
 
         $("#loginLoading").hide();
     }
 
     function requestPinCode() {
         $("#pinRequestLoading").show();
-        var requestUrlBase = window.Data.serverBaseUrl + "/User/RequestPinCodeToSms/";
+        var requestUrlBase = window.Data.serverBaseUrl + "/login/forgot/";
         var userId = $("#userIdPinReq").val();
         var url = requestUrlBase + userId;
 
@@ -109,10 +109,10 @@
     }
 
     function sendPinRequestCallback(request, context) {
-        var response = request.responseText == "" ? "" : JSON.parse(request.responseText);
+        var response = request.responseText === "" ? "" : JSON.parse(request.responseText);
 
         var outputMsgPinReq = document.getElementById("outputMsgPinReq");
-        if (response.Success == true) {
+        if (response.Success === true) {
             if (outputMsgPinReq != undefined) {
                 if (response.Reply) {
                     outputMsgPinReq.innerHTML = response.Reply;
@@ -143,9 +143,6 @@
             $("#cancelFlyoutButton").html("Lukk");
             $("#pinRequestLoading").hide();
         }
-
     }
-
-    
 
 })();
