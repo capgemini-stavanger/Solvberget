@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App2.Pages.MyPage"
+             Title="Min Side">
+  <ContentPage.Content>
+    <StackLayout>
+      <Entry Placeholder="Lånernummer"></Entry>
+      <Entry Placeholder="PIN"></Entry>
+      <Button Text="Logg inn"></Button>
+      <Button Text="Glemt PIN"></Button>
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>
