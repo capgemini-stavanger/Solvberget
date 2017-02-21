@@ -19,7 +19,7 @@
     <RestorePackages>true</RestorePackages>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>neutral</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>9D399AF863C0DAED3B16CCFEAAF7E82555512854</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>739D372A272C479B8AF44A6716A7D9A75C1C41A2</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
