@@ -53,12 +53,11 @@
     <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <DefaultLanguage>nb-no</DefaultLanguage>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
-    <PackageCertificateThumbprint>72CC0EACB13CF253EAC31869C761C659696A4260</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>490360EE76C82E7A5F89F89A8AD3282F8700CE35</PackageCertificateThumbprint>
     <MinimumVisualStudioVersion>$(VersionNumberMajor).$(VersionNumberMinor)</MinimumVisualStudioVersion>
     <AppxPackageDir>C:\apppackages\</AppxPackageDir>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>neutral</AppxBundlePlatforms>
-    <PackageCertificateKeyFile>Solvberget.Metro_StoreKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <AppxManifest Include="package.appxmanifest">
@@ -157,7 +156,6 @@
     <Content Include="images\sølvberget_sort.eps" />
     <Content Include="images\sølvberget_sort.tif" />
     <Content Include="js\documentImage.js" />
-    <Content Include="js\lib\jquery-1.7.2.js" />
     <Content Include="js\lib\jquery-ui-1.8.21.custom.min.js" />
     <Content Include="js\lib\moment-with-locales.js" />
     <Content Include="js\localizationConverter.js" />
@@ -171,10 +169,13 @@
     <Content Include="pages\search\search.css" />
     <Content Include="pages\search\search.html" />
     <Content Include="pages\search\search.js" />
-    <Content Include="Scripts\jquery-2.1.4.intellisense.js" />
-    <Content Include="Scripts\jquery-2.1.4.js" />
-    <Content Include="Scripts\jquery-2.1.4.min.js" />
-    <Content Include="Scripts\jquery-2.1.4.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="WinJS\css\ui-dark.css" />
     <Content Include="WinJS\css\ui-light.css" />
     <Content Include="WinJS\fonts\Symbols.ttf" />
@@ -222,10 +223,6 @@
     <Content Include="pages\openingHours\openingHours.css" />
     <Content Include="pages\openingHours\openingHours.html" />
     <Content Include="pages\openingHours\openingHours.js" />
-    <None Include="js\lib\jquery-1.7.2.intellisense.js">
-      <DependentUpon>jquery-1.7.2.js</DependentUpon>
-    </None>
-    <Content Include="js\lib\jquery-1.7.2.min.js" />
     <Content Include="js\navigator.js" />
     <Content Include="js\utils.js" />
     <Content Include="pages\home\home.css">
