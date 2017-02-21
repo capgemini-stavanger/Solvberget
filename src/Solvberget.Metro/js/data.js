@@ -11,9 +11,7 @@
     var news = "/images/home/News.png";
     var activePage = "home";
 
-    // TODO: Find out where the hell this server is and how to fix it
-    //var serverBaseUrl = "http://localhost:7089";
-    var serverBaseUrl = "http://31.24.130.26";
+    var serverBaseUrl = "https://app.solvberget.no/legacy";
 
     // Original colors
     var colorPoolRgba = [
