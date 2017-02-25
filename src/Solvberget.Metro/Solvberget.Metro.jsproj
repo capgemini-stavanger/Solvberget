@@ -53,11 +53,12 @@
     <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <DefaultLanguage>nb-no</DefaultLanguage>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
-    <PackageCertificateThumbprint>490360EE76C82E7A5F89F89A8AD3282F8700CE35</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>0197EC9FBC3D195B772CEBE6410A7A081BF00C79</PackageCertificateThumbprint>
     <MinimumVisualStudioVersion>$(VersionNumberMajor).$(VersionNumberMinor)</MinimumVisualStudioVersion>
     <AppxPackageDir>C:\apppackages\</AppxPackageDir>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>neutral</AppxBundlePlatforms>
+    <PackageCertificateKeyFile>Solvberget.Metro_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <AppxManifest Include="package.appxmanifest">

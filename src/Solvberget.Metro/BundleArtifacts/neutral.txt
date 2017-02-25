@@ -1,2 +1,2 @@
-MainPackage=C:\ws\Solvberget\src\Solvberget.Metro\bin\Release\Solvberget.Metro_1.4.4.0_AnyCPU.appx
-ResourcePack=C:\ws\Solvberget\src\Solvberget.Metro\bin\Release\Solvberget.Metro_1.4.4.0_language-en.appx
+MainPackage=C:\ws\Solvberget\src\Solvberget.Metro\bin\Release\Solvberget.Metro_1.4.5.0_AnyCPU.appx
+ResourcePack=C:\ws\Solvberget\src\Solvberget.Metro\bin\Release\Solvberget.Metro_1.4.5.0_language-en.appx
