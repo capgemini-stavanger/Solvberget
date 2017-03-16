@@ -147,14 +147,16 @@ namespace Solvberget.Domain.Aleph
 
         private static readonly Dictionary<string, string> DepartmentCodeDictionary = new Dictionary<string, string>()
                                                                                  {
-                                                                                     { "KULT", "Kulturbiblioteket" },
-                                                                                     { "FAKTA", "Faktabiblioteket"},
-                                                                                     { "BARN", "Barne- og ungdomsbiblioteket" },
-                                                                                     { "MUSIK", "Musikkbiblioteket "},
-                                                                                     { "MAG", "Magasin" },
-                                                                                     { "VOKS", "Voksenavdelingen" },
-                                                                                     { "ATIDS", "Tidsskriftsavdelingen" },
-                                                                                     { "FORST", "Første etasje" }
+                                                                                     { "MAG", "Magasin U2" },
+                                                                                     { "MAGU1", "Magasin U1" },
+                                                                                     { "FORST", "1. etasje" },
+                                                                                     { "KULT", "2. etasje" },
+                                                                                     { "BARN", "2. etasje Barn og ungdom" },
+                                                                                     { "MUSIK", "3. etasje "},
+                                                                                     { "FAKTA", "3. etasje"},
+                                                                                     { "FJERD", "4. etasje" },
+                                                                                     { "VOKS", "Voksenavdelingen" }, // in use??
+                                                                                     { "ATIDS", "Tidsskriftsavdelingen" } // in use??
                                                                                  };
     }
 }
