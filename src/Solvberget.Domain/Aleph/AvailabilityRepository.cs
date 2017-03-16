@@ -1,44 +1,60 @@
-﻿using System;
+﻿using Solvberget.Domain.Documents;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Solvberget.Domain.Documents;
 
 namespace Solvberget.Domain.Aleph
 {
     public class AvailabilityRepository
     {
-        public static AvailabilityInformation GenerateInfoFor(Document doc, string branch, IEnumerable<DocumentItem> docItems)
-        {
-            var availabilityInformation = FillProperties(doc, branch, docItems);
-            return availabilityInformation.Branch != null ? availabilityInformation : null;
-        }
-
         public static List<AvailabilityInformation> GenerateLocationAndAvailabilityInfo(IEnumerable<DocumentItem> docItems, Document doc)
         {
             var items = docItems.ToList();
             if (!items.Any()) return null;
             var availabilityinfo = new List<AvailabilityInformation>();
 
-            foreach (var availabilityInfo in AvailabilityInformation.BranchesToHandle.Select(branch => AvailabilityRepository.GenerateInfoFor(doc, branch, items)).Where(availabilityInfo => availabilityInfo != null))
+            foreach (var branchToHandle in AvailabilityInformation.BranchesToHandle)
             {
-                availabilityinfo.Add(availabilityInfo);
+                var availabilitesForBranch = GenerateInfoFor(doc, branchToHandle, items);
+                if (availabilitesForBranch == null) continue;
+                var distinctDepartments = new List<string>();
+                foreach (var availabilityInformation in availabilitesForBranch)
+                {
+                    if (distinctDepartments.Contains(availabilityInformation.Department)) continue;
+
+                    distinctDepartments.Add(availabilityInformation.Department);
+                    availabilityinfo.Add(availabilityInformation);
+                }
             }
+
             return availabilityinfo;
         }
 
-        private static AvailabilityInformation FillProperties(Document doc, string branch, IEnumerable<DocumentItem> docItems)
+        private static List<AvailabilityInformation> GenerateInfoFor(Document doc, string branch, IEnumerable<DocumentItem> docItems)
         {
-            var availability = new AvailabilityInformation();
+            var availabilityInformation = FillProperties(doc, branch, docItems);
+
+            if (!availabilityInformation.Any()) return null;
+            return availabilityInformation.FirstOrDefault()?.Branch != null ? availabilityInformation : null;
+        }
+
+        private static List<AvailabilityInformation> FillProperties(Document doc, string branch, IEnumerable<DocumentItem> docItems)
+        {
+            var aiList = new List<AvailabilityInformation>();
+
             var items = docItems.Select(x => x).Where(x => x.Branch.Equals(branch) && x.IsReservable).ToList();
 
-            if (items.Any())
+            foreach (var documentItem in items)
             {
-                availability.Branch = branch;
-                availability.Department = items.Where(x => x.Department != null).Select(x => x.Department).Distinct();
-                availability.PlacementCode = items.FirstOrDefault().PlacementCode;
+                var availability = new AvailabilityInformation
+                {
+                    Branch = branch,
+                    Department = documentItem.Department,
+                    PlacementCode = items.FirstOrDefault().PlacementCode,
+                    TotalCount = items.Count,
+                    AvailableCount = items.Count(x => x.LoanStatus == null && !x.OnHold && !InUnavailableState(x))
+                };
 
-                availability.TotalCount = items.Count();
-                availability.AvailableCount = items.Count(x => x.LoanStatus == null && !x.OnHold && !InUnavailableState(x));
 
                 if (availability.AvailableCount == 0)
                 {
@@ -78,20 +94,22 @@ namespace Solvberget.Domain.Aleph
                     else
                     {
                         availability.EarliestAvailableDateFormatted = "Ukjent";
-                        ;
                     }
                 }
                 else
                 {
                     availability.EarliestAvailableDateFormatted = "";
                 }
+
+                aiList.Add(availability);
             }
-            return availability;
+
+            return aiList;
         }
 
         private static bool InUnavailableState(DocumentItem documentItem)
         {
-            var unavailableStates = new [] {"Ikke mottatt", "Mottatt"};
+            var unavailableStates = new[] { "Ikke mottatt", "Mottatt" };
             return unavailableStates.Contains(documentItem.ItemProcessStatusText);
         }
     }

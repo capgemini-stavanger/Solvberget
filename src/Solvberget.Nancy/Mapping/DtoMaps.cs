@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Autofac;
+﻿using Autofac;
 using Solvberget.Core.DTOs;
 using Solvberget.Domain.Aleph;
 using Solvberget.Domain.Documents;
@@ -9,12 +6,15 @@ using Solvberget.Domain.Favorites;
 using Solvberget.Domain.Lists;
 using Solvberget.Domain.Users;
 using Solvberget.Domain.Utils;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Solvberget.Nancy.Mapping
 {
     public static class DtoMaps
     {
-        private static readonly string[] UnavailableStatuses = {"In processz38-status", "Waiting in queue"};
+        private static readonly string[] UnavailableStatuses = { "In processz38-status", "Waiting in queue" };
 
         public static LibrarylistDto Map(LibraryList list, IRepository documents = null)
         {
@@ -74,27 +74,27 @@ namespace Solvberget.Nancy.Mapping
             }
             else if (document is Film)
             {
-                dto = Map((Film) document);
+                dto = Map((Film)document);
             }
             else if (document is Cd)
             {
-                dto = Map((Cd) document);
+                dto = Map((Cd)document);
             }
             else if (document is AudioBook)
             {
-                dto = Map((AudioBook) document);
+                dto = Map((AudioBook)document);
             }
             else if (document is SheetMusic)
             {
-                dto = Map((SheetMusic) document);
+                dto = Map((SheetMusic)document);
             }
             else if (document is Game)
             {
-                dto = Map((Game) document);
+                dto = Map((Game)document);
             }
             else if (document is Journal)
             {
-                dto = Map((Journal) document);
+                dto = Map((Journal)document);
             }
             else
             {
@@ -106,13 +106,13 @@ namespace Solvberget.Nancy.Mapping
             dto.Id = document.DocumentNumber;
             dto.Type = document.DocType;
             dto.Title = document.Title;
-            if(null == dto.SubTitle) dto.SubTitle = document.CompressedSubTitle; // default only if specific type does not map it
+            if (null == dto.SubTitle) dto.SubTitle = document.CompressedSubTitle; // default only if specific type does not map it
             dto.Availability = MapAvailability(document).ToArray();
             dto.Year = document.PublishedYear;
             dto.Publisher = document.Publisher;
             dto.Language = document.Language;
             dto.Languages = null != document.Languages ? document.Languages.ToArray() : new string[0];
-            if(null != user && null != favorites) dto.IsFavorite = favorites.IsFavorite(document, user);
+            if (null != user && null != favorites) dto.IsFavorite = favorites.IsFavorite(document, user);
             if (null != user) dto.IsReserved = null != user.Reservations && user.Reservations.Any(r => r.DocumentNumber == document.DocumentNumber);
 
             return dto;
@@ -122,7 +122,7 @@ namespace Solvberget.Nancy.Mapping
         {
             var dto = new JournalDto();
             if (journal.Subject != null) dto.Subjects = journal.Subject.ToArray();
-            
+
             return dto;
         }
 
@@ -141,7 +141,7 @@ namespace Solvberget.Nancy.Mapping
             if (null != sheetMusic.Composer) dto.ComposerName = sheetMusic.Composer.Name;
             dto.CompositionType = sheetMusic.CompositionType;
             dto.NumberOfPagesAndParts = sheetMusic.NumberOfPagesAndNumberOfParts;
-            if(null != sheetMusic.MusicalLineup) dto.MusicalLineup = sheetMusic.MusicalLineup.ToArray();
+            if (null != sheetMusic.MusicalLineup) dto.MusicalLineup = sheetMusic.MusicalLineup.ToArray();
             dto.SubTitle = sheetMusic.SubTitle;
 
             return dto;
@@ -151,8 +151,8 @@ namespace Solvberget.Nancy.Mapping
         {
             var cdDto = new CdDto();
 
-            if(null != cd.ArtistOrComposer) cdDto.ArtistOrComposerName = cd.ArtistOrComposer.Name;
-            if(null != cd.CompositionTypeOrGenre) cdDto.CompositionTypesOrGenres = cd.CompositionTypeOrGenre.ToArray();
+            if (null != cd.ArtistOrComposer) cdDto.ArtistOrComposerName = cd.ArtistOrComposer.Name;
+            if (null != cd.CompositionTypeOrGenre) cdDto.CompositionTypesOrGenres = cd.CompositionTypeOrGenre.ToArray();
 
             return cdDto;
         }
@@ -160,21 +160,21 @@ namespace Solvberget.Nancy.Mapping
         public static DocumentDto Map(Film film)
         {
             var filmDto = new FilmDto();
-            
-            if(null != film.Actors) filmDto.ActorNames = film.Actors.Select(a => a.Name).ToArray();
-            
+
+            if (null != film.Actors) filmDto.ActorNames = film.Actors.Select(a => a.Name).ToArray();
+
             filmDto.AgeLimit = film.AgeLimit;
-            
-            if(null != film.Genre) filmDto.Genres = film.Genre.ToArray();
-            
+
+            if (null != film.Genre) filmDto.Genres = film.Genre.ToArray();
+
             filmDto.MediaInfo = film.TypeAndNumberOfDiscs;
             filmDto.MediaFormat = film.TypeOfMedia;
-            
-            if(null != film.ReferredPersons) filmDto.ReferredPeopleNames = film.ReferredPersons.Select(p => p.Name).ToArray();
-            if(null != film.ReferencedPlaces) filmDto.ReferencedPlaces = film.ReferencedPlaces.ToArray();
-            if(null != film.SubtitleLanguage) filmDto.SubtitleLanguages = film.SubtitleLanguage.ToArray();
-            if(null != film.InvolvedPersons) filmDto.InvolvedPersonNames = film.InvolvedPersons.Select(p => string.Format("{0} ({1})", p.Name, p.Role)).ToArray();
-            if(null != film.ResponsiblePersons) filmDto.ResponsiblePersonNames = film.ResponsiblePersons.ToArray();
+
+            if (null != film.ReferredPersons) filmDto.ReferredPeopleNames = film.ReferredPersons.Select(p => p.Name).ToArray();
+            if (null != film.ReferencedPlaces) filmDto.ReferencedPlaces = film.ReferencedPlaces.ToArray();
+            if (null != film.SubtitleLanguage) filmDto.SubtitleLanguages = film.SubtitleLanguage.ToArray();
+            if (null != film.InvolvedPersons) filmDto.InvolvedPersonNames = film.InvolvedPersons.Select(p => string.Format("{0} ({1})", p.Name, p.Role)).ToArray();
+            if (null != film.ResponsiblePersons) filmDto.ResponsiblePersonNames = film.ResponsiblePersons.ToArray();
 
             return filmDto;
         }
@@ -228,16 +228,12 @@ namespace Solvberget.Nancy.Mapping
                     AvailableCount = availability.AvailableCount,
                     TotalCount = availability.TotalCount,
 
-                    Department = availability.Department.DefaultIfEmpty("").Aggregate((acc, dep) =>
-                    {
-                        if (String.IsNullOrEmpty(acc)) return dep;
-                        return acc + ", " + dep;
-                    }),
+                    Department = availability.Department,
 
                     Collection = availability.PlacementCode,
                     Location = document.LocationCode
                 };
-                
+
                 DateTime date;
 
                 if (DateTime.TryParse(availability.EarliestAvailableDateFormatted, out date))

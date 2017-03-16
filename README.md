@@ -11,4 +11,5 @@ i mappen til webprosjektet:
 
 2. npm install
 3. bower install
-4. grunt serve etc...
+4. grunt --force
+5. grunt serve etc...

@@ -1,16 +1,13 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Net;
-using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace Solvberget.Domain.Utils
 {
     public static class RepositoryUtils
     {
-        
+
         public static XDocument GetXmlFromStream(string url)
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
@@ -18,7 +15,7 @@ namespace Solvberget.Domain.Utils
             request.Proxy = null;
 
             var response = request.GetResponse();
-            
+
             var xml = string.Empty;
             using (var stream = response.GetResponseStream())
             {
@@ -35,7 +32,7 @@ namespace Solvberget.Domain.Utils
             //Aleph XML-repsonses somtimes returns Unicode SOH instead of SP 
             //a few places in the document.
             //This causes the parsing to fail..
-            const char soh ='\u0001';
+            const char soh = '\u0001';
             const char sp = '\u0020';
             var xmlEscaped = xml.Replace(soh, sp);
 
@@ -71,7 +68,7 @@ namespace Solvberget.Domain.Utils
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = WebRequestMethods.Http.Get;
             request.Accept = "application/json";
-            
+
             var response = request.GetResponse();
 
             string json = string.Empty;
@@ -85,7 +82,6 @@ namespace Solvberget.Domain.Utils
 
             return json;
         }
-
     }
 }
 

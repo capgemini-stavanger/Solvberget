@@ -9,7 +9,7 @@ namespace Solvberget.Domain.Documents
         public static readonly int AveragePickupTimeInDays = 4;
 
         public string Branch { get; set; }
-        public IEnumerable<string> Department { get; set; }
+        public string Department { get; set; }
         public string PlacementCode { get; set; }
         public int TotalCount { get; set; }
         public int AvailableCount { get; set; }
