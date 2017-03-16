@@ -14,6 +14,7 @@ namespace Solvberget.Domain.Documents
         public IEnumerable<string> MusicalLineup { get; set; }
         public IEnumerable<Person> InvolvedPersons { get; set; }
         public string TitlesOtherWritingForms { get; set; }
+        public string ClassificationNr { get; set; }
 
         protected override void FillProperties(string xml)
         {
@@ -22,6 +23,7 @@ namespace Solvberget.Domain.Documents
             if (xmlDoc.Root != null)
             {
                 var nodes = xmlDoc.Root.Descendants("oai_marc");
+                ClassificationNr = GetVarfield(nodes, "090", "c");
                 StandardizedTitle = GetVarfield(nodes, "240", "a");
                 NumberOfPagesAndNumberOfParts = GetVarfield(nodes, "300", "a");
                 CompositionType = GetVarfield(nodes, "652", "a");
@@ -43,44 +45,40 @@ namespace Solvberget.Domain.Documents
             if (xmlDoc.Root != null)
             {
                 var nodes = xmlDoc.Root.Descendants();
-               
+
                 //Composer
                 var nationality = GetVarfield(nodes, "100", "j");
                 string nationalityLookupValue = null;
                 if (nationality != null)
                     NationalityDictionary.TryGetValue(nationality, out nationalityLookupValue);
-                Composer =  new Person
+                Composer = new Person
                 {
-                    
+
                     Name = GetVarfield(nodes, "100", "a"),
                     LivingYears = GetVarfield(nodes, "100", "d"),
                     Nationality = nationalityLookupValue ?? nationality,
                     Role = "Composer"
                 };
-                
+
                 if (Composer.Name != null)
                     Composer.InvertName(Composer.Name);
                 MainResponsible = Composer;
             }
-            
+
         }
 
         public new static SheetMusic GetObjectFromFindDocXmlBsMarc(string xml)
         {
             var document = new SheetMusic();
-
             document.FillProperties(xml);
-
             return document;
         }
 
         public new static SheetMusic GetObjectFromFindDocXmlBsMarcLight(string xml)
         {
             var document = new SheetMusic();
-
             document.FillPropertiesLight(xml);
-
-            return document; ;
+            return document;
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Solvberget.Domain.Events;
+using Solvberget.Domain.Utils;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using Solvberget.Domain.Events;
-using Solvberget.Domain.Utils;
 
 namespace Solvberget.Domain.Documents
 {
@@ -125,10 +125,8 @@ namespace Solvberget.Domain.Documents
                     if (!string.IsNullOrEmpty(foundValue))
                         PublishedYear = int.Parse(foundValue);
                 }
-
             }
         }
-
 
         protected virtual string GetCompressedString()
         {
@@ -142,7 +140,6 @@ namespace Solvberget.Domain.Documents
             if (PublishedYear != 0)
                 temp += " (" + PublishedYear + ")";
             return temp;
-
         }
 
         public static Document GetObjectFromFindDocXmlBsMarc(string xml)
@@ -159,35 +156,21 @@ namespace Solvberget.Domain.Documents
             return document;
         }
 
-        
-
         private static string GetFixfield(IEnumerable<XElement> nodes, string id, int fromPos, int toPos)
         {
             var fixfield = nodes.Elements("fixfield").Where(x => ((string)x.Attribute("id")).Equals(id)).Select(x => x.Value).FirstOrDefault();
 
             if (!string.IsNullOrEmpty(fixfield) && toPos < fixfield.Length)
             {
-                if (fromPos == toPos)
-                {
-                    return fixfield.ToCharArray()[fromPos].ToString();
-                }
-                else
-                {
-                    return fixfield.Substring(fromPos, (toPos - fromPos) + 1);
-                }
+                return fromPos == toPos ? fixfield.ToCharArray()[fromPos].ToString() : fixfield.Substring(fromPos, (toPos - fromPos) + 1);
             }
-            else
-            {
-                return "";
-            }
+            return "";
         }
 
         public static string GetVarfield(IEnumerable<XElement> nodes, string id, string subfieldLabel)
         {
-            var varfield =
-                nodes.Elements("varfield").Where(x => ((string)x.Attribute("id")).Equals(id)).Elements("subfield");
-            return
-                varfield.Where(x => ((string)x.Attribute("label")).Equals(subfieldLabel)).Select(x => x.Value).FirstOrDefault();
+            var varfield = nodes.Elements("varfield").Where(x => ((string)x.Attribute("id")).Equals(id)).Elements("subfield");
+            return varfield.Where(x => ((string)x.Attribute("label")).Equals(subfieldLabel)).Select(x => x.Value).FirstOrDefault();
         }
 
         protected static IEnumerable<string> TrimContentList(string list)
@@ -203,7 +186,7 @@ namespace Solvberget.Domain.Documents
 
             temp = cleanedList.Split(';').ToList();
 
-            for (var i = 0; i < temp.Count(); i++)
+            for (var i = 0; i < temp.Count; i++)
             {
                 if (temp.ElementAt(i).Contains("CD"))
                 {
@@ -255,13 +238,13 @@ namespace Solvberget.Domain.Documents
                     RoleDictionary.TryGetValue(role, out roleLookupValue);
 
                 var person = new Person()
-                                 {
-                                     Name = GetSubFieldValue(varfield, "a"),
-                                     LivingYears = GetSubFieldValue(varfield, "d"),
-                                     Nationality = nationalityLookupValue ?? nationality,
-                                     Role = roleLookupValue ?? role,
-                                     ReferredWork = GetSubFieldValue(varfield, "t")
-                                 };
+                {
+                    Name = GetSubFieldValue(varfield, "a"),
+                    LivingYears = GetSubFieldValue(varfield, "d"),
+                    Nationality = nationalityLookupValue ?? nationality,
+                    Role = roleLookupValue ?? role,
+                    ReferredWork = GetSubFieldValue(varfield, "t")
+                };
 
                 string tempName = GetSubFieldValue(varfield, "a");
                 if (tempName != null)
@@ -288,13 +271,13 @@ namespace Solvberget.Domain.Documents
             foreach (var varfield in varfields)
             {
                 var org = new Organization()
-                              {
-                                  Name = GetSubFieldValue(varfield, "a"),
-                                  UnderOrganization = GetSubFieldValue(varfield, "b"),
-                                  Role = GetSubFieldValue(varfield, "e"),
-                                  FurtherExplanation = GetSubFieldValue(varfield, "q"),
-                                  ReferencedPublication = GetSubFieldValue(varfield, "t")
-                              };
+                {
+                    Name = GetSubFieldValue(varfield, "a"),
+                    UnderOrganization = GetSubFieldValue(varfield, "b"),
+                    Role = GetSubFieldValue(varfield, "e"),
+                    FurtherExplanation = GetSubFieldValue(varfield, "q"),
+                    ReferencedPublication = GetSubFieldValue(varfield, "t")
+                };
 
                 organizations.Add(org);
 
@@ -321,7 +304,7 @@ namespace Solvberget.Domain.Documents
                                     {"^^^", "Dokumenttype er ikke registrert"},
                                     {typeof(Document).Name, "Annet"},
                                     {typeof(AudioBook).Name, "Lydbok"},
-                                    {typeof(Book).Name, "Bok"},                       
+                                    {typeof(Book).Name, "Bok"},
                                     {typeof(Cd).Name, "Cd"},
                                     {typeof(Film).Name, "Film"},
                                     {typeof(Journal).Name, "Tidsskrift"},

@@ -137,7 +137,8 @@ namespace Solvberget.Nancy.Mapping
         {
             var dto = new SheetMusicDto();
 
-            if(null != sheetMusic.Composer) dto.ComposerName = sheetMusic.Composer.Name;
+            dto.Classification = sheetMusic.ClassificationNr;
+            if (null != sheetMusic.Composer) dto.ComposerName = sheetMusic.Composer.Name;
             dto.CompositionType = sheetMusic.CompositionType;
             dto.NumberOfPagesAndParts = sheetMusic.NumberOfPagesAndNumberOfParts;
             if(null != sheetMusic.MusicalLineup) dto.MusicalLineup = sheetMusic.MusicalLineup.ToArray();

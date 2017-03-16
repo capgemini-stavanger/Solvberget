@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Input;
-using System.Xml.Linq;
-using Cirrious.MvvmCross.ViewModels;
+﻿using Cirrious.MvvmCross.ViewModels;
 using Solvberget.Core.DTOs;
 using Solvberget.Core.Properties;
 using Solvberget.Core.Services.Interfaces;
 using Solvberget.Core.ViewModels.Base;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Solvberget.Core.ViewModels
@@ -27,8 +24,8 @@ namespace Solvberget.Core.ViewModels
 
         public void Init(string title, string docId)
         {
-			Title = title ?? "Detaljer";
-            Availability = new DocumentAvailabilityDto {AvailableCount = 1};
+            Title = title ?? "Detaljer";
+            Availability = new DocumentAvailabilityDto { AvailableCount = 1 };
             Availabilities = new DocumentAvailabilityViewModel[0];
             Load(docId);
         }
@@ -40,9 +37,9 @@ namespace Solvberget.Core.ViewModels
             var review = _searchService.GetReview(docId);
             var rating = _searchService.GetRating(docId);
 
-			ButtonEnabled = true; // obsolete now?
-			IsReservable = true; // -"-
-            
+            ButtonEnabled = true; // obsolete now?
+            IsReservable = true; // -"-
+
             var document = await _searchService.Get(docId);
             DocId = docId;
             Title = document.Title;
@@ -50,45 +47,48 @@ namespace Solvberget.Core.ViewModels
             ItemTitle = document.Title;
             Name = document.Title;
             Image = Resources.ServiceUrl + string.Format(Resources.ServiceUrl_MediaImage, docId);
-            Year = (document.Year != 0) ? document.Year.ToString("####") : "Ukjent år";
+            Year = document.Year != 0 ? document.Year.ToString("####") : "Ukjent år";
             Type = document.Type;
             Author = document.MainContributor;
-			IsReservedByUser = document.IsReserved.HasValue && document.IsReserved.Value;
-			IsFavorite = document.IsFavorite.HasValue && document.IsFavorite.Value;
+            IsReservedByUser = document.IsReserved.HasValue && document.IsReserved.Value;
+            IsFavorite = document.IsFavorite.HasValue && document.IsFavorite.Value;
             WebAppUrl = document.WebAppUrl;
 
-			ButtonText = GenerateButtonText();
+            ButtonText = GenerateButtonText();
 
             var classification = "";
             if (document.Type == "Book")
             {
-                classification = ((BookDto) document).Classification;
+                classification = ((BookDto)document).Classification;
             }
-                
+            else if (document.Type == "SheetMusic")
+            {
+                classification = ((SheetMusicDto)document).Classification;
+            }
 
             Availabilities = (from a in document.Availability
-                select new DocumentAvailabilityViewModel(_userService, this)
-                {
-                    AvailableCount = a.AvailableCount,
-                    Branch = a.Branch,
-                    Collection = a.Collection,
-                    Department = a.Department,
-                    Location = a.Location,
-                    TotalCount = a.TotalCount,
-                    DocId = docId,
-                    ButtonText = ButtonText,
-                    EstimatedAvailableDate = a.EstimatedAvailableDate,
-                    IsReservable = IsReservable,
-                    Classification = classification
-                }).ToArray();
+                              select new DocumentAvailabilityViewModel(_userService, this)
+                              {
+                                  AvailableCount = a.AvailableCount,
+                                  Branch = a.Branch,
+                                  Collection = a.Collection,
+                                  Department = a.Department,
+                                  Location = a.Location,
+                                  TotalCount = a.TotalCount,
+                                  DocId = docId,
+                                  ButtonText = ButtonText,
+                                  EstimatedAvailableDate = a.EstimatedAvailableDate,
+                                  IsReservable = IsReservable,
+                                  Classification = classification
+                              }).ToArray();
 
             foreach (var availabilityViewModel in Availabilities)
             {
-				availabilityViewModel.IsReservable = true;
+                availabilityViewModel.IsReservable = true;
                 availabilityViewModel.ButtonText = GenerateButtonText();
             }
 
-            Availability = document.Availability.FirstOrDefault() ?? new DocumentAvailabilityDto {AvailableCount = 0, TotalCount = 0};
+            Availability = document.Availability.FirstOrDefault() ?? new DocumentAvailabilityDto { AvailableCount = 0, TotalCount = 0 };
             RawDto = document;
             Language = document.Language;
             Languages = document.Languages;
@@ -107,22 +107,22 @@ namespace Solvberget.Core.ViewModels
             }
 
             var ratingDto = await rating;
-			if (ratingDto.Success && ratingDto.HasRating) Rating = ratingDto;
+            if (ratingDto.Success && ratingDto.HasRating) Rating = ratingDto;
 
-			IsLoading = false;
-			NotifyViewModelReady();
+            IsLoading = false;
+            NotifyViewModelReady();
         }
 
-		public override void OnViewReady()
-		{
-			LoggedIn = _userAuthService.UserInfoRegistered();
-		}
+        public override void OnViewReady()
+        {
+            LoggedIn = _userAuthService.UserInfoRegistered();
+        }
 
         private string GenerateButtonText()
         {
             if (IsReservedByUser)
             {
-				return "Reservert";
+                return "Reservert";
             }
 
             return "Reserver";
@@ -144,24 +144,24 @@ namespace Solvberget.Core.ViewModels
         }
 
         private DocumentRatingDto _rating;
-        public DocumentRatingDto Rating 
+        public DocumentRatingDto Rating
         {
             get { return _rating; }
-            set { _rating = value; RaisePropertyChanged(() => Rating);}
+            set { _rating = value; RaisePropertyChanged(() => Rating); }
         }
 
         private string _review = "";
-        public string Review 
+        public string Review
         {
             get { return _review; }
-            set { _review = value; RaisePropertyChanged(() => Review);}
+            set { _review = value; RaisePropertyChanged(() => Review); }
         }
 
         private DocumentDto _rawDto;
-        public DocumentDto RawDto 
+        public DocumentDto RawDto
         {
             get { return _rawDto; }
-            set { _rawDto = value; RaisePropertyChanged(() => RawDto);}
+            set { _rawDto = value; RaisePropertyChanged(() => RawDto); }
         }
 
         private string _subTitle;
@@ -172,50 +172,50 @@ namespace Solvberget.Core.ViewModels
         }
 
         private DocumentAvailabilityDto _availability;
-        public DocumentAvailabilityDto Availability 
+        public DocumentAvailabilityDto Availability
         {
             get { return _availability; }
-            set 
-            { 
-                _availability = value; 
+            set
+            {
+                _availability = value;
                 RaisePropertyChanged(() => Availability);
             }
         }
 
-       
+
 
         private string _estimatedAvailableDate;
-        public string EstimatedAvailableDate 
+        public string EstimatedAvailableDate
         {
             get { return _estimatedAvailableDate; }
-            set { _estimatedAvailableDate = value; RaisePropertyChanged(() => EstimatedAvailableDate);}
+            set { _estimatedAvailableDate = value; RaisePropertyChanged(() => EstimatedAvailableDate); }
         }
 
 
         private string _image;
-        public string Image 
+        public string Image
         {
             get { return _image; }
-            set { _image = value; RaisePropertyChanged(() => Image);}
+            set { _image = value; RaisePropertyChanged(() => Image); }
         }
 
 
         private string _name;
-        public string Name 
+        public string Name
         {
             get { return _name; }
-            set { _name = value; RaisePropertyChanged(() => Name);}
+            set { _name = value; RaisePropertyChanged(() => Name); }
         }
 
         private string _year;
-        public string Year 
+        public string Year
         {
             get { return _year; }
-            set { _year = value; RaisePropertyChanged(() => Year);}
+            set { _year = value; RaisePropertyChanged(() => Year); }
         }
 
         private string _type;
-        public string Type 
+        public string Type
         {
             get { return _type; }
             set
@@ -227,46 +227,46 @@ namespace Solvberget.Core.ViewModels
         }
 
         private string _author;
-        public string Author 
+        public string Author
         {
             get { return _author; }
-            set { _author = value; RaisePropertyChanged(() => Author);}
+            set { _author = value; RaisePropertyChanged(() => Author); }
         }
 
         private string _itemTitle;
-        public string ItemTitle 
+        public string ItemTitle
         {
             get { return _itemTitle; }
-            set { _itemTitle = value; RaisePropertyChanged(() => ItemTitle);}
+            set { _itemTitle = value; RaisePropertyChanged(() => ItemTitle); }
         }
 
         private string _language;
-        public string Language 
+        public string Language
         {
             get { return _language; }
-            set { _language = value; RaisePropertyChanged(() => Language);}
+            set { _language = value; RaisePropertyChanged(() => Language); }
         }
 
         private string[] _languages;
-        public string[] Languages 
+        public string[] Languages
         {
             get { return _languages; }
-            set { _languages = value; RaisePropertyChanged(() => Languages);}
+            set { _languages = value; RaisePropertyChanged(() => Languages); }
         }
 
 
         private string _mainContributor;
-        public string MainContributor 
+        public string MainContributor
         {
             get { return _mainContributor; }
-            set { _mainContributor = value; RaisePropertyChanged(() => MainContributor);}
+            set { _mainContributor = value; RaisePropertyChanged(() => MainContributor); }
         }
 
         private string _publisher;
-        public string Publisher 
+        public string Publisher
         {
             get { return _publisher; }
-            set { _publisher = value; RaisePropertyChanged(() => Publisher);}
+            set { _publisher = value; RaisePropertyChanged(() => Publisher); }
         }
 
         private bool _isReservedByUser;
@@ -291,56 +291,56 @@ namespace Solvberget.Core.ViewModels
         }
 
         private string _webAppUrl;
-        public string WebAppUrl 
+        public string WebAppUrl
         {
             get { return _webAppUrl; }
-            set { _webAppUrl = value; RaisePropertyChanged(() => WebAppUrl);}
+            set { _webAppUrl = value; RaisePropertyChanged(() => WebAppUrl); }
         }
 
-		public async Task AddFavorite()
+        public async Task AddFavorite()
         {
-			if (!LoggedIn)
-			{
-				GotoLogin();
-				return;
-			}
+            if (!LoggedIn)
+            {
+                GotoLogin();
+                return;
+            }
 
-			var result = await _userService.AddUserFavorite(DocId);
-            
-			if (result.Success)
-			{
-				IsFavorite = true;
+            var result = await _userService.AddUserFavorite(DocId);
+
+            if (result.Success)
+            {
+                IsFavorite = true;
                 Analytics.LogEvent("Media_Favorite", new Dictionary<string, string>
                 {
                     { "title", Title }
                 });
-			}
+            }
         }
 
-		public async Task RemoveFavorite()
+        public async Task RemoveFavorite()
         {
-			if (!LoggedIn)
-			{
-				GotoLogin();
-				return;
-			}
+            if (!LoggedIn)
+            {
+                GotoLogin();
+                return;
+            }
 
-			var result = await _userService.RemoveUserFavorite(DocId);
+            var result = await _userService.RemoveUserFavorite(DocId);
 
-			if(result.Success)
-			{
-            	IsFavorite = false;
+            if (result.Success)
+            {
+                IsFavorite = false;
                 Analytics.LogEvent("Media_UnFavorite", new Dictionary<string, string>
                 {
                     { "title", Title }
                 });
-			}
+            }
         }
 
-		public void GotoLogin()
-		{
-			ShowViewModel<LoginViewModel>(new MvxBundle(new Dictionary<string,string>{{"navigateBackOnLogin", "true"}}));
-		}
+        public void GotoLogin()
+        {
+            ShowViewModel<LoginViewModel>(new MvxBundle(new Dictionary<string, string> { { "navigateBackOnLogin", "true" } }));
+        }
 
         private bool _isReservable;
         public bool IsReservable
@@ -355,20 +355,21 @@ namespace Solvberget.Core.ViewModels
             get { return _isFavorite; }
             set
             {
-                _isFavorite = value; 
-                RaisePropertyChanged(() => IsFavorite); }
+                _isFavorite = value;
+                RaisePropertyChanged(() => IsFavorite);
+            }
         }
 
-        public string ReviewType 
+        public string ReviewType
         {
-            get { return (Type == "Book" ? "BOKOMTALE" : "ANMELDELSE") ; }
+            get { return (Type == "Book" ? "BOKOMTALE" : "ANMELDELSE"); }
         }
 
         private DocumentAvailabilityViewModel[] _availabilities;
-        public DocumentAvailabilityViewModel[] Availabilities 
+        public DocumentAvailabilityViewModel[] Availabilities
         {
             get { return _availabilities; }
-            set { _availabilities = value; RaisePropertyChanged(() => Availabilities);}
+            set { _availabilities = value; RaisePropertyChanged(() => Availabilities); }
         }
 
         public void RefreshButtons()
