@@ -9,7 +9,7 @@
       <Value Profile="(Default)">http://www.linticket.no/json/Sølvberget</Value>
     </Setting>
     <Setting Name="ImdbApiUrl" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://www.imdbapi.com/?t=</Value>
+      <Value Profile="(Default)">http://www.omdbapi.com/?t=</Value>
     </Setting>
     <Setting Name="ServerUrl" Type="System.String" Scope="Application">
       <Value Profile="(Default)">http://localhost:39465/Content/</Value>
