@@ -50,14 +50,15 @@ namespace Solvberget.Domain.Aleph
                 {
                     Branch = branch,
                     Department = documentItem.Department,
-                    TotalCount = items.Count(x => x.Department == documentItem.Department),
                     PlacementCode = items.FirstOrDefault().PlacementCode,
+                    TotalCount = items.Count,
                     AvailableCount = items.Count(x => x.LoanStatus == null && !x.OnHold && !InUnavailableState(x))
                 };
 
+
                 if (availability.AvailableCount == 0)
                 {
-                    var dueDates = items.Where(x => x.LoanDueDate != null && x.Department == availability.Department).Select(x => x.LoanDueDate.Value);
+                    var dueDates = items.Where(x => x.LoanDueDate != null).Select(x => x.LoanDueDate.Value);
                     if (dueDates.Any())
                     {
                         var earliestDueDate = dueDates.OrderBy(x => x).FirstOrDefault();
@@ -76,8 +77,8 @@ namespace Solvberget.Domain.Aleph
                         }
                         else
                         {
-                            var totalNumberOfReservations = items.Where(x => x.Department == availability.Department).Sum(x => x.NoRequests);
-                            var calculation1 = totalNumberOfReservations * (doc.StandardLoanTime + AvailabilityInformation.AveragePickupTimeInDays);
+                            var totalNumberOfReservations = items.Sum(x => x.NoRequests);
+                            var calculation1 = (totalNumberOfReservations * (doc.StandardLoanTime + AvailabilityInformation.AveragePickupTimeInDays));
                             // Below for added days: if it is required to round up the result of dividing m by n 
                             // (where m and n are integers), one should compute (m+n-1)/n
                             // Source: Number Conversion, Roland Backhouse, 2001
