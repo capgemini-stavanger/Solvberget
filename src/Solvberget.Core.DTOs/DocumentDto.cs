@@ -1,4 +1,6 @@
-﻿namespace Solvberget.Core.DTOs
+﻿using System;
+
+namespace Solvberget.Core.DTOs
 {
     public class DocumentDto : RequestReplyDto
     {
@@ -16,5 +18,6 @@
         public bool? IsReserved { get; set; }
 		public string WebAppUrl {get;set;}
         public string MediaFormat { get; set; }
+        public DateTime EstimatedAvailableDate { get; set; }
     }
 }

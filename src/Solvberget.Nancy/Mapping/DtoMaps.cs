@@ -108,10 +108,17 @@ namespace Solvberget.Nancy.Mapping
             dto.Title = document.Title;
             if (null == dto.SubTitle) dto.SubTitle = document.CompressedSubTitle; // default only if specific type does not map it
             dto.Availability = MapAvailability(document).ToArray();
+
+            DateTime date;
+            if (DateTime.TryParse(document.EstimatedAvailableDateFormatted, out date))
+            {
+                dto.EstimatedAvailableDate = date;
+            }
+
             dto.Year = document.PublishedYear;
             dto.Publisher = document.Publisher;
             dto.Language = document.Language;
-            dto.Languages = null != document.Languages ? document.Languages.ToArray() : new string[0];
+            dto.Languages = document.Languages?.ToArray() ?? new string[0];
             if (null != user && null != favorites) dto.IsFavorite = favorites.IsFavorite(document, user);
             if (null != user) dto.IsReserved = null != user.Reservations && user.Reservations.Any(r => r.DocumentNumber == document.DocumentNumber);
 

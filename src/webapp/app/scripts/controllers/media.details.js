@@ -45,7 +45,7 @@ var mediaDetaljerCtrl = function ($scope, $rootScope, $routeParams, $http, docum
             $http({
                 method: 'PUT',
                 url: $$config.apiPrefix + '/reservations/' + $scope.document.id,
-                data: $.param({ branch: branch }),
+                //data: $.param({ branch: branch }),
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             })
             .success(function (data, status, headers, config) {
@@ -63,4 +63,4 @@ angular.module('Solvberget.WebApp')
     .controller('SheetMusicCtrl', mediaDetaljerCtrl)
     .controller('OtherMediaCtrl', mediaDetaljerCtrl)
     .controller('GameCtrl', mediaDetaljerCtrl)
-    .controller('JournalCtrl', mediaDetaljerCtrl)
+    .controller('JournalCtrl', mediaDetaljerCtrl);
