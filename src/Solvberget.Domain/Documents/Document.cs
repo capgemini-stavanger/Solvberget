@@ -1,4 +1,5 @@
-﻿using Solvberget.Domain.Events;
+﻿using System;
+using Solvberget.Domain.Events;
 using Solvberget.Domain.Utils;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,7 @@ namespace Solvberget.Domain.Documents
 
         //Location and availability info for each branch
         public List<AvailabilityInformation> AvailabilityInfo { get; set; }
+        public string EstimatedAvailableDateFormatted { get; set; }
 
         //Images
         public string ThumbnailUrl { get; set; }

@@ -149,15 +149,14 @@ namespace Solvberget.Domain.Aleph
         public RequestReply RequestReservation(string documentNumber, string userId, string branch)
         {
 
-            if (documentNumber == null || userId == null || branch == null)
+            if (documentNumber == null || userId == null)
                 return new RequestReply { Success = false, Reply = "Feil: Operasjonen mangler parametre." };
 
-
-            if (branch.Equals("Hovedbibl"))
-                branch = "Hovedbibl.";
+            //if (branch.Equals("Hovedbibl"))
+            //    branch = "Hovedbibl.";
             var docItems = GetDocumentItems(documentNumber).ToList();
 
-            var docItem = docItems.FirstOrDefault(documentItem => documentItem.Branch.Equals(branch) && documentItem.IsReservable);
+            var docItem = docItems.FirstOrDefault(documentItem => documentItem.IsReservable);
             if (docItem != null)
             {
                 var alephReturnMessage = GetReserveRequest(docItem.ItemAdmKey, docItem.ItemKeySequence, userId);
@@ -271,8 +270,9 @@ namespace Solvberget.Domain.Aleph
 
         private void GenerateDocumentLocationAndAvailabilityInfo(Document document)
         {
-            var documentItems = GetDocumentItems(document.DocumentNumber);
+            var documentItems = GetDocumentItems(document.DocumentNumber).ToList();
             document.AvailabilityInfo = AvailabilityRepository.GenerateLocationAndAvailabilityInfo(documentItems, document);
+            document.EstimatedAvailableDateFormatted = AvailabilityRepository.GenerateEstimatedAvailableDate(documentItems, document);
         }
 
         private IEnumerable<DocumentItem> GetDocumentItems(string documentNumber)

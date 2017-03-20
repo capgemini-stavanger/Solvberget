@@ -66,14 +66,14 @@ namespace Solvberget.Search8
             DisplayRootView<SearchView>();
         }
 
-        public string ServiceUrl { get { return "http://solvbergetapp.cloudapp.net/api"; } }
-        public string ServiceUrl_Search { get { return "/documents/search?query={0}"; } }
-        public string ServiceUrl_Document { get { return "/documents/{0}"; } }
-        public string ServiceUrl_Rating { get { return "/documents/{0}/rating"; } }
-        public string ServiceUrl_Review { get { return "/documents/{0}/review"; } }
-        public string ServiceUrl_Events { get { return null; } }
-        public string ServiceUrl_Event { get { return null; } }
-        public string ServiceUrl_MediaImage { get { return "/documents/{0}/thumbnail"; } }
+        public string ServiceUrl => "http://solvbergetapp.cloudapp.net/api";
+        public string ServiceUrl_Search => "/documents/search?query={0}";
+        public string ServiceUrl_Document => "/documents/{0}";
+        public string ServiceUrl_Rating => "/documents/{0}/rating";
+        public string ServiceUrl_Review => "/documents/{0}/review";
+        public string ServiceUrl_Events => null;
+        public string ServiceUrl_Event => null;
+        public string ServiceUrl_MediaImage => "/documents/{0}/thumbnail";
     }
 
     internal class NoAuthentication : IUserAuthenticationDataService

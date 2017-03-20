@@ -112,5 +112,33 @@ namespace Solvberget.Domain.Aleph
             var unavailableStates = new[] { "Ikke mottatt", "Mottatt" };
             return unavailableStates.Contains(documentItem.ItemProcessStatusText);
         }
+
+        public static string GenerateEstimatedAvailableDate(IEnumerable<DocumentItem> docItems, Document document)
+        {
+            var items = docItems.Select(x => x).Where(x => x.IsReservable).ToList();
+            var availableCount = items.Count(x => x.LoanStatus == null && !x.OnHold && !InUnavailableState(x));
+            if (availableCount > 0) return "";
+
+            var dueDates = items.Where(doc => doc.LoanDueDate != null).Select(doc => doc.LoanDueDate.Value).ToList();
+            if (!dueDates.Any()) return "Ukjent";
+            {
+                var earliestDueDate = dueDates.OrderBy(date => date).FirstOrDefault();
+
+                if (!items.Any(doc => doc.NoRequests > 0))
+                {
+                    return earliestDueDate.CompareTo(DateTime.Now) < 0 
+                        ? DateTime.Now.AddDays(1).ToShortDateString() 
+                        : earliestDueDate.ToShortDateString();
+                }
+
+                var totalNumberOfReservations = items.Sum(x => x.NoRequests);
+                var calculation1 = totalNumberOfReservations * (document.StandardLoanTime + AvailabilityInformation.AveragePickupTimeInDays);
+                var calculation2 = (calculation1 + items.Count - 1) / items.Count;
+
+                return items.Count == 1 
+                    ? earliestDueDate.AddDays(calculation2).ToShortDateString() 
+                    : earliestDueDate.AddDays(calculation2 + document.StandardLoanTime).ToShortDateString();
+            }
+        }
     }
 }

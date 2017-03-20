@@ -53,10 +53,6 @@
       <HintPath>..\..\packages\LinqToTwitter.2.1.11\lib\net45\LinqToTwitter.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.WindowsAzure.Diagnostics, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="Nancy.Authentication.Stateless">
       <HintPath>..\..\packages\Nancy.Authentication.Stateless.0.21.1\lib\net40\Nancy.Authentication.Stateless.dll</HintPath>
     </Reference>
@@ -107,8 +103,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\events\events.xml" />
-    <Content Include="Data\infoscreen\images\test.gif" />
-    <Content Include="Data\infoscreen\instagram_blacklist.txt" />
     <Content Include="Data\info\contact.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -228,7 +222,6 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-    <BundleResource Include="Data\infoscreen\screen_configuration.json" />
     <None Include="Properties\PublishProfiles\PRod.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
