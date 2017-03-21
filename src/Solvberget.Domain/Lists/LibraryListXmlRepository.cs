@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Solvberget.Domain.Aleph;
+using Solvberget.Domain.Documents.Images;
+using Solvberget.Domain.Utils;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using Solvberget.Domain.Aleph;
-using Solvberget.Domain.Documents.Images;
-using Solvberget.Domain.Utils;
 
 namespace Solvberget.Domain.Lists
 {
@@ -14,57 +14,50 @@ namespace Solvberget.Domain.Lists
     {
         private const string StdFolderPath = @"App_Data\librarylists\static\";
         private readonly string _folderPath;
-        private readonly IRepository _repository;
-        private readonly IImageRepository _imageRepository;
+        private string examplelist1 = "5ayzwk2qmjv8d9b/example_list1.xml";
+        private string examplelist2 = "30d9xnxs18s8kfb/example_list2.xml";
+        private string examplelist3 = "arcoxmgw4aoysee/example_list3.xml";
+        private string examplelist4 = "cwl5qrk3jyudwqc/example_list4.xml";
+        private string examplelist5 = "q6u7bh35ewtl3gr/example_list5.xml";
+        private string examplelist6 = "h4j7qn8q5cs572o/example_list6.xml";
 
         public LibraryListXmlRepository(IRepository repository, IImageRepository imageRepository, IEnvironmentPathProvider environment)
         {
-            _repository = repository;
-            _imageRepository = imageRepository;
-
             var folderPath = environment.GetXmlListPath();
             _folderPath = string.IsNullOrEmpty(folderPath) ? StdFolderPath : folderPath;
         }
 
         public List<LibraryList> GetLists(int? limit = null)
         {
-            var lists = new ConcurrentBag<LibraryList>();
+            var lists = new ConcurrentBag<LibraryList>
+            {
+                GetLibraryListFromXmlFile(_folderPath + examplelist1),
+                GetLibraryListFromXmlFile(_folderPath + examplelist2),
+                GetLibraryListFromXmlFile(_folderPath + examplelist3),
+                GetLibraryListFromXmlFile(_folderPath + examplelist4),
+                GetLibraryListFromXmlFile(_folderPath + examplelist5),
+                GetLibraryListFromXmlFile(_folderPath + examplelist6)
+            };
 
-            Directory.EnumerateFiles(_folderPath, "*.xml").AsParallel().ToList().ForEach(file => lists.Add(GetLibraryListFromXmlFile(file)));
-
-            //lists.ToList().ForEach(liblist => { if (liblist != null) AddContentToList(liblist); });
-
-            return limit != null 
-                ? lists.OrderBy(list => list.Priority).Take((int)limit).ToList() 
+            return limit != null
+                ? lists.OrderBy(list => list.Priority).Take((int)limit).ToList()
                 : lists.OrderBy(list => list.Priority).ToList();
         }
 
         public DateTime? GetTimestampForLatestChange()
         {
             var newestFile = GetNewestFile(new DirectoryInfo(_folderPath));
-            return newestFile != null ? (DateTime?)newestFile.LastWriteTimeUtc : null;
+            return newestFile?.LastWriteTimeUtc;
         }
 
         private static FileInfo GetNewestFile(DirectoryInfo directory)
         {
             return directory.GetFiles()
                 .Union(directory.GetDirectories().Select(GetNewestFile))
-                .OrderByDescending(f => (f == null ? DateTime.MinValue : f.LastWriteTime))
+                .OrderByDescending(f => f?.LastWriteTime ?? DateTime.MinValue)
                 .FirstOrDefault();
         }
 
-        //private void AddContentToList(LibraryList libraryList)
-        //{
-        //    foreach(var docnr in libraryList.DocumentNumbers)
-        //    {
-        //        var document = (_repository.GetDocument(docnr, true));
-        //        //We want to add the thumbnail url to the document in this case
-        //        //Check if already cached
-        //        if (string.IsNullOrEmpty(document.ThumbnailUrl))
-        //            document.ThumbnailUrl = _imageRepository.GetDocumentThumbnailImage(docnr, "60");
-        //        libraryList.Documents.Add(document);
-        //    }
-        //}
         public static LibraryList GetLibraryListFromXmlFile(string xmlFilePath)
         {
             var xmlDoc = XElement.Load(xmlFilePath);
@@ -81,39 +74,35 @@ namespace Solvberget.Domain.Lists
         private static LibraryList FillProperties(XElement xml)
         {
             var libList = new LibraryList();
-            if (xml.Attribute("name") == null)
-                return null;
-            else
+            if (xml.Attribute("name") == null) return null;
+
+            var name = xml.Attribute("name");
+            if (name != null) libList.Name = name.Value;
+
+            var pri = xml.Attribute("pri");
+            if (pri != null)
             {
-                var name = xml.Attribute("name");
-                if (name != null) libList.Name = name.Value;
-
-                var pri = xml.Attribute("pri");
-                if (pri != null)
+                var priAsString = pri.Value;
+                int priAsInt;
+                if (int.TryParse(priAsString, out priAsInt))
                 {
-                    var priAsString = pri.Value;
-                    int priAsInt;
-                    if (int.TryParse(priAsString, out priAsInt))
-                    {
-                        //Set a lowest priority if priority range is invalid (below 0 or above 10) 
-                        libList.Priority = priAsInt < 1 || priAsInt > 10 ? 10 : priAsInt;
-                    }
-                    else
-                    {
-                        //Set a lowest priority if null or wrong type
-                        libList.Priority = 10;
-                    }
+                    //Set a lowest priority if priority range is invalid (below 0 or above 10) 
+                    libList.Priority = priAsInt < 1 || priAsInt > 10 ? 10 : priAsInt;
                 }
-
-                var isRanked = xml.Attribute("ranked");
-                if (isRanked != null)
+                else
                 {
-                    libList.IsRanked = isRanked.Value.Equals("true") ? true : false;
+                    //Set a lowest priority if null or wrong type
+                    libList.Priority = 10;
                 }
-
-                xml.Elements().Where(e => e.Name == "docnumber").ToList().ForEach(element => libList.DocumentNumbers.Add(element.Value, false));
-
             }
+
+            var isRanked = xml.Attribute("ranked");
+            if (isRanked != null)
+            {
+                libList.IsRanked = isRanked.Value.Equals("true") ? true : false;
+            }
+
+            xml.Elements().Where(e => e.Name == "docnumber").ToList().ForEach(element => libList.DocumentNumbers.Add(element.Value, false));
             return libList;
         }
     }

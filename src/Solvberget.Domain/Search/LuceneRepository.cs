@@ -1,27 +1,23 @@
-﻿using System;
+﻿using Lucene.Net.Store;
+using Solvberget.Domain.Aleph;
+using Solvberget.Domain.Utils;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Lucene.Net.Store;
-using Solvberget.Domain.Aleph;
-using Solvberget.Domain.Utils;
 
 namespace Solvberget.Domain.Search
 {
-
-
     public class LuceneRepository : ISuggestionDictionary
     {
-
-
         private SpellChecker.Net.Search.Spell.SpellChecker SpellChecker { get; set; }
 
         private readonly string _pathToDictDir;
-
         private readonly string _pathToSuggestionsDict;
-
         private readonly IRepository _documentRepository;
+        private readonly HashSet<string> _suggestionList;
+
 
         public LuceneRepository(IEnvironmentPathProvider environment, IRepository documentRepository = null)
         {
@@ -30,17 +26,13 @@ namespace Solvberget.Domain.Search
 
             _pathToSuggestionsDict = string.IsNullOrEmpty(suggestionPath)
                 ? @"App_Data\ordlister\ord_forslag.txt" : suggestionPath;
-            
-            if (!File.Exists(_pathToSuggestionsDict)) File.Create(_pathToSuggestionsDict); 
-            
+
             _pathToDictDir = string.IsNullOrEmpty(indexPath)
                 ? @"App_Data\ordlister_index" : indexPath;
 
             _suggestionList = new HashSet<string>();
 
             _documentRepository = documentRepository;
-
-
         }
 
         private void InitializeSpellChecker()
@@ -57,11 +49,9 @@ namespace Solvberget.Domain.Search
          * SUGGESTION LIST
          **/
 
-        private readonly HashSet<string> _suggestionList;
 
-        public void UpdateSuggestionListFromAlephSearch(string searchValue)
+        private void UpdateSuggestionListFromAlephSearch(string searchValue)
         {
-
             InitSuggestionListFromFile();
             var documentList = _documentRepository.Search(searchValue);
             if (documentList.Count > 1)
@@ -74,22 +64,14 @@ namespace Solvberget.Domain.Search
                         _suggestionList.Add(document.Title);
                     }
 
-
                     if (document.SubTitle != null)
                     {
                         _suggestionList.Add(document.SubTitle);
                     }
-
                 }
-
-
             }
             WriteSuggestionListToFile();
-
-
         }
-
-
 
         private void WriteSuggestionListToFile()
         {
@@ -101,10 +83,7 @@ namespace Solvberget.Domain.Search
             {
                 Console.WriteLine("Kan ikke lagre suggestion: " + e.Message);
             }
-
         }
-
-
 
         private void InitSuggestionListFromFile()
         {
@@ -115,7 +94,6 @@ namespace Solvberget.Domain.Search
                 _suggestionList.Add(word);
             }
         }
-
 
         /** HELPERS **/
         Encoding iso = Encoding.GetEncoding("ISO-8859-1");
@@ -135,14 +113,13 @@ namespace Solvberget.Domain.Search
             if (similarWords.Any())
             {
                 var upperCaseFirst = UppercaseFirst(similarWords[0]);
-                var lowerCaseFirst =LowerCaseFirst(similarWords[0]);
-                if (value.Equals(lowerCaseFirst)||value.Equals(upperCaseFirst) || value.Equals(similarWords[0].ToLower()))
+                var lowerCaseFirst = LowerCaseFirst(similarWords[0]);
+                if (value.Equals(lowerCaseFirst) || value.Equals(upperCaseFirst) || value.Equals(similarWords[0].ToLower()))
                     return "";
                 return utf8.GetString(iso.GetBytes(similarWords[0]));
 
             }
             return "";
-
         }
 
         static string UppercaseFirst(string s)
@@ -174,6 +151,4 @@ namespace Solvberget.Domain.Search
             return suggestions;
         }
     }
-
-
 }

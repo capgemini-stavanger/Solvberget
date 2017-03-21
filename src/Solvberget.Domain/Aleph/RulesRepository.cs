@@ -7,7 +7,6 @@ namespace Solvberget.Domain.Aleph
     public class RulesRepository : IRulesRepository
     {
         private const string StdFolderPath = @"App_Data\rules\";
-        private const string ItemRulesFile = @"itemrules.txt";
         private readonly string _folderPath;
 
         public RulesRepository(string folderPath = null)
@@ -17,7 +16,7 @@ namespace Solvberget.Domain.Aleph
 
         public IEnumerable<ItemRule> GetItemRules()
         {
-            return GetDocumentItemRulesFromFile(_folderPath+ItemRulesFile);
+            return GetDocumentItemRulesFromFile(_folderPath);
         }
 
         public static IEnumerable<ItemRule> GetDocumentItemRulesFromFile(string itemRulesFile)

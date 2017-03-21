@@ -1,4 +1,9 @@
-﻿using System;
+﻿using Ganss.XSS;
+using Nancy;
+using Newtonsoft.Json;
+using Solvberget.Core.DTOs;
+using Solvberget.Domain.Utils;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
@@ -6,11 +11,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
-using Nancy;
-using Newtonsoft.Json;
-using Solvberget.Core.DTOs;
-using Solvberget.Domain.Utils;
-using Ganss.XSS;
 
 namespace Solvberget.Nancy.Modules
 {
@@ -40,7 +40,7 @@ namespace Solvberget.Nancy.Modules
                 }
                 else
                 {
-                    name = string.Format(name+"-id-{0}.xml", args.id);
+                    name = string.Format(name + "-id-{0}.xml", args.id);
                     selection = evs.Where(ev => ev.TicketCoId == args.id).ToArray();
                 }
 
@@ -55,21 +55,17 @@ namespace Solvberget.Nancy.Modules
         {
             var events = new List<EventDto>();
 
-            var client = new WebClient();
-            client.Encoding = Encoding.UTF8;
+            var client = new WebClient { Encoding = Encoding.UTF8 };
 
             organizerId = organizerId ?? ConfigurationManager.AppSettings["TicketCoOrganizerId"];
             var apiToken = ConfigurationManager.AppSettings["TicketCoApiToken"];
 
-
             try
             {
                 var eventsJson = client.DownloadString(new Uri(
-                    String.Format("https://ticketco.no/api/public/v1/events?organizer_id={0}&token={1}", organizerId,
-                        apiToken)));
+                    $"https://ticketco.no/api/public/v1/events?organizer_id={organizerId}&token={apiToken}"));
 
-                var serializer = new JsonSerializer();
-                serializer.Culture = new CultureInfo("nb-no");
+                var serializer = new JsonSerializer { Culture = new CultureInfo("nb-no") };
 
                 var ticketCoEvents = serializer.Deserialize<TicketCoResult>(new JsonTextReader(new StringReader(eventsJson)));
 
@@ -142,7 +138,7 @@ namespace Solvberget.Nancy.Modules
                 root.AppendLine("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
                 root.AppendLine("<Root>");
                 root.AppendLine("<arr_description>");
-                
+
                 foreach (var ev in events)
                 {
                     root.AppendFormat("<nest_arr_place>{0}</nest_arr_place>", ev.Location);
@@ -192,7 +188,7 @@ namespace Solvberget.Nancy.Modules
             public DateTime start_at { get; set; }
             public DateTime end_at { get; set; }
             public TicketCoEventImage image { get; set; }
-            
+
             public string desktop_link { get; set; }
             public string mobile_link { get; set; }
         }

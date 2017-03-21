@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Solvberget.Domain.Aleph;
+using Solvberget.Domain.Documents.Images;
+using Solvberget.Domain.Utils;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using Solvberget.Domain.Aleph;
-using Solvberget.Domain.Documents.Images;
-using Solvberget.Domain.Utils;
 
 namespace Solvberget.Domain.Lists
 {
@@ -17,6 +18,8 @@ namespace Solvberget.Domain.Lists
         private readonly string _xmlFolderPath;
         private readonly IRepository _documentRepository;
         private readonly IImageRepository _imageRepository;
+        private string examplelist1 = "1v04uyr8zdbr3gf/example_list1.xml";
+        private string examplelist2 = "fgywvocnbwhml6v/example_list2.xml";
 
         public LibraryListDynamicRepository(IRepository documentRepository, IImageRepository imageRepository, IEnvironmentPathProvider environment)
         {
@@ -29,13 +32,15 @@ namespace Solvberget.Domain.Lists
 
         public List<LibraryList> GetLists(int? limit = null)
         {
-            
-            var lists = Directory.EnumerateFiles(_xmlFolderPath, "*.xml").AsParallel().ToList().Select(GenerateList).Where(liblist => liblist != null).ToList();
+            var lists = new ConcurrentBag<LibraryList>
+            {
+                GenerateList(_xmlFolderPath + examplelist1),
+                GenerateList(_xmlFolderPath + examplelist2)
+            };
 
             return limit != null
                 ? lists.OrderBy(list => list.Priority).Take((int)limit).ToList()
                 : lists.OrderBy(list => list.Priority).ToList();
-
         }
 
         private LibraryList GenerateList(string file)
@@ -58,25 +63,17 @@ namespace Solvberget.Domain.Lists
                 dynamicList.Documents = docsForList.Take(LimitNumberOfElementsPerList).ToList();
                 dynamicList.Documents.ForEach(x => dynamicList.DocumentNumbers.Add(x.DocumentNumber, true));
 
-                //Add thumbs to each document
-                //foreach (var document in docsForList.Where(document => string.IsNullOrEmpty(document.ThumbnailUrl)))
-                //{
-                //    document.ThumbnailUrl = _imageRepository.GetDocumentThumbnailImage(document.DocumentNumber, "60");
-                //}
-
                 return dynamicList;
-
             }
 
             return null;
-
         }
 
         private static string GenerateRequest(XContainer dynListXml, Timespan timespan)
         {
-            
+
             var sb = new StringBuilder();
-            sb.Append("wda=" + GenerateTimespanString(timespan)+ " and ");
+            sb.Append("wda=" + GenerateTimespanString(timespan) + " and ");
 
             using (var enumerator = dynListXml.Elements().GetEnumerator())
             {
@@ -95,18 +92,16 @@ namespace Solvberget.Domain.Lists
                     } while (!isLast);
                 }
             }
-            
+
             return sb.ToString();
-        
         }
 
         private static string GenerateTimespanString(Timespan timespan)
         {
-
             DateTime from;
             var to = DateTime.Today;
-            
-            switch(timespan)
+
+            switch (timespan)
             {
                 case Timespan.Week:
                     from = to.AddDays(-7);
@@ -121,7 +116,7 @@ namespace Solvberget.Domain.Lists
                     from = to.AddDays(-(DateTime.DaysInMonth(to.Year, to.Month)));
                     break;
             }
-            
+
             return from.ToString("yyMMdd") + "->" + to.ToString("yyMMdd");
 
         }
@@ -135,7 +130,7 @@ namespace Solvberget.Domain.Lists
             return Timespan.Month;
         }
 
-        private enum Timespan{ Week, Month, Year }
+        private enum Timespan { Week, Month, Year }
 
     }
 }

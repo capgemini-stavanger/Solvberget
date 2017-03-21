@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Solvberget.Domain.Utils;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Xml.Linq;
-using Solvberget.Domain.Utils;
 
 namespace Solvberget.Domain.Blogs
 {
@@ -22,7 +22,6 @@ namespace Solvberget.Domain.Blogs
         private static readonly XNamespace Author = "http://purl.org/dc/elements/1.1/";
 
         private const string StdFolderPath = @"App_Data\blogs\";
-        private const string BlogFeedsFile = @"feeds.xml";
         private readonly string _folderPath;
 
         public BlogRepository(IEnvironmentPathProvider environment)
@@ -33,22 +32,22 @@ namespace Solvberget.Domain.Blogs
 
         public List<Blog> GetBlogs()
         {
-            return GetBlogsFromFile(_folderPath + BlogFeedsFile);
+            return GetBlogsFromFile(_folderPath);
         }
 
         public Blog GetBlogWithEntries(int blogId)
         {
-            var blogs = GetBlogsFromFile(_folderPath + BlogFeedsFile);
+            var blogs = GetBlogsFromFile(_folderPath);
             var blog = blogs.ElementAt(blogId);
             string xml;
             try
             {
                 xml = XDocument.Load(blog.Url, LoadOptions.PreserveWhitespace).ToString();
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 // TODO: Log exception, mer spesifikk exception (blog not exist)
-                System.Console.WriteLine("Fatal feil: Kunne ikke hente blogg (bloggen finnes ikke?)");
+                Console.WriteLine("Fatal feil: Kunne ikke hente blogg (bloggen finnes ikke?)");
                 return blog;
             }
             blog.Entries = blog.ContentType.Equals("atom") ? FillEntriesFromAtom(xml) : FillEntriesFromRss(xml);
@@ -58,8 +57,6 @@ namespace Solvberget.Domain.Blogs
 
         private static List<Blog> GetBlogsFromFile(string blogFeedsXmlFile)
         {
-
-
             var blogs = new List<Blog>();
             XDocument xdoc;
 
@@ -79,7 +76,6 @@ namespace Solvberget.Domain.Blogs
             blogs.AddRange(feeds.Select(xElement => Blog.FillBlog(xElement.ToString())));
             blogs = blogs.OrderBy(blog => blog.Priority).ToList();
             return blogs;
-
         }
 
         public static List<BlogEntry> FillEntriesFromAtom(string xml)
