@@ -51,7 +51,7 @@ namespace Solvberget.Domain.Aleph
                     Branch = branch,
                     Department = documentItem.Department,
                     PlacementCode = items.FirstOrDefault().PlacementCode,
-                    TotalCount = items.Count,
+                    TotalCount = items.Count(x => x.Department == documentItem.Department),
                     AvailableCount = items.Count(x => x.LoanStatus == null && !x.OnHold && !InUnavailableState(x))
                 };
 
@@ -126,8 +126,8 @@ namespace Solvberget.Domain.Aleph
 
                 if (!items.Any(doc => doc.NoRequests > 0))
                 {
-                    return earliestDueDate.CompareTo(DateTime.Now) < 0 
-                        ? DateTime.Now.AddDays(1).ToShortDateString() 
+                    return earliestDueDate.CompareTo(DateTime.Now) < 0
+                        ? DateTime.Now.AddDays(1).ToShortDateString()
                         : earliestDueDate.ToShortDateString();
                 }
 
@@ -135,8 +135,8 @@ namespace Solvberget.Domain.Aleph
                 var calculation1 = totalNumberOfReservations * (document.StandardLoanTime + AvailabilityInformation.AveragePickupTimeInDays);
                 var calculation2 = (calculation1 + items.Count - 1) / items.Count;
 
-                return items.Count == 1 
-                    ? earliestDueDate.AddDays(calculation2).ToShortDateString() 
+                return items.Count == 1
+                    ? earliestDueDate.AddDays(calculation2).ToShortDateString()
                     : earliestDueDate.AddDays(calculation2 + document.StandardLoanTime).ToShortDateString();
             }
         }
