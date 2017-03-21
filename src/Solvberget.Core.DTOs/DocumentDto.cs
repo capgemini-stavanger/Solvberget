@@ -16,8 +16,8 @@ namespace Solvberget.Core.DTOs
         public DocumentAvailabilityDto[] Availability { get; set; }
         public bool? IsFavorite { get; set; }
         public bool? IsReserved { get; set; }
-		public string WebAppUrl {get;set;}
+        public string WebAppUrl { get; set; }
         public string MediaFormat { get; set; }
-        public DateTime EstimatedAvailableDate { get; set; }
+        public DateTime? EstimatedAvailableDate { get; set; }
     }
 }
