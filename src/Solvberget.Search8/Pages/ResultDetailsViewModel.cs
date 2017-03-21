@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Caliburn.Micro;
+using Solvberget.Core.DTOs;
+using Solvberget.Core.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Caliburn.Micro;
-using Solvberget.Core.DTOs;
-using Solvberget.Core.Services.Interfaces;
 
 namespace Solvberget.Search8.Pages
 {
@@ -22,14 +22,15 @@ namespace Solvberget.Search8.Pages
 
         private string _documentTitle;
         private string _documentId;
-        private DocumentDto _document;
         private bool _isLoading;
-        private DocumentAvailabilityDto _availability;
-        private DocumentReviewDto _review;
         private string _factsHeader = "Fakta";
         private string _branchToCheck;
-        //private string _defaultBranch = "Hovedbibl.";
-        private string _defaultBranch = "Madla";
+        private string _defaultBranch = "Hovedbibl.";
+        //private string _defaultBranch = "Madla";
+
+        private DocumentDto _document;
+        private DocumentAvailabilityDto _availability;
+        private DocumentReviewDto _review;
         private List<DocumentAvailabilityDto> _otherAvailableLocations;
 
         public ResultDetailsViewModel(INavigationService navigation, ISearchService search)
@@ -56,7 +57,7 @@ namespace Solvberget.Search8.Pages
             if (Availability == null)
                 Availability = Document.Availability.FirstOrDefault();
 
-            OtherAvailableLocations = Document.Availability.Count() > 1
+            OtherAvailableLocations = Document.Availability.Length > 1
                 ? Document.Availability.Where(x => x.Branch != Availability.Branch).ToList()
                 : null;
 
@@ -171,11 +172,22 @@ namespace Solvberget.Search8.Pages
             {
                 var loc = new StringBuilder();
 
-                if (Document is BookDto)
+                var dto = Document as BookDto;
+                if (dto != null)
                 {
-                    var c = ((BookDto)Document).Classification;
+                    var c = dto.Classification;
 
-                    if (!String.IsNullOrEmpty(c))
+                    if (!string.IsNullOrEmpty(c))
+                    {
+                        loc.Append(c);
+                        loc.Append(" ");
+                    }
+                }
+                else if (Document is SheetMusicDto)
+                {
+                    var c = ((SheetMusicDto)Document).Classification;
+
+                    if (!string.IsNullOrEmpty(c))
                     {
                         loc.Append(c);
                         loc.Append(" ");

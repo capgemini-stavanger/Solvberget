@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using Windows.ApplicationModel.Activation;
-using Windows.UI.Xaml.Controls;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using Solvberget.Core.Services;
 using Solvberget.Core.Services.Interfaces;
 using Solvberget.Search8.Pages;
+using System;
+using System.Collections.Generic;
+using Windows.ApplicationModel.Activation;
+using Windows.UI.Xaml.Controls;
 
 namespace Solvberget.Search8
 {
@@ -66,7 +66,8 @@ namespace Solvberget.Search8
             DisplayRootView<SearchView>();
         }
 
-        public string ServiceUrl => "http://solvbergetapp.cloudapp.net/api";
+        //public string ServiceUrl => "http://http://solvbergetwebapi.azurewebsites.net/";
+        public string ServiceUrl => "http://localhost:8080";
         public string ServiceUrl_Search => "/documents/search?query={0}";
         public string ServiceUrl_Document => "/documents/{0}";
         public string ServiceUrl_Rating => "/documents/{0}/rating";
