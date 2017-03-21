@@ -1,4 +1,6 @@
 {
-    "apiPrefix" : "http://localhost:8080/",
-    "appUrlPrefix" : "http://localhost:9000/"
+  //"apiPrefix": "http://solvbergetwebapi.azurewebsites.net/",
+  //"appUrlPrefix": "http://solvbergetwebapp.azurewebsites.net/"
+  "apiPrefix": "http://localhost:8080/",
+  "appUrlPrefix": "http://localhost:9000/"
 }
