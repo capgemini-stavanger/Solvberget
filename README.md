@@ -1,15 +1,16 @@
-# Sølvberget Apps <a href="http://80.203.160.221:3501/viewType.html?buildTypeId=SB_MASTER&tab=buildTypeStatusDiv&guest=1"><img src="http://80.203.160.221:3501/app/rest/builds/buildType:(id:SB_MASTER)/statusIcon"/></a>
+# Sølvberget Apps 
 
-
-.NET-prosjektene bruker NuGet, prosjektene er satt opp med Package Restore
+##  Webapp: <img src="https://capsvg.visualstudio.com/_apis/public/build/definitions/e7f3a515-6ede-49d6-9ed9-dec8141747da/27/badge"/>
 
 Webprosjektene bruker Bower og Grunt. Etter utsjekk:
 
 1. npm install -g grunt bower grunt-cli
 
-i mappen til webprosjektet:
+i mappen til webprosjektet (webapp):
 
 2. npm install
 3. bower install
 4. grunt --force
-5. grunt serve etc...
+5. grunt server
+
+OBS! Det er satt opp CI mot master-branchen slik at ny versjon av webappen blir pushet ut til http://solvbergetwebapp.azurewebsites.net/ hver gang en commit blir pushet til master. Branch derfor ut eller bruk develop-branchen for utvikling.
