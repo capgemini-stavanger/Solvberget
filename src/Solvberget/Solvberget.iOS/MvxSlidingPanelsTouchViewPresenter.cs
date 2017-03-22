@@ -1,30 +1,23 @@
-// 
-// As seen in SlidingPanels.Touch sample project 
-//
-using System;
+using Cirrious.MvvmCross.Touch.Views;
 using Cirrious.MvvmCross.Touch.Views.Presenters;
-using UIKit;
+using Cirrious.MvvmCross.ViewModels;
 using SlidingPanels.Lib;
 using SlidingPanels.Lib.PanelContainers;
-using Cirrious.MvvmCross.Touch.Views;
-using Cirrious.MvvmCross.ViewModels;
-using Cirrious.CrossCore.Exceptions;
-using Cirrious.CrossCore.Platform;
-using Cirrious.MvvmCross.Views;
-using CoreGraphics;
 using Solvberget.Core.ViewModels;
+using System;
 using System.Collections.Generic;
-using Solvberget.Core.ViewModels.Base;
+using UIKit;
 
 namespace Solvberget.iOS
 {
     public class MvxSlidingPanelsTouchViewPresenter : MvxTouchViewPresenter
     {
-        private UIWindow _window;
-		private LeftPanelContainer _leftPanel;
-		private Dictionary<Type, bool> _stackClearingViewModels;
+        private readonly UIWindow _window;
+        private readonly Dictionary<Type, bool> _stackClearingViewModels;
+        private LeftPanelContainer _leftPanel;
+        UIViewController _mainView;
 
-        public SlidingPanelsNavigationViewController SlidingPanelsController 
+        public SlidingPanelsNavigationViewController SlidingPanelsController
         {
             get
             {
@@ -32,7 +25,7 @@ namespace Solvberget.iOS
             }
         }
 
-        public UIViewController RootController 
+        public UIViewController RootController
         {
             get;
             private set;
@@ -41,135 +34,121 @@ namespace Solvberget.iOS
         public MvxSlidingPanelsTouchViewPresenter(UIApplicationDelegate applicationDelegate, UIWindow window) :
             base(applicationDelegate, window)
         {
-			_window = window;
-			_stackClearingViewModels = new Dictionary<Type, bool>();
+            _window = window;
+            _stackClearingViewModels = new Dictionary<Type, bool>();
 
-			RegisterStackClearingViewModel(typeof(HomeScreenViewModel));
-			RegisterStackClearingViewModel(typeof(NewsListingViewModel));
-			RegisterStackClearingViewModel(typeof(OpeningHoursViewModel));
-			RegisterStackClearingViewModel(typeof(MyPageViewModel));
-			RegisterStackClearingViewModel(typeof(SearchViewModel));
-			RegisterStackClearingViewModel(typeof(SuggestionsListListViewModel));
-			RegisterStackClearingViewModel(typeof(BlogOverviewViewModel));
-			RegisterStackClearingViewModel(typeof(ContactInfoViewModel));
-			RegisterStackClearingViewModel(typeof(EventListViewModel));
+            RegisterStackClearingViewModel(typeof(HomeScreenViewModel));
+            RegisterStackClearingViewModel(typeof(NewsListingViewModel));
+            RegisterStackClearingViewModel(typeof(OpeningHoursViewModel));
+            RegisterStackClearingViewModel(typeof(MyPageViewModel));
+            RegisterStackClearingViewModel(typeof(SearchViewModel));
+            RegisterStackClearingViewModel(typeof(SuggestionsListListViewModel));
+            RegisterStackClearingViewModel(typeof(BlogOverviewViewModel));
+            RegisterStackClearingViewModel(typeof(ContactInfoViewModel));
+            RegisterStackClearingViewModel(typeof(EventListViewModel));
         }
 
-        public override void ChangePresentation (Cirrious.MvvmCross.ViewModels.MvxPresentationHint hint)
+        public override void Show(MvxViewModelRequest request)
         {
-            base.ChangePresentation(hint);
+            try
+            {
+                var view = CurrentView = this.CreateViewControllerFor(request);
+
+                if (_stackClearingViewModels.ContainsKey(request.ViewModelType))
+                {
+                    ClearBackStack();
+                }
+
+                if (_leftPanel != null)
+                {
+                    SlidingPanelsController.HidePanel(_leftPanel);
+                }
+
+                Show(view);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
-		public override void Show(MvxViewModelRequest request) 
-		{
-			try 
-			{
-				var view = CurrentView = this.CreateViewControllerFor(request);
+        public static IMvxTouchView CurrentView { get; private set; }
 
-
-				// We clear the back stack up to now and hide the back button if this view should not allow viewstate popping
-				if (_stackClearingViewModels.ContainsKey(request.ViewModelType)) {
-					ClearBackStack();
-				}
-
-				if (_leftPanel != null)
-				{
-					SlidingPanelsController.HidePanel(_leftPanel);
-				}
-
-				//(SlidingPanelsController.NavigationItem.TitleView as UILabel).Text = "Sølvberget";
-
-
-				Show(view);
-			} catch (Exception e) 
-			{
-				Console.WriteLine (e.Message);
-			}
-		}
-
-		public static IMvxTouchView CurrentView { get; private set;}
-
-		public void ClearBackStack()
-		{
-			if (MasterNavigationController == null)
-				return;
-			MasterNavigationController.PopToViewController(_mainView, false);
-
-		}
-
-		UIViewController _mainView;
-	
-        protected override void ShowFirstView (UIViewController viewController)
+        public void ClearBackStack()
         {
-			_mainView = viewController;
+            MasterNavigationController?.PopToViewController(_mainView, false);
+        }
+
+        protected override void ShowFirstView(UIViewController viewController)
+        {
+            _mainView = viewController;
 
             // Show the first view
-            base.ShowFirstView (viewController);
+            base.ShowFirstView(viewController);
 
             // create the Sliding Panels View Controller and make it a child controller
             // of the root controller
-            RootController.AddChildViewController (SlidingPanelsController);
-            RootController.View.AddSubview (SlidingPanelsController.View);
+            RootController.AddChildViewController(SlidingPanelsController);
+            RootController.View.AddSubview(SlidingPanelsController.View);
 
             // use the first view to create the sliding panels 
-			AddPanel<HomeViewModel>(PanelType.LeftPanel, viewController as MvxViewController);
+            AddPanel<HomeViewModel>(PanelType.LeftPanel, viewController as MvxViewController);
         }
 
         protected void AddPanel<T>(PanelType panelType, MvxViewController mvxController) where T : MvxViewModel
         {
-            UIViewController viewToAdd = (UIViewController) mvxController.CreateViewControllerFor<T>();
-
-
+            UIViewController viewToAdd = (UIViewController)mvxController.CreateViewControllerFor<T>();
 
             switch (panelType)
             {
-				case PanelType.LeftPanel:
-					_leftPanel = new LeftPanelContainer(viewToAdd);
-					_leftPanel.View.BackgroundColor = Application.ThemeColors.Main2;
+                case PanelType.LeftPanel:
+                    _leftPanel = new LeftPanelContainer(viewToAdd);
+                    _leftPanel.View.BackgroundColor = Application.ThemeColors.Main2;
 
 
-					SlidingPanelsController.InsertPanel(_leftPanel);
+                    SlidingPanelsController.InsertPanel(_leftPanel);
                     break;
 
-                    case PanelType.RightPanel:
+                case PanelType.RightPanel:
                     SlidingPanelsController.InsertPanel(new RightPanelContainer(viewToAdd));
                     break;
 
-                    case PanelType.BottomPanel:
+                case PanelType.BottomPanel:
                     SlidingPanelsController.InsertPanel(new BottomPanelContainer(viewToAdd));
                     break;
 
-                    default:
+                default:
                     throw new ArgumentException("PanelType is invalid");
             };
         }
 
-        protected override UINavigationController CreateNavigationController (UIViewController viewController)
+        protected override UINavigationController CreateNavigationController(UIViewController viewController)
         {
-			SlidingPanelsNavigationViewController navController = new SlidingPanelsNavigationViewController (viewController);
-            
-			RootController = new UIViewController ();
+            SlidingPanelsNavigationViewController navController = new SlidingPanelsNavigationViewController(viewController);
 
-			if (navController.RespondsToSelector(new ObjCRuntime.Selector("interactivePopGestureRecognizer")))
-			{
-				navController.InteractivePopGestureRecognizer.Enabled = false;
-			}
+            RootController = new UIViewController();
 
-			navController.NavigationBar.TitleTextAttributes = new UIStringAttributes {
-				ForegroundColor = UIColor.White,
-				Font = Application.ThemeColors.HeaderFont
-			};
+            if (navController.RespondsToSelector(new ObjCRuntime.Selector("interactivePopGestureRecognizer")))
+            {
+                navController.InteractivePopGestureRecognizer.Enabled = false;
+            }
 
-			if (UIHelpers.MinVersion7)
-			{
-				navController.NavigationBar.BarTintColor = Application.ThemeColors.Main;
-				navController.NavigationBar.TintColor = Application.ThemeColors.MainInverse;
-				navController.NavigationBar.Translucent = false;
-			}
-			else
-			{
-				navController.NavigationBar.TintColor = Application.ThemeColors.Main;
-			}
+            navController.NavigationBar.TitleTextAttributes = new UIStringAttributes
+            {
+                ForegroundColor = UIColor.White,
+                Font = Application.ThemeColors.HeaderFont
+            };
+
+            if (UIHelpers.MinVersion7)
+            {
+                navController.NavigationBar.BarTintColor = Application.ThemeColors.Main;
+                navController.NavigationBar.TintColor = Application.ThemeColors.MainInverse;
+                navController.NavigationBar.Translucent = false;
+            }
+            else
+            {
+                navController.NavigationBar.TintColor = Application.ThemeColors.Main;
+            }
 
             return navController;
         }
@@ -181,10 +160,10 @@ namespace Solvberget.iOS
         }
 
 
-		public void RegisterStackClearingViewModel(Type viewModelType)
-		{
-			_stackClearingViewModels[viewModelType] = true;
-		}
+        public void RegisterStackClearingViewModel(Type viewModelType)
+        {
+            _stackClearingViewModels[viewModelType] = true;
+        }
     }
 }
 

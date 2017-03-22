@@ -237,8 +237,6 @@
       <DependentUpon>MenuCell.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\MenuTableViewSource.cs" />
-    <None Include="ToDo-MvvmCross\_ Touch UI.txt" />
-    <None Include="AppDelegate.cs.txt" />
     <Compile Include="DebugTrace.cs" />
   </ItemGroup>
   <ItemGroup>
