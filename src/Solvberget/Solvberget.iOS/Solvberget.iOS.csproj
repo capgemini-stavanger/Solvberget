@@ -56,7 +56,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchDebug>true</MtouchDebug>
-    <CodesignKey>iPhone Developer: Andreas Nesheim (23248UDVS6)</CodesignKey>
+    <CodesignKey>iPhone Developer: Bjorn Kjetil Fredriksen (B52BY2W779)</CodesignKey>
     <IpaPackageName>
     </IpaPackageName>
     <MtouchI18n>
@@ -64,6 +64,7 @@
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <MtouchExtraArgs>-v -v -v -v</MtouchExtraArgs>
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
+    <CodesignProvision>4e770cae-8834-4618-ae3f-14cde6b45623</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
