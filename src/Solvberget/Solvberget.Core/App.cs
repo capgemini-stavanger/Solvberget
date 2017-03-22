@@ -16,21 +16,14 @@ namespace Solvberget.Core
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
-			CreatableTypes(typeof(SearchService).GetTypeInfo().Assembly) // Solvberget.Core.Services assembly
+            CreatableTypes(typeof(SearchService).GetTypeInfo().Assembly) // Solvberget.Core.Services assembly
                 .EndingWith("Service")
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
             Mvx.LazyConstructAndRegisterSingleton<IStringDownloader, HttpBodyDownloader>();
-			Mvx.LazyConstructAndRegisterSingleton<DtoDownloader, DtoDownloader>();
+            Mvx.LazyConstructAndRegisterSingleton<DtoDownloader, DtoDownloader>();
             Mvx.LazyConstructAndRegisterSingleton<IServiceUrls, ServiceUrlsFromResources>();
-
-            // Bootstrapping up some stubs while developing. Just remove these lines to start using proper implementations
-            // Mvx.LazyConstructAndRegisterSingleton<ISearchService, SearchServiceTemporaryStub>();
-            // Mvx.LazyConstructAndRegisterSingleton<IBlogService, BlogServiceTemporaryStub>();
-            // Mvx.LazyConstructAndRegisterSingleton<INewsService, NewsServiceTemporaryStub>();
-            // Mvx.LazyConstructAndRegisterSingleton<ISuggestionsService, SuggestionsServiceTemporaryStub>();
-            //Mvx.LazyConstructAndRegisterSingleton<IUserAuthenticationDataService, UserAuthenticationTemporaryStub>();
             RegisterAppStart<HomeViewModel>();
         }
     }
