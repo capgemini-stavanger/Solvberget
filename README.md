@@ -1,6 +1,6 @@
 # Sølvberget Apps 
 
-##  Webapp: <img src="https://capsvg.visualstudio.com/_apis/public/build/definitions/e7f3a515-6ede-49d6-9ed9-dec8141747da/27/badge"/>
+##  Webapp <img src="https://capsvg.visualstudio.com/_apis/public/build/definitions/e7f3a515-6ede-49d6-9ed9-dec8141747da/27/badge"/>
 
 Webprosjektene bruker Bower og Grunt. Etter utsjekk:
 
