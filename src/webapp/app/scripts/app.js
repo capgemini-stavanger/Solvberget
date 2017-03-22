@@ -152,7 +152,7 @@ angular.module('Solvberget.WebApp', ['globalErrors', 'ngCookies', 'ngResource', 
         //        $$config.apiPrefix = data.apiPrefix;
         //        $$config.appUrlPrefix = data.appUrlPrefix;
 
-        //        $rootScope.apiPrefix = $$config.apiPrefix;
+                $rootScope.apiPrefix = $$config.apiPrefix;
         //    }); 
 
 
