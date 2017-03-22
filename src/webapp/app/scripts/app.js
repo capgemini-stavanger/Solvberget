@@ -1,10 +1,8 @@
 'use strict';
 
 var $$config =  {
-    apiPrefix: 'http://localhost:8080/',
-    //apiPrefix: 'http://solvbergetwebapi.azurewebsites.net/',
-    appUrlPrefix: 'http://localhost:9000/',
-    //appUrlPrefix: 'http://solvbergetwebapp.azurewebsites.net/',
+    apiPrefix: 'http://solvbergetwebapi.azurewebsites.net/',
+    appUrlPrefix: 'http://solvbergetwebapp.azurewebsites.net/',
     apiPrefixEscaped : function(){
         return this.apiPrefix.replace(/:(\d+)/,'\\:$1'); // workaround to escape port number : so it doesn't get interpreted as a variable by $resource
     }
