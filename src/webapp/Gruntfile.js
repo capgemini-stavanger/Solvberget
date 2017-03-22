@@ -56,22 +56,24 @@ module.exports = function (grunt) {
                     livereload: LIVERELOAD_PORT
                 },
                 files: [
-                  '<%= yeoman.app %>/{,*/}*.html',
-                  '.tmp/styles/{,*/}*.css',
-                  '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
-                  '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+                    '<%= yeoman.app %>/{,*/}*.html',
+                    '.tmp/styles/{,*/}*.css',
+                    '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
+                    '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
             }
         },
         autoprefixer: {
             options: ['last 1 version'],
             dist: {
-                files: [{
-                    expand: true,
-                    cwd: '.tmp/styles/',
-                    src: '{,*/}*.css',
-                    dest: '.tmp/styles/'
-                }]
+                files: [
+                    {
+                        expand: true,
+                        cwd: '.tmp/styles/',
+                        src: '{,*/}*.css',
+                        dest: '.tmp/styles/'
+                    }
+                ]
             }
         },
         connect: {
@@ -84,9 +86,9 @@ module.exports = function (grunt) {
                 options: {
                     middleware: function (connect) {
                         return [
-                          lrSnippet,
-                          mountFolder(connect, '.tmp'),
-                          mountFolder(connect, yeomanConfig.app)
+                            lrSnippet,
+                            mountFolder(connect, '.tmp'),
+                            mountFolder(connect, yeomanConfig.app)
                         ];
                     }
                 }
@@ -95,8 +97,8 @@ module.exports = function (grunt) {
                 options: {
                     middleware: function (connect) {
                         return [
-                          mountFolder(connect, '.tmp'),
-                          mountFolder(connect, 'test')
+                            mountFolder(connect, '.tmp'),
+                            mountFolder(connect, 'test')
                         ];
                     }
                 }
@@ -105,7 +107,7 @@ module.exports = function (grunt) {
                 options: {
                     middleware: function (connect) {
                         return [
-                          mountFolder(connect, yeomanConfig.dist)
+                            mountFolder(connect, yeomanConfig.dist)
                         ];
                     }
                 }
@@ -118,14 +120,16 @@ module.exports = function (grunt) {
         },
         clean: {
             dist: {
-                files: [{
-                    dot: true,
-                    src: [
-                      '.tmp',
-                      '<%= yeoman.dist %>/*',
-                      '!<%= yeoman.dist %>/.git*'
-                    ]
-                }]
+                files: [
+                    {
+                        dot: true,
+                        src: [
+                            '.tmp',
+                            '<%= yeoman.dist %>/*',
+                            '!<%= yeoman.dist %>/.git*'
+                        ]
+                    }
+                ]
             },
             server: '.tmp'
         },
@@ -134,8 +138,8 @@ module.exports = function (grunt) {
                 jshintrc: '.jshintrc'
             },
             all: [
-              'Gruntfile.js',
-              '<%= yeoman.app %>/scripts/{,*/}*.js'
+                'Gruntfile.js',
+                '<%= yeoman.app %>/scripts/{,*/}*.js'
             ]
         },
         coffee: {
@@ -144,22 +148,26 @@ module.exports = function (grunt) {
                 sourceRoot: ''
             },
             dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.app %>/scripts',
-                    src: '{,*/}*.coffee',
-                    dest: '.tmp/scripts',
-                    ext: '.js'
-                }]
+                files: [
+                    {
+                        expand: true,
+                        cwd: '<%= yeoman.app %>/scripts',
+                        src: '{,*/}*.coffee',
+                        dest: '.tmp/scripts',
+                        ext: '.js'
+                    }
+                ]
             },
             test: {
-                files: [{
-                    expand: true,
-                    cwd: 'test/spec',
-                    src: '{,*/}*.coffee',
-                    dest: '.tmp/spec',
-                    ext: '.js'
-                }]
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'test/spec',
+                        src: '{,*/}*.coffee',
+                        dest: '.tmp/spec',
+                        ext: '.js'
+                    }
+                ]
             }
         },
         recess: {
@@ -167,13 +175,48 @@ module.exports = function (grunt) {
                 compile: true
             },
             dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.app %>/styles',
-                    src: '{,*/}*.less',
-                    dest: '.tmp/styles/',
-                    ext: '.css'
-                }]
+                files: [
+                    {
+                        expand: true,
+                        cwd: '<%= yeoman.app %>/styles',
+                        src: '{,*/}*.less',
+                        dest: '.tmp/styles/',
+                        ext: '.css'
+                    }
+                ]
+            }
+        },
+        less: {
+            //development: {
+            //    options: {
+            //        paths: ['assets/css']
+            //    },
+            //    files: {
+            //        'path/to/result.css': 'path/to/source.less'
+            //    }
+            //},
+            dist: {
+                options: {
+                    compile: true
+                    //paths: ['assets/css'],
+                    //plugins: [
+                    //  new (require('less-plugin-autoprefix'))({browsers: ["last 2 versions"]}),
+                    //  new (require('less-plugin-clean-css'))(cleanCssOptions)
+                    //]
+                    //modifyVars: {
+                    //    imgPath: '"http://mycdn.com/path/to/images"',
+                    //    bgColor: 'red'
+                    //}
+                },
+                files: [
+                    {
+                        expand: true,
+                        cwd: '<%= yeoman.app %>/styles',
+                        src: '{,*/}*.less',
+                        dest: '.tmp/styles/',
+                        ext: '.css'
+                    }
+                ]
             }
         },
         // not used since Uglify task does concat,
@@ -295,7 +338,7 @@ module.exports = function (grunt) {
         },
         concurrent: {
             server: [
-            'recess',
+              'less',
               'coffee:dist',
               'copy:styles'
             ],
@@ -305,7 +348,7 @@ module.exports = function (grunt) {
             ],
             dist: [
               //'coffee',
-              //'recess',
+              'less',
               'copy:styles'
               //'imagemin',
               //'svgmin'
