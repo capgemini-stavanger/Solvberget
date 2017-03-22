@@ -1,4 +1,4 @@
 {
-  "apiPrefix": "http://solvbergetwebapi.azurewebsites.net/",
-  "appUrlPrefix": "http://solvbergetwebapp.azurewebsites.net/"
+  "apiPrefix": "//solvbergetwebapi.azurewebsites.net/",
+  "appUrlPrefix": "//solvbergetwebapp.azurewebsites.net/"
 }
