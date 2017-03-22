@@ -306,9 +306,9 @@ module.exports = function (grunt) {
             dist: [
               //'coffee',
               //'recess',
-              'copy:styles',
-              'imagemin',
-              'svgmin'
+              'copy:styles'
+              //'imagemin',
+              //'svgmin'
               //'htmlmin'
             ]
         },
