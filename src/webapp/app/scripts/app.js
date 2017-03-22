@@ -145,15 +145,16 @@ angular.module('Solvberget.WebApp', ['globalErrors', 'ngCookies', 'ngResource', 
             $rootScope.newMessagesCount = notificationCount.get();
         }
 
-        $http({method: 'GET', url: 'app.config.json'}).
-            success(function(data) {
-                console.log("app.config.json loaded", data);
+        //$http({method: 'GET', url: 'app.config.json'}).
+        //    success(function(data) {
+        //        console.log("app.config.json loaded", data);
 
-                $$config.apiPrefix = data.apiPrefix;
-                $$config.appUrlPrefix = data.appUrlPrefix;
+        //        $$config.apiPrefix = data.apiPrefix;
+        //        $$config.appUrlPrefix = data.appUrlPrefix;
 
-                $rootScope.apiPrefix = $$config.apiPrefix;
-            });
+        //        $rootScope.apiPrefix = $$config.apiPrefix;
+        //    }); 
+
 
         $rootScope.isViewActive = function (viewLocation) {
             return $location.path().indexOf(viewLocation) === 0;
