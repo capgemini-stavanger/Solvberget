@@ -1,8 +1,7 @@
 using Android.Views;
-using Cirrious.MvvmCross.Binding.BindingContext;
-using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using Cirrious.MvvmCross.Droid.Fragging;
-using Cirrious.MvvmCross.Droid.Fragging.Fragments;
+using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.Droid.BindingContext;
+using MvvmCross.Droid.Support.V4;
 using Solvberget.Core.ViewModels;
 using Solvberget.Droid.ActionBar;
 
@@ -18,7 +17,7 @@ namespace Solvberget.Droid.Views.Fragments
             get { return _viewModel ?? (_viewModel = base.ViewModel as SuggestionsListViewModel); }
         }
 
-        public SuggestionsListView() 
+        public SuggestionsListView()
         {
             RetainInstance = true;
         }

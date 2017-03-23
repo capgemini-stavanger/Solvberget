@@ -1,8 +1,8 @@
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
-using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using Cirrious.MvvmCross.Droid.Fragging.Fragments;
+using MvvmCross.Binding.Droid.BindingContext;
+using MvvmCross.Droid.Support.V4;
 
 namespace Solvberget.Droid.Views.Fragments
 {

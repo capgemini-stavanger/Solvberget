@@ -1,10 +1,10 @@
-﻿using System;
+﻿using MvvmCross.Core.ViewModels;
+using Solvberget.Core.Services.Interfaces;
+using Solvberget.Core.ViewModels.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using Cirrious.MvvmCross.ViewModels;
-using Solvberget.Core.Services.Interfaces;
-using Solvberget.Core.ViewModels.Base;
 
 namespace Solvberget.Core.ViewModels
 {
@@ -193,25 +193,25 @@ namespace Solvberget.Core.ViewModels
 
         public Section GetSectionForViewModelType(Type type)
         {
-            if (type == typeof (MyPageViewModel))
+            if (type == typeof(MyPageViewModel))
                 return Section.MyPage;
-            if (type == typeof (HomeScreenViewModel))
+            if (type == typeof(HomeScreenViewModel))
                 return Section.Home;
-            if (type == typeof (LoginViewModel))
+            if (type == typeof(LoginViewModel))
                 return Section.Unknown;
-            if (type == typeof (SearchViewModel))
+            if (type == typeof(SearchViewModel))
                 return Section.Search;
-            if (type == typeof (NewsListingViewModel))
+            if (type == typeof(NewsListingViewModel))
                 return Section.News;
-            if (type == typeof (OpeningHoursViewModel))
+            if (type == typeof(OpeningHoursViewModel))
                 return Section.OpeningHours;
-            if (type == typeof (SuggestionsListListViewModel))
+            if (type == typeof(SuggestionsListListViewModel))
                 return Section.Lists;
-            if (type == typeof (ContactInfoViewModel))
+            if (type == typeof(ContactInfoViewModel))
                 return Section.Contact;
-            if (type == typeof (BlogOverviewViewModel))
+            if (type == typeof(BlogOverviewViewModel))
                 return Section.Blogs;
-            if (type == typeof (EventListViewModel))
+            if (type == typeof(EventListViewModel))
                 return Section.Events;
 
             return Section.Unknown;

@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Input;
-using Cirrious.MvvmCross.ViewModels;
-using Solvberget.Core.DTOs;
+﻿using MvvmCross.Core.ViewModels;
+using Solvberget.Core.Properties;
 using Solvberget.Core.Services.Interfaces;
 using Solvberget.Core.ViewModels.Base;
-using Solvberget.Core.Properties;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Input;
 
 namespace Solvberget.Core.ViewModels
 {
-    public class SearchViewModel : BaseViewModel 
+    public class SearchViewModel : BaseViewModel
     {
         private readonly ISearchService _searchService;
 
@@ -20,25 +19,26 @@ namespace Solvberget.Core.ViewModels
         }
 
         private string _query;
-        public string Query 
+        public string Query
         {
             get { return _query; }
-            set { _query = value; RaisePropertyChanged(() => Query);}
+            set { _query = value; RaisePropertyChanged(() => Query); }
         }
 
         private string _lastQuery;
-        public string LastQuery 
+        public string LastQuery
         {
             get { return _lastQuery; }
-            set { _lastQuery = value; RaisePropertyChanged(() => LastQuery);}
+            set { _lastQuery = value; RaisePropertyChanged(() => LastQuery); }
         }
 
         private IList<SearchResultViewModel> _results;
-        public IList<SearchResultViewModel> Results 
+        public IList<SearchResultViewModel> Results
         {
             get { return ListOrEmptyResult(_results); }
-            set { 
-                _results = value; 
+            set
+            {
+                _results = value;
                 RaisePropertyChanged(() => Results);
                 RaisePropertyChanged(() => BookResults);
                 RaisePropertyChanged(() => MovieResults);
@@ -80,26 +80,26 @@ namespace Solvberget.Core.ViewModels
 
             var results = await _searchService.Search(Query);
             Results = (from document in results
-                        select new SearchResultViewModel
-                        {
-                            Name = document.Title,
-                            Type = document.Type,
-                            Image = Resources.ServiceUrl + string.Format(Resources.ServiceUrl_MediaImage, document.Id),
-                            Year = (document.Year != 0) ? document.Year.ToString("####") : "Ukjent år",
-                            DocNumber = document.Id,
-                            MediaFormat = document.MediaFormat,
-                        }).ToList();
+                       select new SearchResultViewModel
+                       {
+                           Name = document.Title,
+                           Type = document.Type,
+                           Image = Resources.ServiceUrl + string.Format(Resources.ServiceUrl_MediaImage, document.Id),
+                           Year = (document.Year != 0) ? document.Year.ToString("####") : "Ukjent år",
+                           DocNumber = document.Id,
+                           MediaFormat = document.MediaFormat,
+                       }).ToList();
 
             LastQuery = string.Format("Resultater for: {0}", lastquery);
-			IsLoading = false;
+            IsLoading = false;
         }
 
-		public void ClearResults()
-		{
-			Results = null;
-		}
+        public void ClearResults()
+        {
+            Results = null;
+        }
 
-        public IList<SearchResultViewModel> BookResults 
+        public IList<SearchResultViewModel> BookResults
         {
             get { return ListOrEmptyResult(_results.Where(r => r.Type == "Book").ToList()); }
         }
@@ -132,13 +132,13 @@ namespace Solvberget.Core.ViewModels
             get { return ListOrEmptyResult(_results.Where(r => r.Type == "Other" || r.Type == "Other").ToList()); }
         }
 
-		public bool EnableListEmptyResult = true;
+        public bool EnableListEmptyResult = true;
 
         private IList<SearchResultViewModel> ListOrEmptyResult(IList<SearchResultViewModel> list)
         {
-			if (!EnableListEmptyResult) return list;
+            if (!EnableListEmptyResult) return list;
 
-			return (list.Count > 0) ? list : new List<SearchResultViewModel> {new SearchResultViewModel
+            return (list.Count > 0) ? list : new List<SearchResultViewModel> {new SearchResultViewModel
                 {
                     DocNumber = "",
                     Id = 0,

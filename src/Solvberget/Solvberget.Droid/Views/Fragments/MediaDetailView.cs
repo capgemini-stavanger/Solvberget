@@ -1,12 +1,11 @@
-using System;
 using Android.App;
 using Android.Support.V4.App;
 using Android.Support.V4.View;
 using Android.Views;
 using Android.Widget;
-using Cirrious.MvvmCross.Binding.BindingContext;
-using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using Cirrious.MvvmCross.Droid.Fragging.Fragments;
+using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.Droid.BindingContext;
+using MvvmCross.Droid.Support.V4;
 using Solvberget.Core.ViewModels;
 using Solvberget.Droid.ActionBar;
 using ShareActionProvider = Android.Support.V7.Widget.ShareActionProvider;

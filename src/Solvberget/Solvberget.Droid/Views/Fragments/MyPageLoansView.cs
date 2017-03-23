@@ -1,12 +1,12 @@
-using System.ComponentModel;
 using Android.App;
 using Android.OS;
+using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using Cirrious.MvvmCross.Droid.Fragging.Fragments;
+using MvvmCross.Binding.Droid.BindingContext;
+using MvvmCross.Droid.Support.V4;
 using Solvberget.Core.ViewModels;
-using Android.Runtime;
+using System.ComponentModel;
 
 namespace Solvberget.Droid.Views.Fragments
 {

@@ -1,10 +1,10 @@
+using Android.Content;
+using Android.Support.V4.App;
+using MvvmCross.Core.ViewModels;
+using Solvberget.Droid.Views.Fragments;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Android.Content;
-using Android.Support.V4.App;
-using Cirrious.MvvmCross.ViewModels;
-using Solvberget.Droid.Views.Fragments;
 
 namespace Solvberget.Droid.Views.Adapters
 {

@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using Cirrious.MvvmCross.Droid.Views;
-using Cirrious.MvvmCross.ViewModels;
+using MvvmCross.Core.ViewModels;
+using MvvmCross.Droid.Views;
 using Solvberget.Core.ViewModels;
 using Solvberget.Droid.ActionBar;
+using System;
+using System.Collections.Generic;
 
 namespace Solvberget.Droid.Helpers
 {
@@ -17,9 +17,7 @@ namespace Solvberget.Droid.Helpers
         void Register(Type viewModelType, IFragmentHost host);
     }
 
-    public class CustomPresenter
-        : MvxAndroidViewPresenter
-        , ICustomPresenter
+    public class CustomPresenter : MvxAndroidViewPresenter, ICustomPresenter
     {
         private readonly Dictionary<Type, IFragmentHost> _dictionary = new Dictionary<Type, IFragmentHost>();
 
@@ -56,7 +54,7 @@ namespace Solvberget.Droid.Helpers
             {
                 base.Close(viewModel);
             }
-            
+
         }
     }
 

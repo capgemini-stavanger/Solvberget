@@ -1,16 +1,16 @@
-﻿using Cirrious.CrossCore;
-using Cirrious.MvvmCross.ViewModels;
-using System.Threading;
-using System;
+﻿using MvvmCross.Core.ViewModels;
+using MvvmCross.Platform;
 using Solvberget.Core.Services;
 using Solvberget.Core.Services.Interfaces;
+using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Solvberget.Core.ViewModels.Base
 {
     public class BaseViewModel : MvxViewModel
     {
-		public static bool AddEmptyItemForEmptyLists = true;
+        public static bool AddEmptyItemForEmptyLists = true;
 
         private IAnalyticsService _analytics;
         public IAnalyticsService Analytics
@@ -21,13 +21,14 @@ namespace Solvberget.Core.ViewModels.Base
 
         readonly ManualResetEvent _viewModelReady = new ManualResetEvent(false);
 
-		public void WaitForReady(Action onReady)
-		{
-			Task stuff = Task.Run(() => {
-				_viewModelReady.WaitOne ();
-				onReady ();
-			});
-		}
+        public void WaitForReady(Action onReady)
+        {
+            Task stuff = Task.Run(() =>
+            {
+                _viewModelReady.WaitOne();
+                onReady();
+            });
+        }
 
         public override void Start()
         {
@@ -36,13 +37,13 @@ namespace Solvberget.Core.ViewModels.Base
         }
 
         protected void NotifyViewModelReady()
-		{
-			_viewModelReady.Set();
-		}
+        {
+            _viewModelReady.Set();
+        }
 
-		public virtual void OnViewReady()
-		{
-		}
+        public virtual void OnViewReady()
+        {
+        }
 
         private long _id;
         /// <summary>
@@ -65,10 +66,10 @@ namespace Solvberget.Core.ViewModels.Base
         }
 
         private bool _isLoading;
-        public bool IsLoading 
+        public bool IsLoading
         {
             get { return _isLoading; }
-            set { _isLoading = value; RaisePropertyChanged(() => IsLoading);}
+            set { _isLoading = value; RaisePropertyChanged(() => IsLoading); }
         }
     }
 }

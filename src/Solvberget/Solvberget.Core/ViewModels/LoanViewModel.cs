@@ -1,6 +1,6 @@
-﻿using System.Windows.Input;
-using Cirrious.MvvmCross.ViewModels;
+﻿using MvvmCross.Core.ViewModels;
 using Solvberget.Core.ViewModels.Base;
+using System.Windows.Input;
 
 namespace Solvberget.Core.ViewModels
 {
@@ -73,18 +73,18 @@ namespace Solvberget.Core.ViewModels
         }
 
         private string _image;
-        public string Image 
+        public string Image
         {
             get { return _image; }
-            set { _image = value; RaisePropertyChanged(() => Image);}
+            set { _image = value; RaisePropertyChanged(() => Image); }
         }
 
         private string _documentNumber;
-        public string DocumentNumber 
+        public string DocumentNumber
         {
             get { return _documentNumber; }
-            set { _documentNumber = value; RaisePropertyChanged(() => DocumentNumber);}
-        } 
+            set { _documentNumber = value; RaisePropertyChanged(() => DocumentNumber); }
+        }
 
         private MvxCommand<LoanViewModel> _expandLoanCommand;
         public ICommand ExpandLoanCommand
@@ -98,7 +98,7 @@ namespace Solvberget.Core.ViewModels
         private void ExecuteExpandLoanCommand(LoanViewModel loan)
         {
             Parent.ExpandLoan(DocumentNumber);
-            
+
         }
     }
 }

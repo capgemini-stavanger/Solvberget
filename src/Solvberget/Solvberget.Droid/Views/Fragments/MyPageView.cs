@@ -1,11 +1,11 @@
-using System.Collections.Generic;
+using Android.Runtime;
 using Android.Support.V4.View;
 using Android.Views;
-using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using Cirrious.MvvmCross.Droid.Fragging.Fragments;
+using MvvmCross.Binding.Droid.BindingContext;
+using MvvmCross.Droid.Support.V4;
 using Solvberget.Core.ViewModels;
 using Solvberget.Droid.Views.Adapters;
-using Android.Runtime;
+using System.Collections.Generic;
 
 namespace Solvberget.Droid.Views.Fragments
 {
@@ -77,7 +77,7 @@ namespace Solvberget.Droid.Views.Fragments
             };
 
             _adapter = new MvxViewPagerFragmentAdapter(Activity, ChildFragmentManager, fragments);
-            _viewPager.Adapter = _adapter;   
+            _viewPager.Adapter = _adapter;
 
             return view;
         }

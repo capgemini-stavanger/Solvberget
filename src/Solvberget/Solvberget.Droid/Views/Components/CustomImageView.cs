@@ -1,6 +1,6 @@
 using Android.Content;
 using Android.Util;
-using Cirrious.MvvmCross.Binding.Droid.Views;
+using MvvmCross.Binding.Droid.Views;
 
 namespace Solvberget.Droid.Views.Components
 {

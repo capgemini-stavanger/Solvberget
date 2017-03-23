@@ -2,9 +2,9 @@ using Android.App;
 using Android.Views;
 using Android.Webkit;
 using Android.Widget;
-using Cirrious.CrossCore;
-using Cirrious.MvvmCross.Binding;
-using Cirrious.MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding;
+using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platform;
 using Solvberget.Core.ViewModels;
 using Solvberget.Droid.ActionBar;
 using Solvberget.Droid.Helpers;
@@ -52,7 +52,7 @@ namespace Solvberget.Droid.Views.Fragments
             var webViewClient = new ProgressHandlingWebViewClient(progressBar);
             _webView.SetWebViewClient(webViewClient);
             _webView.SetWebChromeClient(webChromeClient);
-    
+
             if (!string.IsNullOrEmpty(ViewModel.Url))
             {
                 _webView.LoadUrl(ViewModel.Url);

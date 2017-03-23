@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Input;
-using Cirrious.MvvmCross.ViewModels;
+﻿using MvvmCross.Core.ViewModels;
 using Solvberget.Core.Properties;
 using Solvberget.Core.Services.Interfaces;
 using Solvberget.Core.ViewModels.Base;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Input;
 
 namespace Solvberget.Core.ViewModels
 {
@@ -51,15 +51,15 @@ namespace Solvberget.Core.ViewModels
 
             Lists = (from n in await _suggestionsService.GetSuggestionsLists()
                      select new SuggestionListSummaryViewModel
-                           {
-                               Name = n.Name,
-                               SubTitle = n.SubTitle,
-                               Id = n.Id,
-                               ImageUrl = Resources.ServiceUrl + string.Format(Resources.ServiceUrl_ListImage, n.Id),
-                           }).ToList();
+                     {
+                         Name = n.Name,
+                         SubTitle = n.SubTitle,
+                         Id = n.Id,
+                         ImageUrl = Resources.ServiceUrl + string.Format(Resources.ServiceUrl_ListImage, n.Id),
+                     }).ToList();
 
-			IsLoading = false;
-			NotifyViewModelReady();
+            IsLoading = false;
+            NotifyViewModelReady();
         }
     }
 }

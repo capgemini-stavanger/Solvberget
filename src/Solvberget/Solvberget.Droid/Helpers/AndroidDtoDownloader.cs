@@ -1,13 +1,13 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Android.Widget;
-using Cirrious.CrossCore;
-using Cirrious.CrossCore.Droid.Platform;
-using Cirrious.MvvmCross.ViewModels;
+using MvvmCross.Core.ViewModels;
+using MvvmCross.Platform;
+using MvvmCross.Platform.Droid.Platform;
 using Solvberget.Core.DTOs;
 using Solvberget.Core.Services;
 using Solvberget.Core.ViewModels;
 using Solvberget.Droid.Views;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Solvberget.Droid.Helpers
 {
@@ -57,7 +57,7 @@ namespace Solvberget.Droid.Helpers
 
                 return;
             }
-            
+
             Toast.MakeText(ctx, "Kunne desverre ikke laste data.", ToastLength.Long).Show();
         }
     }

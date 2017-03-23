@@ -1,6 +1,6 @@
-using System;
-using Cirrious.CrossCore;
+using MvvmCross.Platform;
 using Solvberget.Core.ViewModels.Base;
+using System;
 
 namespace Solvberget.Core.ViewModels
 {
@@ -14,10 +14,10 @@ namespace Solvberget.Core.ViewModels
         }
 
         private String _uri;
-        public String Uri 
+        public String Uri
         {
             get { return _uri; }
-            set { _uri = value; RaisePropertyChanged(() => Uri);}
+            set { _uri = value; RaisePropertyChanged(() => Uri); }
         }
     }
 }

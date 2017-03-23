@@ -1,7 +1,7 @@
-﻿using System.Windows.Input;
-using Cirrious.MvvmCross.ViewModels;
+﻿using MvvmCross.Core.ViewModels;
 using Solvberget.Core.Services.Interfaces;
 using Solvberget.Core.ViewModels.Base;
+using System.Windows.Input;
 
 namespace Solvberget.Core.ViewModels
 {
@@ -15,16 +15,16 @@ namespace Solvberget.Core.ViewModels
             _service = service;
             _userAuthenticationService = userAuthenticationDataService;
 
-			Title = "Logg inn";
-			NotifyViewModelReady();
+            Title = "Logg inn";
+            NotifyViewModelReady();
         }
 
-		bool _navigateBackOnLogin;
+        bool _navigateBackOnLogin;
 
-		public void Init(bool navigateBackOnLogin = false)
-		{
-			_navigateBackOnLogin = navigateBackOnLogin;
-		}
+        public void Init(bool navigateBackOnLogin = false)
+        {
+            _navigateBackOnLogin = navigateBackOnLogin;
+        }
 
         private string _userName;
         public string UserName
@@ -55,11 +55,11 @@ namespace Solvberget.Core.ViewModels
         }
 
         private bool _buttonPressed;
-        public bool ButtonPressed 
+        public bool ButtonPressed
         {
             get { return _buttonPressed; }
-            set { _buttonPressed = value; RaisePropertyChanged(() => ButtonPressed);}
-        } 
+            set { _buttonPressed = value; RaisePropertyChanged(() => ButtonPressed); }
+        }
 
         private MvxCommand<MyPageViewModel> _loginCommand;
         public ICommand LoginCommand
@@ -72,8 +72,8 @@ namespace Solvberget.Core.ViewModels
 
         private async void ExecuteLoginCommand(MyPageViewModel page)
         {
-			IsLoading = true;
-			Message = string.Empty;
+            IsLoading = true;
+            Message = string.Empty;
 
             ButtonPressed = true;
             _userAuthenticationService.SetUser(UserName);
@@ -85,8 +85,8 @@ namespace Solvberget.Core.ViewModels
             if (response.Message.Equals("Autentisering vellykket."))
             {
                 LoggedIn = true;
-				if (_navigateBackOnLogin) Close(this);
-				else ShowViewModel<MyPageViewModel>();
+                if (_navigateBackOnLogin) Close(this);
+                else ShowViewModel<MyPageViewModel>();
             }
             else if (response.Message.Equals("The remote server returned an error: (401) Unauthorized."))
             {
@@ -114,7 +114,7 @@ namespace Solvberget.Core.ViewModels
         private async void ExecuteForgotPasswordCommand(string userId)
         {
             IsLoading = true;
-			Message = string.Empty;
+            Message = string.Empty;
             if (string.IsNullOrEmpty(userId))
             {
                 Message = "Ugyldig lånernummer";
@@ -129,8 +129,8 @@ namespace Solvberget.Core.ViewModels
             }
             else
             {
-                Message = result.Reply.Contains("Vennligst sjekk lånenummeret.") 
-                    ? "Kunne ikke sende PIN-kode. Lånernummeret ble ikke funnet." 
+                Message = result.Reply.Contains("Vennligst sjekk lånenummeret.")
+                    ? "Kunne ikke sende PIN-kode. Lånernummeret ble ikke funnet."
                     : "Kunne ikke sende PIN-kode. Prøv igjen senere eller ta kontakt med Sølvberget.";
             }
 

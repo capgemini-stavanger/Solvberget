@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using MvvmCross.Core.ViewModels;
 using Solvberget.Core.DTOs;
 using Solvberget.Core.Properties;
 using Solvberget.Core.Services.Interfaces;
 using Solvberget.Core.ViewModels.Base;
-using Cirrious.MvvmCross.ViewModels;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 
 
@@ -18,15 +17,15 @@ namespace Solvberget.Core.ViewModels
 
         public MyPageReservationsViewModel(IUserService service)
         {
-			Title = "Reservasjoner";
+            Title = "Reservasjoner";
             _service = service;
         }
 
         private ObservableCollection<ReservationViewModel> _reservations;
         public ObservableCollection<ReservationViewModel> Reservations
         {
-            get{ return _reservations; }
-            set{ _reservations = value; RaisePropertyChanged(() => Reservations); }
+            get { return _reservations; }
+            set { _reservations = value; RaisePropertyChanged(() => Reservations); }
         }
 
         private bool _reservationRemoved;
@@ -36,11 +35,11 @@ namespace Solvberget.Core.ViewModels
             set { _reservationRemoved = value; RaisePropertyChanged(() => ReservationRemoved); }
         }
 
-		public override void OnViewReady()
-		{
-			base.OnViewReady();
-			Load();
-		}
+        public override void OnViewReady()
+        {
+            base.OnViewReady();
+            Load();
+        }
 
         public async void Load()
         {
@@ -56,7 +55,7 @@ namespace Solvberget.Core.ViewModels
 
             foreach (ReservationDto r in res)
             {
-                
+
                 Reservations.Add(new ReservationViewModel
                 {
                     DocumentTitle = r.Document.Title,
@@ -75,7 +74,7 @@ namespace Solvberget.Core.ViewModels
                 });
             }
 
-			if (Reservations.Count == 0 && AddEmptyItemForEmptyLists)
+            if (Reservations.Count == 0 && AddEmptyItemForEmptyLists)
             {
                 Reservations.Add(new ReservationViewModel
                 {
@@ -86,8 +85,8 @@ namespace Solvberget.Core.ViewModels
 
                 });
             }
-			IsLoading = false;
-			NotifyViewModelReady();
+            IsLoading = false;
+            NotifyViewModelReady();
         }
 
         public async void RemoveReservation(ReservationViewModel reservationViewModel)
@@ -104,21 +103,21 @@ namespace Solvberget.Core.ViewModels
             Reservations.Add(reservationViewModel);
         }
 
-		private MvxCommand<ReservationViewModel> _showDetailsCommand;
-		public ICommand ShowDetailsCommand
-		{
-			get
-			{
-				return _showDetailsCommand ?? (_showDetailsCommand = new MvxCommand<ReservationViewModel>(ExecuteShowDetailsCommand));
-			}
-		}
+        private MvxCommand<ReservationViewModel> _showDetailsCommand;
+        public ICommand ShowDetailsCommand
+        {
+            get
+            {
+                return _showDetailsCommand ?? (_showDetailsCommand = new MvxCommand<ReservationViewModel>(ExecuteShowDetailsCommand));
+            }
+        }
 
-		private void ExecuteShowDetailsCommand(ReservationViewModel model)
-		{
-			if (model.DocumentNumber != "")
-			{
-				ShowViewModel<MediaDetailViewModel>(new { title = model.DocumentTitle, docId = model.DocumentNumber });
-			}
-		}
+        private void ExecuteShowDetailsCommand(ReservationViewModel model)
+        {
+            if (model.DocumentNumber != "")
+            {
+                ShowViewModel<MediaDetailViewModel>(new { title = model.DocumentTitle, docId = model.DocumentNumber });
+            }
+        }
     }
 }

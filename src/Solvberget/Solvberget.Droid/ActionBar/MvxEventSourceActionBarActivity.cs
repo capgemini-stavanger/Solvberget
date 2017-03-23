@@ -1,16 +1,16 @@
-using System;
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Support.V7.App;
-using Cirrious.CrossCore.Core;
-using Cirrious.CrossCore.Droid.Views;
+using MvvmCross.Platform.Core;
+using MvvmCross.Platform.Droid.Views;
+using System;
 
 namespace Solvberget.Droid.ActionBar
 {
     public class MvxEventSourceActionBarActivity : ActionBarActivity, IMvxEventSourceActivity
     {
-         protected override void OnCreate(Bundle bundle)
+        protected override void OnCreate(Bundle bundle)
         {
             CreateWillBeCalled.Raise(this, bundle);
             base.OnCreate(bundle);
@@ -77,14 +77,14 @@ namespace Solvberget.Droid.ActionBar
             base.OnActivityResult(requestCode, resultCode, data);
         }
 
-                protected override void Dispose(bool disposing)
-                {
-                        if (disposing)
-                        {
-                                DisposeCalled.Raise(this);
-                        }
-                        base.Dispose(disposing);
-                }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                DisposeCalled.Raise(this);
+            }
+            base.Dispose(disposing);
+        }
 
         public event EventHandler DisposeCalled;
         public event EventHandler<MvxValueEventArgs<Bundle>> CreateWillBeCalled;

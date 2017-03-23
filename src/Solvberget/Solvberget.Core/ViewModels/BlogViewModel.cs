@@ -1,25 +1,25 @@
-﻿using System.Collections.Generic;
+﻿using MvvmCross.Core.ViewModels;
+using Solvberget.Core.Services.Interfaces;
+using Solvberget.Core.ViewModels.Base;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Cirrious.MvvmCross.ViewModels;
-using Solvberget.Core.Services.Interfaces;
-using Solvberget.Core.ViewModels.Base;
 
 namespace Solvberget.Core.ViewModels
 {
     public class BlogViewModel : BaseViewModel
     {
-		private readonly IBlogService _blogService;
+        private readonly IBlogService _blogService;
 
         public BlogViewModel(IBlogService blogService)
         {
             _blogService = blogService;
         }
 
-		public void Init(long id, string title)
+        public void Init(long id, string title)
         {
-			Title = title;
+            Title = title;
             Load(id);
         }
 
@@ -27,14 +27,14 @@ namespace Solvberget.Core.ViewModels
         {
             IsLoading = true;
             Id = id;
-            
-			var blog = await _blogService.GetBlogPostListing(id);
 
-			Description = blog.Description;
-			Title = blog.Title;
-			Url = blog.Url;
+            var blog = await _blogService.GetBlogPostListing(id);
 
-			Posts = blog.Posts.Select(p => new BlogPostViewModel(_blogService)
+            Description = blog.Description;
+            Title = blog.Title;
+            Url = blog.Url;
+
+            Posts = blog.Posts.Select(p => new BlogPostViewModel(_blogService)
             {
                 Id = p.Id,
                 Author = p.Author,
@@ -42,39 +42,39 @@ namespace Solvberget.Core.ViewModels
                 Description = p.Description,
                 Title = p.Title,
                 Published = p.Published,
-				Url = p.Url,
+                Url = p.Url,
             }).ToList();
 
             IsLoading = false;
-			NotifyViewModelReady();
+            NotifyViewModelReady();
         }
 
         private List<BlogPostViewModel> _posts;
-        public List<BlogPostViewModel> Posts 
+        public List<BlogPostViewModel> Posts
         {
             get { return _posts; }
-            set { _posts = value; RaisePropertyChanged(() => Posts);}
+            set { _posts = value; RaisePropertyChanged(() => Posts); }
         }
 
         private string _url;
-        public string Url 
+        public string Url
         {
             get { return _url; }
-            set { _url = value; RaisePropertyChanged(() => Url);}
+            set { _url = value; RaisePropertyChanged(() => Url); }
         }
 
         private string _description;
-        public string Description 
+        public string Description
         {
             get { return _description; }
-            set { _description = value; RaisePropertyChanged(() => Description);}
+            set { _description = value; RaisePropertyChanged(() => Description); }
         }
 
         private List<string> _tags;
-        public List<string> Tags 
+        public List<string> Tags
         {
             get { return _tags; }
-            set { _tags = value; RaisePropertyChanged(() => Tags);}
+            set { _tags = value; RaisePropertyChanged(() => Tags); }
         }
 
         private MvxCommand<BlogPostViewModel> _showDetailsCommand;

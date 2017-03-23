@@ -1,7 +1,7 @@
 using Android.Views;
-using Cirrious.MvvmCross.Binding.BindingContext;
-using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using Cirrious.MvvmCross.Droid.Fragging.Fragments;
+using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.Droid.BindingContext;
+using MvvmCross.Droid.Support.V4;
 using Solvberget.Core.ViewModels;
 using Solvberget.Droid.ActionBar;
 
@@ -26,7 +26,7 @@ namespace Solvberget.Droid.Views.Fragments
         {
             HasOptionsMenu = true;
             base.OnCreateView(inflater, container, savedInstanceState);
-            _loadingIndicator = new LoadingIndicator(Activity);
+            _loadingIndicator = new LoadingIndicator(Context);
 
             var set = this.CreateBindingSet<BlogView, BlogViewModel>();
             set.Bind(_loadingIndicator).For(pi => pi.Visible).To(vm => vm.IsLoading);

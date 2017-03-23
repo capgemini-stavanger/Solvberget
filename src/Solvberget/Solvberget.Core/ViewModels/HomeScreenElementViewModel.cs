@@ -1,7 +1,7 @@
-﻿using System.Windows.Input;
-using Cirrious.MvvmCross.ViewModels;
+﻿using MvvmCross.Core.ViewModels;
 using Solvberget.Core.Services.Interfaces;
 using Solvberget.Core.ViewModels.Base;
+using System.Windows.Input;
 
 namespace Solvberget.Core.ViewModels
 {
@@ -15,24 +15,26 @@ namespace Solvberget.Core.ViewModels
         }
 
         private string _title;
-        public new string Title 
+        public new string Title
         {
             get { return _title; }
-            set { _title = value; RaisePropertyChanged(() => Title);}
-        } 
+            set { _title = value; RaisePropertyChanged(() => Title); }
+        }
 
         private string _iconChar;
-        public string IconChar 
+        public string IconChar
         {
             get { return _iconChar; }
-            set { _iconChar = value; RaisePropertyChanged(() => IconChar);}
-        } 
+            set { _iconChar = value; RaisePropertyChanged(() => IconChar); }
+        }
 
         private ICommand _goToCommand;
 
-        public ICommand GoToCommand 
+        public ICommand GoToCommand
         {
-            get { return _goToCommand ?? (_goToCommand = new MvxCommand<HomeScreenElementViewModel>(ExecuteGoToCommand)) ;
+            get
+            {
+                return _goToCommand ?? (_goToCommand = new MvxCommand<HomeScreenElementViewModel>(ExecuteGoToCommand));
             }
         }
 
@@ -42,10 +44,10 @@ namespace Solvberget.Core.ViewModels
         }
 
         private string _badgeContent;
-        public string BadgeContent 
+        public string BadgeContent
         {
             get { return _badgeContent; }
-            set { _badgeContent = value; RaisePropertyChanged(() => BadgeContent);}
+            set { _badgeContent = value; RaisePropertyChanged(() => BadgeContent); }
         }
 
         private void ExecuteGoToCommand(HomeScreenElementViewModel element)

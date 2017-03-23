@@ -1,7 +1,7 @@
+using Android.Text;
+using MvvmCross.Platform.Converters;
 using System;
 using System.Globalization;
-using Android.Text;
-using Cirrious.CrossCore.Converters;
 
 namespace Solvberget.Droid.Converters
 {

@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Windows.Input;
-using Cirrious.MvvmCross.ViewModels;
+﻿using MvvmCross.Core.ViewModels;
 using Solvberget.Core.Services.Interfaces;
 using Solvberget.Core.ViewModels.Base;
+using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 
 namespace Solvberget.Core.ViewModels
 {
-    public class NewsListingViewModel : BaseViewModel 
+    public class NewsListingViewModel : BaseViewModel
     {
         private readonly INewsService _newsService;
 
@@ -23,10 +23,10 @@ namespace Solvberget.Core.ViewModels
         }
 
         private IList<NewsViewModel> _stories;
-        public IList<NewsViewModel> Stories 
+        public IList<NewsViewModel> Stories
         {
             get { return _stories; }
-            set { _stories = value; RaisePropertyChanged(() => Stories);}
+            set { _stories = value; RaisePropertyChanged(() => Stories); }
         }
 
         private MvxCommand<NewsViewModel> _showDetailsCommand;
@@ -40,7 +40,7 @@ namespace Solvberget.Core.ViewModels
 
         private void ExecuteShowDetailsCommand(NewsViewModel newsStory)
         {
-            ShowViewModel<GenericWebViewViewModel>(new {uri = newsStory.Uri.ToString(), title = newsStory.NewsTitle});
+            ShowViewModel<GenericWebViewViewModel>(new { uri = newsStory.Uri.ToString(), title = newsStory.NewsTitle });
         }
 
         // Loads a a set of Documents retrieved from the service into the results list.
@@ -49,16 +49,16 @@ namespace Solvberget.Core.ViewModels
             IsLoading = true;
 
             Stories = (from n in await _newsService.GetNews()
-                select new NewsViewModel
-                {
-                    Ingress = n.Ingress,
-                    Uri = n.Link,
-                    Published = n.Published,
-                    NewsTitle = n.Title
-                }).ToList();
+                       select new NewsViewModel
+                       {
+                           Ingress = n.Ingress,
+                           Uri = n.Link,
+                           Published = n.Published,
+                           NewsTitle = n.Title
+                       }).ToList();
 
-			IsLoading = false;
-			NotifyViewModelReady();
+            IsLoading = false;
+            NotifyViewModelReady();
         }
     }
 }

@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using MvvmCross.Core.ViewModels;
+using Solvberget.Core.Services.Interfaces;
+using Solvberget.Core.ViewModels.Base;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Cirrious.MvvmCross.ViewModels;
-using Solvberget.Core.Services.Interfaces;
-using Solvberget.Core.ViewModels.Base;
 
 namespace Solvberget.Core.ViewModels
 {
@@ -19,7 +19,7 @@ namespace Solvberget.Core.ViewModels
 
         public void Init()
         {
-			Title = "Blogger";
+            Title = "Blogger";
             Load();
         }
 
@@ -33,14 +33,14 @@ namespace Solvberget.Core.ViewModels
                 Title = b.Title
             }).ToList();
             IsLoading = false;
-			NotifyViewModelReady();
+            NotifyViewModelReady();
         }
 
         private List<BlogItemViewModel> _blogs;
-        public List<BlogItemViewModel> Blogs 
+        public List<BlogItemViewModel> Blogs
         {
             get { return _blogs; }
-            set { _blogs = value; RaisePropertyChanged(() => Blogs);}
+            set { _blogs = value; RaisePropertyChanged(() => Blogs); }
         }
 
         private MvxCommand<BlogItemViewModel> _showDetailsCommand;
@@ -54,7 +54,7 @@ namespace Solvberget.Core.ViewModels
 
         private void ExecuteShowDetailsCommand(BlogItemViewModel blog)
         {
-			ShowViewModel<BlogViewModel>(new { id = blog.Id, title = blog.Title });
+            ShowViewModel<BlogViewModel>(new { id = blog.Id, title = blog.Title });
         }
     }
 }

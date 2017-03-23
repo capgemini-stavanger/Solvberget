@@ -1,10 +1,11 @@
 using Android.App;
+using Android.Content.Res;
 using Android.Views;
 using Android.Webkit;
 using Android.Widget;
-using Cirrious.CrossCore;
-using Cirrious.MvvmCross.Binding;
-using Cirrious.MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding;
+using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platform;
 using Solvberget.Core.ViewModels;
 using Solvberget.Droid.ActionBar;
 using Solvberget.Droid.Helpers;
@@ -36,7 +37,7 @@ namespace Solvberget.Droid.Views.Fragments
 
             SetContentView(Resource.Layout.page_webview);
 
-            
+
             var set = this.CreateBindingSet<GenericWebViewView, GenericWebViewViewModel>();
             set.Bind(SupportActionBar).For(v => v.Title).To(vm => vm.Title).Mode(MvxBindingMode.OneWay);
             set.Apply();
@@ -52,7 +53,7 @@ namespace Solvberget.Droid.Views.Fragments
             var webViewClient = new ProgressHandlingWebViewClient(progressBar);
             _webView.SetWebViewClient(webViewClient);
             _webView.SetWebChromeClient(webChromeClient);
-    
+
             _webView.LoadUrl(ViewModel.Uri);
         }
 
@@ -69,7 +70,7 @@ namespace Solvberget.Droid.Views.Fragments
                 switch (keyCode)
                 {
                     case Keycode.Back:
-                        if(_webView.CanGoBack())
+                        if (_webView.CanGoBack())
                             _webView.GoBack();
                         else
                             Finish();

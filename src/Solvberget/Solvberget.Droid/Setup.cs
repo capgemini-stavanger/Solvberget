@@ -1,14 +1,14 @@
-using System.Collections.Generic;
-using System.Reflection;
 using Android.Content;
-using Cirrious.CrossCore;
-using Cirrious.MvvmCross.Droid.Platform;
-using Cirrious.MvvmCross.Droid.Views;
-using Cirrious.MvvmCross.ViewModels;
+using MvvmCross.Core.ViewModels;
+using MvvmCross.Droid.Platform;
+using MvvmCross.Droid.Views;
+using MvvmCross.Platform;
 using Solvberget.Core;
 using Solvberget.Core.Services;
 using Solvberget.Core.Services.Interfaces;
 using Solvberget.Droid.Helpers;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace Solvberget.Droid
 {
@@ -18,7 +18,7 @@ namespace Solvberget.Droid
         {
         }
 
-        protected override IList<Assembly> AndroidViewAssemblies
+        protected override IEnumerable<Assembly> AndroidViewAssemblies
         {
             get
             {

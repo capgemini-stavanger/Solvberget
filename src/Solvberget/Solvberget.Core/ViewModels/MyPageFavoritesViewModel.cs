@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using MvvmCross.Core.ViewModels;
 using Solvberget.Core.Properties;
 using Solvberget.Core.Services.Interfaces;
 using Solvberget.Core.ViewModels.Base;
-using Cirrious.MvvmCross.ViewModels;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace Solvberget.Core.ViewModels
@@ -14,15 +14,15 @@ namespace Solvberget.Core.ViewModels
 
         public MyPageFavoritesViewModel(IUserService service)
         {
-			Title = "Favoritter";
+            Title = "Favoritter";
             _service = service;
         }
 
         private ObservableCollection<FavoriteViewModel> _favorites;
         public ObservableCollection<FavoriteViewModel> Favorites
         {
-            get{ return _favorites; }
-            set{ _favorites = value; RaisePropertyChanged(() => Favorites); }
+            get { return _favorites; }
+            set { _favorites = value; RaisePropertyChanged(() => Favorites); }
         }
 
         private bool _favoriteIsRemoved;
@@ -32,12 +32,12 @@ namespace Solvberget.Core.ViewModels
             set { _favoriteIsRemoved = value; RaisePropertyChanged(() => FavoriteIsRemoved); }
         }
 
-		public override void OnViewReady()
-		{
-			base.OnViewReady();
+        public override void OnViewReady()
+        {
+            base.OnViewReady();
 
-			Load();
-		}
+            Load();
+        }
 
         public async void Load()
         {
@@ -61,7 +61,7 @@ namespace Solvberget.Core.ViewModels
                 });
             }
 
-			if (Favorites.Count == 0 && AddEmptyItemForEmptyLists)
+            if (Favorites.Count == 0 && AddEmptyItemForEmptyLists)
             {
                 Favorites.Add(new FavoriteViewModel
                 {
@@ -70,8 +70,8 @@ namespace Solvberget.Core.ViewModels
                 });
             }
 
-			IsLoading = false;
-			NotifyViewModelReady();
+            IsLoading = false;
+            NotifyViewModelReady();
         }
 
         public async void RemoveFavorite(string documentNumber, FavoriteViewModel favorite)
@@ -91,21 +91,21 @@ namespace Solvberget.Core.ViewModels
             Favorites.Add(favoriteViewModel);
         }
 
-		private MvxCommand<FavoriteViewModel> _showDetailsCommand;
-		public ICommand ShowDetailsCommand
-		{
-			get
-			{
-				return _showDetailsCommand ?? (_showDetailsCommand = new MvxCommand<FavoriteViewModel>(ExecuteShowDetailsCommand));
-			}
-		}
+        private MvxCommand<FavoriteViewModel> _showDetailsCommand;
+        public ICommand ShowDetailsCommand
+        {
+            get
+            {
+                return _showDetailsCommand ?? (_showDetailsCommand = new MvxCommand<FavoriteViewModel>(ExecuteShowDetailsCommand));
+            }
+        }
 
-		private void ExecuteShowDetailsCommand(FavoriteViewModel model)
-		{
-			if (!string.IsNullOrEmpty(model.DocumentNumber))
-			{
-				ShowViewModel<MediaDetailViewModel>(new { title = model.Name, docId = model.DocumentNumber });
-			}
-		}
+        private void ExecuteShowDetailsCommand(FavoriteViewModel model)
+        {
+            if (!string.IsNullOrEmpty(model.DocumentNumber))
+            {
+                ShowViewModel<MediaDetailViewModel>(new { title = model.Name, docId = model.DocumentNumber });
+            }
+        }
     }
 }

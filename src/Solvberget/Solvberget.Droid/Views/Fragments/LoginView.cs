@@ -1,14 +1,14 @@
-using System.ComponentModel;
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
-using Cirrious.MvvmCross.Binding.BindingContext;
-using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using Cirrious.MvvmCross.Droid.Fragging.Fragments;
+using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.Droid.BindingContext;
+using MvvmCross.Droid.Support.V4;
 using Solvberget.Core.ViewModels;
+using System.ComponentModel;
 
 namespace Solvberget.Droid.Views.Fragments
 {
@@ -16,7 +16,7 @@ namespace Solvberget.Droid.Views.Fragments
     {
         private readonly HomeViewModel _homeVm;
         private LoadingIndicator _loadingIndicator;
-        
+
         private LoginViewModel _viewModel;
         public new LoginViewModel ViewModel
         {
@@ -56,10 +56,10 @@ namespace Solvberget.Droid.Views.Fragments
             var inflater = Activity.LayoutInflater;
 
             builder.SetTitle("Glemt PIN");
-            builder.SetView(inflater.Inflate(Resource.Layout.dialog_forgotpass, null));  
+            builder.SetView(inflater.Inflate(Resource.Layout.dialog_forgotpass, null));
             builder.SetPositiveButton("Send PIN", (source, args) =>
                 {
-                    var view = ((Dialog) source).FindViewById(Resource.Id.forgotPassUsername) as TextView;
+                    var view = ((Dialog)source).FindViewById(Resource.Id.forgotPassUsername) as TextView;
                     if (view == null) { return; }
 
                     ViewModel.ForgotPasswordCommand.Execute(view.Text);

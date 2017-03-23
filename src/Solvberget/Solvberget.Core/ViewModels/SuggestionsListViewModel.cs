@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Input;
-using Cirrious.MvvmCross.ViewModels;
+﻿using MvvmCross.Core.ViewModels;
+using Solvberget.Core.Properties;
 using Solvberget.Core.Services.Interfaces;
 using Solvberget.Core.ViewModels.Base;
-using Solvberget.Core.Properties;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Input;
 
 namespace Solvberget.Core.ViewModels
 {
@@ -58,7 +58,7 @@ namespace Solvberget.Core.ViewModels
 
         private void ExecuteShowDetailsCommand(SearchResultViewModel searchResultViewModel)
         {
-			ShowViewModel<MediaDetailViewModel>(new { docId = searchResultViewModel.DocNumber, title = searchResultViewModel.Name});
+            ShowViewModel<MediaDetailViewModel>(new { docId = searchResultViewModel.DocNumber, title = searchResultViewModel.Name });
         }
 
         // Loads a a set of Documents retrieved from the service into the results list.
@@ -68,16 +68,16 @@ namespace Solvberget.Core.ViewModels
             var list = await _suggestionsService.GetList(Id);
             Docs = (from n in list.Documents
                     select new SearchResultViewModel
-                           {
-                               Name = n.Title,
-                               Type = n.Type,
-                               Year = (n.Year != 0) ? n.Year.ToString("####") : "Ukjent år",
-                               DocNumber = n.Id,
-							   Title = n.SubTitle,
-					Image = Resources.ServiceUrl + string.Format(Resources.ServiceUrl_MediaImage, n.Id),
-                           }).ToList();
-			IsLoading = false;
-			NotifyViewModelReady();
+                    {
+                        Name = n.Title,
+                        Type = n.Type,
+                        Year = (n.Year != 0) ? n.Year.ToString("####") : "Ukjent år",
+                        DocNumber = n.Id,
+                        Title = n.SubTitle,
+                        Image = Resources.ServiceUrl + string.Format(Resources.ServiceUrl_MediaImage, n.Id),
+                    }).ToList();
+            IsLoading = false;
+            NotifyViewModelReady();
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Cirrious.MvvmCross.Plugins.File;
-using Solvberget.Core.Services.Interfaces;
+﻿using Solvberget.Core.Services.Interfaces;
 
 namespace Solvberget.Core.Services
 {
@@ -15,7 +14,7 @@ namespace Solvberget.Core.Services
         public bool UserInfoRegistered()
         {
             string output;
-            
+
             var read = _fileStore.TryReadTextFile(GetPathForUserId(), out output);
 
             return read;

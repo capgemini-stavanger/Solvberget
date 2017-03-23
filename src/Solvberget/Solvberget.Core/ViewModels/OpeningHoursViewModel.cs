@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Cirrious.MvvmCross.ViewModels;
+﻿using MvvmCross.Core.ViewModels;
 using Solvberget.Core.Services.Interfaces;
 using Solvberget.Core.ViewModels.Base;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Solvberget.Core.ViewModels
 {
@@ -25,30 +25,30 @@ namespace Solvberget.Core.ViewModels
         }
 
         private List<OpeningHoursLocationViewModel> _locations;
-        public List<OpeningHoursLocationViewModel> Locations 
+        public List<OpeningHoursLocationViewModel> Locations
         {
             get { return _locations; }
-            set { _locations = value; RaisePropertyChanged(() => Locations);}
+            set { _locations = value; RaisePropertyChanged(() => Locations); }
         }
 
         public async Task Load()
         {
-			var id = 0;
+            var id = 0;
             IsLoading = true;
-            Locations = (await _openingHoursService.GetOpeningHours()).Select(oh => 
-				new OpeningHoursLocationViewModel(_openingHoursService)
+            Locations = (await _openingHoursService.GetOpeningHours()).Select(oh =>
+                new OpeningHoursLocationViewModel(_openingHoursService)
                 {
                     Hours = oh.Hours.ToDictionary(k => k.Title, v => v.Hours),
                     LocationName = oh.Title,
                     Phone = oh.Phone,
                     Title = oh.Title,
                     Url = oh.Url,
-					UrlText = oh.UrlText,
-					Id = id++
+                    UrlText = oh.UrlText,
+                    Id = id++
                 }).ToList();
             IsLoading = false;
 
-			NotifyViewModelReady();
+            NotifyViewModelReady();
         }
 
         private MvxCommand<OpeningHoursLocationViewModel> _showDetailsCommand;
@@ -60,57 +60,57 @@ namespace Solvberget.Core.ViewModels
             }
         }
 
-		private void ExecuteShowDetailsCommand(OpeningHoursLocationViewModel model)
+        private void ExecuteShowDetailsCommand(OpeningHoursLocationViewModel model)
         {
-			ShowViewModel<OpeningHoursLocationViewModel>(new {id = model.Id, title = model.Title});
+            ShowViewModel<OpeningHoursLocationViewModel>(new { id = model.Id, title = model.Title });
         }
     }
 
     public class OpeningHoursLocationViewModel : BaseViewModel
-	{
+    {
         readonly IOpeningHoursService _service;
 
-		public OpeningHoursLocationViewModel(IOpeningHoursService openingHoursService)
-		{
-			_service = openingHoursService;
+        public OpeningHoursLocationViewModel(IOpeningHoursService openingHoursService)
+        {
+            _service = openingHoursService;
 
-		}
+        }
 
-		public void Init(string id, string title)
-		{
-			Title = title;
-			Load(Int32.Parse(id));
-		}
+        public void Init(string id, string title)
+        {
+            Title = title;
+            Load(Int32.Parse(id));
+        }
 
-		private async Task Load(int id)
-		{
-			IsLoading = true;
-			var ohs = await _service.GetOpeningHours();
-				
-			var oh = ohs.Skip(id).FirstOrDefault();
-		    if (oh != null)
-		    {
-		        Hours = oh.Hours.ToDictionary(k => k.Title, v => v.Hours);
+        private async Task Load(int id)
+        {
+            IsLoading = true;
+            var ohs = await _service.GetOpeningHours();
 
-		        LocationName = oh.Title;
-		        Phone = oh.Phone;
-		        Title = oh.Title;
-		        Url = oh.Url;
-		        UrlText = oh.UrlText;
-		    }
+            var oh = ohs.Skip(id).FirstOrDefault();
+            if (oh != null)
+            {
+                Hours = oh.Hours.ToDictionary(k => k.Title, v => v.Hours);
 
-		    IsLoading = false;
-			NotifyViewModelReady();
-		}
+                LocationName = oh.Title;
+                Phone = oh.Phone;
+                Title = oh.Title;
+                Url = oh.Url;
+                UrlText = oh.UrlText;
+            }
+
+            IsLoading = false;
+            NotifyViewModelReady();
+        }
 
         private string _title;
-        public new string Title 
+        public new string Title
         {
             get { return _title; }
-            set 
+            set
             {
                 _title = value;
-				base.Title = value;
+                base.Title = value;
                 LocationName = value;
                 RaisePropertyChanged(() => Title);
             }

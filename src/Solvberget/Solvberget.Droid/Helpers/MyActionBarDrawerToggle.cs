@@ -1,8 +1,8 @@
-using System;
 using Android.App;
 using Android.Support.V4.App;
 using Android.Support.V4.Widget;
 using Android.Views;
+using System;
 
 namespace Solvberget.Droid.Helpers
 {

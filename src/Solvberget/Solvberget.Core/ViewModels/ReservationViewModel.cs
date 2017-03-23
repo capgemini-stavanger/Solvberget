@@ -1,17 +1,16 @@
-﻿using System;
-using System.Windows.Input;
-using Cirrious.MvvmCross.ViewModels;
+﻿using MvvmCross.Core.ViewModels;
 using Solvberget.Core.ViewModels.Base;
+using System.Windows.Input;
 
 namespace Solvberget.Core.ViewModels
 {
     public class ReservationViewModel : BaseViewModel
     {
         private string _branch;
-        public string Branch 
+        public string Branch
         {
             get { return _branch; }
-            set { _branch = value; RaisePropertyChanged(() => Branch);}
+            set { _branch = value; RaisePropertyChanged(() => Branch); }
         }
 
         private string _documentNumber;
@@ -36,10 +35,10 @@ namespace Solvberget.Core.ViewModels
         }
 
         private string _image;
-        public string Image 
+        public string Image
         {
             get { return _image; }
-            set { _image = value; RaisePropertyChanged(() => Image);}
+            set { _image = value; RaisePropertyChanged(() => Image); }
         }
 
         private string _holdRequestFrom;
@@ -77,7 +76,7 @@ namespace Solvberget.Core.ViewModels
             set { _buttonText = value; RaisePropertyChanged(() => ButtonText); }
         }
 
-        
+
         private bool _readyForPickup;
         public bool ReadyForPickup
         {
@@ -107,11 +106,11 @@ namespace Solvberget.Core.ViewModels
         }
 
         private string _pickupDeadline;
-        public string PickupDeadline 
+        public string PickupDeadline
         {
             get { return _pickupDeadline; }
-            set { _pickupDeadline = value; RaisePropertyChanged(() => PickupDeadline);}
-        } 
+            set { _pickupDeadline = value; RaisePropertyChanged(() => PickupDeadline); }
+        }
 
         private bool _listEmpty;
         public bool ListEmpty
@@ -119,7 +118,7 @@ namespace Solvberget.Core.ViewModels
             get { return _listEmpty; }
             set { _listEmpty = value; RaisePropertyChanged(() => ListEmpty); }
         }
-        
+
         private MvxCommand<ReservationViewModel> _cancelRemoveCommand;
         public ICommand CancelRemoveCommand
         {

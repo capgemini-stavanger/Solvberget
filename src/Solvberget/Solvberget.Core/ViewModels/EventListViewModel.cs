@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Windows.Input;
-using Cirrious.MvvmCross.ViewModels;
+﻿using MvvmCross.Core.ViewModels;
 using Solvberget.Core.Services.Interfaces;
 using Solvberget.Core.ViewModels.Base;
+using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 
 namespace Solvberget.Core.ViewModels
 {
@@ -18,7 +18,7 @@ namespace Solvberget.Core.ViewModels
 
         public void Init()
         {
-			Title = "Arrangementer";
+            Title = "Arrangementer";
             Load();
         }
 
@@ -27,27 +27,27 @@ namespace Solvberget.Core.ViewModels
             IsLoading = true;
 
             Events = (from ev in await _eventService.GetList()
-                select new EventViewModel
-                {
-                    Description = ev.Description,
-                    Title = ev.Name,
-                    ImageUrl = ev.ImageUrl,
-                    Location = ev.Location,
-					Price = (ev.TicketPrice > 0.0) ? "kr. " + ev.TicketPrice.ToString("0") : "gratis",
-					Date = ev.Start.ToString("d. MMM"),
-					Time = ev.Start.Hour == 0 && ev.End.Hour == 0 ? null :  "kl. " + ev.Start.ToString("HH:mm") + "-" + ev.End.ToString("HH:mm"),
-                    Url = ev.TicketUrl
-                }).ToList();
+                      select new EventViewModel
+                      {
+                          Description = ev.Description,
+                          Title = ev.Name,
+                          ImageUrl = ev.ImageUrl,
+                          Location = ev.Location,
+                          Price = (ev.TicketPrice > 0.0) ? "kr. " + ev.TicketPrice.ToString("0") : "gratis",
+                          Date = ev.Start.ToString("d. MMM"),
+                          Time = ev.Start.Hour == 0 && ev.End.Hour == 0 ? null : "kl. " + ev.Start.ToString("HH:mm") + "-" + ev.End.ToString("HH:mm"),
+                          Url = ev.TicketUrl
+                      }).ToList();
 
-			IsLoading = false;
-			NotifyViewModelReady();
+            IsLoading = false;
+            NotifyViewModelReady();
         }
 
         private List<EventViewModel> _events;
-        public List<EventViewModel> Events 
+        public List<EventViewModel> Events
         {
             get { return _events; }
-            set { _events = value; RaisePropertyChanged(() => Events);}
+            set { _events = value; RaisePropertyChanged(() => Events); }
         }
 
         private MvxCommand<EventViewModel> _showDetailsCommand;

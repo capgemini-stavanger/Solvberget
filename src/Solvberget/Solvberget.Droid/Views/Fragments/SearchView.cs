@@ -1,16 +1,13 @@
-using System.Collections.Generic;
-using Android.App;
 using Android.Graphics;
 using Android.Support.V4.View;
 using Android.Views;
 using Android.Widget;
-using Cirrious.CrossCore;
-using Cirrious.MvvmCross.Binding.BindingContext;
-using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using Cirrious.MvvmCross.Droid.Fragging.Fragments;
+using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.Droid.BindingContext;
+using MvvmCross.Droid.Support.V4;
 using Solvberget.Core.ViewModels;
-using Solvberget.Droid.Helpers;
 using Solvberget.Droid.Views.Adapters;
+using System.Collections.Generic;
 
 namespace Solvberget.Droid.Views.Fragments
 {
@@ -124,7 +121,7 @@ namespace Solvberget.Droid.Views.Fragments
 
             var actionView = MenuItemCompat.GetActionView(inflatedSearchView);
 
-            
+
             _searchView = actionView as Android.Support.V7.Widget.SearchView;
             if (_searchView != null)
             {

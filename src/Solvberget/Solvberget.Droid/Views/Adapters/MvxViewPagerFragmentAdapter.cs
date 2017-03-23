@@ -1,15 +1,14 @@
+using Android.Content;
+using Android.Support.V4.App;
+using MvvmCross.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Android.Content;
-using Android.Support.V4.App;
-using Cirrious.MvvmCross.Droid.Fragging.Fragments;
-using Cirrious.MvvmCross.ViewModels;
+using MvvmCross.Droid.Support.V4;
 
 namespace Solvberget.Droid.Views.Adapters
 {
-    public class MvxViewPagerFragmentAdapter
-      : FragmentPagerAdapter
+    public class MvxViewPagerFragmentAdapter : FragmentPagerAdapter
     {
         public class FragmentInfo
         {

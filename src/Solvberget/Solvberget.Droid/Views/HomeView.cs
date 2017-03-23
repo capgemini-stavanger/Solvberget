@@ -1,4 +1,3 @@
-using System.Linq;
 using Android.App;
 using Android.Content.PM;
 using Android.Content.Res;
@@ -7,20 +6,21 @@ using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
-using Cirrious.CrossCore;
-using Cirrious.MvvmCross.Binding.Droid.Views;
-using Cirrious.MvvmCross.Droid.Fragging.Fragments;
-using Cirrious.MvvmCross.ViewModels;
+using MvvmCross.Binding.Droid.Views;
+using MvvmCross.Core.ViewModels;
+using MvvmCross.Droid.Support.V4;
+using MvvmCross.Platform;
 using Solvberget.Core.ViewModels;
 using Solvberget.Core.ViewModels.Base;
 using Solvberget.Droid.ActionBar;
 using Solvberget.Droid.Helpers;
 using Solvberget.Droid.Views.Fragments;
+using System.Linq;
 using SearchView = Solvberget.Droid.Views.Fragments.SearchView;
 
 namespace Solvberget.Droid.Views
 {
-    [Activity(Label = "Sølvberget", LaunchMode = LaunchMode.SingleTop, Theme = "@style/MyTheme", Icon = "@drawable/ic_launcher",  WindowSoftInputMode = SoftInput.AdjustResize)]
+    [Activity(Label = "Sølvberget", LaunchMode = LaunchMode.SingleTop, Theme = "@style/MyTheme", Icon = "@drawable/ic_launcher", WindowSoftInputMode = SoftInput.AdjustResize)]
     public class HomeView : MvxActionBarActivity, IFragmentHost
     {
         private const string START_PAGE_TITLE = "Startside";
@@ -41,7 +41,7 @@ namespace Solvberget.Droid.Views
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            
+
             //SupportFragmentManager.PopBackStackImmediate(null, (int)PopBackStackFlags.Inclusive);
             SetContentView(Resource.Layout.page_home_view);
 
@@ -50,13 +50,13 @@ namespace Solvberget.Droid.Views
 
             _drawerList = FindViewById<MvxListView>(Resource.Id.left_drawer);
 
-            
+
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-            SupportActionBar.SetHomeButtonEnabled(true); 
+            SupportActionBar.SetHomeButtonEnabled(true);
             SupportActionBar.SetBackgroundDrawable(Resources.GetDrawable(Resource.Color.s_main_green));
             SupportActionBar.SetLogo(Resource.Drawable.logo_white);
-            
-            
+
+
 
             if (_drawer != null)
             {
@@ -72,13 +72,14 @@ namespace Solvberget.Droid.Views
 
                 _drawerToggle.DrawerClosed += delegate
                 {
-                    
+
                     Title = _title;
-                    SupportInvalidateOptionsMenu();                };
+                    SupportInvalidateOptionsMenu();
+                };
 
                 _drawerToggle.DrawerOpened += delegate
                 {
-                   
+
                     SupportActionBar.Title = _drawerTitle;
                     SupportInvalidateOptionsMenu();
 
@@ -104,21 +105,21 @@ namespace Solvberget.Droid.Views
         private void RegisterForDetailsRequests()
         {
             var customPresenter = Mvx.Resolve<ICustomPresenter>();
-            customPresenter.Register(typeof (MyPageViewModel), this);
-            customPresenter.Register(typeof (SearchViewModel), this);
-            customPresenter.Register(typeof (NewsListingViewModel), this);
-            customPresenter.Register(typeof (OpeningHoursViewModel), this);
-            customPresenter.Register(typeof (SuggestionsListListViewModel), this);
-            customPresenter.Register(typeof (SuggestionsListViewModel), this);
-            customPresenter.Register(typeof (ContactInfoViewModel), this);
-            customPresenter.Register(typeof (BlogOverviewViewModel), this);
-            customPresenter.Register(typeof (BlogViewModel), this);
-            customPresenter.Register(typeof (BlogPostViewModel), this);
-            customPresenter.Register(typeof (LoginViewModel), this);
-            customPresenter.Register(typeof (EventListViewModel), this);
-            customPresenter.Register(typeof (HomeScreenViewModel), this);
+            customPresenter.Register(typeof(MyPageViewModel), this);
+            customPresenter.Register(typeof(SearchViewModel), this);
+            customPresenter.Register(typeof(NewsListingViewModel), this);
+            customPresenter.Register(typeof(OpeningHoursViewModel), this);
+            customPresenter.Register(typeof(SuggestionsListListViewModel), this);
+            customPresenter.Register(typeof(SuggestionsListViewModel), this);
+            customPresenter.Register(typeof(ContactInfoViewModel), this);
+            customPresenter.Register(typeof(BlogOverviewViewModel), this);
+            customPresenter.Register(typeof(BlogViewModel), this);
+            customPresenter.Register(typeof(BlogPostViewModel), this);
+            customPresenter.Register(typeof(LoginViewModel), this);
+            customPresenter.Register(typeof(EventListViewModel), this);
+            customPresenter.Register(typeof(HomeScreenViewModel), this);
 
-            customPresenter.Register(typeof (MediaDetailViewModel), this);
+            customPresenter.Register(typeof(MediaDetailViewModel), this);
         }
 
         /// <summary>
@@ -142,119 +143,119 @@ namespace Solvberget.Droid.Views
                 switch (section)
                 {
                     case HomeViewModel.Section.MyPage:
-                    {
-                        if (!ViewModel.IsAuthenticated())
                         {
-                            if (SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as LoginView != null)
-                                return true;
+                            if (!ViewModel.IsAuthenticated())
+                            {
+                                if (SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as LoginView != null)
+                                    return true;
 
-                            frag = new LoginView(ViewModel);
-                            title = "Logg inn";
-                        }
-                        else
-                        {
-                            if (SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as MyPageView != null)
-                                return true;
-
-                            frag = new MyPageView();
-                            title = "Min Side";
+                                frag = new LoginView(ViewModel);
+                                title = "Logg inn";
                             }
-                        break;
-                    }
+                            else
+                            {
+                                if (SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as MyPageView != null)
+                                    return true;
+
+                                frag = new MyPageView();
+                                title = "Min Side";
+                            }
+                            break;
+                        }
                     case HomeViewModel.Section.Search:
-                    {
-                        if (SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as SearchView != null)
-                            return true;
+                        {
+                            if (SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as SearchView != null)
+                                return true;
 
-                        frag = new SearchView();
-                        title = "Søk";
-                        break;
-                    }
+                            frag = new SearchView();
+                            title = "Søk";
+                            break;
+                        }
                     case HomeViewModel.Section.News:
-                    {
-                        if (SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as NewsListingView != null)
-                            return true;
+                        {
+                            if (SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as NewsListingView != null)
+                                return true;
 
-                        frag = new NewsListingView();
-                        title = "Nyheter";
-                        break;
-                    }
+                            frag = new NewsListingView();
+                            title = "Nyheter";
+                            break;
+                        }
                     case HomeViewModel.Section.OpeningHours:
-                    {
-                        if (SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as OpeningHoursView != null)
-                            return true;
+                        {
+                            if (SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as OpeningHoursView != null)
+                                return true;
 
-                        frag = new OpeningHoursView();
-                        title = "Åpningstider";
-                        break;
-                    }
+                            frag = new OpeningHoursView();
+                            title = "Åpningstider";
+                            break;
+                        }
                     case HomeViewModel.Section.Events:
-                    {
-                        if (SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as EventListView != null)
-                            return true;
+                        {
+                            if (SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as EventListView != null)
+                                return true;
 
-                        frag = new EventListView();
-                        title = "Arrangement";
-                        break;
-                    }
+                            frag = new EventListView();
+                            title = "Arrangement";
+                            break;
+                        }
                     case HomeViewModel.Section.Lists:
-                    {
-                        if (SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as SuggestionsListListView != null)
-                            return true;
+                        {
+                            if (SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as SuggestionsListListView != null)
+                                return true;
 
-                        frag = new SuggestionsListListView();
-                        title = "Anbefalinger";
-                        break;
-                    }
+                            frag = new SuggestionsListListView();
+                            title = "Anbefalinger";
+                            break;
+                        }
                     case HomeViewModel.Section.Contact:
-                    {
-                        if (SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as ContactInfoView != null)
-                            return true;
-                        
-                        frag = new ContactInfoView();
-                        title = "Kontaktinformasjon";
-                        break;
-                    }
+                        {
+                            if (SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as ContactInfoView != null)
+                                return true;
+
+                            frag = new ContactInfoView();
+                            title = "Kontaktinformasjon";
+                            break;
+                        }
                     case HomeViewModel.Section.Blogs:
-                    {
-                        if (SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as BlogOverviewView != null) 
-                            return true;
-                        
-                        frag = new BlogOverviewView();
-                        title = "Blogger";
-                        break;
-                    }
+                        {
+                            if (SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as BlogOverviewView != null)
+                                return true;
+
+                            frag = new BlogOverviewView();
+                            title = "Blogger";
+                            break;
+                        }
                     case HomeViewModel.Section.Home:
-                    {
-                        if (SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as HomeScreenView != null)
-                            return true;
+                        {
+                            if (SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as HomeScreenView != null)
+                                return true;
 
 
-                        frag = new HomeScreenView();
-                        title = START_PAGE_TITLE;
-                        break;
-                    }
+                            frag = new HomeScreenView();
+                            title = START_PAGE_TITLE;
+                            break;
+                        }
                     case HomeViewModel.Section.Logout:
-                    {
-                        //((HomeViewModel)ViewModel).LogOut();
-                        Toast.MakeText(Application.Context, "Du er nå logget ut", ToastLength.Long).Show();
-                        break;
-                    }
+                        {
+                            //((HomeViewModel)ViewModel).LogOut();
+                            Toast.MakeText(Application.Context, "Du er nå logget ut", ToastLength.Long).Show();
+                            break;
+                        }
                     case HomeViewModel.Section.Unknown:
-                    {
-                        shouldAddToBackStack = true;
-                        shouldClearBackStack = false;
-                        if (request.ViewModelType == typeof (SuggestionsListViewModel))
-                            frag = new SuggestionsListView();
-                        if (request.ViewModelType == typeof(BlogViewModel))
-                            frag = new BlogView();
-                        if (request.ViewModelType == typeof (LoginViewModel))
-                            frag = new LoginView(ViewModel);
-                        if (request.ViewModelType == typeof (MediaDetailViewModel))
-                            frag = new MediaDetailView();
+                        {
+                            shouldAddToBackStack = true;
+                            shouldClearBackStack = false;
+                            if (request.ViewModelType == typeof(SuggestionsListViewModel))
+                                frag = new SuggestionsListView();
+                            if (request.ViewModelType == typeof(BlogViewModel))
+                                frag = new BlogView();
+                            if (request.ViewModelType == typeof(LoginViewModel))
+                                frag = new LoginView(ViewModel);
+                            if (request.ViewModelType == typeof(MediaDetailViewModel))
+                                frag = new MediaDetailView();
 
-                        break;
-                    }
+                            break;
+                        }
                 }
 
                 var loaderService = Mvx.Resolve<IMvxViewModelLoader>();
@@ -267,7 +268,7 @@ namespace Solvberget.Droid.Views
                     var trans = SupportFragmentManager.BeginTransaction();
                     if (shouldClearBackStack)
                     {
-                        SupportFragmentManager.PopBackStackImmediate(0, (int) PopBackStackFlags.None);
+                        SupportFragmentManager.PopBackStackImmediate(0, (int)PopBackStackFlags.None);
                     }
 
                     trans.Replace(Resource.Id.content_frame, frag);
@@ -279,10 +280,10 @@ namespace Solvberget.Droid.Views
                     }
                     trans.Commit();
                 }
-                
+
 
                 SupportActionBar.Title = _title = title;
-                
+
 
                 ClearAndHighlightActiveMenuItem(section);
 
@@ -290,7 +291,7 @@ namespace Solvberget.Droid.Views
                 {
                     _drawer.CloseDrawer(_drawerList);
                 }
-                
+
 
                 return true;
             }
@@ -309,7 +310,7 @@ namespace Solvberget.Droid.Views
             {
                 menuItem.IsSelected = false;
             }
-            var selectedMenuItem = ViewModel.MenuItems.SingleOrDefault(m => m.Id == (int) section);
+            var selectedMenuItem = ViewModel.MenuItems.SingleOrDefault(m => m.Id == (int)section);
             if (selectedMenuItem != null)
                 selectedMenuItem.IsSelected = true;
         }
@@ -342,8 +343,8 @@ namespace Solvberget.Droid.Views
                 for (int i = 0; i < menu.Size(); i++)
                     menu.GetItem(i).SetVisible(!drawerOpen);
             }
-            
-            
+
+
             return base.OnPrepareOptionsMenu(menu);
         }
 

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" package="no.solvberget" android:versionCode="4" android:versionName="1.1.3">
-	<uses-sdk android:minSdkVersion="7" />
+	<uses-sdk android:minSdkVersion="16" android:targetSdkVersion="25" />
 	<application android:label="Sølvberget" android:icon="@drawable/ic_launcher" android:debuggable="false"></application>
 	<uses-permission android:name="android.permission.INTERNET" />
 </manifest>

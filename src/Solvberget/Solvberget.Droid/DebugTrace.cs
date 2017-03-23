@@ -1,6 +1,6 @@
+using MvvmCross.Platform.Platform;
 using System;
 using System.Diagnostics;
-using Cirrious.CrossCore.Platform;
 
 namespace Solvberget.Droid
 {
