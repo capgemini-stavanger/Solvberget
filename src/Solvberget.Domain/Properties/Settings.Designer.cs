@@ -34,7 +34,7 @@ namespace Solvberget.Domain.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.linticket.no/json/Sølvberget")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.linticket.no/json/Sølvberget")]
         public string LinticketUrl {
             get {
                 return ((string)(this["LinticketUrl"]));
@@ -43,7 +43,7 @@ namespace Solvberget.Domain.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.omdbapi.com/?t=")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.omdbapi.com/?t=")]
         public string ImdbApiUrl {
             get {
                 return ((string)(this["ImdbApiUrl"]));
@@ -88,8 +88,8 @@ namespace Solvberget.Domain.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=8fd5cf4bb0a76818d2" +
-            "16097e37c6a097&")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=8fd5cf4bb0a76818d" +
+            "216097e37c6a097&")]
         public string LastFmApiUrl {
             get {
                 return ((string)(this["LastFmApiUrl"]));
@@ -98,7 +98,7 @@ namespace Solvberget.Domain.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.stavanger-kulturhus.no/aapningstider_paa_soelvberget")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.stavanger-kulturhus.no/aapningstider_paa_soelvberget")]
         public string OpeningHoursWebpage {
             get {
                 return ((string)(this["OpeningHoursWebpage"]));
@@ -107,7 +107,7 @@ namespace Solvberget.Domain.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.stavanger-kulturhus.no/kontakt_oss")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.stavanger-kulturhus.no/kontakt_oss")]
         public string ContactWebPage {
             get {
                 return ((string)(this["ContactWebPage"]));
@@ -134,7 +134,7 @@ namespace Solvberget.Domain.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://stavanger-kulturhus.no/rss/feed/solvberget")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://stavanger-kulturhus.no/rss/feed/solvberget")]
         public string NewsRssUrl {
             get {
                 return ((string)(this["NewsRssUrl"]));

@@ -17,14 +17,7 @@ namespace Solvberget.Domain.Aleph
             {
                 var availabilitesForBranch = GenerateInfoFor(doc, branchToHandle, items);
                 if (availabilitesForBranch == null) continue;
-                var distinctDepartments = new List<string>();
-                foreach (var availabilityInformation in availabilitesForBranch)
-                {
-                    if (distinctDepartments.Contains(availabilityInformation.Department)) continue;
-
-                    distinctDepartments.Add(availabilityInformation.Department);
-                    availabilityinfo.Add(availabilityInformation);
-                }
+                availabilityinfo.AddRange(availabilitesForBranch);
             }
 
             return availabilityinfo;
@@ -43,65 +36,80 @@ namespace Solvberget.Domain.Aleph
             var aiList = new List<AvailabilityInformation>();
 
             var items = docItems.Select(x => x).Where(x => x.Branch.Equals(branch) && x.IsReservable).ToList();
+            var itemsInDepartment = items.GroupBy(x => x.Department).ToList();
 
-            foreach (var documentItem in items)
+            foreach (var dep in itemsInDepartment)
             {
-                var availability = new AvailabilityInformation
+                var locations = dep.GroupBy(x => x.PlacementCode).ToList();
+                foreach (var location in locations)
                 {
-                    Branch = branch,
-                    Department = documentItem.Department,
-                    PlacementCode = items.FirstOrDefault().PlacementCode,
-                    TotalCount = items.Count(x => x.Department == documentItem.Department),
-                    AvailableCount = items.Count(x => x.LoanStatus == null && !x.OnHold && !InUnavailableState(x))
-                };
-
-
-                if (availability.AvailableCount == 0)
-                {
-                    var dueDates = items.Where(x => x.LoanDueDate != null).Select(x => x.LoanDueDate.Value);
-                    if (dueDates.Any())
+                    var docItem = location.FirstOrDefault();
+                    if (docItem != null)
                     {
-                        var earliestDueDate = dueDates.OrderBy(x => x).FirstOrDefault();
-
-                        if (!items.Any(x => x.NoRequests > 0))
+                        var availability = new AvailabilityInformation
                         {
-                            if (earliestDueDate.CompareTo(DateTime.Now) < 0)
+                            Branch = branch,
+                            Department = docItem.Department,
+                            PlacementCode = docItem.PlacementCode,
+                            TotalCount = location.Count(),
+                            AvailableCount = location.Count(x => x.LoanStatus == null && !x.OnHold && !InUnavailableState(x))
+                        };
+
+                        // Awful last-minute hack..
+                        if (branch == "Madla" && availability.Department == "2. etasje Barn og ungdom")
+                        {
+                            availability.Department = "Barneavdelingen";
+                        }
+
+
+                        if (availability.AvailableCount == 0)
+                        {
+                            var dueDates = items.Where(x => x.LoanDueDate != null).Select(x => x.LoanDueDate.Value);
+                            if (dueDates.Any())
                             {
-                                // The due date has passed, but the document is not handed in yet. Set to next day.
-                                availability.EarliestAvailableDateFormatted = DateTime.Now.AddDays(1).ToShortDateString();
+                                var earliestDueDate = dueDates.OrderBy(x => x).FirstOrDefault();
+
+                                if (!items.Any(x => x.NoRequests > 0))
+                                {
+                                    if (earliestDueDate.CompareTo(DateTime.Now) < 0)
+                                    {
+                                        // The due date has passed, but the document is not handed in yet. Set to next day.
+                                        availability.EarliestAvailableDateFormatted = DateTime.Now.AddDays(1).ToShortDateString();
+                                    }
+                                    else
+                                    {
+                                        availability.EarliestAvailableDateFormatted = earliestDueDate.ToShortDateString();
+                                    }
+                                }
+                                else
+                                {
+                                    var totalNumberOfReservations = items.Sum(x => x.NoRequests);
+                                    var calculation1 = (totalNumberOfReservations * (doc.StandardLoanTime + AvailabilityInformation.AveragePickupTimeInDays));
+                                    // Below for added days: if it is required to round up the result of dividing m by n 
+                                    // (where m and n are integers), one should compute (m+n-1)/n
+                                    // Source: Number Conversion, Roland Backhouse, 2001
+                                    var calculation2 = (calculation1 + availability.TotalCount - 1) / availability.TotalCount;
+
+                                    if (availability.TotalCount == 1)
+                                        availability.EarliestAvailableDateFormatted = earliestDueDate.AddDays(calculation2).ToShortDateString();
+                                    else
+                                        availability.EarliestAvailableDateFormatted = earliestDueDate.AddDays(calculation2 + doc.StandardLoanTime).ToShortDateString();
+
+                                }
                             }
                             else
                             {
-                                availability.EarliestAvailableDateFormatted = earliestDueDate.ToShortDateString();
+                                availability.EarliestAvailableDateFormatted = "Ukjent";
                             }
                         }
                         else
                         {
-                            var totalNumberOfReservations = items.Sum(x => x.NoRequests);
-                            var calculation1 = (totalNumberOfReservations * (doc.StandardLoanTime + AvailabilityInformation.AveragePickupTimeInDays));
-                            // Below for added days: if it is required to round up the result of dividing m by n 
-                            // (where m and n are integers), one should compute (m+n-1)/n
-                            // Source: Number Conversion, Roland Backhouse, 2001
-                            var calculation2 = (calculation1 + availability.TotalCount - 1) / availability.TotalCount;
-
-                            if (availability.TotalCount == 1)
-                                availability.EarliestAvailableDateFormatted = earliestDueDate.AddDays(calculation2).ToShortDateString();
-                            else
-                                availability.EarliestAvailableDateFormatted = earliestDueDate.AddDays(calculation2 + doc.StandardLoanTime).ToShortDateString();
-
+                            availability.EarliestAvailableDateFormatted = "";
                         }
-                    }
-                    else
-                    {
-                        availability.EarliestAvailableDateFormatted = "Ukjent";
-                    }
-                }
-                else
-                {
-                    availability.EarliestAvailableDateFormatted = "";
-                }
 
-                aiList.Add(availability);
+                        aiList.Add(availability);
+                    }
+                }
             }
 
             return aiList;

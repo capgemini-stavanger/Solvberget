@@ -62,7 +62,7 @@ namespace Solvberget.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://solvbergetwebapi.azurewebsites.net.
+        ///   Looks up a localized string similar to https://solvbergetwebapi.azurewebsites.net.
         /// </summary>
         internal static string ServiceUrl {
             get {
