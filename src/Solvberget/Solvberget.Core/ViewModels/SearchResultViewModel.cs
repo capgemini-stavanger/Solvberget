@@ -81,7 +81,5 @@ namespace Solvberget.Core.ViewModels
                 RaisePropertyChanged(() => MediaFormat);
             }
         }
-
-        //public string DefaultImageUrl => "res:default_list.png";
     }
 }

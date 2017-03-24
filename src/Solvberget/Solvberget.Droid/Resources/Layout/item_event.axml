@@ -14,11 +14,6 @@
     android:paddingRight="10dp"
     android:paddingTop="10dp"
     android:paddingBottom="10dp">
-  <!--<Solvberget.Droid.Views.Components.CustomImageView
-        android:layout_width="100.0dp"
-        android:layout_height="140.0dp"
-        android:src="@drawable/default_list"
-        local:MvxBind="ImageUrl ImageUrl" />-->
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"

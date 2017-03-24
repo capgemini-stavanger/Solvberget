@@ -18,11 +18,10 @@
             android:paddingBottom="10dp"
             android:background="@color/ui_grey_dark"
             android:layout_height="160dp">
-            <Solvberget.Droid.Views.Components.CustomImageView
+            <Mvx.MvxImageView
                 android:layout_width="100.0dp"
                 android:layout_height="140.0dp"
-                android:src="@drawable/default_list"
-                local:MvxBind="ImageUrl Image" />
+                local:MvxBind="ImageUrl Image; DefaultImagePath 'res:default_list'" />
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
@@ -44,7 +43,7 @@
                     android:maxLines="2"
                     android:text="Film (2005)"
                     local:MvxBind="Text SubTitle" />
-              <TextView
+                <TextView
                     android:paddingTop="12dp"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -96,8 +95,7 @@
                 local:MvxBind="ItemsSource Availabilities"
                 local:MvxItemTemplate="@layout/item_media_availability"
                 android:paddingBottom="8dp"
-                android:dividerHeight="10dp">
-            </MvxLinearLayout>
+                android:dividerHeight="10dp" />
             <TextView
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
