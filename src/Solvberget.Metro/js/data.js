@@ -11,7 +11,7 @@
     var news = "/images/home/News.png";
     var activePage = "home";
 
-    var serverBaseUrl = "https://app.solvberget.no/legacy";
+    var serverBaseUrl = "https://solvbergetwebapilegacy.azurewebsites.net";
 
     // Original colors
     var colorPoolRgba = [
