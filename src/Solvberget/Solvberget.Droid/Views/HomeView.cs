@@ -20,7 +20,11 @@ using SearchView = Solvberget.Droid.Views.Fragments.SearchView;
 
 namespace Solvberget.Droid.Views
 {
-    [Activity(Label = "Sølvberget", LaunchMode = LaunchMode.SingleTop, Theme = "@style/MyTheme", Icon = "@drawable/ic_launcher", WindowSoftInputMode = SoftInput.AdjustResize)]
+    [Activity(Label = "Sølvberget", 
+        LaunchMode = LaunchMode.SingleTop, 
+        Theme = "@style/MyTheme", 
+        Icon = "@drawable/ic_launcher", 
+        WindowSoftInputMode = SoftInput.AdjustResize)]
     public class HomeView : MvxActionBarActivity, IFragmentHost
     {
         private const string START_PAGE_TITLE = "Startside";
@@ -33,10 +37,7 @@ namespace Solvberget.Droid.Views
         private HomeViewModel _viewModel;
         private MvxFragment _currentFragment;
 
-        public new HomeViewModel ViewModel
-        {
-            get { return _viewModel ?? (_viewModel = base.ViewModel as HomeViewModel); }
-        }
+        private new HomeViewModel ViewModel => _viewModel ?? (_viewModel = base.ViewModel as HomeViewModel);
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -50,17 +51,13 @@ namespace Solvberget.Droid.Views
 
             _drawerList = FindViewById<MvxListView>(Resource.Id.left_drawer);
 
-
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             SupportActionBar.SetHomeButtonEnabled(true);
             SupportActionBar.SetBackgroundDrawable(Resources.GetDrawable(Resource.Color.s_main_green));
             SupportActionBar.SetLogo(Resource.Drawable.logo_white);
 
-
-
             if (_drawer != null)
             {
-
                 _drawer.SetDrawerShadow(Resource.Drawable.drawer_shadow_dark, (int)GravityFlags.Start);
 
                 //DrawerToggle is the animation that happens with the indicator next to the
@@ -72,7 +69,6 @@ namespace Solvberget.Droid.Views
 
                 _drawerToggle.DrawerClosed += delegate
                 {
-
                     Title = _title;
                     SupportInvalidateOptionsMenu();
                 };

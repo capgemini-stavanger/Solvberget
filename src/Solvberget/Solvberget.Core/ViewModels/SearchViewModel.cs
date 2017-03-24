@@ -90,7 +90,7 @@ namespace Solvberget.Core.ViewModels
                            MediaFormat = document.MediaFormat,
                        }).ToList();
 
-            LastQuery = string.Format("Resultater for: {0}", lastquery);
+            LastQuery = $"Resultater for: {lastquery}";
             IsLoading = false;
         }
 

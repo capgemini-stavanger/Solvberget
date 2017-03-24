@@ -5,70 +5,83 @@ namespace Solvberget.Core.ViewModels
     public class SearchResultViewModel : BaseViewModel
     {
         private string _name;
-        public string Name 
+
+        public string Name
         {
             get { return _name; }
-            set { _name = value; RaisePropertyChanged(() => Name); }
+            set
+            {
+                _name = value;
+                RaisePropertyChanged(() => Name);
+            }
         }
 
         private string _type;
-        public string Type 
+
+        public string Type
         {
             get { return _type; }
             set
             {
-                _type = value; 
+                _type = value;
                 RaisePropertyChanged(() => Type);
                 RaisePropertyChanged(() => PresentableType);
-				RaisePropertyChanged(() => PresentableTypeWithYear);
+                RaisePropertyChanged(() => PresentableTypeWithYear);
             }
         }
 
-        public string PresentableType
-        {
-            get
-            {
-                return Utils.ConvertMediaTypeToNiceString(Type);
-            }
-        }
-
-		public string PresentableTypeWithYear {
-			get
-			{
-				return string.Format("{0} ({1})", PresentableType, Year);
-			}
-		}
+        public string PresentableType => Utils.ConvertMediaTypeToNiceString(Type);
+        public string PresentableTypeWithYear => $"{PresentableType} ({Year})";
 
         private string _year;
-        public string Year 
+
+        public string Year
         {
             get { return _year; }
-            set { 
-				_year = value; 
-				RaisePropertyChanged(() => Year); 
-				RaisePropertyChanged(() => PresentableTypeWithYear);
-			}
+            set
+            {
+                _year = value;
+                RaisePropertyChanged(() => Year);
+                RaisePropertyChanged(() => PresentableTypeWithYear);
+            }
         }
 
         private string _docNumber;
-        public string DocNumber 
+
+        public string DocNumber
         {
             get { return _docNumber; }
-            set { _docNumber = value; RaisePropertyChanged(() => DocNumber); }
+            set
+            {
+                _docNumber = value;
+                RaisePropertyChanged(() => DocNumber);
+            }
         }
 
         private string _image;
-        public string Image 
+
+        public string Image
         {
             get { return _image; }
-            set { _image = value; RaisePropertyChanged(() => Image);}
+            set
+            {
+                _image = value;
+                RaisePropertyChanged(() => Image);
+            }
         }
 
         private string _mediaFormat;
-        public string MediaFormat 
+
+        public string MediaFormat
         {
             get { return _mediaFormat; }
-            set { _mediaFormat = value; RaisePropertyChanged(() => MediaFormat);}
+            set
+            {
+                _mediaFormat = value;
+                RaisePropertyChanged(() => MediaFormat);
+            }
         }
+
+        //public string DefaultImageUrl => "res:default_list.png";
     }
 }

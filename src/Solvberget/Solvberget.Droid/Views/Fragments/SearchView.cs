@@ -19,10 +19,7 @@ namespace Solvberget.Droid.Views.Fragments
         private MvxViewPagerSearchResultFragmentAdapter _adapter;
 
         private SearchViewModel _viewModel;
-        public new SearchViewModel ViewModel
-        {
-            get { return _viewModel ?? (_viewModel = base.ViewModel as SearchViewModel); }
-        }
+        public new SearchViewModel ViewModel => _viewModel ?? (_viewModel = base.ViewModel as SearchViewModel);
 
         public SearchView()
         {
@@ -102,7 +99,7 @@ namespace Solvberget.Droid.Views.Fragments
                       Title = "Annet",
                       ViewModel = ViewModel,
                       BindableProperty = "OtherResults"
-                  },
+                  }
               };
 
             _adapter = new MvxViewPagerSearchResultFragmentAdapter(Activity, ChildFragmentManager, fragments);
@@ -121,7 +118,6 @@ namespace Solvberget.Droid.Views.Fragments
 
             var actionView = MenuItemCompat.GetActionView(inflatedSearchView);
 
-
             _searchView = actionView as Android.Support.V7.Widget.SearchView;
             if (_searchView != null)
             {
@@ -131,10 +127,7 @@ namespace Solvberget.Droid.Views.Fragments
                 // Change the search text color to white.
                 // See SearchView Source code @ https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/widget/SearchView.java
                 var queryTextView = _searchView.FindViewById(Resource.Id.search_src_text) as EditText;
-                if (queryTextView != null)
-                {
-                    queryTextView.SetTextColor(Color.White);
-                }
+                queryTextView?.SetTextColor(Color.White);
             }
 
             base.OnCreateOptionsMenu(menu, inflater);

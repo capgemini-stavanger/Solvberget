@@ -51,13 +51,9 @@ namespace Solvberget.Core.ViewModels
         }
 
         private MvxCommand<EventViewModel> _showDetailsCommand;
+
         public ICommand ShowDetailsCommand
-        {
-            get
-            {
-                return _showDetailsCommand ?? (_showDetailsCommand = new MvxCommand<EventViewModel>(ExecuteShowDetailsCommand));
-            }
-        }
+            => _showDetailsCommand ?? (_showDetailsCommand = new MvxCommand<EventViewModel>(ExecuteShowDetailsCommand));
 
         private void ExecuteShowDetailsCommand(EventViewModel ev)
         {

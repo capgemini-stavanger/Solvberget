@@ -11,7 +11,7 @@ namespace Solvberget.Droid.ActionBar
     {
         protected MvxActionBarActivity()
         {
-            BindingContext = new MvxAndroidBindingContext((Context)DataContext, this);
+            BindingContext = new MvxAndroidBindingContext(this, this);
             this.AddEventListeners();
         }
 
@@ -43,12 +43,12 @@ namespace Solvberget.Droid.ActionBar
         public IMvxBindingContext BindingContext { get; set; }
 
 
-        //public override void SetContentView(int layoutResId)
-        //{
-        //    var view = this.BindingInflate(layoutResId, null);
-        //    SetContentView(view);
-        //}
+        public override void SetContentView(int layoutResId)
+        {
+            var view = this.BindingInflate(layoutResId, null);
+            SetContentView(view);
+        }
 
-        public LayoutInflater LayoutInflater { get; }
+        //public LayoutInflater LayoutInflater { get; }
     }
 }

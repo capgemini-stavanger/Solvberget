@@ -5,10 +5,11 @@ using Android.Support.V7.App;
 using MvvmCross.Platform.Core;
 using MvvmCross.Platform.Droid.Views;
 using System;
+using MvvmCross.Droid.Support.V7.AppCompat;
 
 namespace Solvberget.Droid.ActionBar
 {
-    public class MvxEventSourceActionBarActivity : ActionBarActivity, IMvxEventSourceActivity
+    public class MvxEventSourceActionBarActivity : MvxAppCompatActivity, IMvxEventSourceActivity
     {
         protected override void OnCreate(Bundle bundle)
         {
@@ -86,18 +87,18 @@ namespace Solvberget.Droid.ActionBar
             base.Dispose(disposing);
         }
 
-        public event EventHandler DisposeCalled;
-        public event EventHandler<MvxValueEventArgs<Bundle>> CreateWillBeCalled;
-        public event EventHandler<MvxValueEventArgs<Bundle>> CreateCalled;
-        public event EventHandler DestroyCalled;
-        public event EventHandler<MvxValueEventArgs<Intent>> NewIntentCalled;
-        public event EventHandler ResumeCalled;
-        public event EventHandler PauseCalled;
-        public event EventHandler StartCalled;
-        public event EventHandler RestartCalled;
-        public event EventHandler StopCalled;
-        public event EventHandler<MvxValueEventArgs<Bundle>> SaveInstanceStateCalled;
-        public event EventHandler<MvxValueEventArgs<MvxStartActivityForResultParameters>> StartActivityForResultCalled;
-        public event EventHandler<MvxValueEventArgs<MvxActivityResultParameters>> ActivityResultCalled;
+        public new event EventHandler DisposeCalled;
+        public new event EventHandler<MvxValueEventArgs<Bundle>> CreateWillBeCalled;
+        public new event EventHandler<MvxValueEventArgs<Bundle>> CreateCalled;
+        public new event EventHandler DestroyCalled;
+        public new event EventHandler<MvxValueEventArgs<Intent>> NewIntentCalled;
+        public new event EventHandler ResumeCalled;
+        public new event EventHandler PauseCalled;
+        public new event EventHandler StartCalled;
+        public new event EventHandler RestartCalled;
+        public new event EventHandler StopCalled;
+        public new event EventHandler<MvxValueEventArgs<Bundle>> SaveInstanceStateCalled;
+        public new event EventHandler<MvxValueEventArgs<MvxStartActivityForResultParameters>> StartActivityForResultCalled;
+        public new event EventHandler<MvxValueEventArgs<MvxActivityResultParameters>> ActivityResultCalled;
     }
 }

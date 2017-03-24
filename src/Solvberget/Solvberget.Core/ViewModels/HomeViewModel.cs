@@ -127,13 +127,9 @@ namespace Solvberget.Core.ViewModels
         private MvxCommand<MenuViewModel> _selectMenuItemCommand;
 
         public ICommand SelectMenuItemCommand
-        {
-            get
-            {
-                return _selectMenuItemCommand ??
-                       (_selectMenuItemCommand = new MvxCommand<MenuViewModel>(ExecuteSelectMenuItemCommand));
-            }
-        }
+            =>
+                _selectMenuItemCommand ??
+                (_selectMenuItemCommand = new MvxCommand<MenuViewModel>(ExecuteSelectMenuItemCommand));
 
         private bool _loggedIn;
 

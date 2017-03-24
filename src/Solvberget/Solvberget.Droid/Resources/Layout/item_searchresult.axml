@@ -10,13 +10,13 @@
     android:layout_marginRight="10dp"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp">
-    <Solvberget.Droid.Views.Components.CustomImageView
+    <Mvx.MvxImageView
         android:layout_height="90dp"
         android:layout_width="60dp"
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
         android:src="@drawable/default_list"
-        local:MvxBind="ImageUrl Image" />
+        local:MvxBind="ImageUrl Image; DefaultImagePath 'res:default_list'" />
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
@@ -43,7 +43,7 @@
                 android:textAppearance="@style/SmallText"
                 local:MvxBind="Text PresentableType"
                 android:singleLine="true" />
-          <TextView
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/SmallText"

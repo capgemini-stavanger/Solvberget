@@ -9,6 +9,8 @@ using Solvberget.Core.Services.Interfaces;
 using Solvberget.Droid.Helpers;
 using System.Collections.Generic;
 using System.Reflection;
+using MvvmCross.Binding.Bindings.Target.Construction;
+using MvvmCross.Droid.Support.V7.AppCompat;
 
 namespace Solvberget.Droid
 {
@@ -23,7 +25,7 @@ namespace Solvberget.Droid
             get
             {
                 var assemblies = base.AndroidViewAssemblies;
-                assemblies.Add(typeof(Android.Support.V4.Widget.DrawerLayout).Assembly);
+                //assemblies.Add(typeof(Android.Support.V4.Widget.DrawerLayout).Assembly);
                 return assemblies;
             }
         }
@@ -31,6 +33,12 @@ namespace Solvberget.Droid
         protected override IMvxApplication CreateApp()
         {
             return new App();
+        }
+
+        protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)
+        {
+            MvxAppCompatSetupHelper.FillTargetFactories(registry);
+            base.FillTargetFactories(registry);
         }
 
         protected override IMvxAndroidViewPresenter CreateViewPresenter()
@@ -47,6 +55,8 @@ namespace Solvberget.Droid
             Mvx.LazyConstructAndRegisterSingleton<DtoDownloader, AndroidDtoDownloader>();
             Mvx.LazyConstructAndRegisterSingleton<IAnalyticsService, FlurryAnalyticsService>();
             Mvx.LazyConstructAndRegisterSingleton<IAndroidAnalytics, FlurryAnalyticsService>();
+            Mvx.LazyConstructAndRegisterSingleton<IEventService, EventService>();
+            Mvx.LazyConstructAndRegisterSingleton<ISearchService, SearchService>();
         }
     }
 }
