@@ -1,46 +1,40 @@
-using System;
-using CoreGraphics;
-using Foundation;
-using UIKit;
-using Cirrious.MvvmCross.Touch.Views;
+using MvvmCross.Binding.BindingContext;
 using Solvberget.Core.ViewModels;
-using Cirrious.MvvmCross.Binding.Touch.Views;
-using Cirrious.MvvmCross.Binding.BindingContext;
 
 namespace Solvberget.iOS
 {
-	public partial class BlogOverviewView : NamedTableViewController
+    public partial class BlogOverviewView : NamedTableViewController
     {
-		public new BlogOverviewViewModel ViewModel
-		{
-			get
-			{
-				return base.ViewModel as BlogOverviewViewModel;
-			}
-		}
+        public new BlogOverviewViewModel ViewModel
+        {
+            get
+            {
+                return base.ViewModel as BlogOverviewViewModel;
+            }
+        }
 
-		public override void ViewDidLoad()
-		{
-			base.ViewDidLoad();
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
 
-			LoadingOverlay.LoadingText = "Henter blogger...";
-		}
-	
-		protected override void ViewModelReady()
-		{
-			base.ViewModelReady();
+            LoadingOverlay.LoadingText = "Henter blogger...";
+        }
 
-			var source = new SimpleTableViewSource<BlogItemViewModel>(TableView, CellBindings.Blogs);
+        protected override void ViewModelReady()
+        {
+            base.ViewModelReady();
 
-			TableView.Source = source;
+            var source = new SimpleTableViewSource<BlogItemViewModel>(TableView, CellBindings.Blogs);
 
-			var set = this.CreateBindingSet<BlogOverviewView, BlogOverviewViewModel>();
-			set.Bind(source).To(vm => vm.Blogs);
-			set.Bind(source).For(s => s.SelectionChangedCommand).To(vm => vm.ShowDetailsCommand);
+            TableView.Source = source;
 
-			set.Apply();
+            var set = this.CreateBindingSet<BlogOverviewView, BlogOverviewViewModel>();
+            set.Bind(source).To(vm => vm.Blogs);
+            set.Bind(source).For(s => s.SelectionChangedCommand).To(vm => vm.ShowDetailsCommand);
 
-		}
+            set.Apply();
+
+        }
     }
 }
 

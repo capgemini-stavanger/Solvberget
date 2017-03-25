@@ -1,88 +1,85 @@
-using System;
 using CoreGraphics;
 using Foundation;
-using UIKit;
-using Cirrious.MvvmCross.Touch.Views;
 using Solvberget.Core.ViewModels;
-using Cirrious.MvvmCross.Binding.Touch.Views;
-using Cirrious.MvvmCross.Binding.BindingContext;
+using System;
 using System.Globalization;
+using UIKit;
 
 namespace Solvberget.iOS
 {
-	public class NewsListingView : NamedViewController
+    public class NewsListingView : NamedViewController
     {
-		public new NewsListingViewModel ViewModel
-		{
-			get
-			{
-				return base.ViewModel as NewsListingViewModel;
-			}
-		}
+        public new NewsListingViewModel ViewModel
+        {
+            get
+            {
+                return base.ViewModel as NewsListingViewModel;
+            }
+        }
 
-		public NewsListingView() : base()
-		{}
+        public NewsListingView() : base()
+        { }
 
-		UIScrollView container;
+        UIScrollView container;
 
-		public override void ViewDidLoad()
-		{
-			View.BackgroundColor = UIColor.White;
-			base.ViewDidLoad();
-		}
+        public override void ViewDidLoad()
+        {
+            View.BackgroundColor = UIColor.White;
+            base.ViewDidLoad();
+        }
 
-		protected override void ViewModelReady()
-		{
-			base.ViewModelReady();
+        protected override void ViewModelReady()
+        {
+            base.ViewModelReady();
 
-			LoadingOverlay.LoadingText = "Henter nyheter...";
+            LoadingOverlay.LoadingText = "Henter nyheter...";
 
-			if (null != container)
-				container.RemoveFromSuperview();
-		
-			//View.Frame = new RectangleF(View.Frame);
-			View.AutoresizingMask = UIViewAutoresizing.All;
-			container = new UIScrollView(new CGRect(CGPoint.Empty, View.Frame.Size));
+            if (null != container)
+                container.RemoveFromSuperview();
 
-			View.Add(container);
+            //View.Frame = new RectangleF(View.Frame);
+            View.AutoresizingMask = UIViewAutoresizing.All;
+            container = new UIScrollView(new CGRect(CGPoint.Empty, View.Frame.Size));
 
-			StyleView();
-			RenderView();
-		}
+            View.Add(container);
 
-		void StyleView()
-		{
-			container.BackgroundColor = UIColor.White;
-		}
+            StyleView();
+            RenderView();
+        }
 
-		private void RenderView()
-		{
+        void StyleView()
+        {
+            container.BackgroundColor = UIColor.White;
+        }
 
-			nfloat padding = 10.0f;
+        private void RenderView()
+        {
 
-			nfloat y = padding;
+            nfloat padding = 10.0f;
 
-			foreach (var item in ViewModel.Stories)
-			{
-				var itemCtrl = new TitleAndSummaryItem();
-				itemCtrl.View.Frame = new CGRect(padding, y, container.Frame.Width - (2*padding), 50.0f);
+            nfloat y = padding;
 
-				itemCtrl.Clicked += (sender, e) => UIApplication.SharedApplication.OpenUrl(new NSUrl(item.Uri.OriginalString));
+            foreach (var item in ViewModel.Stories)
+            {
+                var itemCtrl = new TitleAndSummaryItem();
+                itemCtrl.View.Frame = new CGRect(padding, y, container.Frame.Width - (2 * padding), 50.0f);
 
-				itemCtrl.TitleLabelText = item.NewsTitle;
+                itemCtrl.Clicked += (sender, e) => UIApplication.SharedApplication.OpenUrl(new NSUrl(item.Uri.OriginalString));
 
-				itemCtrl.SummaryLabelText = item.Published.ToString("dddd d. MMMM", new CultureInfo("nb-no")).ToUpperInvariant();
+                itemCtrl.TitleLabelText = item.NewsTitle;
 
-				if(!String.IsNullOrEmpty(item.Ingress)) itemCtrl.SummaryLabelText += Environment.NewLine + Environment.NewLine + item.Ingress.Replace("&nbsp;", " ");
+                itemCtrl.SummaryLabelText = item.Published.ToString("dddd d. MMMM", new CultureInfo("nb-no")).ToUpperInvariant();
 
-				container.Add(itemCtrl.View);
+                if (!String.IsNullOrEmpty(item.Ingress)) itemCtrl.SummaryLabelText += Environment.NewLine + Environment.NewLine + item.Ingress.Replace("&nbsp;", " ");
 
-				y += itemCtrl.Frame.Height + padding;
-			}
+                container.Add(itemCtrl.View);
 
-			container.ContentSize = new CGSize(320, y);
-			container.ScrollEnabled = true;
-		}
+                y += itemCtrl.Frame.Height + padding;
+            }
+
+            container.ContentSize = new CGSize(320, y);
+            container.ScrollEnabled = true;
+        }
     }
 }
 

@@ -1,48 +1,46 @@
-using System;
 using CoreGraphics;
-using Foundation;
-using UIKit;
-using Solvberget.Core.ViewModels;
-using Cirrious.MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.BindingContext;
 using Solvberget.Core.DTOs;
+using Solvberget.Core.ViewModels;
+using UIKit;
 
 namespace Solvberget.iOS
 {
-	public class MyPageMessagesView : NamedTableViewController
-	{
-		public new MyPageMessagesViewModel ViewModel
-		{
-			get
-			{
-				return base.ViewModel as MyPageMessagesViewModel;
-			}
-		}
+    public class MyPageMessagesView : NamedTableViewController
+    {
+        public new MyPageMessagesViewModel ViewModel
+        {
+            get
+            {
+                return base.ViewModel as MyPageMessagesViewModel;
+            }
+        }
 
-		protected override void ViewModelReady()
-		{
-			base.ViewModelReady();
-		
-			var source = new SimpleTableViewSource<NotificationDto>(TableView, CellBindings.Messages);
-			TableView.Source = source;
+        protected override void ViewModelReady()
+        {
+            base.ViewModelReady();
 
-			var set = this.CreateBindingSet<MyPageMessagesView, MyPageMessagesViewModel>();
-			set.Bind(source).To(vm => vm.Notifications);
+            var source = new SimpleTableViewSource<NotificationDto>(TableView, CellBindings.Messages);
+            TableView.Source = source;
 
-			set.Apply();
+            var set = this.CreateBindingSet<MyPageMessagesView, MyPageMessagesViewModel>();
+            set.Bind(source).To(vm => vm.Notifications);
+
+            set.Apply();
 
 
-			TableView.ReloadData();
+            TableView.ReloadData();
 
-			_noRows.RemoveFromSuperview();
+            _noRows.RemoveFromSuperview();
 
-			if (ViewModel.Notifications.Count == 0)
-			{
-				_noRows = new UILabel(new CGRect(10, 10, 300, 30)){ Text = "Du har ingen meldinger.", Font = Application.ThemeColors.DefaultFont };
-				Add(_noRows);
-			}
-		}
+            if (ViewModel.Notifications.Count == 0)
+            {
+                _noRows = new UILabel(new CGRect(10, 10, 300, 30)) { Text = "Du har ingen meldinger.", Font = Application.ThemeColors.DefaultFont };
+                Add(_noRows);
+            }
+        }
 
-		UILabel _noRows = new UILabel();
-	}
-	
+        UILabel _noRows = new UILabel();
+    }
+
 }

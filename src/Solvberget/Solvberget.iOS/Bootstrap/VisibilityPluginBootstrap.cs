@@ -1,13 +1,9 @@
-using System;
-using Cirrious.CrossCore.Plugins;
+using MvvmCross.Platform.Plugins;
 
-namespace Solvberget.iOS
+namespace Solvberget.iOS.Bootstrap
 {
-	public class VisibilityPluginBootstrap  : MvxLoaderPluginBootstrapAction<Cirrious.MvvmCross.Plugins.Visibility.PluginLoader, Cirrious.MvvmCross.Plugins.Visibility.Touch.Plugin>
-	{
-		public VisibilityPluginBootstrap()
-		{
-		}
-	}
+    public class VisibilityPluginBootstrap
+        : MvxLoaderPluginBootstrapAction<MvvmCross.Plugins.Visibility.PluginLoader, MvvmCross.Plugins.Visibility.iOS.Plugin>
+    {
+    }
 }
-

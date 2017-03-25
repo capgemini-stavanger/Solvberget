@@ -1,81 +1,79 @@
-using System;
 using CoreGraphics;
-using Foundation;
-using UIKit;
+using MvvmCross.Binding.BindingContext;
 using Solvberget.Core.ViewModels;
-using Cirrious.MvvmCross.Binding.BindingContext;
+using UIKit;
 
 namespace Solvberget.iOS
 {
 
-	public class MyPageLoansView : NamedTableViewController
-	{
-		public new MyPageLoansViewModel ViewModel
-		{
-			get
-			{
-				return base.ViewModel as MyPageLoansViewModel;
-			}
-		}
+    public class MyPageLoansView : NamedTableViewController
+    {
+        public new MyPageLoansViewModel ViewModel
+        {
+            get
+            {
+                return base.ViewModel as MyPageLoansViewModel;
+            }
+        }
 
-		protected override void ViewModelReady()
-		{
-			base.ViewModelReady();
-		
-			var source = new SimpleTableViewSource<LoanViewModel>(TableView, CellBindings.Loans);
-			TableView.Source = source;
+        protected override void ViewModelReady()
+        {
+            base.ViewModelReady();
 
-			var set = this.CreateBindingSet<MyPageLoansView, MyPageLoansViewModel>();
-			set.Bind(source).To(vm => vm.Loans);
+            var source = new SimpleTableViewSource<LoanViewModel>(TableView, CellBindings.Loans);
+            TableView.Source = source;
 
-			source.SelectedItemChanged += (s,e) => ShowPopup(source.SelectedItem as LoanViewModel);
+            var set = this.CreateBindingSet<MyPageLoansView, MyPageLoansViewModel>();
+            set.Bind(source).To(vm => vm.Loans);
 
-			set.Apply();
+            source.SelectedItemChanged += (s, e) => ShowPopup(source.SelectedItem as LoanViewModel);
 
-			TableView.ReloadData();
+            set.Apply();
 
-			_noRows.RemoveFromSuperview();
+            TableView.ReloadData();
 
-			if (ViewModel.Loans.Count == 0)
-			{
-				_noRows = new UILabel(new CGRect(10, 10, 300, 30)){ Text = "Du har ingen lån.", Font = Application.ThemeColors.DefaultFont };
-				Add(_noRows);
-			}
-		}
+            _noRows.RemoveFromSuperview();
 
-		void ShowPopup(LoanViewModel vm)
-		{
-			if (null == vm)
-				return;
+            if (ViewModel.Loans.Count == 0)
+            {
+                _noRows = new UILabel(new CGRect(10, 10, 300, 30)) { Text = "Du har ingen lån.", Font = Application.ThemeColors.DefaultFont };
+                Add(_noRows);
+            }
+        }
 
-			var popup = new UIAlertView(View.Frame);
+        void ShowPopup(LoanViewModel vm)
+        {
+            if (null == vm)
+                return;
 
-			popup.Title = vm.DocumentTitle;
+            var popup = new UIAlertView(View.Frame);
 
-			popup.AddButton("Utvid lånetid");
-			popup.AddButton("Vis detaljer");
-			popup.AddButton("Avbryt");
+            popup.Title = vm.DocumentTitle;
 
-			popup.CancelButtonIndex = 2;
+            popup.AddButton("Utvid lånetid");
+            popup.AddButton("Vis detaljer");
+            popup.AddButton("Avbryt");
 
-			popup.Dismissed += (sender, e) =>
-			{
-				switch(e.ButtonIndex)
-				{
-					case 0 : 
-						ViewModel.ExpandLoan(vm.DocumentNumber);
-						break;
+            popup.CancelButtonIndex = 2;
 
-					case 1: 
-						ViewModel.ShowDetailsCommand.Execute(vm);
-						break;
-				}
-			};
+            popup.Dismissed += (sender, e) =>
+            {
+                switch (e.ButtonIndex)
+                {
+                    case 0:
+                        ViewModel.ExpandLoan(vm.DocumentNumber);
+                        break;
 
-			popup.Show();
-		}
+                    case 1:
+                        ViewModel.ShowDetailsCommand.Execute(vm);
+                        break;
+                }
+            };
 
-		UILabel _noRows = new UILabel();
-	}
-	
+            popup.Show();
+        }
+
+        UILabel _noRows = new UILabel();
+    }
+
 }

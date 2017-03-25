@@ -1,55 +1,53 @@
-using System;
 using CoreGraphics;
-using Foundation;
-using UIKit;
 using Solvberget.Core.ViewModels;
-using Cirrious.MvvmCross.Binding.BindingContext;
+using System;
+using UIKit;
 
 namespace Solvberget.iOS
 {
-	public class MyPagePersonaliaView : NamedViewController
-	{
-		public new MyPagePersonaliaViewModel ViewModel
-		{
-			get
-			{
-				return base.ViewModel as MyPagePersonaliaViewModel;
-			}
-		}
+    public class MyPagePersonaliaView : NamedViewController
+    {
+        public new MyPagePersonaliaViewModel ViewModel
+        {
+            get
+            {
+                return base.ViewModel as MyPagePersonaliaViewModel;
+            }
+        }
 
-		UIScrollView scrollView;
+        UIScrollView scrollView;
 
-		protected override void ViewModelReady()
-		{
-			base.ViewModelReady();
+        protected override void ViewModelReady()
+        {
+            base.ViewModelReady();
 
-			if (null != scrollView)
-				scrollView.RemoveFromSuperview();
-		
-			scrollView = new UIScrollView(new CGRect(CGPoint.Empty,View.Frame.Size));
-			scrollView.BackgroundColor = UIColor.White;
+            if (null != scrollView)
+                scrollView.RemoveFromSuperview();
 
-			Add(scrollView);
+            scrollView = new UIScrollView(new CGRect(CGPoint.Empty, View.Frame.Size));
+            scrollView.BackgroundColor = UIColor.White;
 
-			var boxes = new BoxRenderer(scrollView);
+            Add(scrollView);
 
-			var box = boxes.StartBox();
+            var boxes = new BoxRenderer(scrollView);
 
-			new LabelAndValue(box, "Navn", ViewModel.Name);
-			new LabelAndValue(box, "Fødselsdato", ViewModel.DateOfBirth);
+            var box = boxes.StartBox();
 
-			box = boxes.StartBox();
-			new LabelAndValue(box, "Addresse", ViewModel.StreetAdress + Environment.NewLine + ViewModel.CityAdress);
-			new LabelAndValue(box, "Epost", ViewModel.Email);
-			new LabelAndValue(box, "Mobiltelefon", ViewModel.CellPhoneNumber);
+            new LabelAndValue(box, "Navn", ViewModel.Name);
+            new LabelAndValue(box, "Fødselsdato", ViewModel.DateOfBirth);
 
-			box = boxes.StartBox();
-			new LabelAndValue(box, "Bibliotek", ViewModel.HomeLibrary);
-			new LabelAndValue(box, "Balanse", ViewModel.Balance);
-			new LabelAndValue(box, "Kredittgrense", ViewModel.Credit);
+            box = boxes.StartBox();
+            new LabelAndValue(box, "Addresse", ViewModel.StreetAdress + Environment.NewLine + ViewModel.CityAdress);
+            new LabelAndValue(box, "Epost", ViewModel.Email);
+            new LabelAndValue(box, "Mobiltelefon", ViewModel.CellPhoneNumber);
 
-			UIHelpers.SetContentSize(scrollView);
-		}
-	}
-	
+            box = boxes.StartBox();
+            new LabelAndValue(box, "Bibliotek", ViewModel.HomeLibrary);
+            new LabelAndValue(box, "Balanse", ViewModel.Balance);
+            new LabelAndValue(box, "Kredittgrense", ViewModel.Credit);
+
+            UIHelpers.SetContentSize(scrollView);
+        }
+    }
+
 }

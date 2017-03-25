@@ -1,47 +1,45 @@
-using System;
 using CoreGraphics;
-using Foundation;
-using UIKit;
+using MvvmCross.Binding.BindingContext;
 using Solvberget.Core.ViewModels;
-using Cirrious.MvvmCross.Binding.BindingContext;
+using UIKit;
 
 namespace Solvberget.iOS
 {
 
-	public class MyPageFinesView : NamedTableViewController
-	{
-		public new MyPageFinesViewModel ViewModel
-		{
-			get
-			{
-				return base.ViewModel as MyPageFinesViewModel;
-			}
-		}
+    public class MyPageFinesView : NamedTableViewController
+    {
+        public new MyPageFinesViewModel ViewModel
+        {
+            get
+            {
+                return base.ViewModel as MyPageFinesViewModel;
+            }
+        }
 
-		protected override void ViewModelReady()
-		{
-			base.ViewModelReady();
-		
-			var source = new SimpleTableViewSource<FineViewModel>(TableView, CellBindings.Fines);
-			TableView.Source = source;
+        protected override void ViewModelReady()
+        {
+            base.ViewModelReady();
 
-			var set = this.CreateBindingSet<MyPageFinesView, MyPageFinesViewModel>();
-			set.Bind(source).To(vm => vm.Fines);
+            var source = new SimpleTableViewSource<FineViewModel>(TableView, CellBindings.Fines);
+            TableView.Source = source;
 
-			set.Apply();
+            var set = this.CreateBindingSet<MyPageFinesView, MyPageFinesViewModel>();
+            set.Bind(source).To(vm => vm.Fines);
 
-			TableView.ReloadData();
+            set.Apply();
 
-			_noRows.RemoveFromSuperview();
+            TableView.ReloadData();
 
-			if (ViewModel.Fines.Count == 0)
-			{
-				_noRows = new UILabel(new CGRect(10, 10, 300, 30)){ Text = "Du har ingen gebyrer.", Font = Application.ThemeColors.DefaultFont };
-				Add(_noRows);
-			}
-		}
+            _noRows.RemoveFromSuperview();
 
-		UILabel _noRows = new UILabel();
-	}
-	
+            if (ViewModel.Fines.Count == 0)
+            {
+                _noRows = new UILabel(new CGRect(10, 10, 300, 30)) { Text = "Du har ingen gebyrer.", Font = Application.ThemeColors.DefaultFont };
+                Add(_noRows);
+            }
+        }
+
+        UILabel _noRows = new UILabel();
+    }
+
 }

@@ -1,40 +1,36 @@
-using System;
-using CoreGraphics;
 using Foundation;
+using MvvmCross.Binding.iOS.Views;
 using UIKit;
-using Solvberget.Core.ViewModels;
-using Cirrious.MvvmCross.Binding.Touch.Views;
-using Cirrious.MvvmCross.Binding.BindingContext;
 
 namespace Solvberget.iOS
 {
-	public class StandardTableViewSource : MvxStandardTableViewSource
-	{
-		public StandardTableViewSource(UITableView tableView, string bindingText)
-			: base(tableView, bindingText)
-		{
-		}
+    public class StandardTableViewSource : MvxStandardTableViewSource
+    {
+        public StandardTableViewSource(UITableView tableView, string bindingText)
+            : base(tableView, bindingText)
+        {
+        }
 
-		public StandardTableViewSource(UITableView tableView, UITableViewCellStyle style, string cellIdentifier,  string bindingText, UITableViewCellAccessory accessory = UITableViewCellAccessory.DisclosureIndicator) 
-			: base(tableView, style, new NSString(cellIdentifier), bindingText, accessory)
-		{
-		}
+        public StandardTableViewSource(UITableView tableView, UITableViewCellStyle style, string cellIdentifier, string bindingText, UITableViewCellAccessory accessory = UITableViewCellAccessory.DisclosureIndicator)
+            : base(tableView, style, new NSString(cellIdentifier), bindingText, accessory)
+        {
+        }
 
-		protected override MvxStandardTableViewCell CreateDefaultBindableCell(UITableView tableView, NSIndexPath indexPath, object item)
-		{
-			var cell = base.CreateDefaultBindableCell(tableView, indexPath, item);
+        protected override MvxStandardTableViewCell CreateDefaultBindableCell(UITableView tableView, NSIndexPath indexPath, object item)
+        {
+            var cell = base.CreateDefaultBindableCell(tableView, indexPath, item);
 
-			cell.TextLabel.Font = Application.ThemeColors.DefaultFont;
-			cell.TextLabel.TextColor = Application.ThemeColors.Main2;
+            cell.TextLabel.Font = Application.ThemeColors.DefaultFont;
+            cell.TextLabel.TextColor = Application.ThemeColors.Main2;
 
-			if (null != cell.DetailTextLabel)
-			{
-				cell.DetailTextLabel.Font = Application.ThemeColors.DefaultFont;
-				cell.DetailTextLabel.TextColor = Application.ThemeColors.Subtle;
-			}
+            if (null != cell.DetailTextLabel)
+            {
+                cell.DetailTextLabel.Font = Application.ThemeColors.DefaultFont;
+                cell.DetailTextLabel.TextColor = Application.ThemeColors.Subtle;
+            }
 
-			return cell;
-		}
-	}
+            return cell;
+        }
+    }
 }
 

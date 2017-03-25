@@ -1,46 +1,40 @@
-using System;
-using CoreGraphics;
-using Foundation;
-using UIKit;
-using Cirrious.MvvmCross.Touch.Views;
+using MvvmCross.Binding.BindingContext;
 using Solvberget.Core.ViewModels;
-using Cirrious.MvvmCross.Binding.Touch.Views;
-using Cirrious.MvvmCross.Binding.BindingContext;
 
 namespace Solvberget.iOS
 {
-	public partial class EventListView : NamedTableViewController
+    public partial class EventListView : NamedTableViewController
     {
-		public new EventListViewModel ViewModel
-		{
-			get
-			{
-				return base.ViewModel as EventListViewModel;
-			}
-		}
+        public new EventListViewModel ViewModel
+        {
+            get
+            {
+                return base.ViewModel as EventListViewModel;
+            }
+        }
 
-		public override void ViewDidLoad()
-		{
-			base.ViewDidLoad();
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
 
-			LoadingOverlay.LoadingText = "Henter arrangementer...";
-		}
+            LoadingOverlay.LoadingText = "Henter arrangementer...";
+        }
 
-		protected override void ViewModelReady()
-		{
-			base.ViewModelReady();
-		
-			var source = new SimpleTableViewSource<EventViewModel>(TableView, CellBindings.Events);
+        protected override void ViewModelReady()
+        {
+            base.ViewModelReady();
 
-			TableView.Source = source;
+            var source = new SimpleTableViewSource<EventViewModel>(TableView, CellBindings.Events);
 
-			var set = this.CreateBindingSet<EventListView, EventListViewModel>();
-			set.Bind(source).To(vm => vm.Events);
+            TableView.Source = source;
+
+            var set = this.CreateBindingSet<EventListView, EventListViewModel>();
+            set.Bind(source).To(vm => vm.Events);
             set.Bind(source).For(s => s.SelectionChangedCommand).To(vm => vm.ShowDetailsCommand);
 
-			set.Apply();
+            set.Apply();
 
-			TableView.ReloadData();
+            TableView.ReloadData();
         }
     }
 }

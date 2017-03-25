@@ -1,55 +1,49 @@
-using System;
-using CoreGraphics;
 using Foundation;
-using UIKit;
-using Cirrious.MvvmCross.Touch.Views;
-using Cirrious.MvvmCross.Binding.BindingContext;
-using SlidingPanels.Lib;
-using System.Collections.Generic;
-using SlidingPanels.Lib.PanelContainers;
+using MvvmCross.Binding.iOS.Views;
 using Solvberget.Core.ViewModels;
-using Cirrious.MvvmCross.Binding.Touch.Views;
+using System.Collections.Generic;
+using UIKit;
 
 namespace Solvberget.iOS
 {
 
-	public class MenuTableViewSource : MvxStandardTableViewSource
-	{
-		public MenuTableViewSource(UITableView tableView)
-			: base(tableView, MenuCell.Key)
-		{
-			tableView.RegisterNibForCellReuse(UINib.FromName(MenuCell.Key, NSBundle.MainBundle), MenuCell.Key);
-		}
+    public class MenuTableViewSource : MvxStandardTableViewSource
+    {
+        public MenuTableViewSource(UITableView tableView)
+            : base(tableView, MenuCell.Key)
+        {
+            tableView.RegisterNibForCellReuse(UINib.FromName(MenuCell.Key, NSBundle.MainBundle), MenuCell.Key);
+        }
 
-		protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item)
-		{
-			MenuCell cell = base.GetOrCreateCellFor(tableView, indexPath, item) as MenuCell;
+        protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item)
+        {
+            MenuCell cell = base.GetOrCreateCellFor(tableView, indexPath, item) as MenuCell;
 
-			MenuViewModel model = (MenuViewModel)item;
+            MenuViewModel model = (MenuViewModel)item;
 
-			cell.Set(model);
+            cell.Set(model);
 
-			_indexPathItems[item] = indexPath;
+            _indexPathItems[item] = indexPath;
 
-			return cell;
-		}
+            return cell;
+        }
 
-		UIView _selectedBackgroundView;
+        UIView _selectedBackgroundView;
 
-		Dictionary<object, NSIndexPath> _indexPathItems = new Dictionary<object, NSIndexPath>();
+        Dictionary<object, NSIndexPath> _indexPathItems = new Dictionary<object, NSIndexPath>();
 
-		public void SelectRow(MenuViewModel row)
-		{
-			NSIndexPath path = null;
+        public void SelectRow(MenuViewModel row)
+        {
+            NSIndexPath path = null;
 
-			if(null != row) _indexPathItems.TryGetValue(row, out path);
+            if (null != row) _indexPathItems.TryGetValue(row, out path);
 
-			if(null != TableView.IndexPathForSelectedRow) TableView.DeselectRow(TableView.IndexPathForSelectedRow,false);
-			if(null != path) TableView.SelectRow(path, false, UITableViewScrollPosition.None);
-		}
+            if (null != TableView.IndexPathForSelectedRow) TableView.DeselectRow(TableView.IndexPathForSelectedRow, false);
+            if (null != path) TableView.SelectRow(path, false, UITableViewScrollPosition.None);
+        }
 
-		public UIColor BackgroundColor{get;set;}
-		public UIColor TextColor{ get; set;}
-		public UIColor TintColor{ get; set;}
-	}
+        public UIColor BackgroundColor { get; set; }
+        public UIColor TextColor { get; set; }
+        public UIColor TintColor { get; set; }
+    }
 }

@@ -1,78 +1,75 @@
-using System;
 using CoreGraphics;
-using Foundation;
-using UIKit;
+using MvvmCross.Binding.BindingContext;
 using Solvberget.Core.ViewModels;
-using Cirrious.MvvmCross.Binding.BindingContext;
-using Solvberget.Core.DTOs;
+using UIKit;
 
 namespace Solvberget.iOS
 {
-	public class MyPageReservationsView : NamedTableViewController
-	{
-		public new MyPageReservationsViewModel ViewModel
-		{
-			get
-			{
-				return base.ViewModel as MyPageReservationsViewModel;
-			}
-		}
+    public class MyPageReservationsView : NamedTableViewController
+    {
+        public new MyPageReservationsViewModel ViewModel
+        {
+            get
+            {
+                return base.ViewModel as MyPageReservationsViewModel;
+            }
+        }
 
-		protected override void ViewModelReady()
-		{
-			base.ViewModelReady();
-		
-			var source = new SimpleTableViewSource<ReservationViewModel>(TableView, CellBindings.Reservations);
-			TableView.Source = source;
+        protected override void ViewModelReady()
+        {
+            base.ViewModelReady();
 
-			var set = this.CreateBindingSet<MyPageReservationsView, MyPageReservationsViewModel>();
-			set.Bind(source).To(vm => vm.Reservations);
-			source.SelectedItemChanged += (s,e) => ShowPopup(source.SelectedItem as ReservationViewModel);
-			set.Apply();
+            var source = new SimpleTableViewSource<ReservationViewModel>(TableView, CellBindings.Reservations);
+            TableView.Source = source;
 
-			TableView.ReloadData();
+            var set = this.CreateBindingSet<MyPageReservationsView, MyPageReservationsViewModel>();
+            set.Bind(source).To(vm => vm.Reservations);
+            source.SelectedItemChanged += (s, e) => ShowPopup(source.SelectedItem as ReservationViewModel);
+            set.Apply();
 
-			_noRows.RemoveFromSuperview();
+            TableView.ReloadData();
 
-			if (ViewModel.Reservations.Count == 0)
-			{
-				_noRows = new UILabel(new CGRect(10, 10, 300, 30)){ Text = "Du har ingen reservasjoner.", Font = Application.ThemeColors.DefaultFont };
-				Add(_noRows);
-			}
-		}
-		void ShowPopup(ReservationViewModel vm)
-		{
-			if (null == vm)
-				return;
+            _noRows.RemoveFromSuperview();
 
-			var popup = new UIAlertView(View.Frame);
+            if (ViewModel.Reservations.Count == 0)
+            {
+                _noRows = new UILabel(new CGRect(10, 10, 300, 30)) { Text = "Du har ingen reservasjoner.", Font = Application.ThemeColors.DefaultFont };
+                Add(_noRows);
+            }
+        }
+        void ShowPopup(ReservationViewModel vm)
+        {
+            if (null == vm)
+                return;
 
-			popup.Title = vm.DocumentTitle;
+            var popup = new UIAlertView(View.Frame);
 
-			popup.AddButton("Kanseller reservasjon");
-			popup.AddButton("Vis detaljer");
-			popup.AddButton("Avbryt");
+            popup.Title = vm.DocumentTitle;
 
-			popup.CancelButtonIndex = 2;
+            popup.AddButton("Kanseller reservasjon");
+            popup.AddButton("Vis detaljer");
+            popup.AddButton("Avbryt");
 
-			popup.Dismissed += (sender, e) =>
-			{
-				switch(e.ButtonIndex)
-				{
-					case 0 : 
-						ViewModel.RemoveReservation(vm);
-						break;
+            popup.CancelButtonIndex = 2;
 
-					case 1: 
-						ViewModel.ShowDetailsCommand.Execute(vm);
-						break;
-				}
-			};
+            popup.Dismissed += (sender, e) =>
+            {
+                switch (e.ButtonIndex)
+                {
+                    case 0:
+                        ViewModel.RemoveReservation(vm);
+                        break;
 
-			popup.Show();
-		}
+                    case 1:
+                        ViewModel.ShowDetailsCommand.Execute(vm);
+                        break;
+                }
+            };
 
-		UILabel _noRows = new UILabel();
-	}
-	
+            popup.Show();
+        }
+
+        UILabel _noRows = new UILabel();
+    }
+
 }

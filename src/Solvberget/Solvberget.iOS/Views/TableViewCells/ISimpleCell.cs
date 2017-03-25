@@ -1,18 +1,13 @@
 using System;
-using CoreGraphics;
-using Foundation;
 using UIKit;
-using Cirrious.MvvmCross.Binding.Touch.Views;
-using Solvberget.Core.ViewModels;
 
 namespace Solvberget.iOS
 {
-	public interface ISimpleCell{
-		void Bind(string title, string subtitle);
-		void SetImage(UIImage image);
-		string ImageUrl{get;set;}
-
-		nfloat TableWidth { get; set;}
-	}
-	
+    public interface ISimpleCell
+    {
+        void Bind(string title, string subtitle);
+        void SetImage(UIImage image);
+        string ImageUrl { get; set; }
+        nfloat TableWidth { get; set; }
+    }
 }

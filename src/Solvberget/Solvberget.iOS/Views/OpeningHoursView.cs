@@ -1,42 +1,37 @@
-using System;
-using CoreGraphics;
-using Foundation;
-using UIKit;
-using Cirrious.MvvmCross.Touch.Views;
+using MvvmCross.Binding.BindingContext;
 using Solvberget.Core.ViewModels;
-using Cirrious.MvvmCross.Binding.Touch.Views;
-using Cirrious.MvvmCross.Binding.BindingContext;
+using UIKit;
 
 namespace Solvberget.iOS
 {
-	public partial class OpeningHoursView : NamedTableViewController
+    public partial class OpeningHoursView : NamedTableViewController
     {
-		public new OpeningHoursViewModel ViewModel
-		{
-			get
-			{
-				return base.ViewModel as OpeningHoursViewModel;
-			}
-		}
+        public new OpeningHoursViewModel ViewModel
+        {
+            get
+            {
+                return base.ViewModel as OpeningHoursViewModel;
+            }
+        }
 
-		protected override void ViewModelReady()
-		{
-			base.ViewModelReady();
+        protected override void ViewModelReady()
+        {
+            base.ViewModelReady();
 
-			LoadingOverlay.LoadingText = "Henter åpningstider...";
+            LoadingOverlay.LoadingText = "Henter åpningstider...";
 
-			var source = new StandardTableViewSource(TableView, UITableViewCellStyle.Default,
-				"OpeningHoursLocations", "TitleText Title");
+            var source = new StandardTableViewSource(TableView, UITableViewCellStyle.Default,
+                "OpeningHoursLocations", "TitleText Title");
 
-			TableView.Source = source;
+            TableView.Source = source;
 
-			var set = this.CreateBindingSet<OpeningHoursView, OpeningHoursViewModel>();
-			set.Bind(source).To(vm => vm.Locations);
-			set.Bind(source).For(s => s.SelectionChangedCommand).To(vm => vm.ShowDetailsCommand);
+            var set = this.CreateBindingSet<OpeningHoursView, OpeningHoursViewModel>();
+            set.Bind(source).To(vm => vm.Locations);
+            set.Bind(source).For(s => s.SelectionChangedCommand).To(vm => vm.ShowDetailsCommand);
 
-			set.Apply();
+            set.Apply();
 
-			TableView.ReloadData();
+            TableView.ReloadData();
         }
     }
 }

@@ -1,40 +1,34 @@
-using System;
-using CoreGraphics;
-using Foundation;
-using UIKit;
-using Cirrious.MvvmCross.Touch.Views;
+using MvvmCross.Binding.BindingContext;
 using Solvberget.Core.ViewModels;
-using Cirrious.MvvmCross.Binding.Touch.Views;
-using Cirrious.MvvmCross.Binding.BindingContext;
 
 namespace Solvberget.iOS
 {
-	public partial class SuggestionsListListView : NamedTableViewController
+    public partial class SuggestionsListListView : NamedTableViewController
     {
-		public new SuggestionsListListViewModel ViewModel
-		{
-			get
-			{
-				return base.ViewModel as SuggestionsListListViewModel;
-			}
-		}
+        public new SuggestionsListListViewModel ViewModel
+        {
+            get
+            {
+                return base.ViewModel as SuggestionsListListViewModel;
+            }
+        }
 
-		protected override void ViewModelReady()
-		{
-			base.ViewModelReady();
+        protected override void ViewModelReady()
+        {
+            base.ViewModelReady();
 
-			LoadingOverlay.LoadingText = "Henter anbefalinger...";
+            LoadingOverlay.LoadingText = "Henter anbefalinger...";
 
-			var source = new SimpleTableViewSource<SuggestionListSummaryViewModel>(TableView, CellBindings.SuggestionLists);
-			TableView.Source = source;
+            var source = new SimpleTableViewSource<SuggestionListSummaryViewModel>(TableView, CellBindings.SuggestionLists);
+            TableView.Source = source;
 
-			var set = this.CreateBindingSet<SuggestionsListListView, SuggestionsListListViewModel>();
-			set.Bind(source).To(vm => vm.Lists);
-			set.Bind(source).For(s => s.SelectionChangedCommand).To(vm => vm.ShowListCommand);
+            var set = this.CreateBindingSet<SuggestionsListListView, SuggestionsListListViewModel>();
+            set.Bind(source).To(vm => vm.Lists);
+            set.Bind(source).For(s => s.SelectionChangedCommand).To(vm => vm.ShowListCommand);
 
-			set.Apply();
+            set.Apply();
 
-			TableView.ReloadData();
+            TableView.ReloadData();
         }
     }
 }

@@ -1,206 +1,204 @@
-using System;
 using CoreGraphics;
-using Foundation;
-using UIKit;
+using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.iOS.Views;
 using Solvberget.Core.ViewModels;
-using Cirrious.MvvmCross.Touch.Views;
-using Cirrious.MvvmCross.Binding.BindingContext;
-using Cirrious.MvvmCross.Binding.Touch.Views;
+using System;
+using UIKit;
 
 namespace Solvberget.iOS
 {
-	public partial class SearchView : NamedViewController
+    public partial class SearchView : NamedViewController
     {
         public SearchView() : base("SearchView", null)
         {
         }
 
-		public new SearchViewModel ViewModel
-		{
-			get
-			{
-				return base.ViewModel as SearchViewModel;
-			}
-		}
+        public new SearchViewModel ViewModel
+        {
+            get
+            {
+                return base.ViewModel as SearchViewModel;
+            }
+        }
 
-		SimpleTableViewSource<SearchResultViewModel> _resultsSource;
+        SimpleTableViewSource<SearchResultViewModel> _resultsSource;
 
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-			ViewModel.EnableListEmptyResult = false;
-			UpdateResultCount();
+            ViewModel.EnableListEmptyResult = false;
+            UpdateResultCount();
 
-			ViewModel.PropertyChanged += (sender, e) => UpdateResultCount();
-		
-			NavigationItem.SetRightBarButtonItem(new UIBarButtonItem(UIBarButtonSystemItem.Organize, HandleRightBarButtonItemClicked), true);
+            ViewModel.PropertyChanged += (sender, e) => UpdateResultCount();
 
-			Query.SearchButtonClicked += HandleSearchButtonClicked;
-			Query.TextChanged += HandleTextChanged;
+            NavigationItem.SetRightBarButtonItem(new UIBarButtonItem(UIBarButtonSystemItem.Organize, HandleRightBarButtonItemClicked), true);
 
-			_resultsSource = new SimpleTableViewSource<SearchResultViewModel>(Results, CellBindings.SearchResults);
-			Results.Source = _resultsSource;
+            Query.SearchButtonClicked += HandleSearchButtonClicked;
+            Query.TextChanged += HandleTextChanged;
 
-			LoadingOverlay.LoadingText = "Søker...";
+            _resultsSource = new SimpleTableViewSource<SearchResultViewModel>(Results, CellBindings.SearchResults);
+            Results.Source = _resultsSource;
 
-			var set = this.CreateBindingSet<SearchView, SearchViewModel>();
-			set.Bind(_resultsSource).To(vm => vm.Results);
-			set.Bind(_resultsSource).For(s => s.SelectionChangedCommand).To(vm => vm.ShowDetailsCommand);
-			set.Bind(LoadingOverlay).For("Visibility").To(vm => vm.IsLoading).WithConversion("Visibility");
-			set.Apply();
+            LoadingOverlay.LoadingText = "Søker...";
 
-			Results.ReloadData();
+            var set = this.CreateBindingSet<SearchView, SearchViewModel>();
+            set.Bind(_resultsSource).To(vm => vm.Results);
+            set.Bind(_resultsSource).For(s => s.SelectionChangedCommand).To(vm => vm.ShowDetailsCommand);
+            set.Bind(LoadingOverlay).For("Visibility").To(vm => vm.IsLoading).WithConversion("Visibility");
+            set.Apply();
 
-			Query.BecomeFirstResponder();
-		}
+            Results.ReloadData();
 
-		UIView _overlay = new UIView();
-		UIPickerView _filterOptions;
-		bool _filterShowing;
-		MvxPickerViewModel _filterModel;
-
-        void HandleRightBarButtonItemClicked (object sender, EventArgs e)
-        {
-			ToggleFilterPanel();
+            Query.BecomeFirstResponder();
         }
 
-		void ToggleFilterPanel()
-		{
-			EnsureFilterPanelCreated();
+        UIView _overlay = new UIView();
+        UIPickerView _filterOptions;
+        bool _filterShowing;
+        MvxPickerViewModel _filterModel;
 
-			if (!_filterShowing) ShowFilterPanel();
-			else HideFilterPanel();
+        void HandleRightBarButtonItemClicked(object sender, EventArgs e)
+        {
+            ToggleFilterPanel();
+        }
 
-			_filterShowing = !_filterShowing;
-		}
+        void ToggleFilterPanel()
+        {
+            EnsureFilterPanelCreated();
 
-		void EnsureFilterPanelCreated()
-		{
-			if (null == _filterOptions)
-			{
-				_overlay = new UIView();
-				_overlay.AddGestureRecognizer(new UITapGestureRecognizer(ToggleFilterPanel));
-				_overlay.Frame = new CGRect(CGPoint.Empty, View.Frame.Size);
-				_filterOptions = new UIPickerView();
-				_filterOptions.BackgroundColor = UIColor.White;
-				_overlay.AddSubview(_filterOptions);
-				_filterModel = new MvxPickerViewModel(_filterOptions);
-				_filterModel.ItemsSource = new[] {
-					"Alle",
-					"Bøker",
-					"CDer",
-					"Filmer",
-					"Journaler",
-					"Lydbøker",
-					"Noter",
-					"Spill",
-					"Annet"
-				};
-				_filterModel.SelectedItem = "Alle";
-				_filterModel.SelectedItemChanged += HandleFilterChanged;
-				_filterOptions.Model = _filterModel;
-			}
-		}
+            if (!_filterShowing) ShowFilterPanel();
+            else HideFilterPanel();
 
-		void ShowFilterPanel()
-		{
-			Query.ResignFirstResponder();
+            _filterShowing = !_filterShowing;
+        }
 
-			_overlay.BackgroundColor = new UIColor(0f, 0f, 0f, 0f);
-			_overlay.Frame = new CGRect(CGPoint.Empty, View.Frame.Size);
+        void EnsureFilterPanelCreated()
+        {
+            if (null == _filterOptions)
+            {
+                _overlay = new UIView();
+                _overlay.AddGestureRecognizer(new UITapGestureRecognizer(ToggleFilterPanel));
+                _overlay.Frame = new CGRect(CGPoint.Empty, View.Frame.Size);
+                _filterOptions = new UIPickerView();
+                _filterOptions.BackgroundColor = UIColor.White;
+                _overlay.AddSubview(_filterOptions);
+                _filterModel = new MvxPickerViewModel(_filterOptions);
+                _filterModel.ItemsSource = new[] {
+                    "Alle",
+                    "Bøker",
+                    "CDer",
+                    "Filmer",
+                    "Journaler",
+                    "Lydbøker",
+                    "Noter",
+                    "Spill",
+                    "Annet"
+                };
+                _filterModel.SelectedItem = "Alle";
+                _filterModel.SelectedItemChanged += HandleFilterChanged;
+                _filterOptions.Model = _filterModel;
+            }
+        }
 
-			_filterOptions.Center = new CGPoint(View.Frame.Width / 2, View.Frame.Height + (_filterOptions.Frame.Height / 2));
-			_filterOptions.Frame = new CGRect(0, _filterOptions.Frame.Top, View.Frame.Width, _filterOptions.Frame.Height);
-			View.AddSubview(_overlay);
-			UIView.Animate(0.25, 0, UIViewAnimationOptions.CurveEaseInOut, () => 
-			{
-				_filterOptions.Center = new CGPoint(View.Frame.Width / 2, View.Frame.Height - (_filterOptions.Frame.Height / 2));
-				_overlay.BackgroundColor = new UIColor(0f, 0f, 0f, 0.75f);
-			}, null);
-		}
+        void ShowFilterPanel()
+        {
+            Query.ResignFirstResponder();
 
-		void HideFilterPanel()
-		{
-			UIView.Animate(0.25, 0, UIViewAnimationOptions.CurveEaseInOut, () => 
-			{
-				_filterOptions.Center = new CGPoint(View.Frame.Width / 2, View.Frame.Height + (_filterOptions.Frame.Height / 2));
-				_overlay.BackgroundColor = new UIColor(0f, 0f, 0f, 0f);
-			}, () => 
-			{
-				_overlay.RemoveFromSuperview();
-			});
-		}
+            _overlay.BackgroundColor = new UIColor(0f, 0f, 0f, 0f);
+            _overlay.Frame = new CGRect(CGPoint.Empty, View.Frame.Size);
 
-		void HandleFilterChanged (object sender, EventArgs e)
-		{
-			UpdateBinding();
-		}
+            _filterOptions.Center = new CGPoint(View.Frame.Width / 2, View.Frame.Height + (_filterOptions.Frame.Height / 2));
+            _filterOptions.Frame = new CGRect(0, _filterOptions.Frame.Top, View.Frame.Width, _filterOptions.Frame.Height);
+            View.AddSubview(_overlay);
+            UIView.Animate(0.25, 0, UIViewAnimationOptions.CurveEaseInOut, () =>
+            {
+                _filterOptions.Center = new CGPoint(View.Frame.Width / 2, View.Frame.Height - (_filterOptions.Frame.Height / 2));
+                _overlay.BackgroundColor = new UIColor(0f, 0f, 0f, 0.75f);
+            }, null);
+        }
 
-		void UpdateBinding()
-		{
-			var set = this.CreateBindingSet<SearchView, SearchViewModel>();
-			switch (_filterModel.SelectedItem as string)
-			{
-				case "Alle":
-					set.Bind(_resultsSource).To(vm => vm.Results);
-					break;
-				case "Bøker":
-					set.Bind(_resultsSource).To(vm => vm.BookResults);
-					break;
-				case "Filmer":
-					set.Bind(_resultsSource).To(vm => vm.MovieResults);
-					break;
-				case "CDer":
-					set.Bind(_resultsSource).To(vm => vm.CDResults);
+        void HideFilterPanel()
+        {
+            UIView.Animate(0.25, 0, UIViewAnimationOptions.CurveEaseInOut, () =>
+            {
+                _filterOptions.Center = new CGPoint(View.Frame.Width / 2, View.Frame.Height + (_filterOptions.Frame.Height / 2));
+                _overlay.BackgroundColor = new UIColor(0f, 0f, 0f, 0f);
+            }, () =>
+            {
+                _overlay.RemoveFromSuperview();
+            });
+        }
+
+        void HandleFilterChanged(object sender, EventArgs e)
+        {
+            UpdateBinding();
+        }
+
+        void UpdateBinding()
+        {
+            var set = this.CreateBindingSet<SearchView, SearchViewModel>();
+            switch (_filterModel.SelectedItem as string)
+            {
+                case "Alle":
+                    set.Bind(_resultsSource).To(vm => vm.Results);
+                    break;
+                case "Bøker":
+                    set.Bind(_resultsSource).To(vm => vm.BookResults);
+                    break;
+                case "Filmer":
+                    set.Bind(_resultsSource).To(vm => vm.MovieResults);
+                    break;
+                case "CDer":
+                    set.Bind(_resultsSource).To(vm => vm.CDResults);
                     break;
                 case "Lydbøker":
-					set.Bind(_resultsSource).To(vm => vm.AudioBookResults);
-					break;
-				case "Noter":
-					set.Bind(_resultsSource).To(vm => vm.SheetMusicResults);
-					break;
-				case "Spill":
-					set.Bind(_resultsSource).To(vm => vm.GameResults);
-					break;
-				case "Journaler":
-					set.Bind(_resultsSource).To(vm => vm.MagazineResults);
-					break;
-				case "Annet":
-					set.Bind(_resultsSource).To(vm => vm.OtherResults);
-					break;
-			}
+                    set.Bind(_resultsSource).To(vm => vm.AudioBookResults);
+                    break;
+                case "Noter":
+                    set.Bind(_resultsSource).To(vm => vm.SheetMusicResults);
+                    break;
+                case "Spill":
+                    set.Bind(_resultsSource).To(vm => vm.GameResults);
+                    break;
+                case "Journaler":
+                    set.Bind(_resultsSource).To(vm => vm.MagazineResults);
+                    break;
+                case "Annet":
+                    set.Bind(_resultsSource).To(vm => vm.OtherResults);
+                    break;
+            }
 
-			set.Apply();
-			Results.ReloadData();
-			UpdateResultCount();
-		}
-
-		void UpdateResultCount()
-		{
-			if (null != ViewModel.Results && Results.NumberOfRowsInSection(0) == 0)
-			{
-				View.AddSubview(NoResultsLabel);
-			}
-			else
-			{
-				NoResultsLabel.RemoveFromSuperview();
-			}
-		}
-
-        void HandleTextChanged (object sender, UISearchBarTextChangedEventArgs e)
-        {
-			ViewModel.ClearResults();
+            set.Apply();
+            Results.ReloadData();
+            UpdateResultCount();
         }
 
-        void HandleSearchButtonClicked (object sender, EventArgs e)
+        void UpdateResultCount()
         {
-			Query.ResignFirstResponder();
+            if (null != ViewModel.Results && Results.NumberOfRowsInSection(0) == 0)
+            {
+                View.AddSubview(NoResultsLabel);
+            }
+            else
+            {
+                NoResultsLabel.RemoveFromSuperview();
+            }
+        }
 
-			ViewModel.Query = Query.Text;
-			ViewModel.SearchAndLoad();
+        void HandleTextChanged(object sender, UISearchBarTextChangedEventArgs e)
+        {
+            ViewModel.ClearResults();
+        }
 
-			Results.BecomeFirstResponder();
+        void HandleSearchButtonClicked(object sender, EventArgs e)
+        {
+            Query.ResignFirstResponder();
+
+            ViewModel.Query = Query.Text;
+            ViewModel.SearchAndLoad();
+
+            Results.BecomeFirstResponder();
         }
     }
 }

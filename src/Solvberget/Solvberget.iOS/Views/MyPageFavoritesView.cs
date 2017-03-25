@@ -1,81 +1,79 @@
-using System;
 using CoreGraphics;
-using Foundation;
-using UIKit;
+using MvvmCross.Binding.BindingContext;
 using Solvberget.Core.ViewModels;
-using Cirrious.MvvmCross.Binding.BindingContext;
+using UIKit;
 
 namespace Solvberget.iOS
 {
 
-	public partial class MyPageFavoritesView : NamedTableViewController
+    public partial class MyPageFavoritesView : NamedTableViewController
     {
-		public new MyPageFavoritesViewModel ViewModel
-		{
-			get
-			{
-				return base.ViewModel as MyPageFavoritesViewModel;
-			}
-		}
+        public new MyPageFavoritesViewModel ViewModel
+        {
+            get
+            {
+                return base.ViewModel as MyPageFavoritesViewModel;
+            }
+        }
 
-		protected override void ViewModelReady()
-		{
-			base.ViewModelReady();
-		
-			var source = new SimpleTableViewSource<FavoriteViewModel>(TableView, CellBindings.Favorites);
-			TableView.Source = source;
+        protected override void ViewModelReady()
+        {
+            base.ViewModelReady();
 
-			var set = this.CreateBindingSet<MyPageFavoritesView, MyPageFavoritesViewModel>();
-			set.Bind(source).To(vm => vm.Favorites);
+            var source = new SimpleTableViewSource<FavoriteViewModel>(TableView, CellBindings.Favorites);
+            TableView.Source = source;
 
-			source.SelectedItemChanged += (s,e) => ShowPopup(source.SelectedItem as FavoriteViewModel);
+            var set = this.CreateBindingSet<MyPageFavoritesView, MyPageFavoritesViewModel>();
+            set.Bind(source).To(vm => vm.Favorites);
 
-			set.Apply();
+            source.SelectedItemChanged += (s, e) => ShowPopup(source.SelectedItem as FavoriteViewModel);
 
-			TableView.ReloadData();
-		
-			_noRows.RemoveFromSuperview();
+            set.Apply();
 
-			if (ViewModel.Favorites.Count == 0)
-			{
-				_noRows = new UILabel(new CGRect(10, 10, 300, 30)){ Text = "Du har ingen favoritter.", Font = Application.ThemeColors.DefaultFont };
-				Add(_noRows);
-			}
-		}
+            TableView.ReloadData();
 
-		UILabel _noRows = new UILabel();
+            _noRows.RemoveFromSuperview();
 
-		void ShowPopup(FavoriteViewModel vm)
-		{
-			if (null == vm)
-				return;
+            if (ViewModel.Favorites.Count == 0)
+            {
+                _noRows = new UILabel(new CGRect(10, 10, 300, 30)) { Text = "Du har ingen favoritter.", Font = Application.ThemeColors.DefaultFont };
+                Add(_noRows);
+            }
+        }
 
-			var popup = new UIAlertView(View.Frame);
+        UILabel _noRows = new UILabel();
 
-			popup.Title = vm.Name;
+        void ShowPopup(FavoriteViewModel vm)
+        {
+            if (null == vm)
+                return;
 
-			popup.AddButton("Fjern fra favoritter");
-			popup.AddButton("Vis detaljer");
-			popup.AddButton("Avbryt");
+            var popup = new UIAlertView(View.Frame);
 
-			popup.CancelButtonIndex = 2;
+            popup.Title = vm.Name;
 
-			popup.Dismissed += (sender, e) =>
-			{
-				switch(e.ButtonIndex)
-				{
-					case 0 : 
-						ViewModel.RemoveFavorite(vm.DocumentNumber, vm);
-						break;
+            popup.AddButton("Fjern fra favoritter");
+            popup.AddButton("Vis detaljer");
+            popup.AddButton("Avbryt");
 
-					case 1: 
-						ViewModel.ShowDetailsCommand.Execute(vm);
-						break;
-				}
-			};
+            popup.CancelButtonIndex = 2;
 
-			popup.Show();
-		}
+            popup.Dismissed += (sender, e) =>
+            {
+                switch (e.ButtonIndex)
+                {
+                    case 0:
+                        ViewModel.RemoveFavorite(vm.DocumentNumber, vm);
+                        break;
+
+                    case 1:
+                        ViewModel.ShowDetailsCommand.Execute(vm);
+                        break;
+                }
+            };
+
+            popup.Show();
+        }
     }
 
 }

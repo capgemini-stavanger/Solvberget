@@ -1,12 +1,12 @@
 using Facebook.CoreKit;
+using MvvmCross.Core.ViewModels;
+using MvvmCross.iOS.Platform;
+using MvvmCross.Platform;
 using Solvberget.Core.Services;
 using Solvberget.Core.ViewModels;
 
 namespace Solvberget.iOS
 {
-    using Cirrious.CrossCore;
-    using Cirrious.MvvmCross.Touch.Platform;
-    using Cirrious.MvvmCross.ViewModels;
     using Foundation;
     using UIKit;
 
@@ -24,7 +24,11 @@ namespace Solvberget.iOS
         /// <summary>
         /// The window.
         /// </summary>
-        private UIWindow window;
+        public override UIWindow Window
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Finished the launching.
@@ -34,10 +38,9 @@ namespace Solvberget.iOS
         /// <returns>True or false.</returns>
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            window = new UIWindow(UIScreen.MainScreen.Bounds);
-            UIApplication.SharedApplication.StatusBarStyle = UIStatusBarStyle.LightContent;
+            Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
-            var presenter = new MvxSlidingPanelsTouchViewPresenter(this, window);
+            var presenter = new MvxSlidingPanelsTouchViewPresenter(this, Window);
             var setup = new Setup(this, presenter);
             setup.Initialize();
 
@@ -51,8 +54,9 @@ namespace Solvberget.iOS
 
             Settings.AppID = FacebookAppId;
             Settings.DisplayName = DisplayName;
+            UIApplication.SharedApplication.StatusBarStyle = UIStatusBarStyle.LightContent;
 
-            window.MakeKeyAndVisible();
+            Window.MakeKeyAndVisible();
 
             return ApplicationDelegate.SharedInstance.FinishedLaunching(app, options);
         }

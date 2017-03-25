@@ -1,6 +1,6 @@
-using Cirrious.MvvmCross.Touch.Views;
-using Cirrious.MvvmCross.Touch.Views.Presenters;
-using Cirrious.MvvmCross.ViewModels;
+using MvvmCross.Core.ViewModels;
+using MvvmCross.iOS.Views;
+using MvvmCross.iOS.Views.Presenters;
 using SlidingPanels.Lib;
 using SlidingPanels.Lib.PanelContainers;
 using Solvberget.Core.ViewModels;
@@ -10,7 +10,7 @@ using UIKit;
 
 namespace Solvberget.iOS
 {
-    public class MvxSlidingPanelsTouchViewPresenter : MvxTouchViewPresenter
+    public class MvxSlidingPanelsTouchViewPresenter : MvxIosViewPresenter
     {
         private readonly UIWindow _window;
         private readonly Dictionary<Type, bool> _stackClearingViewModels;
@@ -72,7 +72,7 @@ namespace Solvberget.iOS
             }
         }
 
-        public static IMvxTouchView CurrentView { get; private set; }
+        public static IMvxIosView CurrentView { get; private set; }
 
         public void ClearBackStack()
         {

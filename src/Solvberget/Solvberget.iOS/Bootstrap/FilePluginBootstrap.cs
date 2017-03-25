@@ -1,13 +1,9 @@
-using System;
-using Cirrious.CrossCore.Plugins;
+using MvvmCross.Platform.Plugins;
 
-namespace Solvberget.iOS
+namespace Solvberget.iOS.Bootstrap
 {
-	public class FilePluginBootstrap  : MvxLoaderPluginBootstrapAction<Cirrious.MvvmCross.Plugins.File.PluginLoader, Cirrious.MvvmCross.Plugins.File.Touch.Plugin>
+    public class FilePluginBootstrap
+        : MvxLoaderPluginBootstrapAction<MvvmCross.Plugins.File.PluginLoader, MvvmCross.Plugins.File.iOS.Plugin>
     {
-		public FilePluginBootstrap()
-        {
-        }
     }
 }
-
