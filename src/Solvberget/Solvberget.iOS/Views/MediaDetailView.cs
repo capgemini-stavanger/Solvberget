@@ -1,4 +1,3 @@
-using Cirrious.MvvmCross.Binding.BindingContext;
 using CoreGraphics;
 using Facebook.ShareKit;
 using Foundation;
@@ -6,6 +5,7 @@ using Solvberget.Core.DTOs;
 using Solvberget.Core.ViewModels;
 using System;
 using System.Linq;
+using MvvmCross.Binding.BindingContext;
 using Twitter;
 using UIKit;
 

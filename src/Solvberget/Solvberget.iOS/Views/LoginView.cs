@@ -1,65 +1,62 @@
-using System;
-using CoreGraphics;
-using Foundation;
-using UIKit;
+using MvvmCross.Binding.BindingContext;
 using Solvberget.Core.ViewModels;
-using Cirrious.MvvmCross.Touch.Views;
-using Cirrious.MvvmCross.Binding.BindingContext;
+using System;
+using UIKit;
 
 namespace Solvberget.iOS
 {
-	public partial class LoginView : NamedViewController
+    public partial class LoginView : NamedViewController
     {
         public LoginView() : base("LoginView", null)
         {
         }
 
-		public new LoginViewModel ViewModel { get { return base.ViewModel as LoginViewModel; }}
+        public new LoginViewModel ViewModel { get { return base.ViewModel as LoginViewModel; } }
 
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-			NavigationItem.SetRightBarButtonItem(new UIBarButtonItem("Ferdig", UIBarButtonItemStyle.Done, DoLogin), false);
+            NavigationItem.SetRightBarButtonItem(new UIBarButtonItem("Ferdig", UIBarButtonItemStyle.Done, DoLogin), false);
 
-			UsernameLAbel.Font = PinLabel.Font = Application.ThemeColors.LabelFont;
-			UsernameLAbel.TextColor = PinLabel.TextColor = Application.ThemeColors.Main;
+            UsernameLAbel.Font = PinLabel.Font = Application.ThemeColors.LabelFont;
+            UsernameLAbel.TextColor = PinLabel.TextColor = Application.ThemeColors.Main;
 
-			LostCredentialsButton.SetTitleColor(Application.ThemeColors.Main, UIControlState.Normal);
+            LostCredentialsButton.SetTitleColor(Application.ThemeColors.Main, UIControlState.Normal);
 
-			LostCredentialsButton.TouchUpInside += (s, e) => ViewModel.ForgotPasswordCommand.Execute(Username.Text);
+            LostCredentialsButton.TouchUpInside += (s, e) => ViewModel.ForgotPasswordCommand.Execute(Username.Text);
 
-			var set = this.CreateBindingSet<LoginView, LoginViewModel>();
-			set.Bind(Username).To(vm => vm.UserName);
-			set.Bind(Password).To(vm => vm.Pin);
-			set.Bind(ErrorMessage).To(vm => vm.Message);
+            var set = this.CreateBindingSet<LoginView, LoginViewModel>();
+            set.Bind(Username).To(vm => vm.UserName);
+            set.Bind(Password).To(vm => vm.Pin);
+            set.Bind(ErrorMessage).To(vm => vm.Message);
 
-			set.Bind(LoadingOverlay).For("Visibility").To(vm => vm.IsLoading).WithConversion("Visibility");
+            set.Bind(LoadingOverlay).For("Visibility").To(vm => vm.IsLoading).WithConversion("Visibility");
 
-			set.Apply();
+            set.Apply();
 
-			Username.ShouldReturn += txt =>
-			{
-				Password.BecomeFirstResponder();
-				return true;
-			};
+            Username.ShouldReturn += txt =>
+            {
+                Password.BecomeFirstResponder();
+                return true;
+            };
 
-			Password.ShouldReturn += txt =>
-			{
-				DoLogin();
-				return true;
-			};
+            Password.ShouldReturn += txt =>
+            {
+                DoLogin();
+                return true;
+            };
 
-			Username.BecomeFirstResponder();
+            Username.BecomeFirstResponder();
 
         }
 
-		private void DoLogin(object sender = null, EventArgs args = null)
-		{
-			Password.ResignFirstResponder();
-			LoadingOverlay.Show(View);
-			ViewModel.LoginCommand.Execute(null);
-		}
+        private void DoLogin(object sender = null, EventArgs args = null)
+        {
+            Password.ResignFirstResponder();
+            LoadingOverlay.Show(View);
+            ViewModel.LoginCommand.Execute(null);
+        }
     }
 }
 
