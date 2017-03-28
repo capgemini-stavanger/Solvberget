@@ -445,9 +445,7 @@
     </XamarinComponentReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AppDelegate.cs.txt" />
     <Content Include="Images\logo.white.png" />
-    <Content Include="ToDo-MvvmCross\_ iOS UI.txt" />
   </ItemGroup>
   <ItemGroup />
 </Project>
