@@ -66,8 +66,8 @@ namespace Solvberget.Search8
             DisplayRootView<SearchView>();
         }
 
-        //public string ServiceUrl => "http://http://solvbergetwebapi.azurewebsites.net/";
-        public string ServiceUrl => "http://localhost:8080";
+        public string ServiceUrl => "http://solvbergetwebapi.azurewebsites.net";
+        //public string ServiceUrl => "http://localhost:8080";
         public string ServiceUrl_Search => "/documents/search?query={0}";
         public string ServiceUrl_Document => "/documents/{0}";
         public string ServiceUrl_Rating => "/documents/{0}/rating";

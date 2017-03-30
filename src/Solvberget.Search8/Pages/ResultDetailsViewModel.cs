@@ -52,14 +52,41 @@ namespace Solvberget.Search8.Pages
             Document = await _search.Get(DocumentId);
             Review = await _search.GetReview(DocumentId);
 
-            Availability = BranchToCheck == null ? Document.Availability.FirstOrDefault(x => x.Branch == _defaultBranch)
-                : Document.Availability.FirstOrDefault(x => x.Branch == BranchToCheck);
-            if (Availability == null)
-                Availability = Document.Availability.FirstOrDefault();
+            var myList = BranchToCheck == null ? Document.Availability.Where(x => x.Branch == _defaultBranch).ToList()
+                : Document.Availability.Where(x => x.Branch == BranchToCheck).ToList();
+            DocumentAvailabilityDto myAvailability;
+            if (myList.Any())
+            {
+                myAvailability = myList.FirstOrDefault();
+                var departments = myList.Select(x => x.Department).Distinct();
+                var departmentsString = string.Join(", ", departments);
+                myAvailability.Department = departmentsString;
+                var samlinger = myList.Select(x => x.Collection).Distinct();
+                var samlingerString = string.Join(", ", samlinger);
+                myAvailability.Collection = samlingerString;
+                myAvailability.TotalCount = myList.Sum(x => x.TotalCount);
+                myAvailability.AvailableCount = myList.Sum(x => x.AvailableCount);
+            }
+            else
+            {
+                myAvailability = Document.Availability.FirstOrDefault();
+            }
 
-            OtherAvailableLocations = Document.Availability.Length > 1
+            Availability = myAvailability;
+            //if (Availability == null)
+            //    Availability = Document.Availability.FirstOrDefault();
+
+            var otherAvailableLoc = Document.Availability.FirstOrDefault(x => x.Branch != Availability.Branch);
+            if (otherAvailableLoc != null)
+            {
+                OtherAvailableLocations = new List<DocumentAvailabilityDto> {otherAvailableLoc};
+            }
+            else
+            {
+                OtherAvailableLocations = Document.Availability.Length > 1
                 ? Document.Availability.Where(x => x.Branch != Availability.Branch).ToList()
                 : null;
+            }
 
             PopulateFacts();
 

@@ -68,10 +68,10 @@
                             <TextBlock Text="{Binding Availability.Branch, Converter={StaticResource DimIfNoValue}}" TextWrapping="Wrap"  Style="{ThemeResource MetaDataValue}" />
 
                             <TextBlock Text="Avdeling" Style="{ThemeResource MetaDataLabel}" />
-                            <TextBlock Text="{Binding Availability.Department, Converter={StaticResource DimIfNoValue}}" Style="{ThemeResource MetaDataValue}" />
+                            <TextBlock Text="{Binding Availability.Department, Converter={StaticResource DimIfNoValue}}" TextWrapping="Wrap" Style="{ThemeResource MetaDataValue}" />
 
                             <TextBlock Text="Samling" Style="{ThemeResource MetaDataLabel}" Visibility="{Binding Availability.Collection, Converter={StaticResource StringToVisibility}}" />
-                            <TextBlock Text="{Binding Availability.Collection, Converter={StaticResource DimIfNoValue}}" Visibility="{Binding Availability.Collection, Converter={StaticResource StringToVisibility}}" Style="{ThemeResource MetaDataValue}" />
+                            <TextBlock Text="{Binding Availability.Collection, Converter={StaticResource DimIfNoValue}}" TextWrapping="Wrap" Visibility="{Binding Availability.Collection, Converter={StaticResource StringToVisibility}}" Style="{ThemeResource MetaDataValue}" />
 
                             <TextBlock Text="Finnes på hylle" Style="{ThemeResource MetaDataLabel}" />
 
