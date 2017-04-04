@@ -1,4 +1,5 @@
 using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using Android.Content.Res;
 using Android.OS;
@@ -20,10 +21,10 @@ using SearchView = Solvberget.Droid.Views.Fragments.SearchView;
 
 namespace Solvberget.Droid.Views
 {
-    [Activity(Label = "Sølvberget", 
-        LaunchMode = LaunchMode.SingleTop, 
-        Theme = "@style/MyTheme", 
-        Icon = "@drawable/ic_launcher", 
+    [Activity(Label = "Sølvberget",
+        LaunchMode = LaunchMode.SingleTop,
+        Theme = "@style/MyTheme",
+        Icon = "@drawable/ic_launcher",
         WindowSoftInputMode = SoftInput.AdjustResize)]
     public class HomeView : MvxActionBarActivity, IFragmentHost
     {
@@ -201,6 +202,11 @@ namespace Solvberget.Droid.Views
 
                             frag = new SuggestionsListListView();
                             title = "Anbefalinger";
+
+                            var uri = Android.Net.Uri.Parse("https://stavanger-kulturhus.no/Anbefalinger");
+                            var intent = new Intent(Intent.ActionView, uri);
+                            StartActivity(intent);
+
                             break;
                         }
                     case HomeViewModel.Section.Contact:
@@ -225,7 +231,6 @@ namespace Solvberget.Droid.Views
                         {
                             if (SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as HomeScreenView != null)
                                 return true;
-
 
                             frag = new HomeScreenView();
                             title = START_PAGE_TITLE;
@@ -254,6 +259,9 @@ namespace Solvberget.Droid.Views
                         }
                 }
 
+                if (title == "Anbefalinger")
+                    return true;
+
                 var loaderService = Mvx.Resolve<IMvxViewModelLoader>();
                 var viewModel = loaderService.LoadViewModel(request, null /* saved state */);
 
@@ -277,26 +285,17 @@ namespace Solvberget.Droid.Views
                     trans.Commit();
                 }
 
-
                 SupportActionBar.Title = _title = title;
-
 
                 ClearAndHighlightActiveMenuItem(section);
 
-                if (_drawer != null)
-                {
-                    _drawer.CloseDrawer(_drawerList);
-                }
-
+                _drawer?.CloseDrawer(_drawerList);
 
                 return true;
             }
             finally
             {
-                if (_drawer != null)
-                {
-                    _drawer.CloseDrawer(_drawerList);
-                }
+                _drawer?.CloseDrawer(_drawerList);
             }
         }
 
@@ -320,7 +319,6 @@ namespace Solvberget.Droid.Views
             }
         }
 
-
         public override void OnConfigurationChanged(Configuration newConfig)
         {
             base.OnConfigurationChanged(newConfig);
@@ -339,7 +337,6 @@ namespace Solvberget.Droid.Views
                 for (int i = 0; i < menu.Size(); i++)
                     menu.GetItem(i).SetVisible(!drawerOpen);
             }
-
 
             return base.OnPrepareOptionsMenu(menu);
         }
@@ -378,20 +375,14 @@ namespace Solvberget.Droid.Views
         {
             base.OnStart();
             var analytics = Mvx.Resolve<IAndroidAnalytics>();
-            if (analytics != null)
-            {
-                analytics.StartSession(this);
-            }
+            analytics?.StartSession(this);
         }
 
         protected override void OnStop()
         {
             base.OnStop();
             var analytics = Mvx.Resolve<IAndroidAnalytics>();
-            if (analytics != null)
-            {
-                analytics.EndSession(this);
-            }
+            analytics?.EndSession(this);
         }
     }
 }
