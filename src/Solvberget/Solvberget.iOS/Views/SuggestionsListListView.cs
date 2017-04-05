@@ -5,13 +5,7 @@ namespace Solvberget.iOS
 {
     public partial class SuggestionsListListView : NamedTableViewController
     {
-        public new SuggestionsListListViewModel ViewModel
-        {
-            get
-            {
-                return base.ViewModel as SuggestionsListListViewModel;
-            }
-        }
+        public new SuggestionsListListViewModel ViewModel => base.ViewModel as SuggestionsListListViewModel;
 
         protected override void ViewModelReady()
         {

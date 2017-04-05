@@ -178,7 +178,17 @@ namespace Solvberget.iOS
             view.Center = new CGPoint(x + width / 2, y + height / 2);
 
             view.AddGestureRecognizer(new BoxGestureRecognizer(view));
-            view.AddGestureRecognizer(new UITapGestureRecognizer(() => item.GoToCommand.Execute(null)));
+            if (itemChar == "h") // Anbefalinger 
+            {
+                view.AddGestureRecognizer(new UITapGestureRecognizer(
+                    () =>
+                        UIApplication.SharedApplication.OpenUrl(
+                            new NSUrl("https://www.stavanger-kulturhus.no/Anbefalinger"))));
+            }
+            else
+            {
+                view.AddGestureRecognizer(new UITapGestureRecognizer(() => item.GoToCommand.Execute(null)));
+            }
 
             view.BackgroundColor = ColorFor(item);
 

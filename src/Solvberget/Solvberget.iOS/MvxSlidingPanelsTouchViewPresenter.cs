@@ -1,3 +1,4 @@
+using Foundation;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.iOS.Views;
 using MvvmCross.iOS.Views.Presenters;
@@ -64,7 +65,15 @@ namespace Solvberget.iOS
                     SlidingPanelsController.HidePanel(_leftPanel);
                 }
 
-                Show(view);
+                if (view is SuggestionsListListView)
+                {
+                    UIApplication.SharedApplication.OpenUrl(new NSUrl("https://www.stavanger-kulturhus.no/Anbefalinger"));
+                }
+                else
+                {
+                    Show(view);
+                }
+
             }
             catch (Exception e)
             {
