@@ -203,7 +203,9 @@
     }
 
     function navigateToLists() {
-        Data.activePage = "lists"; WinJS.Navigation.navigate("/pages/lists/libraryLists.html");
+        window.location = "https://www.stavanger-kulturhus.no/Anbefalinger";
+       // Data.activePage = "lists";
+        //WinJS.Navigation.navigate("/pages/lists/libraryLists.html");
     }
 
     function navigateToMypage() {
