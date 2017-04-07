@@ -29,7 +29,6 @@
     </MtouchI18n>
     <MtouchArch>i386</MtouchArch>
     <MtouchProfiling>true</MtouchProfiling>
-    <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <IOSDebugOverWiFi>False</IOSDebugOverWiFi>
     <IOSDebuggerPort>10000</IOSDebuggerPort>
   </PropertyGroup>
@@ -41,7 +40,6 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchLink>None</MtouchLink>
-    <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchI18n>
     </MtouchI18n>
     <MtouchArch>i386</MtouchArch>
@@ -63,7 +61,6 @@
     </MtouchI18n>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <MtouchExtraArgs>-v -v -v -v</MtouchExtraArgs>
-    <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <CodesignProvision>4e770cae-8834-4618-ae3f-14cde6b45623</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
@@ -73,11 +70,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Developer: Bjorn Kjetil Fredriksen (B52BY2W779)</CodesignKey>
+    <CodesignKey>iPhone Distribution: Sølvberget Kf (NXH3A6Y7DE)</CodesignKey>
     <MtouchI18n>
     </MtouchI18n>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
-    <CodesignProvision>4e770cae-8834-4618-ae3f-14cde6b45623</CodesignProvision>
+    <CodesignProvision>Solvberget Production Provisioning Profile</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>none</DebugType>
