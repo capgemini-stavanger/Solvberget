@@ -30,7 +30,7 @@ progress.header {
 
 /* LIST PAGE */
 .listpage {
-    -ms-grid-columns: 550px 1fr;
+    -ms-grid-columns: 1fr;
     display: -ms-grid;
     height: 100%;
     width: 100%;
@@ -101,7 +101,7 @@ progress.header {
                     }
 
     .listpage .listContentSection {
-        -ms-grid-column: 2;
+        -ms-grid-column: 1;
         -ms-grid-row-span: 2;
         -ms-grid-row: 1;
         margin-left: 70px;
