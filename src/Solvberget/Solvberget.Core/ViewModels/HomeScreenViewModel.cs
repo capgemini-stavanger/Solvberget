@@ -40,7 +40,7 @@ namespace Solvberget.Core.ViewModels
                 new HomeScreenElementViewModel(_userAuthenticationService)
                 {
                     Title = "Nye bøker",
-                    IconChar = "e"
+                    IconChar = "q"
                 },
                 new HomeScreenElementViewModel(_userAuthenticationService)
                 {

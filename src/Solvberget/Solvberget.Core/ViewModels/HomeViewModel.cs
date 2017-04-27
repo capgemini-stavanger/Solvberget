@@ -65,7 +65,7 @@ namespace Solvberget.Core.ViewModels
                         {
                             Section = Section.NewBooks,
                             Title = "Nye bøker",
-                            IconChar = "e",
+                            IconChar = "q",
                             ViewModelType = typeof (BlogOverviewViewModel)
                         },
                     new MenuViewModel
