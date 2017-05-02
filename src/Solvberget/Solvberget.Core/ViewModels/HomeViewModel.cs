@@ -24,7 +24,8 @@ namespace Solvberget.Core.ViewModels
             Contact,
             Home,
             Logout,
-            Unknown
+            Unknown,
+            NewBooks
         }
 
         public HomeViewModel(IUserAuthenticationDataService userAuthenticationDataService)
@@ -62,9 +63,9 @@ namespace Solvberget.Core.ViewModels
                         },
                     new MenuViewModel
                         {
-                            Section = Section.Blogs,
-                            Title = "Blogger",
-                            IconChar = "e",
+                            Section = Section.NewBooks,
+                            Title = "Nye bøker",
+                            IconChar = "q",
                             ViewModelType = typeof (BlogOverviewViewModel)
                         },
                     new MenuViewModel
@@ -167,8 +168,8 @@ namespace Solvberget.Core.ViewModels
                 case Section.Events:
                     ShowViewModel<EventListViewModel>();
                     break;
-                case Section.Blogs:
-                    ShowViewModel<BlogOverviewViewModel>();
+                case Section.NewBooks:
+                    ShowViewModel<SuggestionsListViewModel>(new { name = "Nye bøker", id = "dynamic_example_list1" });
                     break;
                 case Section.News:
                     ShowViewModel<NewsListingViewModel>();

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="SlvbergetKFStavangerbibli.Slvberget" Version="1.4.6.0" Publisher="CN=9996F995-FE52-4CC6-A6D3-40DC06CD472E" />
+  <Identity Name="SlvbergetKFStavangerbibli.Slvberget" Version="1.5.2.0" Publisher="CN=9996F995-FE52-4CC6-A6D3-40DC06CD472E" />
   <mp:PhoneIdentity PhoneProductId="22a00adb-8a98-4271-b41a-181f24de228e" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Sølvberget</DisplayName>

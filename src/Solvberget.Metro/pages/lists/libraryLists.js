@@ -46,7 +46,7 @@
             }
 
             //Set page header
-            element.querySelector("header[role=banner] .pagetitle").textContent = "Anbefalinger";
+            //element.querySelector("header[role=banner] .pagetitle").textContent = "Anbefalinger";
 
             //Init ListView
             var listView = element.querySelector(".listView").winControl;
@@ -54,7 +54,6 @@
                 listView.layout = new ui.ListLayout();
                 listView.onselectionchanged = this.listViewSelectionChanged.bind(this);
                 listView.itemTemplate = document.getElementById("listViewTemplateId");
-
             }
 
             //Hide either ListView (if we have selectionIndex != -1) or ListContent (selectionIndex == -1)
@@ -180,31 +179,27 @@
                     getListsHasReturnedCallback = true;
                     var obj = JSON.parse(request.responseText);
                     if (obj.Lists !== undefined) {
-                        lists = obj.Lists;
+                        for (var i = 0; i < obj.Lists.length; i++) {
+                            var list = obj.Lists[i];
+                            if (list.Name === "Nyheter den siste uken: Skjønnlitteratur for voksne") {
+                                lists.push(list);
+                            }
+                        }
+                       
                         listsBinding = new WinJS.Binding.List(lists);
                         listView.itemDataSource = listsBinding.dataSource;
                         listView.selection.set(listSelectionIndex);
-                        // Hide progress-ring, show content
+
                         $("#listsLoading").hide();
                         $("#listViewId").fadeIn();
                         that.processRemainingDocuments();
-                    } else {
-                        //Error handling   
                     }
-                },
-                function (request) {
-                    //Error handling
                 });
         },
 
         renderList: function (listModel) {
             var that = this;
             if (listModel.Documents) {
-                //if (Object.keys(listModel.DocumentNumbers).length > delayRendringLimit) {
-                //    if (!this.doneLoadingDocuments(listModel.DocumentNumbers)) {
-                //        return;
-                //    }
-                //}
                 this.renderListContent(listModel, that);
             }
         },

@@ -84,7 +84,7 @@ namespace Solvberget.iOS
 
                 centeredBox.Add(CreateBox(0f, 220f, 200f, 100f, "a"));
 
-                centeredBox.Add(CreateBox(220f, 220f, 90f, 100f, "e"));
+                centeredBox.Add(CreateBox(220f, 220f, 90f, 100f, "q"));
                 centeredBox.Add(CreateBox(330f, 220f, 90f, 100f, "n"));
 
                 centeredBox.Add(CreateBox(440f, 220f, 90f, 100f, "å"));
@@ -108,7 +108,7 @@ namespace Solvberget.iOS
                 centeredBox.Add(CreateBox(200f + extraPadding * 2, 0f, 90f, 90f, "h"));
                 centeredBox.Add(CreateBox(300f + extraPadding * 3, 0f, 90f, 90f, "a"));
 
-                centeredBox.Add(CreateBox(0f, 100f + extraPadding, 90f, 90f, "e"));
+                centeredBox.Add(CreateBox(0f, 100f + extraPadding, 90f, 90f, "q"));
                 centeredBox.Add(CreateBox(100f + extraPadding, 100f + extraPadding, 90f, 90f, "n"));
                 centeredBox.Add(CreateBox(200f + extraPadding * 2, 100f + extraPadding, 90f, 90f, "å"));
                 centeredBox.Add(CreateBox(300f + extraPadding * 3, 100f + extraPadding, 90f, 90f, "c"));
@@ -130,7 +130,7 @@ namespace Solvberget.iOS
                 centeredBox.Add(CreateBox(0f, 100f + extraPadding, 90f, 90f, "h"));
                 centeredBox.Add(CreateBox(100f + extraPadding, 100f + extraPadding, 90f, 90f, "a"));
 
-                centeredBox.Add(CreateBox(0f, 200f + extraPadding * 2, 90f, 90f, "e"));
+                centeredBox.Add(CreateBox(0f, 200f + extraPadding * 2, 90f, 90f, "q"));
                 centeredBox.Add(CreateBox(100f + extraPadding, 200f + extraPadding * 2, 90f, 90f, "n"));
 
                 centeredBox.Add(CreateBox(0f, 300f + extraPadding * 3, 90f, 90f, "å"));

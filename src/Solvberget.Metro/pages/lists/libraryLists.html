@@ -17,8 +17,6 @@
 
 <body>
 
-
-
     <!----------------------- TEMPLATES ---------------------->
     <div class="templates">
 
@@ -49,17 +47,12 @@
     <!----------------------- THE PAGE ---------------------->
     <div class="listpage fragment">
 
-
-
         <!-- List loading wheel -->
         <div id="listsLoading">
             <label class="progress-ring-text">
                 <progress class="win-ring withText"></progress>
             </label>
         </div>
-
-
-
 
         <!-- HEADER -->
         <!-- <div class="wrapper">-->
@@ -70,14 +63,10 @@
             </h1>
         </header>
 
-
-
         <!-- ListView for Lists -->
-        <div class="listViewSection" aria-label="List column">
+        <div class="listViewSection" aria-label="List column" style="visibility: hidden">
             <div id="listViewId" class="listView win-selectionstylefilled" aria-label="List of this group's items" data-win-control="WinJS.UI.ListView" data-win-options="{ selectionMode: 'single', tapBehavior: 'toggleSelect' }"></div>
         </div>
-
-
 
         <!-- ListContent -->
         <div class="listContentSection" aria-atomic="true" aria-label="List Content Column" aria-live="assertive">
@@ -87,18 +76,11 @@
                     <label class="progress-ring-text headerProgress"><progress class="win-ring header"></progress></label>
                 </header>
                 <div class="clearFloat"></div>
-                <hr/>
+                <hr />
 
-
-                <!--<div id="documentsHolder"></div>-->
-                <!-- NEW -->
                 <div id="contents-listview" data-win-control="WinJS.UI.ListView"></div>
             </article>
         </div>
-
-        
-
-
 
     </div>
 

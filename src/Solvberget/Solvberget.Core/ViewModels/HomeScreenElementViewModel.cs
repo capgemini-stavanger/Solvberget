@@ -66,8 +66,8 @@ namespace Solvberget.Core.ViewModels
                 case "Søk":
                     ShowViewModel<SearchViewModel>();
                     break;
-                case "Blogger":
-                    ShowViewModel<BlogOverviewViewModel>();
+                case "Nye bøker":
+                    ShowViewModel<SuggestionsListViewModel>(new { name = "Nye bøker", id = "dynamic_example_list1" });
                     break;
                 case "Nyheter":
                     ShowViewModel<NewsListingViewModel>();
