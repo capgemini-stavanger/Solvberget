@@ -35,7 +35,7 @@ namespace Solvberget.Domain.Lists
             var lists = new ConcurrentBag<LibraryList>
             {
                 GenerateList(_xmlFolderPath + examplelist1),
-                GenerateList(_xmlFolderPath + examplelist2)
+                //GenerateList(_xmlFolderPath + examplelist2)
             };
 
             return limit != null
